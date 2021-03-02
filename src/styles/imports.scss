@@ -1,0 +1,49 @@
+$font-primary: 'Raleway', sans-serif;
+$font-secondary: 'Montserrat Alternates', sans-serif;
+$font-decorative: 'Madelyn', sans-serif;
+
+$color-white: #FFFFFF;
+$color-black-gray: #515151;
+$color-gray: #C8C8C8;
+$color-gray-middle: #ACACAC;
+$color-gray-5: #E0E0E0;
+$color-gray-6: #F2F2F2;
+$color-blue: #303864;
+$color-green: #0CD725;
+$color-red: #FB4C58;
+
+$gradient-blue: linear-gradient(216.95deg, #02BFD3 8.18%, rgba(11, 98, 197, 0.81) 71.6%);
+$gradient-green: linear-gradient(86.46deg, #0CD725 1.86%, #01BFD2 83.2%);
+
+$btn-gradient-blue: linear-gradient(90deg, #303864 56.08%, #02BFD3 100%);
+$btn-gradient-green: linear-gradient(86.46deg, #0CD725 50.93%, #01BFD2 91.6%);
+
+$container-padding: 20px;
+$container-padding-md: 30px;
+$container-padding-xl: 60px;
+$grid-gap: 20px;
+
+$mobile-bar-height: 62px;
+$mobile-bar-height-md: 70px;
+
+// $m1: 40px;
+// $m2: 60px;
+// $m3: 90px;
+// $m4: 150px;
+// $m5: 200px;
+
+$bounce: cubic-bezier(0.25, 0.1, 0.25, 1.2);
+
+$breakpoints: (
+  xs: 370px,
+  sm: 570px,
+  md: 750px,
+  lg: 1150px,
+  xl: 1600px
+);
+
+@mixin media($breakpoint) {
+  @media (min-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}

@@ -1,0 +1,197 @@
+<template>
+  <div class="nav-panel">
+
+    <template v-if="navType === 'catalog' || navType === 'technics' || navType === 'blog'">
+      <div class="nav-panel__pagination">
+        <slot name="pagination"></slot>
+      </div>
+      <div class="nav-panel__group nav-panel__group_wide">
+        <RouterLink
+          to="/about"
+          v-slot="{ href, navigate }"
+          custom
+        >
+          <Link
+            :href="href"
+            class="nav-panel__item"
+            text="Материалы"
+            @click.native="navigate"
+          />
+        </RouterLink>
+        <RouterLink
+          to="/delivery"
+          v-slot="{ href, navigate }"
+          custom
+        >
+          <Link
+            :href="href"
+            class="nav-panel__item"
+            text="Все о доставке и монтаже"
+            @click.native="navigate"
+          />
+        </RouterLink>
+        <Link
+          class="nav-panel__item"
+          text="Хочу пригласить дизайнера"
+          modal="call"
+        />
+      </div>
+    </template>
+
+    <template v-if="navType === 'product' || navType === 'article'">
+      <div class="nav-panel__group">
+        <Link class="nav-panel__item" text="Как происходит оплата"/>
+        <Link class="nav-panel__item" text="Все о доставке и монтаже"/>
+      </div>
+      <div class="nav-panel__group">
+        <Link class="nav-panel__item" text="Подобрать технику для кухни"/>
+      </div>
+    </template>
+
+    <template v-if="navType === 'about' || navType === 'payment' || navType === 'reviews'">
+      <div class="nav-panel__group">
+        <RouterLink
+          to="/payment"
+          v-slot="{ href, navigate }"
+          custom
+        >
+          <Link
+            :href="href"
+            class="nav-panel__item"
+            text="Как происходит оплата"
+            @click.native="navigate"
+          />
+        </RouterLink>
+        <RouterLink
+          to="/delivery"
+          v-slot="{ href, navigate }"
+          custom
+        >
+          <Link
+            :href="href"
+            class="nav-panel__item"
+            text="Все о доставке и монтаже"
+            @click.native="navigate"
+          />
+        </RouterLink>
+      </div>
+      <div class="nav-panel__group">
+        <Link class="nav-panel__item" text="Выбрать кухню"/>
+      </div>
+    </template>  
+
+    <template v-if="navType === 'delivery'">
+      <div class="nav-panel__group">
+        <Link class="nav-panel__item" text="Как происходит оплата"/>
+        <Link class="nav-panel__item" text="Все о доставке и монтаже"/>
+      </div>
+      <div class="nav-panel__group">
+        <Link
+          class="nav-panel__item"
+          text="Хочу пригласить дизайнера"
+          modal="call"
+        />
+      </div>
+    </template>
+
+  </div>
+</template>
+
+<script>
+import Link from './base/Link'
+
+export default {
+  name: 'NavPanel',
+  components: {
+    Link
+  },
+  props: {
+    navType: String
+  }
+}
+</script>
+
+<style lang="scss">
+.nav-panel {
+  $b: &;
+
+  &__group {
+    margin-bottom: 32px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &__pagination {
+    width: 100%;
+    margin-bottom: 56px;
+  }
+
+  &__item {
+    margin-bottom: 32px;
+    color: $color-blue;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @include media(md) {
+    &__pagination {
+      margin-bottom: 70px;
+    }
+  }
+
+  @include media(lg) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    &__pagination {
+      margin-bottom: 60px;
+    }
+
+    &__group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0;
+
+      &_wide {
+        width: 100%;
+
+        #{$b}__item:last-child {
+          margin-left: auto;
+        }
+      }
+    }
+
+    &__item {
+      margin-right: 70px;
+      margin-bottom: 0;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  @include media(xl) {
+    &__pagination {
+      width: auto;
+      margin-bottom: 0;
+    }
+
+    &__group {
+      &_wide {
+        width: auto;
+      }
+    }
+
+    &__item {
+      margin-right: 65px;
+    }
+  }
+}
+</style>

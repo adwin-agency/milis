@@ -1,0 +1,91 @@
+<template>
+  <div id="app" class="app" :class="{'full-h': main}">
+    <RouterView />
+    <MobileBar class="app__mobile-bar" v-if="$mobile" />
+    <Modal />
+    <Preloader
+      v-if="loading"
+      class="app__preloader"
+    />
+  </div>
+</template>
+
+<script>
+import Preloader from './components/base/Preloader'
+import MobileBar from './components/MobileBar'
+import Modal from './components/Modal'
+
+export default {
+  name: 'App',
+  components: {
+    Preloader,
+    MobileBar,
+    Modal
+  },
+  computed: {
+    loading() {
+      document.body.style.overflow = this.$store.state.appLoading ? 'hidden' : ''
+      return this.$store.state.appLoading
+    },
+    main() {
+      return this.$route.name === 'Main'
+    }
+  },
+  created() {
+    this.storeScreen()
+    this.$store.dispatch('loadBase')
+
+    window.addEventListener('resize', this.handleResize)
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize)
+  },
+  methods: {
+    storeScreen() {
+      this.$store.commit('storeScreen', {
+        width: window.innerWidth,
+        mobile: window.innerWidth < this.$breakpoints.lg
+      })
+    },
+    handleResize() {
+      this.storeScreen()
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.app {
+  padding-bottom: $mobile-bar-height;
+  overflow: hidden;
+
+  &.full-h {
+    padding-bottom: 0;
+  }
+  
+  &__mobile-bar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
+  &__preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+  }
+
+  @include media(md) {
+    padding-bottom: $mobile-bar-height-md;
+  }
+
+  @include media(lg) {
+    padding-bottom: 0;
+  }
+}
+</style>
