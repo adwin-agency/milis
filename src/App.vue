@@ -28,7 +28,7 @@ export default {
       return this.$store.state.appLoading
     },
     main() {
-      return this.$route.name === 'Main'
+      return this.$route.name === 'main'
     }
   },
   created() {

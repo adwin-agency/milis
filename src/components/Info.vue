@@ -151,7 +151,6 @@ export default {
     margin-top: 8px;
     font-size: 10px;
     line-height: (18/10);
-    color: $color-gray-middle;
   }
 
   &__link {

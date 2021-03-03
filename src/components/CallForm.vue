@@ -1,14 +1,16 @@
 <template>
   <form
     :class="['call-form', {'call-form_modal': modal}]"
+    ref="callform"
     @submit.prevent="onSubmit"
   >
+    <input type="hidden" name="type" value="designer">
     <input type="hidden" name="page" :value="inputPage">
     <input type="hidden" name="item" :value="inputItem">
     <input type="hidden" name="item_id" :value="inputItemId">
     <input type="hidden" name="product_type" :value="inputProductType">
     <p class="call-form__title">Пригласить дизайнера у нас просто</p>
-    <p class="call-form__desc">Вы можете пригласить дизайнера на дом. Заполните заявку, выберите удобные для Вас дату и{{'\xa0'}}время и наши операторы свяжутся с нами для подтверждения в течение 20 минут</p>
+    <p class="call-form__desc">Вы можете пригласить дизайнера на дом. Заполните заявку, выберите удобные для Вас дату и время и наши операторы свяжутся с нами для подтверждения в течение 20 минут</p>
     <div class="call-form__items">
       <div class="call-form__fields">
         <TextInput
@@ -16,14 +18,14 @@
           label="Имя"
           type="text"
           name="name"
-          v-model="inputName"
+          @input="inputName = $event"
         />
         <TextInput
           class="call-form__field"
           label="Телефон"
           type="tel"
           name="phone"
-          v-model="inputPhone"
+          @input="inputPhone = $event"
         />
         <div class="call-form__dates">
           <label
@@ -180,16 +182,7 @@ export default {
       }, 300)
     },
     onSubmit() {
-      let data = new FormData()
-
-      data.append('type', 'designer')
-      data.append('name', this.inputName)
-      data.append('phone', this.inputPhone)
-      data.append('time', this.inputDate + ' ' + this.inputTime)
-      data.append('page', this.inputPage)
-      data.append('item', this.inputItem)
-      data.append('product_type', this.inputProductType)
-
+      const data = new FormData(this.$refs.callform)
       api.sendForm(data)
     }
   }
@@ -225,7 +218,6 @@ export default {
     margin-top: 10px;
     font-size: 11px;
     line-height: (17/11);
-    color: $color-gray;
   }
 
   &__items {
@@ -388,18 +380,13 @@ export default {
         &__title {
           margin-bottom: 0;
         }
-
-        &__desc {
-          font-size: 11px;
-          line-height: (17/11);
-        }
       }
     }
 
     &__desc {
       font-size: 12px;
       line-height: (19/12);
-      max-width: 530px;
+      max-width: 620px;
     }
 
     &__items {
@@ -511,6 +498,11 @@ export default {
           margin-bottom: 38px;
         }
       }
+    }
+
+    &__desc {
+      font-size: 14px;
+      line-height: (22/14);
     }
   }
 }

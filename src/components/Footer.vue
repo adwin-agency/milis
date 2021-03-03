@@ -128,7 +128,13 @@
           </div>
           <div class="col col-4">
             <div class="footer__question">
-              <a href="#" @click.prevent="showModal('question')">Остались вопросы?</a>
+              <button
+                type="button"
+                class="footer__question-btn"
+                @click.prevent="showModal('question')"
+              >
+                Остались вопросы?
+              </button>
             </div>
           </div>
           <div class="col col-4">
@@ -180,6 +186,11 @@ export default {
     },
     activeCity() {
       return this.$store.state.cities[0]
+    }
+  },
+  methods: {
+    showModal(modal) {
+      this.$store.commit('setModal', modal)
     }
   }
 }
@@ -380,7 +391,10 @@ export default {
 
   &__question {
     margin-top: 20px;
-    text-align: center;
+    text-align: center;    
+  }
+
+  &__question-btn {
     font-size: 18px;
     line-height: (22/18);
     color: $color-white;

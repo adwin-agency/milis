@@ -140,7 +140,6 @@ export default {
     padding-left: 68px;
     font-size: 12px;
     line-height: (18/12);
-    color: $color-gray-middle;
 
     span {
       text-decoration: underline;

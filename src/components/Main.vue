@@ -193,7 +193,6 @@ export default {
   $b: &;
 
   position: relative;
-  height: 100vh;
   padding-bottom: $mobile-bar-height;
   overflow: hidden;
 

@@ -50,6 +50,7 @@
         <div class="our-products__card-wrap">
           <slot></slot>
           <CatalogCard
+            v-if="kitchen"
             class="our-products__card"
             alt
             top

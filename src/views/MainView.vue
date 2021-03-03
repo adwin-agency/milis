@@ -1,6 +1,6 @@
 <template>
   <div v-if="kitchens" class="v-main">
-    <Main :kitchens="kitchens" />
+    <Main class="v-main__main" :kitchens="kitchens" />
   </div>
 </template>
 
@@ -24,4 +24,15 @@ export default {
   }
 }
 </script>
- 
+
+<style lang="scss">
+.v-main {
+  &__main {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>

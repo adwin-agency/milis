@@ -15,7 +15,10 @@
           <img :src="`https://milismebel.ru${$mobile ? picture.tablet.path : picture.desktop.path}`" alt="">  
         </SwiperSlide>
       </Swiper>
-      <div class="modal-review__content">
+      <div
+        v-if="currentReview"
+        class="modal-review__content"
+      >
         <p class="modal-review__date">{{currentReview.date}}</p>
         <p class="modal-review__title">{{currentReview.name}}
           <span class="modal-review__rating">
@@ -72,9 +75,9 @@ export default {
   },
   data() {
     return {
-      activeSlide: this.initial,
+      activeSlide: this.initial || 0,
       swiperOptions: {
-        initialSlide: this.initial,
+        initialSlide: this.initial || 0,
         resistanceRatio: 0,
         navigation: {
           nextEl: '.modal-review__next',
@@ -82,7 +85,7 @@ export default {
         },
       },
       galleryOptions: {
-        initialSlide: this.initial,
+        initialSlide: this.initial || 0,
         resistanceRatio: 0,
         spaceBetween: 16,
         slidesPerView: 'auto',
@@ -115,7 +118,7 @@ export default {
       return this.$store.getters.reviewsPictures
     },
     currentReview() {
-      return this.reviews.find(item => item.id === this.reviewsPictures[this.activeSlide].id)
+      return this.reviews && this.reviews.find(item => item.id === this.reviewsPictures[this.activeSlide].id)
     }
   },
   methods: {

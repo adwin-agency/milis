@@ -12,7 +12,7 @@
         <input type="hidden" name="item_id" :value="inputItemId">
         <input type="hidden" name="product_type" :value="inputProductType">
         <p class="modal-calc__title">Рассчитать стоимость</p>
-        <p class="modal-calc__desc">Вы можете воспользоваться калькулятором, это займет не больше 5 минут, и получите примерный рассчет. Или оставить номер, размеры и пожелания и мы сами перезвоним Вам с рассчетом</p>
+        <p class="modal-calc__desc">Вы можете оставить номер, размеры и пожелания и мы перезвоним Вам с рассчетом</p>
         <div class="modal-calc__fields">
           <TextInput
             class="modal-calc__field"
@@ -35,7 +35,28 @@
             name="comment"
             v-model="inputComment"
           />
-          <input type="file" name="file" style="margin-top: 20px">
+          <div class="modal-calc__file" :class="{'is-active': inputFileName}">
+            <label class="modal-calc__file-label">
+              <input
+                class="modal-calc__file-input"
+                type="file"
+                name="file"
+                accept="image/*"                
+                ref="fileInput"
+                @change="onFileChange"
+              >
+              <span class="modal-calc__file-icon">
+                <Icon name="attach" />
+              </span>
+              {{inputFileName || 'Прикрепить фото эскиза'}}
+            </label>
+            <span
+              class="modal-calc__file-remove"
+              @click="onFileRemove"
+            >
+              <Icon name="close" />
+            </span>
+          </div>
         </div>
         <Button
           send
@@ -102,7 +123,9 @@ export default {
     return {
       inputName: '',
       inputPhone: '',
-      inputComment: ''
+      inputComment: '',
+      inputFile: null,
+      inputFileName: ''
     }
   },
   computed: {
@@ -123,6 +146,13 @@ export default {
     }
   },
   methods: {
+    onFileChange(e) {
+      this.inputFileName = e.target.files.length ? e.target.files[0].name : ''
+    },
+    onFileRemove() {
+      this.inputFileName = ''
+      this.$refs.fileInput.value = ''
+    },
     onSubmit() {
       const data = new FormData(this.$refs.calcform)
       api.sendForm(data)
@@ -156,7 +186,6 @@ export default {
     margin-top: 10px;
     font-size: 11px;
     line-height: (17/11);
-    color: $color-gray;
   }
 
   &__fields {
@@ -170,6 +199,56 @@ export default {
     &:first-child {
       margin-top: 0;
     }
+  }
+
+  &__file {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+
+    &.is-active {
+      #{$b} {
+        &__file-icon {
+          fill: $color-green;
+        }
+
+        &__file-remove {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  &__file-label {
+    display: flex;
+    align-items: center;
+    font-family: $font-secondary;
+    font-size: 12px;
+    line-height: (19/12);
+    text-decoration: underline;
+    color: $color-blue;
+    cursor: pointer;
+  }
+
+  &__file-input {
+    display: none;
+  }
+
+  &__file-icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 11px;
+    fill: $color-blue;
+    transition: fill .3s ease;
+  }
+
+  &__file-remove {
+    display: none;
+    width: 8px;
+    height: 8px;
+    margin-top: 2px;
+    margin-left: 11px;
+    cursor: pointer;
   }
 
   &__btn {
@@ -355,6 +434,13 @@ export default {
       right: 25px;
       width: 22px;
       height: 22px;
+    }
+  }
+
+  @include media(xl) {
+    &__desc {
+      font-size: 14px;
+      line-height: (22/14);
     }
   }
 }

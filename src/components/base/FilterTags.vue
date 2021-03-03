@@ -34,9 +34,6 @@ export default {
   computed: {
     activeCategory() {
       return this.$route.params.category
-    },
-    styles() {
-      return this.$store.state.styles
     }
   }
 }

@@ -5,9 +5,10 @@
       class="text-input__field"
       :type="type"
       :name="name"
-      :value="value"
       autocomplete="off"
-      @input="$emit('input', $event.target.value)"
+      v-imask="mask"
+      @accept="type === 'tel' && $emit('input', $event.detail.value)"
+      @input="type !== 'tel' && $emit('input', $event.target.value)"
       @focus="onFocus"
       @blur="onBlur"
     />
@@ -22,18 +23,28 @@
 </template>
 
 <script>
+import {IMaskDirective} from 'vue-imask'
+
 export default {
   name: 'TextInput',
+  directives: {
+    imask: IMaskDirective
+  },
   props: {
     label: String,
     type: String,
     name: String,
-    value: String,
     textarea: Boolean
   },
   data() {
     return {
-      activeLabel: false
+      activeLabel: false,
+      mask: this.type === 'tel' && {
+        mask: '+{7}(000)000-00-00',
+        prepare(value, masked) {
+          return value === '8' && masked.value === '' ? '' : value
+        }
+      }
     }
   },
   computed: {
@@ -45,8 +56,8 @@ export default {
     onFocus() {
       this.activeLabel = true
     },
-    onBlur() {
-      this.activeLabel = !!this.value
+    onBlur(e) {
+      this.activeLabel = !!e.target.value
     }
   }
 }

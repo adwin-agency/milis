@@ -1,5 +1,5 @@
 <template>
-  <Page v-if="technics">
+  <Page v-if="technics && technicsInfo">
     <div class="v-technics">
       <div class="container">
         <Technics

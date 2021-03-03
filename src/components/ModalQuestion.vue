@@ -76,7 +76,6 @@ export default {
     margin-top: 10px;
     font-size: 11px;
     line-height: (17/11);
-    color: $color-gray;
   }
 
   &__fields {
@@ -143,10 +142,6 @@ export default {
       padding-right: 0;
     }
 
-    &__desc {
-      padding-right: 50px;
-    }
-
     &__image {
       width: 41.5%;
       padding: 15px;
@@ -161,6 +156,13 @@ export default {
       right: 25px;
       width: 22px;
       height: 22px;
+    }
+  }
+
+  @include media(xl) {
+    &__desc {
+      font-size: 14px;
+      line-height: (22/14);
     }
   }
 }

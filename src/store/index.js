@@ -16,7 +16,21 @@ const store = new Vuex.Store({
     kitchenStyles: null,
     activeKitchenStyle: null,
     technicsCategories: null,
-    cities: null,
+    cities: [
+      {
+        "name": "Санкт-Петербург",
+        "name2": "Санкт-Петербурге",
+        "id_region": "536203",
+        "code": "spb",
+        "sort": "10",
+        "phone": "+7(812)605-86-83",
+        "address": "Уманский переулок, 74",
+        "coords": {
+          "lat": "59.969281",
+          "long": "30.451343"
+        }
+      }
+    ],
     
     mainKitchens: null,
     catalogKitchens: null,
@@ -59,7 +73,7 @@ const store = new Vuex.Store({
       state.kitchenCategories = base.categories
       state.kitchenStyles = base.styles
       state.technicsCategories = base.categories_tehnics
-      state.cities = base.cities
+      // state.cities = base.cities
     },
     setActiveKitchenStyle(state, style) {
       state.activeKitchenStyle = style

@@ -57,7 +57,11 @@
           Блог о дизайне
         </RouterLink>    
         <div class="mobile-menu__link-group">
-          <Link class="mobile-menu__link" text="Хочу пригласить дизайнера" />
+          <Link
+            class="mobile-menu__link"
+            text="Хочу пригласить дизайнера"
+            modal="call"
+          />
           <Link class="mobile-menu__link" text="Рассчитать по моим размерам" />
         </div>
         <div class="mobile-menu__works">
