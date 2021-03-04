@@ -1,5 +1,5 @@
 <template>
-  <div :class="['text-input', {'text-input_ta': textarea}]">
+  <div :class="['text-input', {'text-input_ta': textarea}, {'is-error': error}]">
     <component
       :is="inputTag"
       class="text-input__field"
@@ -19,6 +19,7 @@
     >
       {{label}}
     </span>
+    <span class="text-input__error">Поле не заполнено</span>
   </div>
 </template>
 
@@ -34,7 +35,8 @@ export default {
     label: String,
     type: String,
     name: String,
-    textarea: Boolean
+    textarea: Boolean,
+    error: Boolean
   },
   data() {
     return {
@@ -80,6 +82,22 @@ export default {
     }
   }
 
+  &.is-error {
+    #{$b} {
+      &__outline {
+        border-color: $color-red;
+      }
+
+      &__label {
+        color: $color-red;
+      }
+
+      &__error {
+        opacity: 1;
+      }
+    }
+  }
+
   &__field {
     display: block;
     width: 100%;
@@ -88,7 +106,6 @@ export default {
     font-size: 11px;
     line-height: (17/11);
     caret-color: $color-green;
-    transition: border-color .3s ease, color .3s ease;
 
     &:focus {
 
@@ -110,6 +127,7 @@ export default {
     bottom: 0;
     border: 1px solid $color-gray;
     pointer-events: none;
+    transition: border-color .3s ease;
   }
 
   &__label {
@@ -127,6 +145,19 @@ export default {
     &.is-active {
       transform: translateY(-27px);
     }
+  }
+
+  &__error {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    margin-top: 2px;
+    font-size: 10px;
+    line-height: (16/10);
+    color: $color-red;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
   }
 }
 </style>

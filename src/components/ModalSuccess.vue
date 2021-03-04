@@ -49,7 +49,7 @@ export default {
     width: 58px;
     height: 58px;
     transform: scale(0);
-    transition: transform .3s ease;
+    transition: transform .3s cubic-bezier(0.25, 0.1, 0.25, 1.5);
     transition-delay: inherit;
   }
 

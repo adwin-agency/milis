@@ -3,6 +3,7 @@ const path = require('path')
 module.exports = {
   // publicPath: '/milis/',
   assetsDir: 'assets',
+  filenameHashing: false,
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'scss',

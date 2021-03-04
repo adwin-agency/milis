@@ -54,8 +54,22 @@ const api = {
     return this.fetchData(`${dataUrl}/likes.php`, {method: 'POST', headers: {'content-type': 'application/json'}, body: data})
   },
 
-  sendForm(data) {
-    return this.fetchData(`/send.php`, {method: 'POST', body: data})
+  sendForm(data, type) {
+    return fetch('/send.php', {method: 'POST', body: data})
+      .then(response => {
+        console.log(response)
+        // if (!response.ok) {
+        //   throw new Error()
+        // }
+        console.log(type)
+        // window.fbq('track', 'lead')
+        // window.VK.Retargeting.Event('lead')
+        // window.gtag('event', this.formType, {event_category: 'Forms'})
+        // window.ym(73257226, 'reachGoal', type)
+        // window.ym(73257226, 'reachGoal', 'lead')
+        // window.dataLayer = window.dataLayer || []
+        // window.dataLayer.push({'event': 'formSubmit'})
+      })
   }
 }
 

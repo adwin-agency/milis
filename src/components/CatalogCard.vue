@@ -25,13 +25,13 @@
             v-if="index === 0"
             class="catalog-card__image anim-img js-anim"
           >
-            <img :src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
+            <img :src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : high ? `https://milismebel.ru${picture.square.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
           </div>
           <div
             v-else
             class="catalog-card__image"
           >
-            <img class="swiper-lazy" :data-src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
+            <img class="swiper-lazy" :data-src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : high ? `https://milismebel.ru${picture.square.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
           </div>
         </SwiperSlide>
         <ButtonNav

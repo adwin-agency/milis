@@ -4,7 +4,7 @@
     ref="callform"
     @submit.prevent="onSubmit"
   >
-    <input type="hidden" name="type" value="designer">
+    <input type="hidden" name="type" :value="formType">
     <input type="hidden" name="page" :value="inputPage">
     <input type="hidden" name="item" :value="inputItem">
     <input type="hidden" name="item_id" :value="inputItemId">
@@ -18,14 +18,16 @@
           label="Имя"
           type="text"
           name="name"
-          @input="inputName = $event"
+          :error="errors.name"
+          @input="onInput('name', $event)"
         />
         <TextInput
           class="call-form__field"
           label="Телефон"
           type="tel"
           name="phone"
-          @input="inputPhone = $event"
+          :error="errors.phone"
+          @input="onInput('phone', $event)"
         />
         <div class="call-form__dates">
           <label
@@ -38,15 +40,14 @@
               class="call-form__date-radio"
               type="radio"
               name="date"
-              :value="weekdays[index] + ' ' + daysmonths[index]"              
-              v-model="inputDate"
+              :value="weekdays[index] + ' ' + daysmonths[index]"
             >
             <span class="call-form__date-box"><b>{{weekdays[index]}}</b><br>{{daysmonths[index]}}</span>
           </label>
         </div>
         <div
           class="call-form__times"
-          :class="{'is-active': inputDate}"
+          :class="{'is-active': activeTimes}"
           ref="times"
         >
           <p class="call-form__times-title">Интервал времени</p>
@@ -60,7 +61,6 @@
               type="radio"
               name="time"
               :value="time"
-              v-model="inputTime"
             >
             <span class="call-form__time-box">{{time}}</span>
             <span class="call-form__time-check">
@@ -71,11 +71,16 @@
         <Button
           class="call-form__btn"
           type="submit"
-          :disabled="disabled"
           blue
         >
           Отправить
         </Button>
+        <span
+          v-if="sendError"
+          class="call-form__error"
+        >
+          Ошибка отправки
+        </span>
       </div>
       <div class="call-form__features">
         <p class="call-form__feature">
@@ -123,16 +128,24 @@ export default {
   },
   props: {
     modal: Boolean,
-    hiddenData: Object
+    hiddenData: Object,
   },
   data() {
     return {
-      inputName: '',
-      inputPhone: '',
-      inputDate: '',
-      inputTime: '',
+      formType: 'designer',
+      inputs: {
+        name: '',
+        phone: ''
+      },
+      errors: {
+        name: false,
+        phone: false
+      },
       dates: null,
-      times: ['09:00 - 12:00', '12:00 - 15:00', '15:00 - 18:00', '18:00 - 21:00']
+      times: ['09:00 - 12:00', '12:00 - 15:00', '15:00 - 18:00', '18:00 - 21:00'],
+      activeTimes: false,
+      sending: false,
+      sendError: false
     }
   },
   computed: {
@@ -153,9 +166,6 @@ export default {
     },
     daysmonths() {
       return this.dates.map(item => item.toLocaleString('ru', {day: '2-digit', month: 'long'}))
-    },
-    disabled() {
-      return !this.inputName || !this.inputPhone || !this.inputDate || !this.inputTime
     }
   },
   created() {
@@ -170,9 +180,11 @@ export default {
   },
   methods: {
     showTimes() {
-      if (this.inputDate) {
+      if (this.activeTimes) {
         return
       }
+
+      this.activeTimes = true
 
       const timesRef = this.$refs.times
       timesRef.style.height = timesRef.scrollHeight + 'px'
@@ -181,9 +193,55 @@ export default {
         timesRef.style.height = 'auto'
       }, 300)
     },
+
+    onInput(input, value) {
+      if (this.errors[input]) {
+        this.errors[input] = false
+      }
+
+      this.inputs[input] = value
+    },
+
     onSubmit() {
+      if (this.sending) {
+        return
+      }
+
+      for (let input in this.inputs) {
+        const value = this.inputs[input]
+
+        if (value === '' || input === 'phone' && value.length < 16) {
+          this.errors[input] = true
+        }
+      }
+
+      for (let error in this.errors) {
+        if (this.errors[error]) {
+          return
+        }
+      }
+
+      this.sending = true
+      this.sendError = false
       const data = new FormData(this.$refs.callform)
+
+      // if (window.Comagic) {
+      //   const comagicData = window.Comagic.getCredentials()
+
+      //   for (let item in comagicData) {
+      //     data.append(item, comagicData[item])
+      //   }
+      // }
+
       api.sendForm(data)
+        .then(() => {
+          this.sending = false
+          this.$emit('success')
+        })
+        .catch(() => {
+          this.sending = false
+          this.sendError = true
+        })
     }
   }
 }
@@ -222,6 +280,10 @@ export default {
 
   &__items {
     margin-top: 25px;
+  }
+
+  &__fields {
+    position: relative;
   }
 
   &__field {
@@ -363,6 +425,18 @@ export default {
     width: 20px;
     height: 20px;
     margin-right: 14px;
+  }
+
+  &__error {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    margin-top: 12px;
+    text-align: center;
+    font-family: $font-secondary;
+    font-size: 14px;
+    color: $color-red;
   }
 
   &__decor {

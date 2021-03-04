@@ -130,11 +130,8 @@ export default {
       this.sending = true
 
       let data = {
-        id: this.details.id
-      }
-
-      if (!this.activeLike) {
-        data.increase = true
+        id: this.details.id,
+        increase: !this.activeLike
       }
 
       data = JSON.stringify(data)

@@ -1,14 +1,18 @@
 <template>
   <div class="modal-call" :class="{'is-success': success}">
-    <div class="modal-call__content" @click="success = true">
+    <div class="modal-call__content">
       <CallForm
         class="modal-call__form"
         modal
         :hiddenData="modalData"
+        @success="onSuccess"
       />
     </div>
-    <div class="modal-call__success-wrap" @click="success = false">
-      <ModalSuccess class="modal-call__success" :class="{'is-active': success}" />
+    <div class="modal-call__success-wrap">
+      <ModalSuccess
+        class="modal-call__success"
+        :class="{'is-active': success}"
+      />
     </div>
     <div class="modal-call__image">
       <img src="../assets/img/modal-call.svg" alt="">
@@ -46,6 +50,11 @@ export default {
   computed: {
     modalData() {
       return this.$store.state.modalData
+    }
+  },
+  methods: {
+    onSuccess() {
+      this.success = true
     }
   }
 }
@@ -104,9 +113,7 @@ export default {
   }
 
   &__success {
-    position: relative;
     transition-delay: .5s;
-    z-index: 1;
   }
 
   &__image {
@@ -244,6 +251,7 @@ export default {
       bottom: 95px;
       width: 80px;
       height: 82px;
+      transition: transform .5s cubic-bezier(0.25, -0.25, 0.25, 1.25);
     }
 
     &__decor {
