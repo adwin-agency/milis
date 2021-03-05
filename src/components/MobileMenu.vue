@@ -88,7 +88,13 @@
             </a>
           </div>
         </div>
-        <a href="" class="mobile-menu__ask">Остались вопросы?</a>
+        <button
+          type="button"
+          class="mobile-menu__ask"
+          @click.prevent="showModal('question')"
+        >
+          Остались вопросы?
+        </button>
         <a href="" class="mobile-menu__policy">Политика конфиденциальности</a>
         <div class="mobile-menu__payment">
           <div class="mobile-menu__payment-item">
@@ -119,6 +125,10 @@ export default {
       setTimeout(() => {
         this.$refs.mobileMenu.scroll(0, 0)
       }, 300)
+    },
+
+    showModal(modal) {
+      this.$store.commit('setModal', modal)
     }
   }
 }

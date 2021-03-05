@@ -58,9 +58,9 @@ const api = {
     return fetch('/send.php', {method: 'POST', body: data})
       .then(response => {
         console.log(response)
-        // if (!response.ok) {
-        //   throw new Error()
-        // }
+        if (!response.ok) {
+          throw new Error()
+        }
         console.log(type)
         // window.fbq('track', 'lead')
         // window.VK.Retargeting.Event('lead')

@@ -7,12 +7,14 @@
         :hiddenData="modalData"
         @success="onSuccess"
       />
-    </div>
-    <div class="modal-call__success-wrap">
-      <ModalSuccess
-        class="modal-call__success"
-        :class="{'is-active': success}"
-      />
+      <div class="modal-call__success">
+        <ModalSuccess
+          :class="{'is-active': success}"
+          :title="`Ваша заявка \n успешно отправлена!`"
+          :desc="`Мы свяжемся с Вами в ближайшее время, \n для подтверждения заявки`"
+          :link="{path: 'catalog', title: 'Посмотреть похожиее кухни'}"
+        />
+      </div>
     </div>
     <div class="modal-call__image">
       <img src="../assets/img/modal-call.svg" alt="">
@@ -72,8 +74,8 @@ export default {
       &__content {
         max-height: 310px;
       }
-      &__success-wrap {
-        transform: none;
+      &__success {
+        transform: translateY(-100%);
       }
       &__leaf {
         transform: translateY(350px);
@@ -99,21 +101,28 @@ export default {
     color: #E0E0E0;
   }
 
-  &__success-wrap {
+  &__success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     left: 0;
-    bottom: 360px;
+    top: 100%;
     width: 100%;
     height: 310px;
-    padding: 30px 20px;
+    padding: 20px;
     background-color: #EEEEEE;
-    transform: translateY(100%);
     transition: transform .5s ease;
-    overflow: hidden;
-  }
 
-  &__success {
-    transition-delay: .5s;
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 10px;
+      background-color: inherit;
+    }
   }
 
   &__image {
@@ -171,8 +180,9 @@ export default {
       max-height: none;
     }
 
-    &__success-wrap {
-      height: calc(100% - 360px);
+    &__success {
+      align-items: flex-start;
+      height: 100%;
       padding: 100px;
     }
 
@@ -198,6 +208,10 @@ export default {
 
     &.is-success {
       #{$b} {
+        &__success {
+          transform: translateX(-100%);
+        }
+
         &__image {
           img {
             transform: translateX(-10px) scale(1.2);
@@ -213,28 +227,30 @@ export default {
 
     &__content {
       flex: 1;
-      align-self: center;
       padding: 48px 70px 40px 78px;
       box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.25);
     }
 
-    &__success-wrap {
-      display: flex;
+    &__success {
+      justify-content: flex-start;
       align-items: center;
-      left: 0;
       top: 0;
-      right: auto;
-      bottom: auto;
-      width: 57%;
-      height: 100%;
+      left: 100%;
       padding: 170px;
-      transform: translateX(100%);
+
+      &::after {
+        left: auto;
+        right: -5px;
+        bottom: 0;
+        width: 10px;
+        height: 100%;
+      }
     }
 
     &__image {
       width: 43%;
       height: auto;
-      padding: 235px 50px;
+      padding: 50px;
 
       img {
         width: 100%;
@@ -248,7 +264,7 @@ export default {
       top: auto;
       right: auto;
       left: -44px;
-      bottom: 95px;
+      bottom: 55px;
       width: 80px;
       height: 82px;
       transition: transform .5s cubic-bezier(0.25, -0.25, 0.25, 1.25);
@@ -258,7 +274,7 @@ export default {
       display: block;
       position: absolute;
       right: 44px;
-      bottom: 72px;
+      bottom: 32px;
       transition: transform .5s ease;
     }
 
@@ -275,7 +291,7 @@ export default {
       #{$b} {
         &__image {
           img {
-            transform: translateX(-86px) scale(1.45);
+            transform: translateX(-86px) scale(1.2);
           }
         }
 
@@ -290,25 +306,24 @@ export default {
       padding: 156px 70px 160px 132px;
     }
 
-    &__success-wrap {
-      width: 61%;
-      padding: 206px;
+    &__success {
+      padding: 220px;
     }
 
     &__image {
       width: 39%;
-      padding: 200px 50px;
+      padding: 50px;
     }
 
     &__leaf {
       left: -48px;
-      bottom: 162px;
+      bottom: 62px;
     }
 
     &__decor {
       left: -100%;
       right: 100%;
-      bottom: 144px;
+      bottom: 44px;
       margin-right: 82px;
     }
 

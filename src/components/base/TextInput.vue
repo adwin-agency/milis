@@ -19,7 +19,6 @@
     >
       {{label}}
     </span>
-    <span class="text-input__error">Поле не заполнено</span>
   </div>
 </template>
 
@@ -91,10 +90,6 @@ export default {
       &__label {
         color: $color-red;
       }
-
-      &__error {
-        opacity: 1;
-      }
     }
   }
 
@@ -145,19 +140,6 @@ export default {
     &.is-active {
       transform: translateY(-27px);
     }
-  }
-
-  &__error {
-    position: absolute;
-    left: 0;
-    top: 100%;
-    margin-top: 2px;
-    font-size: 10px;
-    line-height: (16/10);
-    color: $color-red;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .3s ease;
   }
 }
 </style>

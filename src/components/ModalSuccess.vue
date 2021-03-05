@@ -3,13 +3,14 @@
     <div class="modal-success__icon">
       <Icon name="check-circle" />
     </div>
-    <p class="modal-success__title">Ваша заявка <br>успешно отправлена!</p>
-    <p class="modal-success__desc">Мы свяжимся с Вами в ближайшее время, <br>для подтверждения заявки</p>
+    <p class="modal-success__title">{{title}}</p>
+    <p class="modal-success__desc">{{desc}}</p>
     <RouterLink
+      v-if="link"
       class="modal-success__link"
-      :to="{name: 'catalog'}"
+      :to="{name: link.path}"
     >
-      Посмотреть похожиее кухни
+      {{link.title}}
     </RouterLink>
   </div>
 </template>
@@ -21,6 +22,11 @@ export default {
   name: 'ModalSuccess',
   components: {
     Icon
+  },
+  props: {
+    title: String,
+    desc: String,
+    link: Object
   }
 }
 </script>
@@ -32,7 +38,7 @@ export default {
   text-align: center;
   font-family: $font-secondary;
   opacity: 0;
-  transition: opacity .5s ease;
+  transition: opacity .5s ease .5s;
 
   &.is-active {
     opacity: 1;
@@ -49,8 +55,7 @@ export default {
     width: 58px;
     height: 58px;
     transform: scale(0);
-    transition: transform .3s cubic-bezier(0.25, 0.1, 0.25, 1.5);
-    transition-delay: inherit;
+    transition: transform .3s cubic-bezier(0.25, 0.1, 0.25, 1.5) .5s;
   }
 
   &__title {
@@ -58,6 +63,7 @@ export default {
     font-size: 22px;
     line-height: (33/24);
     color: $color-blue;
+    white-space: pre-line;
   }
 
   &__desc {
@@ -65,6 +71,7 @@ export default {
     font-size: 12px;
     line-height: (25/14);
     color: $color-gray-middle;
+    white-space: pre-line;
   }
 
   &__link {

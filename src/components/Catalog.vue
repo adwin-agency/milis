@@ -6,7 +6,7 @@
 
         <div
           v-if="index % 2 === 0"
-          :key="index"
+          :key="kitchen.id"
           class="col col-12 col-md-6 col-lg-5 catalog__col"
         >
           <CatalogCard
@@ -20,7 +20,7 @@
 
         <template v-else>
           <div
-            :key="index"
+            :key="kitchen.id"
             class="col col-12 col-md-6 col-lg-7 catalog__col"
           >
             <CatalogCard

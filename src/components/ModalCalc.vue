@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-calc">
+  <div class="modal-calc" :class="{'is-success': sendSuccess}">
     <div class="modal-calc__content">
       <form
         class="modal-calc__form"
@@ -19,21 +19,24 @@
             label="Имя"
             type="text"
             name="name"
-            v-model="inputName"
+            :error="errors.name"
+            @input="onInput('name', $event)"
           />
           <TextInput
             class="modal-calc__field"
             label="Телефон"
             type="tel"
             name="phone"
-            v-model="inputPhone"
+            :error="errors.phone"
+            @input="onInput('phone', $event)"
           />
           <TextInput
             class="modal-calc__field"
             textarea
             label="Комментарий"
             name="comment"
-            v-model="inputComment"
+            :error="errors.comment"
+            @input="onInput('comment', $event)"
           />
           <div class="modal-calc__file" :class="{'is-active': inputFileName}">
             <label class="modal-calc__file-label">
@@ -65,7 +68,21 @@
         >
           Отправить
         </Button>
+        <p
+          v-if="sendError"
+          class="modal-calc__error"
+        >
+          Ошибка отправки
+        </p>
       </form>
+      <div class="modal-calc__success">
+        <ModalSuccess
+          :class="{'is-active': sendSuccess}"
+          :title="`Ваша заявка \n успешно отправлена!`"
+          :desc="`Оператор свяжется с Вами в самое \n ближайшее время и уточнит детали!`"
+          :link="{path: 'catalog', title: 'Вернуться в каталог кухонь'}"
+        />
+      </div>
     </div>
     <div class="modal-calc__side">
       <div class="modal-calc__features">
@@ -109,6 +126,7 @@ import TextInput from './base/TextInput'
 import Button from './base/Button'
 import Icon from './base/Icon'
 import Discount from './base/Discount'
+import ModalSuccess from '@/components/ModalSuccess'
 import api from '@/api'
 
 export default {
@@ -117,15 +135,25 @@ export default {
     TextInput,
     Button,
     Icon,
-    Discount
+    Discount,
+    ModalSuccess
   },
   data() {
     return {
-      inputName: '',
-      inputPhone: '',
-      inputComment: '',
-      inputFile: null,
-      inputFileName: ''
+      inputs: {
+        name: '',
+        phone: '',
+        comment: ''
+      },
+      errors: {
+        name: false,
+        phone: false,
+        comment: false
+      },
+      inputFileName: null,
+      sending: false,
+      sendSuccess: false,
+      sendError: false
     }
   },
   computed: {
@@ -146,16 +174,63 @@ export default {
     }
   },
   methods: {
+    onInput(input, value) {
+      if (this.errors[input]) {
+        this.errors[input] = false
+      }
+
+      this.inputs[input] = value
+    },
+
     onFileChange(e) {
       this.inputFileName = e.target.files.length ? e.target.files[0].name : ''
     },
+
     onFileRemove() {
       this.inputFileName = ''
       this.$refs.fileInput.value = ''
     },
+
     onSubmit() {
+      if (this.sending || this.sendSuccess) {
+        return
+      }
+
+      for (let input in this.inputs) {
+        const value = this.inputs[input]
+
+        if (value.trim() === '' || input === 'phone' && value.length < 16) {
+          this.errors[input] = true
+        }
+      }
+
+      for (let error in this.errors) {
+        if (this.errors[error]) {
+          return
+        }
+      }
+
+      this.sending = true
+      this.sendError = false
       const data = new FormData(this.$refs.calcform)
-      api.sendForm(data)
+
+      // if (window.Comagic) {
+      //   const comagicData = window.Comagic.getCredentials()
+
+      //   for (let item in comagicData) {
+      //     data.append(item, comagicData[item])
+      //   }
+      // }
+
+      api.sendForm(data, 'size')
+        .then(() => {
+          this.sending = false
+          this.sendSuccess = true
+        })
+        .catch(() => {
+          this.sending = false
+          this.sendError = true
+        })
     }
   }
 }
@@ -169,7 +244,18 @@ export default {
   background-color: $color-white;
   overflow: hidden;
 
+  &.is-success {
+    #{$b} {
+      &__success {
+        opacity: 1;
+        pointer-events: all;
+        z-index: 1;
+      }
+    }
+  }
+
   &__content {
+    position: relative;
     padding: 30px 20px;
   }
 
@@ -254,6 +340,31 @@ export default {
   &__btn {
     margin-top: 24px;
     width: 100%;
+  }
+
+  &__error {
+    margin-top: 12px;
+    text-align: center;
+    font-family: $font-secondary;
+    font-size: 14px;
+    color: $color-red;
+  }
+
+  &__success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background-color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .5s ease;
+    z-index: -1;
   }
 
   &__side {
@@ -346,6 +457,7 @@ export default {
     height: 26px;
     fill: $color-blue;
     cursor: pointer;
+    z-index: 2;
   }
 
   @include media(xs) {
@@ -411,6 +523,7 @@ export default {
     box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.25);
 
     &__content {
+      position: static;
       flex: 1;
       padding: 60px 82px 60px 70px;
     }

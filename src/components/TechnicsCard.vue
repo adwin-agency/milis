@@ -60,9 +60,19 @@ export default {
       icons: ['fire', 'circles', 'materials', 'size']
     }
   },
+  computed: {
+    modalData() {
+      return {
+        item: this.technic.name,
+        itemId: this.technic.id,
+        productType: this.technic.product_type
+      }
+    }
+  },
   methods: {
     showModal() {
       this.$store.commit('setModal', 'technics')
+      this.$store.commit('setModalData', this.modalData)
     }
   }
 }

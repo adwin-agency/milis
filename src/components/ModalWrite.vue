@@ -3,46 +3,82 @@
     <div class="modal-write__content">
       <form class="modal-write__form">
         <div class="modal-write__row">
-          <label class="modal-write__photo">
-            <input type="file" class="modal-write__file">
-            загрузить фото
-          </label>
           <TextInput label="Имя" class="modal-write__field" />            
           <div class="modal-write__rate">
             <label class="modal-write__rate-item">
-              <input type="radio" name="rate" class="modal-write__rate-input">
+              <input
+                class="modal-write__rate-input"
+                type="radio"
+                name="rate"
+                value="5"
+              >
+              <span class="modal-write__rate-box">
+                <span class="modal-write__rate-num">5</span>
+                <span class="modal-write__rate-num">5</span>
+              </span>
               <span class="modal-write__rate-icon">
                 <Icon name="smile-5" />
               </span>
-              <span class="modal-write__rate-num">5</span>
             </label>
             <label class="modal-write__rate-item">
-              <input type="radio" name="rate" class="modal-write__rate-input">
+              <input
+                class="modal-write__rate-input"
+                type="radio"
+                name="rate"
+                value="4"
+              >
+              <span class="modal-write__rate-box">
+                <span class="modal-write__rate-num">4</span>
+                <span class="modal-write__rate-num">4</span>
+              </span>
               <span class="modal-write__rate-icon">
                 <Icon name="smile-4" />
               </span>
-              <span class="modal-write__rate-num">4</span>
             </label>
             <label class="modal-write__rate-item">
-              <input type="radio" name="rate" class="modal-write__rate-input">
+              <input
+                class="modal-write__rate-input"
+                type="radio"
+                name="rate"
+                value="3"
+              >
+              <span class="modal-write__rate-box">
+                <span class="modal-write__rate-num">3</span>
+                <span class="modal-write__rate-num">3</span>
+              </span>
               <span class="modal-write__rate-icon">
                 <Icon name="smile-3" />
               </span>
-              <span class="modal-write__rate-num">3</span>
             </label>
             <label class="modal-write__rate-item">
-              <input type="radio" name="rate" class="modal-write__rate-input">
+              <input
+                class="modal-write__rate-input"
+                type="radio"
+                name="rate"
+                value="2"
+              >
+              <span class="modal-write__rate-box">
+                <span class="modal-write__rate-num">2</span>
+                <span class="modal-write__rate-num">2</span>
+              </span>
               <span class="modal-write__rate-icon">
                 <Icon name="smile-2" />
               </span>
-              <span class="modal-write__rate-num">2</span>
             </label>
             <label class="modal-write__rate-item">
-              <input type="radio" name="rate" class="modal-write__rate-input">
+              <input
+                class="modal-write__rate-input"
+                type="radio"
+                name="rate"
+                value="1"
+              >
+              <span class="modal-write__rate-box">
+                <span class="modal-write__rate-num">1</span>
+                <span class="modal-write__rate-num">1</span>
+              </span>
               <span class="modal-write__rate-icon">
                 <Icon name="smile-1" />
               </span>
-              <span class="modal-write__rate-num">1</span>
             </label>
           </div>
         </div>
@@ -80,11 +116,13 @@ export default {
 
 <style lang="scss">
 .modal-write {
+  $b: &;
+
   position: relative;
   background-color: $color-white;
 
   &__content {
-    padding: 40px 20px 30px;
+    padding: 70px 20px 30px;
   }
 
   &__row {
@@ -118,7 +156,7 @@ export default {
   }
 
   &__field {
-    flex: 1;
+    width: 100%;
     background-color: $color-white;
   }
 
@@ -130,37 +168,70 @@ export default {
     width: 100%;
   }
 
-  &__rate-item {
-    display: flex;
-    align-items: center;
+  &__rate-item {    
+    position: relative;
+    width: 48px;
+    padding: 0 2px;
     cursor: pointer;
   }
 
   &__rate-input {
     display: none;
+
+    &:checked {
+      & ~ #{$b} {
+        &__rate-box {
+          background-color: $color-green;
+        }
+
+        &__rate-icon {
+          transform: translate(100%, -50%);
+        }
+      }
+    }
+  }
+
+  &__rate-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 50px;
+    padding: 2px;
+    background-color: #EFEFEF;
+    transition: background-color .3s ease;
   }
 
   &__rate-icon {
-    position: relative;
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 24px;
+    height: 24px;
+    transform: translate(0, -50%);
+    transition: transform .3s ease;
   }
 
   &__rate-num {
-    margin-left: -21px;
-    width: 48px;
-    padding: 2px 10px;
-    border-radius: 50px;
-    text-align: right;
+    position: relative;
+    width: 50%;
+    text-align: center;
+    font-weight: bold;
     font-size: 12px;
-    line-height: (17/12);
-    background-color: #EFEFEF;
-    color: $color-blue;
+    color: $color-white;
+    transition: transform .3s ease;
+
+    &:last-child {
+      font-weight: normal;
+      color: $color-blue;
+    }
+  }
+
+  &__files {
+    margin-top: 26px;
   }
 
   &__btn {
-    margin-top: 22px;
+    margin-top: 26px;
     width: 100%;
   }
 
@@ -184,6 +255,17 @@ export default {
     height: 26px;
     fill: $color-blue;
     cursor: pointer;
+  }
+
+  @include media(xs) {
+    &__rate-item {
+      width: 56px;
+    }
+
+    &__rate-icon {
+      width: 28px;
+      height: 28px;
+    }
   }
 
   @include media(md) {

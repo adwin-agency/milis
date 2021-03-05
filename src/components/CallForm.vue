@@ -4,7 +4,7 @@
     ref="callform"
     @submit.prevent="onSubmit"
   >
-    <input type="hidden" name="type" :value="formType">
+    <input type="hidden" name="type" value="designer">
     <input type="hidden" name="page" :value="inputPage">
     <input type="hidden" name="item" :value="inputItem">
     <input type="hidden" name="item_id" :value="inputItemId">
@@ -75,12 +75,12 @@
         >
           Отправить
         </Button>
-        <span
+        <p
           v-if="sendError"
           class="call-form__error"
         >
           Ошибка отправки
-        </span>
+        </p>
       </div>
       <div class="call-form__features">
         <p class="call-form__feature">
@@ -132,7 +132,6 @@ export default {
   },
   data() {
     return {
-      formType: 'designer',
       inputs: {
         name: '',
         phone: ''
@@ -145,6 +144,7 @@ export default {
       times: ['09:00 - 12:00', '12:00 - 15:00', '15:00 - 18:00', '18:00 - 21:00'],
       activeTimes: false,
       sending: false,
+      sendSuccess: false,
       sendError: false
     }
   },
@@ -203,14 +203,14 @@ export default {
     },
 
     onSubmit() {
-      if (this.sending) {
+      if (this.sending || this.sendSuccess) {
         return
       }
 
       for (let input in this.inputs) {
         const value = this.inputs[input]
 
-        if (value === '' || input === 'phone' && value.length < 16) {
+        if (value.trim() === '' || input === 'phone' && value.length < 16) {
           this.errors[input] = true
         }
       }
@@ -233,9 +233,10 @@ export default {
       //   }
       // }
 
-      api.sendForm(data)
+      api.sendForm(data, 'designer')
         .then(() => {
           this.sending = false
+          this.sendSuccess = true
           this.$emit('success')
         })
         .catch(() => {
@@ -280,10 +281,6 @@ export default {
 
   &__items {
     margin-top: 25px;
-  }
-
-  &__fields {
-    position: relative;
   }
 
   &__field {
@@ -428,10 +425,6 @@ export default {
   }
 
   &__error {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
     margin-top: 12px;
     text-align: center;
     font-family: $font-secondary;

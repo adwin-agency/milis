@@ -75,12 +75,12 @@
             type="button"
             class="catalog-card__stat"
             :class="{'is-active': activeLike}"
-            @click="changeLike"
+            @click="toggleLike"
           >
             <span class="catalog-card__stat-icon">
               <Icon name="likes"/>
             </span>
-            {{likesCount}}
+            {{newLikesCount || kitchen.likes}}
           </button>
         </p>
       </div>
@@ -99,6 +99,7 @@ import Discount from './base/Discount'
 import Icon from './base/Icon'
 import ButtonNav from './base/ButtonNav'
 import { swiper as Swiper, swiperSlide as SwiperSlide } from 'vue-awesome-swiper'
+import api from '@/api'
 
 export default {
   name: 'CatalogCard',
@@ -131,8 +132,9 @@ export default {
           loadPrevNext: true
         }
       },
-      activeLike: false,
-      likesCount: +this.kitchen.likes
+      activeLike: this.kitchen.likes_status !== 'disable',
+      sendingLike: false,
+      newLikesCount: null
     }
   },
   computed: {
@@ -145,10 +147,28 @@ export default {
     }
   },
   methods: {
-    changeLike() {
-      this.activeLike = !this.activeLike
-      this.likesCount = this.activeLike ? this.likesCount + 1 : this.likesCount - 1
+    toggleLike() {
+      if (this.sendingLike) {
+        return
+      }
+
+      this.sendingLike = true
+
+      let data = {
+        id: this.kitchen.id,
+        increase: !this.activeLike
+      }
+
+      data = JSON.stringify(data)
+
+      api.sendLike(data)
+        .then(response => {
+          this.activeLike = !this.activeLike
+          this.sendingLike = false
+          this.newLikesCount = response
+        })
     },
+
     showModal() {
       this.$store.commit('setModal', 'calc')
       this.$store.commit('setModalData', this.modalData)

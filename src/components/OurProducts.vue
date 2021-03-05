@@ -51,6 +51,7 @@
           <slot></slot>
           <CatalogCard
             v-if="kitchen"
+            :key="kitchen.id"
             class="our-products__card"
             alt
             top

@@ -76,7 +76,7 @@
               <span class="details__stat-icon">
                 <Icon name="likes"/>
               </span>
-              {{details.likes}}
+              {{newLikesCount || details.likes}}
             </button>
           </div>          
           <p class="details__desc">{{details.description}}</p>
@@ -108,8 +108,9 @@ export default {
   },
   data() {
     return {
-      activeLike: false,
-      sending: false
+      activeLike: this.details.likes_status !== 'disable',
+      sendingLike: false,
+      newLikesCount: null
     }
   },
   computed: {
@@ -123,11 +124,11 @@ export default {
   },
   methods: {
     toggleLike() {
-      if (this.sending) {
+      if (this.sendingLike) {
         return
       }
 
-      this.sending = true
+      this.sendingLike = true
 
       let data = {
         id: this.details.id,
@@ -137,9 +138,10 @@ export default {
       data = JSON.stringify(data)
 
       api.sendLike(data)
-        .then(() => {
+        .then(response => {
           this.activeLike = !this.activeLike
-          this.sending = false
+          this.sendingLike = false
+          this.newLikesCount = response
         })
     },
     showModal() {
