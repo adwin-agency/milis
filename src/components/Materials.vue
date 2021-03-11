@@ -1,7 +1,7 @@
 <template>
   <div :class="['materials', {'materials_info': info}]">
     <h2 class="materials__heading">Наши материалы</h2>
-    <p class="materials__text" v-if="!info">Мы поможем Вам подобрать материалы и и фасады для Вашей идеальной кухни! <b>Более 250 видов</b> корпусов, фасадов и столешниц. А наш дизайнер подберет нужные Вам цвета и произведет все необходимые замеры бесплатно</p>
+    <p class="materials__text" v-if="!info">Мы поможем вам подобрать материалы и фасады для вашей будущей кухни! <b>Более 250 видов</b> корпусов, фасадов и столешниц! Наш дизайнер подберет нужные вам цвета и произведет все необходимые замеры совершенно бесплатно.</p>
     <div class="materials__items">
       <div class="materials__item materials__item_big">
         <div class="materials__image">
@@ -18,7 +18,7 @@
           <Icon name="leaf"/>
         </div>
         <p class="materials__title">Фасады мдф</p>
-        <div class="materials__desc">Пленка ПВХ, пластик</div>
+        <div class="materials__desc">Производство компании Egger; пленка ПВХ, пластик</div>
       </div>
       <div class="materials__item">
         <div class="materials__image">
@@ -28,7 +28,7 @@
           <Icon name="leaf"/>
         </div>
         <p class="materials__title">Корпус</p>
-        <div class="materials__desc">ЛДСП класса E0.5</div>
+        <div class="materials__desc">ЛДСП фирмы Kronospan класса E0.5</div>
       </div>
       <div class="materials__item">
         <div class="materials__image">

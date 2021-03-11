@@ -4,7 +4,7 @@
       <div class="container">
         <OurProducts class="v-catalog__our-products"/>
         <Divider
-          v-if="!$mobile"
+          v-if="!$mobile && kitchens.length > 1"
           class="v-catalog__divider-1 scale-right js-anim"
           v-anim="true"
         />
@@ -23,7 +23,7 @@
               :activePage="activePage"
               @changePage="changePage"
             />
-          </template>          
+          </template>
         </NavPanel>
       </div>
     </div>

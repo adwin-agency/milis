@@ -8,7 +8,7 @@
         @success="onSuccess"
       />
       <div class="modal-call__success">
-        <ModalSuccess
+        <FormSuccess
           :class="{'is-active': success}"
           :title="`Ваша заявка \n успешно отправлена!`"
           :desc="`Мы свяжемся с Вами в ближайшее время, \n для подтверждения заявки`"
@@ -32,14 +32,14 @@
 <script>
 import Icon from './base/Icon'
 import CallForm from './CallForm'
-import ModalSuccess from '@/components/ModalSuccess'
+import FormSuccess from '@/components/FormSuccess'
 
 export default {
   name: 'ModalCall',
   components: {
     Icon,
     CallForm,
-    ModalSuccess
+    FormSuccess
   },
   props: {
     hiddenData: Object

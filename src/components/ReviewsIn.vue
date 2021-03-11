@@ -3,8 +3,8 @@
     <div class="reviews-in__header">
       <h2 class="reviews-in__heading">Отзывы</h2>
       <div class="reviews-in__actions">
-        <RouterLink class="reviews-in__link" to="/reviews">Читать все отзывы</RouterLink>
-        <Button
+        <RouterLink class="reviews-in__link" :to="{name: 'reviews'}">Читать все отзывы</RouterLink>
+        <!-- <Button
           v-if="$windowWidth >= $breakpoints.md"
           small
           underline
@@ -13,7 +13,7 @@
           class="reviews-in__btn"
         >
           Написать отзыв
-        </Button>
+        </Button> -->
       </div>
     </div>
     <div class="reviews-in__slider">
@@ -46,7 +46,7 @@
         class="reviews-in__next"
       />
     </div>
-    <Button
+    <!-- <Button
       v-if="$windowWidth < $breakpoints.md"
       small
       underline
@@ -55,12 +55,12 @@
       class="reviews-in__btn"
     >
       Написать отзыв
-    </Button>
+    </Button> -->
   </div>
 </template>
 
 <script>
-import Button from './base/Button'
+// import Button from './base/Button'
 import ButtonNav from './base/ButtonNav'
 import ReviewCard from './ReviewCard'
 import { swiper as Swiper, swiperSlide as SwiperSlide } from 'vue-awesome-swiper'
@@ -68,7 +68,7 @@ import { swiper as Swiper, swiperSlide as SwiperSlide } from 'vue-awesome-swiper
 export default {
   name: 'ReviewSm',
   components: {
-    Button,
+    // Button,
     ButtonNav,
     ReviewCard,
     Swiper,
@@ -83,7 +83,6 @@ export default {
         spaceBetween: 20,
         slidesPerView: 'auto',
         freeMode: true,
-        freeModeMomentum: false,
         resistanceRatio: 0,
         navigation: {
           prevEl: '.reviews-in__prev',

@@ -3,30 +3,37 @@
     <div class="filter-menu__wrapper">
       <template v-if="filterType === 'catalog'">
         <RouterLink
-          v-if="activeCategory"
-          class="filter-menu__item filter-menu__item_main"
-          :to="{name: 'catalog', query: {style: activeStyle}}"
-        >
-          Все кухни
-        </RouterLink>
-        <RouterLink
-          v-for="(category, index) in availableKitchenCategories"
+          v-for="(category, index) in kitchenCategories"
           :key="index"
           class="filter-menu__item"
-          :to="{name: 'category', params: {category: category.url}, query: {style: activeStyle}}"
+          :class="{'is-active': activeCategory === category.url}"
+          :to="{
+            name: activeCategory === category.url ? 'catalog' : 'category',
+            params: {category: activeCategory === category.url ? false : category.url},
+            query: activeStyle ? {style: activeStyle} : false
+          }"
         >
           {{category.name}}
+          <span class="filter-menu__close">
+            <Icon name="close" />
+          </span>
         </RouterLink>
       </template>
       <template v-if="filterType === 'technics'">
         <RouterLink
-          v-for="(category, index) in availableTechnicsCategories"
+          v-for="(category, index) in technicsCategories"
           :key="index"
           class="filter-menu__item"
-          :class="{'filter-menu__item_main': category.url === 'all'}"
-          :to="{name: category.url === 'all' ? 'technics' : 'techcategory', params: {category: category.url}}"
+          :class="{'is-active': activeCategory === category.url}"
+          :to="{
+            name: activeCategory === category.url ? 'technics' : 'techcategory',
+            params: {category: activeCategory === category.url ? false : category.url}
+          }"
         >
           {{category.name}}
+          <span class="filter-menu__close">
+            <Icon name="close" />
+          </span>
         </RouterLink>
       </template>
     </div>
@@ -34,8 +41,13 @@
 </template>
 
 <script>
+import Icon from '@/components/base/Icon'
+
 export default {
   name: 'FilterMenu',
+  components: {
+    Icon
+  },
   props: {
     filterType: String
   },
@@ -46,17 +58,11 @@ export default {
     kitchenCategories() {
       return this.$store.state.kitchenCategories
     },
-    availableKitchenCategories() {
-      return this.kitchenCategories && this.kitchenCategories.filter(item => item.url !== this.activeCategory)
-    },
     activeStyle() {
       return this.$route.query.style
     },
     technicsCategories() {
-      return this.$store.state.technicsCategories
-    },
-    availableTechnicsCategories() {
-      return this.technicsCategories && this.technicsCategories.filter(item => item.url !== (this.activeCategory || 'all'))
+      return this.$store.state.technicsCategories && this.$store.state.technicsCategories.slice(1)
     }
   }
 }
@@ -64,6 +70,8 @@ export default {
 
 <style lang="scss">
 .filter-menu {
+  $b: &;
+
   overflow: hidden;
 
   &__wrapper {
@@ -81,6 +89,8 @@ export default {
   }
 
   &__item {
+    display: flex;
+    align-items: center;
     flex-shrink: 0;
     margin-right: 10px;
     padding: 7px 14px;
@@ -92,6 +102,23 @@ export default {
     &:last-child {
       margin-right: 0;
     }
+
+    &.is-active {
+      color: #fff;
+      background-color: $color-blue;
+
+      #{$b}__close {
+        display: block;
+      }
+    }
+  }
+
+  &__close {
+    display: none;
+    width: 8px;
+    height: 8px;
+    margin-left: 8px;
+    fill: #fff;
   }
 
   @include media(md) {
@@ -131,12 +158,22 @@ export default {
       font-size: 14px;
       line-height: (16/14);
       text-decoration: underline;
-      color: $color-gray;
+      color: $color-gray-middle;
       background-color: transparent;
 
       &_main {
         color: $color-blue;
       }
+
+      &.is-active {
+        font-weight: bold;
+        color: $color-blue;
+        background-color: transparent;
+      }
+    }
+
+    &__close {
+      fill: $color-blue;
     }
   }
 

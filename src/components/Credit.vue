@@ -87,9 +87,38 @@
               Чтобы оформить заказ в рассрочку и получить предварительный рассчет оставьте Ваш номер
             </p>
           </div>
-          <form class="credit__form">
-            <TextInput label="Телефон" class="credit__input"/>
-            <Button class="credit__btn" type="submit" send>Отправить</Button>
+          <form
+            class="credit__form"
+            :class="{'is-success': sendSuccess}"
+            ref="installmentform"
+            @submit.prevent="onSubmit"
+          >
+            <input type="hidden" name="type" value="installment">
+            <input type="hidden" name="page" :value="inputPage">
+            <div class="credit__fields">
+              <TextInput
+                class="credit__input"
+                label="Телефон"
+                type="tel"
+                name="phone"
+                :error="errors.phone"
+                @input="onInput('phone', $event)"
+              />
+              <Button class="credit__btn" type="submit" send>Отправить</Button>
+            </div>
+            <p
+              v-if="sendError"
+              class="credit__error"
+            >
+              Ошибка отправки
+            </p>
+            <div class="credit__success">
+              <FormSuccess
+                :class="{'is-active': sendSuccess}"
+                small
+                :title="`Ваша заявка успешно отправлена!`"
+              />
+            </div>
           </form>
         </div>
       </div>
@@ -101,19 +130,85 @@
 import Icon from './base/Icon'
 import TextInput from './base/TextInput'
 import Button from './base/Button'
+import FormSuccess from '@/components/FormSuccess'
+import api from '@/api'
 
 export default {
   name: 'Credit',
   components: {
     Icon,
     TextInput,
-    Button
+    Button,
+    FormSuccess
+  },
+  data() {
+    return {
+      inputs: {
+        phone: ''
+      },
+      errors: {
+        phone: false
+      },
+      sending: false,
+      sendSuccess: false,
+      sendError: false
+    }
+  },
+  computed: {
+    inputPage() {
+      return this.$route.path
+    }
+  },
+  methods: {
+    onInput(input, value) {
+      if (this.errors[input]) {
+        this.errors[input] = false
+      }
+
+      this.inputs[input] = value
+    },
+
+    onSubmit() {
+      if (this.sending || this.sendSuccess) {
+        return
+      }
+
+      for (let input in this.inputs) {
+        const value = this.inputs[input]
+
+        if (value.trim() === '' || input === 'phone' && value.length < 16) {
+          this.errors[input] = true
+        }
+      }
+
+      for (let error in this.errors) {
+        if (this.errors[error]) {
+          return
+        }
+      }
+
+      this.sending = true
+      this.sendError = false
+      const data = new FormData(this.$refs.installmentform)
+
+      api.sendForm(data, 'installment')
+        .then(() => {
+          this.sending = false
+          this.sendSuccess = true
+        })
+        .catch(() => {
+          this.sending = false
+          this.sendError = true
+        })
+    }
   }
 }
 </script>
 
 <style lang="scss">
 .credit {
+  $b: &;
+
   &__image {
     margin: 0 (-$container-padding);
   }
@@ -187,7 +282,18 @@ export default {
   }
 
   &__form {
+    position: relative;
     margin-top: 40px;
+
+    &.is-success {
+      #{$b} {
+        &__success {
+          opacity: 1;
+          pointer-events: all;
+          z-index: auto;
+        }
+      }
+    }
   }
 
   &__input {
@@ -197,6 +303,30 @@ export default {
   &__btn {
     margin-top: 20px;
     width: 100%;
+  }
+
+  &__success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .5s ease;
+    z-index: -1;
+  }
+
+  &__error {
+    margin-top: 12px;
+    text-align: center;
+    font-family: $font-secondary;
+    font-size: 14px;
+    color: $color-red;
   }
 
   @include media(md) {
@@ -242,9 +372,12 @@ export default {
     }
 
     &__form {
-      display: flex;
       clear: right;
       margin-top: 32px;
+    }
+
+    &__fields {
+      display: flex;
     }
 
     &__input {

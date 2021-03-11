@@ -45,7 +45,7 @@
         <div class="mobile-bar__item-group">
           <a
             class="mobile-bar__item"
-            href="tel:+7"
+            :href="`tel:${activeCity && activeCity.phone}`"
           >
             <Icon
               class="mobile-bar__icon"
@@ -82,6 +82,11 @@ export default {
   data() {
     return {
       activeMenu: false
+    }
+  },
+  computed: {
+    activeCity() {
+      return this.$store.getters.activeCity
     }
   },
   methods: {

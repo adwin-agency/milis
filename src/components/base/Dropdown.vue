@@ -195,7 +195,7 @@ export default {
     }
 
     &__desc {
-      max-width: 260px;
+      max-width: 430px;
       padding-top: 16px;
       font-size: 14px;
       line-height: (23/14);

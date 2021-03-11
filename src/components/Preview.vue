@@ -7,7 +7,7 @@
       <!-- <p class="preview__date">12.08.2020</p> -->
       <!-- <p class="preview__category">Блог/Угловые кухни</p> -->
       <p class="preview__title">Доставка в срок</p>
-      <p class="preview__desc">После изготовления кухни,  она хранится на складе, что гарантирует ее сохранность. Наши специалисты позвонят вам и договорятся о времени встречи и уточнят адрес.<br><br><b>Доставка бесплатна.</b></p>
+      <p class="preview__desc">После изготовления кухни,  она хранится на складе, что гарантирует ее сохранность. Наши специалисты позвонят вам и договорятся о времени встречи и уточнят адрес.<br><br></p>
       <div class="preview__footer">
         <!-- <div class="preview__stats">
           <div class="preview__stat">
@@ -24,7 +24,7 @@
           </div>
         </div> -->
         <RouterLink
-          to="/blog"
+          :to="{name: 'delivery'}"
           v-slot="{ href, navigate }"
           custom
         >
@@ -88,7 +88,7 @@ export default {
   &__content {
     position: relative;
     width: 100%;
-    padding: 50px 56px 50px 24px;
+    padding: 30px 56px 30px 24px;
     color: $color-white;
     transition-delay: .5s;
   }

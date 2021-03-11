@@ -18,7 +18,7 @@
                 v-anim="first && {delay: 250}"
               />
               <RouterLink
-                to="/catalog"
+                :to="{name: 'category', params: {category: kitchen.category}}"
                 class="screen__similar"
                 :class="{'fade-slide-left js-anim': first}"
                 v-anim="first && {delay: 500}"
@@ -52,7 +52,8 @@
               </p>
               <Button
                 class="screen__btn"
-                @click.native="showModal"
+                modal="calc"
+                :modalData="modalData"
               >
                 Рассчитать стоимость
               </Button>
@@ -103,9 +104,13 @@ export default {
     kitchen: Object,
     nextKitchen: Object
   },
-  methods: {
-    showModal() {
-      this.$store.commit('setModal', 'calc')
+  computed: {
+    modalData() {
+      return {
+        item: this.kitchen.name,
+        itemId: this.kitchen.id,
+        productType: this.kitchen.product_type
+      }
     }
   }
 }

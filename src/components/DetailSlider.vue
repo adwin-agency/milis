@@ -1,20 +1,28 @@
 <template>
   <div class="detail-slider">
     <Swiper
+      :key="details.id"
       :options="swiperOptions"
       ref="mySwiper"
       class="detail-slider__container"
+      v-anim="true"
     >
       <SwiperSlide
         v-for="(picture, index) in details.pictures"
         :key="index"
         class="detail-slider__item"
       >
-        <div class="detail-slider__image" :class="{'anim-img js-anim': index === 0}">
-          <picture>
-            <source :srcset="`https://milismebel.ru${picture.desktop.path}`" :media="`(min-width: ${$breakpoints.md}px)`">
-            <img :src="`https://milismebel.ru${picture.tablet.path}`" alt="">
-          </picture>
+        <div
+          v-if="index === 0"
+          class="detail-slider__image anim-img js-anim"
+        >
+          <img :src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
+        </div>
+        <div
+          v-else
+          class="detail-slider__image"
+        >
+          <img class="swiper-lazy" :data-src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
         </div>
         <template v-if="index === 0">
           <div
@@ -90,7 +98,11 @@ export default {
         },
         pagination: {
           el: '.detail-slider__pagination'
-        }
+        },
+        lazy: {
+          loadPrevNext: true
+        },
+        touchEventsTarget: 'wrapper'
       }
     }
   },
@@ -131,7 +143,7 @@ export default {
   }
 
   &__tooltip {
-    position: absolute;
+    display: none;
   }
 
   &__discount {
@@ -219,6 +231,15 @@ export default {
   }
 
   @include media(lg) {
+    &__image {
+      padding-top: 45%;
+    }
+
+    &__tooltip {
+      display: block;
+      position: absolute;
+    }
+    
     &__discount {
       top: 38px;
       right: 60px;
@@ -237,6 +258,12 @@ export default {
       left: 170px;
       right: 48px;
       bottom: 38px;
+    }
+  }
+
+  @include media(xl) {
+    &__image {
+      padding-top: 60%;
     }
   }
 }

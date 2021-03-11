@@ -34,7 +34,6 @@ export default {
   created() {
     this.storeScreen()
     this.$store.dispatch('loadBase')
-
     window.addEventListener('resize', this.handleResize)
   },
   destroyed() {
@@ -46,7 +45,7 @@ export default {
         width: window.innerWidth,
         mobile: window.innerWidth < this.$breakpoints.lg
       })
-    },
+    },    
     handleResize() {
       this.storeScreen()
     }

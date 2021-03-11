@@ -37,32 +37,62 @@
           >
             Оплата
           </RouterLink>
+          <RouterLink
+            class="mobile-menu__nav-item"
+            :to="{name: 'technics'}"
+            @click.native="closeMenu"
+          >
+            Техника
+          </RouterLink>
+          <RouterLink
+            class="mobile-menu__nav-item"
+            :to="{name: 'reviews'}"
+            @click.native="closeMenu"
+          >
+            Отзывы
+          </RouterLink>
+          <RouterLink
+            class="mobile-menu__nav-item"
+            :to="{name: 'contacts'}"
+            @click.native="closeMenu"
+          >
+            Контакты
+          </RouterLink>
         </nav>
-        <a href="" class="mobile-menu__phone">
+        <a
+          class="mobile-menu__phone"
+          :href="`tel:${activeCity && activeCity.phone}`"
+        >
           <span class="mobile-menu__phone-icon">
             <Icon name="phone" />
           </span>
-          +7 (800) 985-95-98
+          {{activeCity && activeCity.phone}}
         </a>
       </div>
     </div>    
     <div class="mobile-menu__footer">
       <div class="container">
         <p class="mobile-menu__label">Фабрика Милис - Всё просто!</p>
-        <RouterLink
+        <!-- <RouterLink
           class="mobile-menu__title-link mobile-menu__blog-link"
           :to="{name: 'blog'}"
           @click.native="closeMenu"
         >
           Блог о дизайне
-        </RouterLink>    
+        </RouterLink>     -->
         <div class="mobile-menu__link-group">
           <Link
             class="mobile-menu__link"
             text="Хочу пригласить дизайнера"
             modal="call"
+            :modalData="modalData"
           />
-          <Link class="mobile-menu__link" text="Рассчитать по моим размерам" />
+          <Link
+            class="mobile-menu__link"
+            text="Рассчитать по моим размерам"
+            modal="calc"
+            :modalData="modalData"
+          />
         </div>
         <div class="mobile-menu__works">
           <RouterLink
@@ -75,8 +105,22 @@
           <p class="mobile-menu__time">с 9:00 - до 22:00</p>
         </div>
         <div class="mobile-menu__contacts">
-          <a href="" class="mobile-menu__city">Санкт-Петербург</a>
-          <div class="mobile-menu__social">
+          <div class="mobile-menu__city">
+            <button
+              class="mobile-menu__city-current"
+              type="button"
+              @click="openCityPopup"
+            >
+              {{activeCity && activeCity.name}}
+            </button>
+            <CityPopup
+              class="mobile-menu__city-popup"
+              :class="{'is-active': activeCityPopup}"
+              @select="closeCityPopup"
+              @close="closeCityPopup"
+            />
+          </div>
+          <!-- <div class="mobile-menu__social">
             <a href="" class="mobile-menu__social-item">
               <Icon name="youtube" />
             </a>
@@ -86,7 +130,7 @@
             <a href="" class="mobile-menu__social-item">
               <Icon name="insta" />
             </a>
-          </div>
+          </div> -->
         </div>
         <button
           type="button"
@@ -95,7 +139,7 @@
         >
           Остались вопросы?
         </button>
-        <a href="" class="mobile-menu__policy">Политика конфиденциальности</a>
+        <p class="mobile-menu__policy"><a href="#">Политика конфиденциальности</a></p>
         <div class="mobile-menu__payment">
           <div class="mobile-menu__payment-item">
             <Icon name="visa" />
@@ -112,12 +156,37 @@
 <script>
 import Link from './base/Link'
 import Icon from './base/Icon'
+import CityPopup from '@/components/CityPopup'
 
 export default {
   name: 'MobileMenu',
   components: {
     Link,
-    Icon
+    Icon,
+    CityPopup
+  },
+  data() {
+    return {
+      activeCityPopup: false
+    }
+  },
+  computed: {
+    activeCity() {
+      return this.$store.getters.activeCity
+    },
+    kitchen() {
+      return this.$route.name === 'product'
+    },
+    kitchenDetails() {
+      return this.kitchen && this.$store.state.kitchenDetails
+    },
+    modalData() {
+      return this.kitchenDetails ? {
+        item: this.kitchenDetails.info.name,
+        itemId: this.kitchenDetails.info.id,
+        productType: this.kitchenDetails.info.product_type
+      } : undefined
+    }
   },
   methods: {
     closeMenu() {
@@ -129,6 +198,14 @@ export default {
 
     showModal(modal) {
       this.$store.commit('setModal', modal)
+      this.$store.commit('setModalData', this.modalData)
+    },
+
+    openCityPopup() {
+      this.activeCityPopup = true
+    },
+    closeCityPopup() {
+      this.activeCityPopup = false
     }
   }
 }
@@ -243,6 +320,7 @@ export default {
 
   &__link {
     margin-bottom: 24px;
+    text-align: left;
     color: $color-white;
 
     &:last-child {
@@ -265,10 +343,30 @@ export default {
   }
 
   &__city {
+    position: relative;
+  }
+
+  &__city-current {
+    display: block;
     font-size: 16px;
     line-height: (20/16);
-    text-decoration-line: underline;
+    text-decoration: underline;
     color: $color-gray;
+  }
+
+  &__city-popup {
+    display: none;
+    position: absolute;
+    left: -$container-padding;
+    top: 100%;
+    margin-top: 18px;
+    width: calc(100% + #{$container-padding * 2});
+    max-width: 375px;
+    z-index: 5;
+
+    &.is-active {
+      display: block;
+    }
   }
 
   &__social {
@@ -294,7 +392,6 @@ export default {
   }
 
   &__policy {
-    display: inline-block;
     margin-top: 34px;
     font-size: 14px;
     line-height: (17/14);

@@ -112,7 +112,8 @@ export default {
         breakpoints: {
           [this.$breakpoints.lg]: {
             direction: 'vertical',
-            followFinger: false
+            followFinger: false,
+            threshold: 20
           }
         }
       }

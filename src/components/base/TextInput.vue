@@ -79,19 +79,7 @@ export default {
       height: 123px;
       resize: none;
     }
-  }
-
-  &.is-error {
-    #{$b} {
-      &__outline {
-        border-color: $color-red;
-      }
-
-      &__label {
-        color: $color-red;
-      }
-    }
-  }
+  }  
 
   &__field {
     display: block;
@@ -139,6 +127,18 @@ export default {
 
     &.is-active {
       transform: translateY(-27px);
+    }
+  }
+
+  &.is-error {
+    #{$b} {
+      &__outline {
+        border-color: $color-red;
+      }
+
+      &__label {
+        color: $color-red;
+      }
     }
   }
 }

@@ -71,7 +71,8 @@ export default {
         navigation: {
           prevEl: '.service__prev',
           nextEl: '.service__next'
-        }
+        },
+        touchEventsTarget: 'wrapper'
       }
     }
   },
@@ -127,18 +128,11 @@ export default {
 
   &__content {
     margin-top: 20px;
-    // margin-left: 60px;
-    // margin-right: 40px;
   }  
 
   &__text {
-    // margin-top: 35px;
-    // max-width: 630px;
     font-size: 14px;
     line-height: (28/14);
-    // font-size: 12px;
-    // line-height: (19/12);
-    color: $color-gray-middle;
   }
 
   &__decor {
@@ -150,8 +144,6 @@ export default {
 
   &__steps {
     margin: 10px (-$container-padding) 0;
-    // margin-top: 20px;
-    // margin-left: -80px;
   }
 
   @include media(md) {

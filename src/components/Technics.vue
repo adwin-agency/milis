@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col col-12 col-lg-6">
         <Swiper
+          :key="info.id"
           :options="swiperOptions"
           ref="mySwiper"
           class="technics__slider"
@@ -120,7 +121,8 @@ export default {
       },
       lazy: {
         loadPrevNext: true
-      }
+      },
+      touchEventsTarget: 'wrapper'
     }
   }),
   computed: {

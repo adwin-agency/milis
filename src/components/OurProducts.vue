@@ -23,14 +23,24 @@
             class="our-products__menu"
             filterType="catalog"
           />
-          <h1 class="our-products__heading">{{heading}}</h1>
-          <FilterTags
+          <h1
             v-if="!$mobile"
+            class="our-products__heading"
+          >
+            {{heading}}
+          </h1>
+          <FilterTags
             class="our-products__tags"
             :tags="tags"
             :activeTag="activeTag"
             @deselectTag="deselectTag"
           />
+          <h1
+            v-if="$mobile"
+            class="our-products__heading"
+          >
+            {{heading}}
+          </h1>
           <div class="our-products__items">
             <div class="our-products__image">
               <picture>
@@ -40,15 +50,17 @@
               </picture>
             </div>
             <div class="our-products__content">
-              <p class="our-products__quote">“Создать кухню Вашей мечты просто. Мы создадим вам кухню на заказ именно ту, о которой вы мечтали! <span class="our-products__author">Артем и Милла</span><span class="our-products__quote-b">Ведь это так просто”</span></p>
-              <Dropdowns class="our-products__features" :items="dropdowns" />
+              <p class="our-products__quote">“Мечтаете о новой кухне? Мы воплотим ваши кухонные желания в реальность и изготовим именно тот гарнитур, который вас полностью устроит! <span class="our-products__author">Артем и Милла</span><span class="our-products__quote-b">Ведь это так просто!”</span></p>
+              <Dropdowns
+                class="our-products__features"
+                :items="dropdowns"
+              />
             </div>
           </div>
         </div>
       </div>
       <div class="col col-6" v-if="!$mobile">
         <div class="our-products__card-wrap">
-          <slot></slot>
           <CatalogCard
             v-if="kitchen"
             :key="kitchen.id"
@@ -58,6 +70,12 @@
             :kitchen="kitchen"
             v-anim="true"
           />
+          <p
+            v-else
+            class="our-products__stock"
+          >
+            К сожалению, по вашему запросу ничего не найдено. <br>Попробуйте поменять один из фильтров - скорее всего, вас ждёт успех!
+          </p>
           <div class="our-products__leaf fade-slide-down js-anim" v-anim="true">
             <Icon name="leaf" />
           </div>
@@ -99,10 +117,10 @@ export default {
       fixedHeader: false,
       activeFilters: false,
       dropdowns: [
-        {arrow: true, title: 'Бесплатный дизайн-проект', desc: '“Создать кухню Вашей мечты просто. Мы создадим вам кухню на заказ именно ту, о которой вы мечтали! Ведь это так просто”'},
-        {arrow: true, title: 'Изготовление от 14 дней', desc: '“Создать кухню Вашей мечты просто. Мы создадим вам кухню на заказ именно ту, о которой вы мечтали! Ведь это так просто”'},
-        {arrow: true, title: 'Рассрочка до 6 месяцев', desc: '“Создать кухню Вашей мечты просто. Мы создадим вам кухню на заказ именно ту, о которой вы мечтали! Ведь это так просто”'},
-        {arrow: true, title: 'Кухня у вас за 3 простых шага!', desc: '“Создать кухню Вашей мечты просто. Мы создадим вам кухню на заказ именно ту, о которой вы мечтали! Ведь это так просто”'}
+        {arrow: true, title: 'Бесплатный дизайн-проект', desc: 'Наш дизайнер составит проект вашей будущей кухни совершенно бесплатно, даже в том случае, если вы по какой-то причине решите отказаться от наших услуг.'},
+        {arrow: true, title: 'Изготовление от 14 дней', desc: 'У нас собственный производственный цех, поэтому мы не зависим от посредников. Это позволяет изготавливать кухни гораздо быстрее и избегать неприятных задержек.'},
+        {arrow: true, title: 'Рассрочка до 6 месяцев', desc: 'Предоставляем беспроцентную рассрочку на полгода от наших банков партнеров. Высокий шанс одобрения и быстрое принятие решения!'},
+        {arrow: true, title: '3 простых шага - и кухня у Вас!', desc: 'Наш кухонный мир держится на трех китах - Заказ, Доставка, Сборка. Пройдет совсем немного времени с момента вашей заявки до момента, когда гарнитур уже в полном обмундировании будет радовать глаз у вас дома!'}
       ]
     }
   },
@@ -171,6 +189,10 @@ export default {
     margin: 18px (-$container-padding) 0;
   }
 
+  &__tags {
+    margin: 15px (-$container-padding) 0;
+  }
+
   &__details {
     margin: 0 (-$container-padding);
   }
@@ -232,6 +254,20 @@ export default {
   &__card-wrap {
     position: relative;
     margin-right: -$container-padding-md;
+    height: 100%;
+  }
+
+  &__stock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 70px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 1.5;
+    color: $color-blue;
   }
 
   &__leaf {
@@ -262,6 +298,10 @@ export default {
     padding-top: 75px;
 
     &__menu {
+      margin: 25px (-$container-padding-md) 0;
+    }
+
+    &__tags {
       margin: 25px (-$container-padding-md) 0;
     }
 
@@ -326,12 +366,14 @@ export default {
       margin-right: 0;
     }
 
-    &__heading {
-      margin-top: 8px;
-    }
-
     &__tags {
       margin-top: 10px;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    &__heading {
+      margin-top: 8px;
     }
 
     &__items {

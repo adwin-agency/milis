@@ -35,8 +35,6 @@
             textarea
             label="Комментарий"
             name="comment"
-            :error="errors.comment"
-            @input="onInput('comment', $event)"
           />
           <div class="modal-calc__file" :class="{'is-active': inputFileName}">
             <label class="modal-calc__file-label">
@@ -76,7 +74,7 @@
         </p>
       </form>
       <div class="modal-calc__success">
-        <ModalSuccess
+        <FormSuccess
           :class="{'is-active': sendSuccess}"
           :title="`Ваша заявка \n успешно отправлена!`"
           :desc="`Оператор свяжется с Вами в самое \n ближайшее время и уточнит детали!`"
@@ -99,7 +97,7 @@
           При расчете — 3D проект в{{'\xa0'}}подарок
         </p>
       </div>
-      <p class="modal-calc__date">Акция ограничена <br>до <b>21 марта</b></p>
+      <p class="modal-calc__date">Акция ограничена <br>до <b>{{promoDate}}</b></p>
       <img src="@/assets/img/modal-calc.png" alt="" class="modal-calc__image">
       <span class="modal-calc__like">
         <Icon name="hand-like" />
@@ -126,7 +124,7 @@ import TextInput from './base/TextInput'
 import Button from './base/Button'
 import Icon from './base/Icon'
 import Discount from './base/Discount'
-import ModalSuccess from '@/components/ModalSuccess'
+import FormSuccess from '@/components/FormSuccess'
 import api from '@/api'
 
 export default {
@@ -136,19 +134,17 @@ export default {
     Button,
     Icon,
     Discount,
-    ModalSuccess
+    FormSuccess
   },
   data() {
     return {
       inputs: {
         name: '',
-        phone: '',
-        comment: ''
+        phone: ''
       },
       errors: {
         name: false,
-        phone: false,
-        comment: false
+        phone: false
       },
       inputFileName: null,
       sending: false,
@@ -171,6 +167,9 @@ export default {
     },
     inputProductType() {
       return this.modalData && this.modalData.productType
+    },
+    promoDate() {
+      return this.$store.state.promoDate
     }
   },
   methods: {
@@ -214,20 +213,13 @@ export default {
       this.sendError = false
       const data = new FormData(this.$refs.calcform)
 
-      // if (window.Comagic) {
-      //   const comagicData = window.Comagic.getCredentials()
-
-      //   for (let item in comagicData) {
-      //     data.append(item, comagicData[item])
-      //   }
-      // }
-
       api.sendForm(data, 'size')
         .then(() => {
           this.sending = false
           this.sendSuccess = true
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err)
           this.sending = false
           this.sendError = true
         })

@@ -43,7 +43,7 @@
       v-if="!$mobile"
     >
       <RouterLink
-        to="/about"
+        :to="{name: 'about'}"
         v-slot="{ href, navigate }"
         custom
       >
@@ -97,7 +97,8 @@ export default {
         },
         lazy: {
           loadPrevNext: true
-        }
+        },
+        touchEventsTarget: 'wrapper'
       }
     }
   },

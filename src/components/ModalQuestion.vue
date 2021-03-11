@@ -34,9 +34,7 @@
             class="modal-question__field"
             textarea
             label="Вопрос"
-            name="question"
-            :error="errors.question"
-            @input="onInput('question', $event)"
+            name="comment"
           />
         </div>
         <Button
@@ -54,7 +52,7 @@
         </p>
       </form>
       <div class="modal-question__success">
-        <ModalSuccess
+        <FormSuccess
           :class="{'is-active': sendSuccess}"
           :title="`Ваш вопрос \n успешно отправлен`"
           :desc="`Наш первый освободившийся оператор \n перезвонит Вам и ответит \n на интересующий вопрос`"
@@ -74,7 +72,7 @@
 import TextInput from './base/TextInput'
 import Button from './base/Button'
 import Icon from './base/Icon'
-import ModalSuccess from '@/components/ModalSuccess'
+import FormSuccess from '@/components/FormSuccess'
 import api from '@/api'
 
 export default {
@@ -83,19 +81,17 @@ export default {
     TextInput,
     Button,
     Icon,
-    ModalSuccess
+    FormSuccess
   },
   data() {
     return {
       inputs: {
         name: '',
-        phone: '',
-        question: ''
+        phone: ''
       },
       errors: {
         name: false,
-        phone: false,
-        question: false
+        phone: false
       },
       sending: false,
       sendSuccess: false,
@@ -150,14 +146,6 @@ export default {
       this.sending = true
       this.sendError = false
       const data = new FormData(this.$refs.questionform)
-
-      // if (window.Comagic) {
-      //   const comagicData = window.Comagic.getCredentials()
-
-      //   for (let item in comagicData) {
-      //     data.append(item, comagicData[item])
-      //   }
-      // }
 
       api.sendForm(data, 'question')
         .then(() => {

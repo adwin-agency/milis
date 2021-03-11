@@ -6,11 +6,11 @@
     <RouterLink
       v-if="$mobile || (!alt && !top)"
       class="catalog-card__category"
-      to="/catalog"
+      :to="{name: 'category', params: {category: kitchen.category}}"
     >
       {{kitchen.category_rus}} / {{kitchen.style}}
     </RouterLink>
-    <RouterLink :to="{name: 'product', params: {category: kitchen.category, kitchen: kitchen.url, catalogPage: catalogPage || false}}" class="catalog-card__images">
+    <RouterLink :to="{name: 'product', params: {category: kitchen.category, kitchen: kitchen.url}}" class="catalog-card__images">
       <Swiper
         :options="swiperOptions"
         ref="mySwiper"
@@ -66,11 +66,12 @@
         <RouterLink
           v-if="!$mobile && (alt || top)"
           class="catalog-card__category"
-          to="/catalog"
+          :to="{name: 'category', params: {category: kitchen.category}}"
         >
           {{kitchen.category_rus}} / {{kitchen.style}}
         </RouterLink>
-        <p class="catalog-card__title">{{kitchen.name}}
+        <p class="catalog-card__title">
+          <RouterLink :to="{name: 'product', params: {category: kitchen.category, kitchen: kitchen.url}}">{{kitchen.name}}</RouterLink>
           <button
             type="button"
             class="catalog-card__stat"
@@ -123,6 +124,7 @@ export default {
     return {
       swiperOptions: {
         resistanceRatio: 0,
+        loop: true,
         navigation: {
           prevEl: '.catalog-card__prev',
           nextEl: '.catalog-card__next'
@@ -130,7 +132,8 @@ export default {
         allowTouchMove: !this.similar,
         lazy: {
           loadPrevNext: true
-        }
+        },
+        touchEventsTarget: 'wrapper'
       },
       activeLike: this.kitchen.likes_status !== 'disable',
       sendingLike: false,
@@ -360,6 +363,10 @@ export default {
           left: 42px;
         }
 
+        &__btn {
+          padding: 15px 10px 15px 35px;
+        }
+
         &__content {
           margin-top: 20px;
         }
@@ -418,7 +425,7 @@ export default {
         }
 
         &__btn {
-          padding-right: $container-padding-md;
+          padding-right: #{$container-padding-md + 10px};
         }
 
         &__discount {
@@ -500,7 +507,7 @@ export default {
     &_top {
       #{$b} {
         &__btn {
-          padding-right: $container-padding-xl;
+          padding-right: #{$container-padding-xl + 10px};
         }
 
         &__content {

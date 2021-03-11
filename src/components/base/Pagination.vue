@@ -40,13 +40,9 @@ export default {
     }
 
     &__item {
-      margin: 0 18px;
+      margin: 0 10px;
       padding: 0 6px;
       color: $color-gray;
-
-      &:last-child {
-        margin-right: 0;
-      }
 
       &.is-active {
         color: $color-blue;
@@ -59,12 +55,28 @@ export default {
       color: $color-blue;
     }
 
+    @include media(xs) {
+      &__item {
+        margin: 0 14px;
+      }
+    }
+
+    @include media(sm) {
+      &__item {
+        margin: 0 18px;
+      }
+    }
+
     @include media(md) {
       justify-content: flex-start;
 
       &__item {
         margin-left: 0;
         margin-right: 36px;
+
+        &:last-child {
+          margin-right: 0;
+        }
       }
 
       &__link {

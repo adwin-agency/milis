@@ -9,8 +9,8 @@
     <input type="hidden" name="item" :value="inputItem">
     <input type="hidden" name="item_id" :value="inputItemId">
     <input type="hidden" name="product_type" :value="inputProductType">
-    <p class="call-form__title">Пригласить дизайнера у нас просто</p>
-    <p class="call-form__desc">Вы можете пригласить дизайнера на дом. Заполните заявку, выберите удобные для Вас дату и время и наши операторы свяжутся с нами для подтверждения в течение 20 минут</p>
+    <p class="call-form__title">Пригласите дизайнера домой</p>
+    <p class="call-form__desc">Заполните заявку на сайте, выберите удобные дату и время встречи. Наши специалисты свяжутся с вами для подтверждения заявки.</p>
     <div class="call-form__items">
       <div class="call-form__fields">
         <TextInput
@@ -51,22 +51,24 @@
           ref="times"
         >
           <p class="call-form__times-title">Интервал времени</p>
-          <label
+          <div
             v-for="(time, index) in times"
             :key="index"
-            class="call-form__time"
+            class="call-form__times-item"
           >
-            <input
-              class="call-form__time-radio"
-              type="radio"
-              name="time"
-              :value="time"
-            >
-            <span class="call-form__time-box">{{time}}</span>
-            <span class="call-form__time-check">
-              <Icon name="check-circle"/>
-            </span>
-          </label>
+            <label class="call-form__time">
+              <input
+                class="call-form__time-radio"
+                type="radio"
+                name="time"
+                :value="time"
+              >
+              <span class="call-form__time-box">{{time}}</span>
+              <span class="call-form__time-check">
+                <Icon name="check-circle"/>
+              </span>
+            </label>
+          </div>
         </div>
         <Button
           class="call-form__btn"
@@ -225,14 +227,6 @@ export default {
       this.sendError = false
       const data = new FormData(this.$refs.callform)
 
-      // if (window.Comagic) {
-      //   const comagicData = window.Comagic.getCredentials()
-
-      //   for (let item in comagicData) {
-      //     data.append(item, comagicData[item])
-      //   }
-      // }
-
       api.sendForm(data, 'designer')
         .then(() => {
           this.sending = false
@@ -348,12 +342,15 @@ export default {
     color: $color-gray;
   }
 
+  &__times-item {
+    flex: 1 0 50%;
+    padding: 0 10px;
+    margin-bottom: 10px;
+  }
+
   &__time {
     display: block;
     position: relative;
-    flex-grow: 1;
-    flex-basis: 35%;
-    margin: 0 10px 10px;
     font-family: $font-secondary;
     cursor: pointer;
   }
@@ -377,6 +374,7 @@ export default {
     text-align: center;
     font-size: 12px;
     line-height: (16/12);
+    white-space: nowrap;
     color: $color-blue;
     transition: border-color .3s ease;
   }
@@ -467,21 +465,22 @@ export default {
     }
 
     &__times {
-      margin: 0 -6px;
+      margin: 0 -6px -10px;
     }
 
     &__times-title {
       margin-left: 6px;
     }
 
-    &__time {
-      flex-basis: auto;
-      margin: 0 6px;
+    &__times-item {
+      flex: 1 0 25%;
+      padding: 0 6px;
     }
 
     &__features {
       flex: 1;
-      margin-top: 56px;
+      align-self: center;
+      margin-top: 0;
       padding-right: 0;
     }
 
@@ -558,7 +557,7 @@ export default {
         }
 
         &__features {
-          margin-top: 56px;
+          margin-top: 0;
         }
 
         &__feature {
@@ -570,6 +569,10 @@ export default {
     &__desc {
       font-size: 14px;
       line-height: (22/14);
+    }
+
+    &__fields {
+      min-width: 390px;
     }
   }
 }

@@ -40,7 +40,6 @@ export default {
         spaceBetween: 20,
         slidesPerView: 'auto',
         freeMode: true,
-        freeModeMomentum: false,
         resistanceRatio: 0,
         breakpointsInverse: true,
         breakpoints: {

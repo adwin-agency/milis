@@ -11,7 +11,19 @@
           </div>
           <h1 class="not-found__heading">Упс.. мы потеряли кухни</h1>
           <p class="not-found__text">Но вы можете перейти в наш каталог, где <br>сможете подобрать идеальный вариант</p>
-          <Button class="not-found__btn">Перейти в каталог</Button>
+          <RouterLink
+            :to="{name: 'catalog'}"
+            v-slot="{ href, navigate }"
+            custom
+          >
+            <Button
+              class="not-found__btn"
+              :href="href"
+              @click.native="navigate"
+            >
+              Перейти в каталог
+            </Button>
+          </RouterLink>
         </div>
       </div>
     </div>

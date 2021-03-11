@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="reviews-list__panel">
-      <Button
+      <!-- <Button
         small
         underline
         icon="edit"
@@ -22,7 +22,7 @@
         modal="write"
       >
         Написать отзыв
-      </Button>
+      </Button> -->
       <div class="reviews-list__pagination">
         <button
           v-for="i in pages"
@@ -42,14 +42,14 @@
 
 <script>
 // import FilterMenu from './base/FilterMenu'
-import Button from './base/Button'
+// import Button from './base/Button'
 import ReviewCard from './ReviewCard'
 
 export default {
   name: 'ReviewsList',
   components: {
     // FilterMenu,
-    Button,
+    // Button,
     ReviewCard
   },
   props: {

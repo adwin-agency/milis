@@ -10,7 +10,7 @@
         <Header class="page-header fade-slide-down js-anim" v-anim="true" />
         <div class="delivery__content fade-bounce-right js-anim" v-anim="true">
           <h1 class="delivery__heading">Доставка в срок</h1>
-          <p class="delivery__text">После изготовления кухни,  она хранится на складе, что гарантирует ее сохранность. Наши специалисты позвонят вам и договорятся о времени встречи и уточнят адрес. <br><br>Доставка бесплатна. <br>Осуществляем доставку <b>по Москве, Санкт-Петербургу, Московской и Ленинградской области и Нижнему Новгороду.</b></p>
+          <p class="delivery__text">После изготовления кухня хранится на складе, что гарантирует ее сохранность. Наши специалисты созвонятся с вами и обговорят удобное время доставки, не забыв уточнить ваш адрес. <br><br>Осуществляем доставку <b>по Москве, Санкт-Петербургу, Московской и Ленинградской областям</b></p>
         </div>
       </div>
       <div class="col col-12 col-lg-9 col-xl-6">
@@ -53,11 +53,8 @@ export default {
 
   &__text {
     margin-top: 23px;
-    // max-width: 550px;
     font-size: 14px;
     line-height: (27/14);
-    // font-size: 12px;
-    // line-height: (27/12);
 
     b {
       color: $color-blue;
@@ -108,6 +105,7 @@ export default {
 
     &__content {
       margin-top: 44px;
+      margin-bottom: 60px;
     }
 
     &__text {
@@ -118,14 +116,15 @@ export default {
 
     &__image {
       margin-left: 0;
+      margin-bottom: 72px;
     }
 
     &__steps {
-      margin-top: 80px;
+      margin-top: 0;
     }
 
     &__decor {
-      margin-top: 135px;
+      margin-top: 55px;
       margin-left: 44px;
       max-width: 200px;
     }
@@ -153,6 +152,7 @@ export default {
 
     &__image {
       margin-right: -$container-padding-xl;
+      margin-bottom: 0;
     }
 
     &__steps {

@@ -4,6 +4,7 @@ module.exports = {
   // publicPath: '/milis/',
   assetsDir: 'assets',
   filenameHashing: false,
+  productionSourceMap: false,
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'scss',

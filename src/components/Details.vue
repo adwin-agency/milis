@@ -8,7 +8,6 @@
         <DetailSlider
           class="details__slider"
           :details="details"
-          v-anim="true"
         />
       </div>
       <div class="col col-12 col-lg-9 col-xl-5">
@@ -27,7 +26,9 @@
                 @click.native="navigate"
               />
             </RouterLink>
-            <p class="details__category">{{details.category_rus}} / {{details.style}}</p>
+            <p class="details__category">
+              <RouterLink :to="{name: 'category', params: {category: details.category}}">{{details.category_rus}} / {{details.style}}</RouterLink>
+            </p>
           </div>
           <h1 class="details__heading">{{details.name}}</h1>
           <div class="details__info">
@@ -46,7 +47,8 @@
               <Button
                 small
                 class="details__btn"
-                @click.native="showModal"
+                modal="calc"
+                :modalData="modalData"
               >
                 Рассчитать стоимость
               </Button>
@@ -143,10 +145,6 @@ export default {
           this.sendingLike = false
           this.newLikesCount = response
         })
-    },
-    showModal() {
-      this.$store.commit('setModal', 'calc')
-      this.$store.commit('setModalData', this.modalData)
     }
   }
 }
@@ -184,6 +182,7 @@ export default {
 
   &__prices {    
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
   }
 
@@ -300,7 +299,6 @@ export default {
     margin-top: 17px;
     font-size: 12px;
     line-height: (24/12);
-    color: $color-gray-middle;
   }
 
   @include media(md) {
@@ -433,6 +431,8 @@ export default {
 
     &__desc {
       margin-top: 44px;
+      font-size: 16px;
+      line-height: (33/16);
     }
 
     &__slider-col {

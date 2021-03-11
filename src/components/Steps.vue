@@ -1,74 +1,78 @@
 <template>
   <div :class="['steps', {'steps_transparent': delivery}, {'steps_service': service}]">
+
     <div v-if="delivery" class="steps__items">
       <div class="steps__item">
         <p class="steps__title">
           <span class="steps__num">1</span>
           Изготовление <br>кухни
         </p>
-        <p class="steps__desc">Стандартные сроки изготовления кухни на нашем производстве 1 месяц <br><br><span>*Срочное изготовление</span></p>
+        <p class="steps__desc">Стандартные сроки изготовления кухни на нашем производстве - 1{{'\xa0'}}месяц <br><br><span>*Срочное изготовление</span></p>
       </div>
       <div class="steps__item">
         <p class="steps__title">
           <span class="steps__num">2</span>
-          Предварительный <br>созвон
+          Оповещение <br>клиента
         </p>
-        <p class="steps__desc">С Вами свяжется менеджер, чтобы договориться об удобном времени доставки. До момента доставки кухня хранится у нас на складе</p>
+        <p class="steps__desc">С вами свяжется менеджер, чтобы договориться об удобном для вас времени доставки. До момента доставки кухня будет храниться у нас на складе.</p>
       </div>
       <div class="steps__item">
         <p class="steps__title">
           <span class="steps__num">3</span>
           Доставка <br>до двери
         </p>
-        <p class="steps__desc">Мы доставим Вашу кухню до двери с подъемом на этаж в удобное время</p>
+        <p class="steps__desc">Мы доставим вашу кухню до двери с подъемом на этаж в удобное для вас время.</p>
       </div>
     </div>
+
     <div v-else-if="assembly" class="steps__items">
       <div class="steps__item">
         <p class="steps__title">
           <span class="steps__num">1</span>
-          Распаковка <br>и сборка
+          Распаковываем <br>и собираем
         </p>
-        <p class="steps__desc">Первоночально сборщик соберет все корпуса, установит двери и доводчики</p>
+        <p class="steps__desc">Сперва сборщик собирает все корпуса, устанавливает двери и доводчики</p>
       </div>
       <div class="steps__item">
         <p class="steps__title">
           <span class="steps__num">2</span>
           Вырезаем <br>и монтируем
         </p>
-        <p class="steps__desc">Все необходимые дополнительные установки, такие как вырез столешницы под мойку, также проделывает наш сборщик.</p>
+        <p class="steps__desc">Далее производятся все необходимые дополнительные установки, такие как вырез столешницы под мойку, установка бытовой техники и прочее.</p>
       </div>
       <div class="steps__item">
         <p class="steps__title">
           <span class="steps__num">3</span>
           Убираем <br>мусор
         </p>
-        <p class="steps__desc">После готовой и проверенной Вами работы - мы уберем и вынесем весь крупногабаритный мусор</p>
+        <p class="steps__desc">Кухня готова! После того, как вы проверите качество выполненной работы и останетесь им довольны, мы уберем и вывезем за собой весь крупногабаритный строительный мусор.</p>
       </div>
     </div>
+
     <div v-else class="steps__items">
       <div class="steps__item">
         <p class="steps__title">
           <span class="steps__num">1</span>
           Замер <br>и 3D проект
         </p>
-        <p class="steps__desc">Дизайнер-проектировщик измерит помещение, по желанию изготовит бесплатный 3D проект</p>
+        <p class="steps__desc">Дизайнер-проектировщик измерит помещение и изготовит бесплатный 3D проект</p>
       </div>
       <div class="steps__item">
         <p class="steps__title">
           <span class="steps__num">2</span>
           Изготовление <br>и доставка
         </p>
-        <p class="steps__desc">Ваша кухня изготовится через 30 дней. Когда кухня будет готова мы свяжимся с Вами и{{'\xa0'}}договоримся о доставке</p>
+        <p class="steps__desc">Ваша кухня будет готова в течение 30 дней. После этого мы свяжемся с вами и договоримся о доставке в удобное для вас время</p>
       </div>
       <div class="steps__item">
         <p class="steps__title">
           <span class="steps__num">3</span>
           Сборка <br>и установка
         </p>
-        <p class="steps__desc">Сборщик соберет Вам кухню и вынесет крупногабаритный мусор</p>
+        <p class="steps__desc">Сборщик аккуратно соберет вашу кухню и не оставит после себя строительный мусор</p>
       </div>
     </div>
+    
     <div class="steps__leaf" :class="{'steps__leaf_bottom': leaf === 'bottom'}" v-if="leaf">
       <Icon name="leaf"/>
     </div>
@@ -87,7 +91,8 @@ export default {
     leaf: String,
     delivery: Boolean,
     assembly: Boolean,
-    service: Boolean
+    service: Boolean,
+    info: Boolean
   }
 }
 </script>
@@ -143,6 +148,8 @@ export default {
 
     span {
       text-decoration: underline;
+      font-family: $font-secondary;
+      color: $color-gray;
     }
   }
 

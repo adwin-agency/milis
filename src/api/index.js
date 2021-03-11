@@ -55,20 +55,40 @@ const api = {
   },
 
   sendForm(data, type) {
+
+    try {
+      const comagicData = window.Comagic.getCredentials()
+
+      for (let item in comagicData) {
+        data.append(item, comagicData[item])
+      }
+    } catch {
+      //
+    }
+
     return fetch('/send.php', {method: 'POST', body: data})
       .then(response => {
-        console.log(response)
+
         if (!response.ok) {
           throw new Error()
         }
-        console.log(type)
-        // window.fbq('track', 'lead')
-        // window.VK.Retargeting.Event('lead')
-        // window.gtag('event', this.formType, {event_category: 'Forms'})
-        // window.ym(73257226, 'reachGoal', type)
-        // window.ym(73257226, 'reachGoal', 'lead')
-        // window.dataLayer = window.dataLayer || []
-        // window.dataLayer.push({'event': 'formSubmit'})
+
+        return response.json()
+      })
+      .then(response => {
+
+        if (response.status !== 'ok') {
+          throw new Error()
+        }        
+        
+        window.fbq && window.fbq('track', 'Lead')
+        window.VK && window.VK.Retargeting.Event('lead')
+        window.gtag && window.gtag('event', type, {event_category: 'Forms'})
+        window.ym && window.ym(73257226, 'reachGoal', type)
+        window.ym && window.ym(73257226, 'reachGoal', 'lead')
+        window.dataLayer = window.dataLayer || []
+        window.dataLayer.push({'event': 'formSubmit'})
+        window.dataLayer.push({'event': type})
       })
   }
 }

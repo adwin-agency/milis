@@ -6,7 +6,7 @@
         <Credit class="v-payment__credit" />
         <Divider class="v-payment__divider scale-right js-anim" v-anim="true" />
         <ProductsForYou class="v-payment__products-for-you" />
-        <NavPanel class="v-payment__nav-panel" payment />
+        <NavPanel class="v-payment__nav-panel" navType="payment" />
       </div>
     </div>
   </Page>

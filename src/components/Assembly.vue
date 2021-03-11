@@ -9,17 +9,21 @@
       <div class="col col-12 col-lg-5">
         <div class="assembly__content">
           <h2 class="assembly__heading">Качественная сборка</h2>
-          <p class="assembly__text">Перед отправкой со склада ваша мебель тщательно проверяется и упаковывается. Наша сборка гарантирует более долговечное использование продукции. Наши сборщики отлично знают свою работу, сделают это быстро и качественно, а также уберут за собой мусор. <br><br>Такая сборка увеличивает Ваш срок гарантии еще на 6 месяцев. <br>Стоимость сборки 10% от стоимости гарнитура</p>
+          <p class="assembly__text">Перед тем, как отправить кухню со склада к заказчику, вся мебель тщательно проверяется и упаковывается. Наша сборка гарантирует продолжительное использование продукции. Сборщики соберут ваш гарнитур быстро и качественно. Не забудут убрать за собой весь строительный мусор. <br><br>Стоимость сборки составляет 10% от стоимости гарнитура</p>
           <Steps
             class="assembly__steps"
             v-if="$windowWidth >= $breakpoints.xl"
-            leaf
+            leaf="top"
             assembly
           />
         </div>
       </div>
       <div class="col col-12 col-lg-9" v-if="$windowWidth < $breakpoints.xl">
-        <Steps leaf assembly class="assembly__steps"/>
+        <Steps
+          class="assembly__steps"
+          leaf="top"
+          assembly
+        />
       </div>
     </div>
   </div>
@@ -42,15 +46,10 @@ export default {
 
   &__image {
     margin: 0 (-$container-padding);
-    // margin-top: 12px;
-    // width: 60.4%;
   }
 
   &__content {
     margin-top: 25px;
-    // width: 39.6%;
-    // padding-left: 60px;
-    // padding-right: 60px;
   }
 
   &__heading {
@@ -66,7 +65,6 @@ export default {
 
   &__steps {
     margin: 52px (-$container-padding) 0;
-    // margin-left: -262px;
   }
 
   @include media(md) {

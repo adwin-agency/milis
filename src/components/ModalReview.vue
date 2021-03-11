@@ -90,7 +90,6 @@ export default {
         spaceBetween: 16,
         slidesPerView: 'auto',
         freeMode: true,
-        freeModeMomentum: false,
         breakpointsInverse: true,
         breakpoints: {
           [this.$breakpoints.md]: {

@@ -199,7 +199,7 @@ button {
   z-index: 2;
 
   @include media(lg) {
-    position: static;
+    position: relative;
   }
 }
 

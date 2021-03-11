@@ -7,7 +7,7 @@
       </div>
       <div class="nav-panel__group nav-panel__group_wide">
         <RouterLink
-          to="/about"
+          :to="{name: 'about'}"
           v-slot="{ href, navigate }"
           custom
         >
@@ -19,7 +19,7 @@
           />
         </RouterLink>
         <RouterLink
-          to="/delivery"
+          :to="{name: 'delivery'}"
           v-slot="{ href, navigate }"
           custom
         >
@@ -40,18 +40,8 @@
 
     <template v-if="navType === 'product' || navType === 'article'">
       <div class="nav-panel__group">
-        <Link class="nav-panel__item" text="Как происходит оплата"/>
-        <Link class="nav-panel__item" text="Все о доставке и монтаже"/>
-      </div>
-      <div class="nav-panel__group">
-        <Link class="nav-panel__item" text="Подобрать технику для кухни"/>
-      </div>
-    </template>
-
-    <template v-if="navType === 'about' || navType === 'payment' || navType === 'reviews'">
-      <div class="nav-panel__group">
         <RouterLink
-          to="/payment"
+          :to="{name: 'payment'}"
           v-slot="{ href, navigate }"
           custom
         >
@@ -63,7 +53,7 @@
           />
         </RouterLink>
         <RouterLink
-          to="/delivery"
+          :to="{name: 'delivery'}"
           v-slot="{ href, navigate }"
           custom
         >
@@ -76,14 +66,90 @@
         </RouterLink>
       </div>
       <div class="nav-panel__group">
-        <Link class="nav-panel__item" text="Выбрать кухню"/>
+        <RouterLink
+          :to="{name: 'technics'}"
+          v-slot="{ href, navigate }"
+          custom
+        >
+          <Link
+            :href="href"
+            class="nav-panel__item"
+            text="Подобрать технику для кухни"
+            @click.native="navigate"
+          />
+        </RouterLink>
+      </div>
+    </template>
+
+    <template v-if="navType === 'about' || navType === 'payment' || navType === 'reviews'">
+      <div class="nav-panel__group">
+        <RouterLink
+          :to="{name: 'payment'}"
+          v-slot="{ href, navigate }"
+          custom
+        >
+          <Link
+            :href="href"
+            class="nav-panel__item"
+            text="Как происходит оплата"
+            @click.native="navigate"
+          />
+        </RouterLink>
+        <RouterLink
+          :to="{name: 'delivery'}"
+          v-slot="{ href, navigate }"
+          custom
+        >
+          <Link
+            :href="href"
+            class="nav-panel__item"
+            text="Все о доставке и монтаже"
+            @click.native="navigate"
+          />
+        </RouterLink>
+      </div>
+      <div class="nav-panel__group">
+        <RouterLink
+          :to="{name: 'catalog'}"
+          v-slot="{ href, navigate }"
+          custom
+        >
+          <Link
+            :href="href"
+            class="nav-panel__item"
+            text="Выбрать кухню"
+            @click.native="navigate"
+          />
+        </RouterLink>
       </div>
     </template>  
 
     <template v-if="navType === 'delivery'">
       <div class="nav-panel__group">
-        <Link class="nav-panel__item" text="Как происходит оплата"/>
-        <Link class="nav-panel__item" text="Все о доставке и монтаже"/>
+        <RouterLink
+          :to="{name: 'payment'}"
+          v-slot="{ href, navigate }"
+          custom
+        >
+          <Link
+            :href="href"
+            class="nav-panel__item"
+            text="Как происходит оплата"
+            @click.native="navigate"
+          />
+        </RouterLink>
+        <RouterLink
+          :to="{name: 'delivery'}"
+          v-slot="{ href, navigate }"
+          custom
+        >
+          <Link
+            :href="href"
+            class="nav-panel__item"
+            text="Все о доставке и монтаже"
+            @click.native="navigate"
+          />
+        </RouterLink>
       </div>
       <div class="nav-panel__group">
         <Link
@@ -130,6 +196,7 @@ export default {
 
   &__item {
     margin-bottom: 32px;
+    text-align: left;
     color: $color-blue;
 
     &:last-child {

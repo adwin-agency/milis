@@ -1,9 +1,24 @@
 <template>
   <div class="menu">
     <div class="menu__links">
-      <RouterLink to="/contacts" class="menu__link">Контакты</RouterLink>
-      <RouterLink to="/reviews" class="menu__link">Отзывы</RouterLink>
-      <RouterLink to="/payment" class="menu__link">Рассрочка 0˙0˙6</RouterLink>
+      <RouterLink
+        class="menu__link"
+        :to="{name: 'contacts'}"
+      >
+        Контакты
+      </RouterLink>
+      <RouterLink
+        class="menu__link"
+        :to="{name: 'reviews'}"
+      >
+        Отзывы
+      </RouterLink>
+      <RouterLink
+        class="menu__link"
+        :to="{name: 'payment'}"
+      >
+        Рассрочка 0˙0˙6
+      </RouterLink>
     </div>
     <nav class="menu__nav">
       <div class="menu__col">
@@ -59,25 +74,28 @@
             </RouterLink>
           </li>
         </ul>
-        <RouterLink to="/blog" class="menu__link-item">Блог о дизайне </RouterLink>
+        <!-- <RouterLink to="/blog" class="menu__link-item">Блог о дизайне </RouterLink> -->
       </div>
     </nav>
     <div class="menu__contacts">
       <!-- <a href="#" class="menu__location">Санкт-Петербург</a> -->
-      <a href="tel:+78009859598" class="menu__phone">
+      <a
+        class="menu__phone"
+        :href="`tel:${activeCity && activeCity.phone}`"
+      >
         <span class="menu__phone-icon">
           <Icon name="phone" />
         </span>
-        +7 (800) 985-95-98
+        {{activeCity && activeCity.phone}}
       </a>
-      <div class="menu__social">
+      <!-- <div class="menu__social">
         <a href="#" class="menu__social-item">
           <Icon width="25" height="17" name="vk-l" />
         </a>
         <a href="#" class="menu__social-item">
           <Icon width="17" height="17" name="insta-l" />
         </a>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -99,6 +117,9 @@ export default {
     },
     technicsCategories() {
       return this.$store.state.technicsCategories
+    },
+    activeCity() {
+      return this.$store.getters.activeCity
     }
   }
 }
@@ -106,7 +127,7 @@ export default {
 
 <style lang="scss">
 .menu {
-  padding: 74px 86px;
+  padding: 50px 86px;
   background-color: $color-white;
 
   &__links {
@@ -128,7 +149,7 @@ export default {
   &__nav {
     display: flex;
     justify-content: space-between;
-    margin-top: 64px;
+    margin-top: 50px;
   }
 
   &__col {
@@ -174,7 +195,7 @@ export default {
   &__contacts {
     display: flex;
     align-items: center;
-    margin-top: 92px;
+    margin-top: 50px;
     color: $color-gray;
   }
 
@@ -221,6 +242,10 @@ export default {
   @include media(xl) {
     padding: 70px 90px;
 
+    &__nav {
+      margin-top: 64px;
+    }
+
     &__link {
       margin-right: 125px;
     }
@@ -229,6 +254,10 @@ export default {
       &:last-child {
         margin-right: 30px;
       }
+    }
+
+    &__contacts {
+      margin-top: 92px;
     }
   }
 }

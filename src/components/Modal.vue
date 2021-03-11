@@ -78,8 +78,21 @@ export default {
     }
   },
   watch: {
-    modal(newContent, oldContent) {
-      if (newContent && !oldContent) {
+    modal(newModal) {
+      if (newModal) {
+        const modalGoals = {
+          call: 'open_designer',
+          calc: 'open_size',
+          technics: 'open_buy',
+          question: 'open_question'
+        }
+
+        if (newModal in modalGoals) {
+          window.VK && window.VK.Goal('initiate_checkout')
+          window.dataLayer = window.dataLayer || []
+          window.dataLayer.push({'event': modalGoals[newModal]})
+        }
+
         this.showModal()
       }
     }

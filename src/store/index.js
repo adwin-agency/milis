@@ -16,21 +16,10 @@ const store = new Vuex.Store({
     kitchenStyles: null,
     activeKitchenStyle: null,
     technicsCategories: null,
-    cities: [
-      {
-        "name": "Санкт-Петербург",
-        "name2": "Санкт-Петербурге",
-        "id_region": "536203",
-        "code": "spb",
-        "sort": "10",
-        "phone": "+7(812)605-86-83",
-        "address": "Уманский переулок, 74",
-        "coords": {
-          "lat": "59.969281",
-          "long": "30.451343"
-        }
-      }
-    ],
+    cities: null,
+    cityDetection: false,
+    activeCityCode: null,
+    promoDate: null,
     
     mainKitchens: null,
     catalogKitchens: null,
@@ -46,6 +35,9 @@ const store = new Vuex.Store({
   },
 
   getters: {
+    activeCity(state) {
+      return state.cities && state.cities.find(item => item.code === state.activeCityCode)
+    },
     reviewsPictures(state) {
       return state.reviews && state.reviews.reduce((allPictures, item) => allPictures.concat(item.pictures), [])
     },
@@ -73,7 +65,15 @@ const store = new Vuex.Store({
       state.kitchenCategories = base.categories
       state.kitchenStyles = base.styles
       state.technicsCategories = base.categories_tehnics
-      // state.cities = base.cities
+      state.cities = base.cities
+      state.activeCityCode = base.detected_city
+      state.promoDate = base.main_info[0].stock
+    },
+    setCityDetection(state, detection) {
+      state.cityDetection = detection
+    },
+    setActiveCityCode(state, code) {
+      state.activeCityCode = code
     },
     setActiveKitchenStyle(state, style) {
       state.activeKitchenStyle = style
@@ -106,7 +106,22 @@ const store = new Vuex.Store({
   actions: {
     loadBase({ commit }) {
       api.getBase()
-        .then(response => commit('setBase', response))
+        .then(response => {
+          commit('setBase', response)
+          
+          function getCookie(name) {
+            let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + "=([^;]*)"))
+            return matches ? decodeURIComponent(matches[1]) : undefined
+          }
+
+          const city = getCookie('city')
+
+          if (city) {
+            commit('setActiveCityCode', city)
+          } else {
+            commit('setCityDetection', true)
+          }
+        })
     },
     
     loadMainKitchens({ commit }) {

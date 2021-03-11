@@ -35,8 +35,6 @@
             textarea
             label="Комментарий"
             name="comment"
-            :error="errors.comment"
-            @input="onInput('comment', $event)"
           />
         </div>
         <Button
@@ -54,7 +52,7 @@
         </p>
       </form>
       <div class="modal-technics__success">
-        <ModalSuccess
+        <FormSuccess
           :class="{'is-active': sendSuccess}"
           :title="`Ваша заявка \n успешно отправлена!`"
           :desc="`Оператор свяжется с Вами в самое \n ближайшее время и уточнит детали!`"
@@ -75,7 +73,7 @@
 import TextInput from './base/TextInput'
 import Button from './base/Button'
 import Icon from './base/Icon'
-import ModalSuccess from '@/components/ModalSuccess'
+import FormSuccess from '@/components/FormSuccess'
 import api from '@/api'
 
 export default {
@@ -84,19 +82,17 @@ export default {
     TextInput,
     Button,
     Icon,
-    ModalSuccess
+    FormSuccess
   },
   data() {
     return {
       inputs: {
         name: '',
-        phone: '',
-        comment: ''
+        phone: ''
       },
       errors: {
         name: false,
-        phone: false,
-        comment: false
+        phone: false
       },
       sending: false,
       sendSuccess: false,
@@ -151,14 +147,6 @@ export default {
       this.sending = true
       this.sendError = false
       const data = new FormData(this.$refs.technicsform)
-
-      // if (window.Comagic) {
-      //   const comagicData = window.Comagic.getCredentials()
-
-      //   for (let item in comagicData) {
-      //     data.append(item, comagicData[item])
-      //   }
-      // }
 
       api.sendForm(data, 'buy')
         .then(() => {

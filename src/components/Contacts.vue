@@ -6,15 +6,15 @@
           class="contacts__map anim-img js-anim"
           :class="{'show': activeMap}"
           :settings="settings"
-          :coords="[59.969281, 30.451343]"
+          :coords="activeCity ? [activeCity.coords.lat, activeCity.coords.long] : []"
           :zoom="14"
           :controls="[]"
           :options="{suppressMapOpenBlock: true}"
           @map-was-initialized="onMapInit"
         >
           <YmapMarker
-            marker-id="123"
-            :coords="[59.969281, 30.451343]"
+            marker-id="marker"
+            :coords="activeCity ? [activeCity.coords.lat, activeCity.coords.long] : []"
             :icon="{
               layout: 'default#image',
               imageHref: require('@/assets/img/marker.svg'),
@@ -42,24 +42,50 @@
               <p class="contacts__desc">с 09.00 до 20.00 ежедневно, без выходных</p>
             </div>
           </div>
-          <form class="contacts__form">
-            <div class="contacts__fields">
-              <TextInput                
-                label="Телефон"
-                class="contacts__field"
-              />
-              <TextInput
-                textarea
-                label="Задать вопрос"
-                class="contacts__field"
+          <form
+            class="contacts__form"
+            :class="{'is-success': sendSuccess}"
+            ref="contactform"
+            @submit.prevent="onSubmit"
+          >
+            <input type="hidden" name="type" value="contacts">
+            <input type="hidden" name="page" :value="inputPage">
+            <div class="contacts__form-items">
+              <div class="contacts__fields">
+                <TextInput
+                  class="contacts__field"
+                  label="Телефон"
+                  type="tel"
+                  name="phone"
+                  :error="errors.phone"
+                  @input="onInput('phone', $event)"
+                />
+                <TextInput
+                  class="contacts__field"
+                  textarea
+                  label="Задать вопрос"
+                  name="comment"
+                />
+              </div>
+              <Button
+                type="submit"
+                class="contacts__btn"
+              >
+                Отправить заявку
+              </Button>
+            </div>
+            <p
+              v-if="sendError"
+              class="contacts__error"
+            >
+              Ошибка отправки
+            </p>
+            <div class="contacts__success">
+              <FormSuccess
+                :class="{'is-active': sendSuccess}"
+                :title="`Ваша заявка \n успешно отправлена!`"
               />
             </div>
-            <Button
-              type="submit"
-              class="contacts__btn"
-            >
-              Отправить заявку
-            </Button>
           </form>
         </div>
       </div>
@@ -71,7 +97,9 @@
 import TextInput from './base/TextInput'
 import Button from './base/Button'
 import Header from './Header'
+import FormSuccess from '@/components/FormSuccess'
 import { yandexMap as YandexMap, ymapMarker as YmapMarker } from 'vue-yandex-maps'
+import api from '@/api'
 
 export default {
   name: 'Contacts',
@@ -79,6 +107,7 @@ export default {
     TextInput,
     Button,
     Header,
+    FormSuccess,
     YandexMap,
     YmapMarker
   },
@@ -87,17 +116,71 @@ export default {
       activeMap: false,
       settings: {
         apiKey: '97b47e29-9575-451d-85f1-81cb05d53b6d'
-      }
+      },
+      inputs: {
+        phone: ''
+      },
+      errors: {
+        phone: false
+      },
+      sending: false,
+      sendSuccess: false,
+      sendError: false
     }
   },
   computed: {
     activeCity() {
-      return this.$store.state.cities[0]
+      return this.$store.getters.activeCity
+    },
+    inputPage() {
+      return this.$route.path
     }
   },
   methods: {
     onMapInit() {
       this.activeMap = true
+    },
+
+    onInput(input, value) {
+      if (this.errors[input]) {
+        this.errors[input] = false
+      }
+
+      this.inputs[input] = value
+    },
+
+    onSubmit() {
+      if (this.sending || this.sendSuccess) {
+        return
+      }
+
+      for (let input in this.inputs) {
+        const value = this.inputs[input]
+
+        if (value.trim() === '' || input === 'phone' && value.length < 16) {
+          this.errors[input] = true
+        }
+      }
+
+      for (let error in this.errors) {
+        if (this.errors[error]) {
+          return
+        }
+      }
+
+      this.sending = true
+      this.sendError = false
+      const data = new FormData(this.$refs.contactform)
+
+      api.sendForm(data, 'contact')
+        .then(() => {
+          this.sending = false
+          this.sendSuccess = true
+        })
+        .catch(() => {
+          this.sending = false
+          this.sendError = true
+        })
     }
   }
 }
@@ -105,6 +188,8 @@ export default {
 
 <style lang="scss">
 .contacts {
+  $b: &;
+
   &__content {
     margin-top: 40px;
   }
@@ -142,7 +227,18 @@ export default {
   }
 
   &__form {
+    position: relative;
     margin-top: 34px;
+
+    &.is-success {
+      #{$b} {
+        &__success {
+          opacity: 1;
+          pointer-events: all;
+          z-index: auto;
+        }
+      }
+    }
   }
 
   &__field {
@@ -158,16 +254,40 @@ export default {
     width: 100%;
   }
 
+  &__success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .5s ease;
+    z-index: -1;
+  }
+
+  &__error {
+    margin-top: 12px;
+    text-align: center;
+    font-family: $font-secondary;
+    font-size: 14px;
+    color: $color-red;
+  }
+
   &__map {
     margin: 0 (-$container-padding);
-    padding-top: 79%;
+    height: 300px;
     background-color: #ccc;
   }
 
   @include media(md) {
     &__map {
       margin: 0 (-$container-padding-md);
-      padding-top: 82%;
+      height: 580px;
     }
 
     &__heading {
@@ -176,9 +296,12 @@ export default {
     }
 
     &__form {
+      margin-right: 100px;
+    }
+
+    &__form-items {
       display: flex;
       align-items: flex-end;
-      margin-right: 100px;
     }
 
     &__fields {

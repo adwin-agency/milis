@@ -1,23 +1,18 @@
 <template>
   <div class="filter-tags">
     <p class="filter-tags__title">Вы уже определились со стилем?</p>
-    <div class="filter-tags__list">
+    <div class="filter-tags__wrapper">
       <RouterLink
         v-for="(tag, index) in tags"
-        :key="index"        
-        :to="{name: activeCategory ? 'category' : 'catalog', params: {category: activeCategory}, query: {style: tag.code}}"
-        v-slot="{ href, navigate, isActive }"
+        :key="index"
+        :to="{name: activeCategory ? 'category' : 'catalog', params: {category: activeCategory}, query: activeStyle === tag.code ? false : {style: tag.code}}"
         exact
-        custom
+        class="filter-tags__item"
+        :class="{'is-active': activeStyle === tag.code}"
       >
-        <span
-          class="filter-tags__item"
-          :class="isActive && 'is-active'">
-          <a :href="href" @click="navigate">{{tag.name}}</a>
-          <span
-            class="filter-tags__close"
-            @click.prevent="$emit('deselectTag')"
-          ></span>
+        {{tag.name}}
+        <span class="filter-tags__close">
+          <Icon name="close" />
         </span>
       </RouterLink>
     </div>
@@ -25,15 +20,22 @@
 </template>
 
 <script>
+import Icon from '@/components/base/Icon'
+
 export default {
   name: 'FilterTags',
+  components: {
+    Icon
+  },
   props: {
-    tags: Array,
-    activeTag: String
+    tags: Array
   },
   computed: {
     activeCategory() {
       return this.$route.params.category
+    },
+    activeStyle() {
+      return this.$route.query.style
     }
   }
 }
@@ -43,134 +45,129 @@ export default {
   .filter-tags {
     $b: &;
 
-    border-top: 1px solid #D9D9D9;
-    padding: 27px $container-padding 0;
+    overflow: hidden;
 
-    &__title {
-      margin-bottom: 33px;
-      font-weight: bold;
-      font-size: 14px;
-      line-height: (17/14);
-      color: $color-blue;
+    &__wrapper {
+      display: flex;
+      margin-bottom: -20px;
+      padding-bottom: 20px;
+      overflow-x: scroll;
+
+      &::before,
+      &::after {
+        content: "";
+        flex-shrink: 0;
+        width: $container-padding;
+      }
     }
 
-    &__list {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+    &__title {
+      display: none;
     }
 
     &__item {
-      position: relative;
-      margin-bottom: 26px;
-      margin-left: -16px;
-      padding: 5px 16px;
-      border-radius: 30px;
-      font-size: 14px;
-      line-height: (17/14);
-      text-decoration: underline;
-      transition: transform .3s ease, color .3s ease;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      margin-right: 10px;
+      padding: 7px 14px;
+      border-radius: 85px;
+      font-size: 12px;
+      line-height: (14/12);
+      background-color: $color-gray-6;
 
-      &::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: calc(100% + 12px);
-        height: 100%;
-        border-radius: inherit;
-        background-color: $color-blue;
-        opacity: 0;
-        transform: translateZ(0);
-        transition: opacity .3s ease;
-        pointer-events: none;
-        z-index: -1;
+      &:last-child {
+        margin-right: 0;
       }
 
       &.is-active {
-        transform: translateX(16px);
-        color: $color-white;
-
-        &::before {
-          opacity: 1;
-        }
-
-        a {
-          pointer-events: none;
-        }
+        color: #fff;
+        background-color: $color-blue;
 
         #{$b}__close {
-          opacity: 1;
-          pointer-events: all;
+          display: block;
         }
       }
     }
 
     &__close {
-      position: absolute;
-      top: 0;
-      right: -3px;
-      bottom: 0;
-      margin: auto;
-      width: 12px;
-      height: 12px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .3s ease;
-      cursor: pointer;
+      display: none;
+      width: 8px;
+      height: 8px;
+      margin-left: 8px;
+      fill: #fff;
+    }
 
-      &::before,
-      &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        margin: auto;
-        width: 100%;
-        height: 1px;
-        background-color: $color-white;
+    @include media(md) {
+      &__wrapper {
+        &::before,
+        &::after {
+          width: $container-padding-md;
+        }
       }
 
-      &::before {
-        transform: rotate(-45deg);
+      &__item {
+        padding: 8px 19px;
+        font-size: 14px;
+        line-height: (16/14);
       }
 
-      &::after {
-        transform: rotate(45deg);
+      &__close {
+        width: 10px;
+        height: 10px;
+        margin-left: 10px;
       }
     }
 
     @include media(lg) {
       display: flex;
       flex-wrap: wrap;
-      border-top: none;
-      padding: 0;
+      overflow: visible;
+
+      &__wrapper {
+        flex-wrap: wrap;
+        margin-left: -16px;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        overflow-x: visible;
+
+        &::before,
+        &::after {
+          display: none;
+        }
+      }
 
       &__title {
+        display: block;
         flex-shrink: 0;
         margin-top: 5px;
         margin-bottom: 12px;
         margin-right: 58px;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: (17/14);
+        color: $color-blue;
       }
-
-      &__list {
-        flex-wrap: wrap;
-        flex-direction: row;
-        align-items: center;
-        margin-left: -16px;
-      }
-
 
       &__item {
-        margin-left: 0;
-        margin-right: 14px;
+        position: relative;
+        margin-right: 20px;
         margin-bottom: 12px;
-        color: $color-gray;
+        padding: 5px 16px;
+        border-radius: 30px;
+        font-size: 14px;
+        line-height: (17/14);
+        text-decoration: underline;
+        color: $color-gray-middle;
+        background-color: transparent;
+
+        &:last-child {
+          margin-right: 20px;
+        }
 
         &.is-active {
-          transform: none;
+          margin-right: 0px;          
+          color: $color-white;
         }
       }
     }

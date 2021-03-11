@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <RouterLink
-      to="/"
+      :to="{name: 'main'}"
       exact
       class="header__logo"
     >
@@ -42,9 +42,20 @@
       </nav>
       <div class="header__contacts">
         <div class="header__city">
-          <button type="button" class="header__city-current">{{activeCity && activeCity.name}}</button>
-          <!-- <CityPopup class="header__city-popup" /> -->
-        </div>        
+          <button
+            class="header__city-current"
+            type="button"
+            @click="openCityPopup"
+          >
+            {{activeCity && activeCity.name}}
+          </button>
+          <CityPopup
+            class="header__city-popup"
+            :class="{'is-active': cityDetection || activeCityPopup}"
+            :detection="cityDetection"
+            @select="closeCityPopup"
+          />
+        </div>
         <a
           :href="`tel:${activeCity && activeCity.phone}`"
           class="header__phone"
@@ -56,7 +67,7 @@
         </a>
       </div>
     </div>
-    <RouterLink
+    <!-- <RouterLink
       :to="{name: 'blog'}"
       v-slot="{ href, navigate }"
       v-if="main && $mobile"
@@ -69,7 +80,7 @@
         :shadow="info"
         @click.native="navigate"
       />
-    </RouterLink>
+    </RouterLink> -->
     <button
       v-if="filters && $mobile"
       class="header__filters"
@@ -86,16 +97,16 @@
 
 <script>
 import Icon from './base/Icon'
-import ButtonAlt from './base/ButtonAlt'
-// import CityPopup from './CityPopup'
+// import ButtonAlt from './base/ButtonAlt'
+import CityPopup from './CityPopup'
 import Menu from './Menu'
 
 export default {
   name: 'Header',
   components: {
     Icon,
-    ButtonAlt,
-    // CityPopup,
+    // ButtonAlt,
+    CityPopup,
     Menu
   },
   props: {
@@ -105,12 +116,16 @@ export default {
   },
   data() {
     return {
-      activeMenu: false
+      activeMenu: false,
+      activeCityPopup: false
     }
   },
   computed: {
     activeCity() {
-      return this.$store.state.cities[0]
+      return this.$store.getters.activeCity
+    },
+    cityDetection() {
+      return this.$store.state.cityDetection
     }
   },
   methods: {
@@ -119,6 +134,12 @@ export default {
     },
     closeMenu() {
       this.activeMenu = false
+    },
+    openCityPopup() {
+      this.activeCityPopup = true
+    },
+    closeCityPopup() {
+      this.activeCityPopup = false
     }
   }
 }
@@ -223,12 +244,18 @@ export default {
   }
 
   &__city-popup {
+    display: none;
     position: absolute;
-    left: 0;
+    left: 50%;
     top: 100%;
     margin-top: 20px;
     width: 300px;
-    display: none;
+    transform: translateX(-34%);
+    z-index: 5;
+
+    &.is-active {
+      display: block;
+    }
   }
 
   &__phone {

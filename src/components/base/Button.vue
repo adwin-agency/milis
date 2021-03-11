@@ -35,7 +35,8 @@ export default {
     underline: Boolean,
     blue: Boolean,
     square: Boolean,
-    modal: String
+    modal: String,
+    modalData: Object
   },
   computed: {
     tag() {
@@ -58,6 +59,10 @@ export default {
       if (this.modal) {
         e.preventDefault()
         this.$store.commit('setModal', this.modal)
+
+        if (this.modalData) {
+          this.$store.commit('setModalData', this.modalData)
+        }
       }
     }
   }

@@ -46,8 +46,6 @@ export default {
   &__heading {
     font-size: 34px;
     line-height: (41/34);
-    // font-size: 60px;
-    // line-height: (73/60);
   }
 
   &__text {
@@ -58,17 +56,6 @@ export default {
 
   &__row {
     margin-top: 20px;
-    // display: flex;
-    // justify-content: space-between;
-    // align-items: flex-start;
-    // margin-top: 57px;
-  }
-
-  &__items {
-    // display: flex;
-    // justify-content: space-between;
-    // width: 64.4%;
-    // padding-right: 20px;
   }
 
   &__item {
@@ -78,8 +65,6 @@ export default {
     font-weight: bold;
     font-size: 16px;
     line-height: (25/16);
-    // font-size: 18px;
-    // line-height: (28/18);
     color: $color-blue;
 
     &:last-child {
@@ -99,7 +84,6 @@ export default {
   &__btn {
     margin-top: 34px;
     width: 100%;
-    // width: 435px;
   }
 
   @include media(md) {
@@ -156,10 +140,6 @@ export default {
 
     &__items {
       margin-right: 20px;
-    }
-
-    &__item {
-      margin-bottom: 54px;
     }
 
     &__icon {

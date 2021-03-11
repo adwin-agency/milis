@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col col-8">
             <RouterLink
-              to="/"
+              :to="{name: 'main'}"
               exact
               class="footer__logo"
             >
@@ -21,7 +21,7 @@
                       :key="index"
                       class="footer__menu-item"
                     >
-                      <RouterLink :to="{name: 'catalog'}">{{style.name}}</RouterLink>
+                      <RouterLink :to="{name: 'catalog', query: {style: style.code}}">{{style.name}}</RouterLink>
                     </li>
                   </ul>
                 </div>
@@ -58,16 +58,16 @@
             <div class="footer__nav">
               <div class="footer__nav-row">
                 <div class="footer__nav-col">
-                  <div class="footer__nav-item"><RouterLink to="/catalog">Все кухни</RouterLink></div>
-                  <div class="footer__nav-item"><RouterLink to="/technics">Техника</RouterLink></div>
-                  <div class="footer__nav-item"><RouterLink to="/reviews">Отзывы</RouterLink></div>
-                  <div class="footer__nav-item"><RouterLink to="/payment">Рассрочка</RouterLink></div>
+                  <div class="footer__nav-item"><RouterLink :to="{name: 'catalog'}">Все кухни</RouterLink></div>
+                  <div class="footer__nav-item"><RouterLink :to="{name: 'technics'}">Техника</RouterLink></div>
+                  <div class="footer__nav-item"><RouterLink :to="{name: 'reviews'}">Отзывы</RouterLink></div>
+                  <div class="footer__nav-item"><RouterLink :to="{name: 'payment'}">Рассрочка</RouterLink></div>
                 </div>
                 <div class="footer__nav-col">
-                  <div class="footer__nav-item"><RouterLink to="/about">Материалы</RouterLink></div>
-                  <div class="footer__nav-item"><RouterLink to="/delivery">Доставка и монтаж</RouterLink></div>
-                  <div class="footer__nav-item"><RouterLink to="/payment">Оплата</RouterLink></div>
-                  <div class="footer__nav-item"><RouterLink to="/contacts">Контакты</RouterLink></div>
+                  <div class="footer__nav-item"><RouterLink :to="{name: 'about'}">Материалы</RouterLink></div>
+                  <div class="footer__nav-item"><RouterLink :to="{name: 'delivery'}">Доставка и монтаж</RouterLink></div>
+                  <div class="footer__nav-item"><RouterLink :to="{name: 'payment'}">Оплата</RouterLink></div>
+                  <div class="footer__nav-item"><RouterLink :to="{name: 'contacts'}">Контакты</RouterLink></div>
                 </div>
               </div>
             </div>
@@ -75,7 +75,7 @@
           <div class="col col-4">
             <div class="footer__side">
               <p class="footer__label">Фабрика Милис - Всё просто!</p>
-              <RouterLink to="/blog" class="footer__link">Блог о дизайне</RouterLink>
+              <!-- <RouterLink to="/blog" class="footer__link">Блог о дизайне</RouterLink> -->
               <div class="footer__link-group">
                 <Link
                   class="footer__link"
@@ -93,7 +93,21 @@
               <div class="footer__contacts">
                 <p class="footer__title">Доставка и сборка</p>
                 <p class="footer__time">с 9:00 - до 22:00</p>
-                <a href="#" class="footer__city">{{activeCity && activeCity.name}}</a>
+                <div class="footer__city">
+                  <button
+                    class="footer__city-current"
+                    type="button"
+                    @click="openCityPopup"
+                  >
+                    {{activeCity && activeCity.name}}
+                  </button>
+                  <CityPopup
+                    class="footer__city-popup"
+                    :class="{'is-active': activeCityPopup}"
+                    right
+                    @select="closeCityPopup"
+                  />
+                </div>
                 <a
                   :href="`tel:${activeCity && activeCity.phone}`"
                   class="footer__phone"
@@ -103,7 +117,7 @@
                   </span>
                   {{activeCity && activeCity.phone}}
                 </a>
-                <div class="footer__social">
+                <!-- <div class="footer__social">
                   <a href="#" class="footer__social-item">
                     <Icon name="youtube"/>
                   </a>
@@ -113,7 +127,7 @@
                   <a href="#" class="footer__social-item">
                     <Icon name="insta"/>
                   </a>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>          
@@ -157,15 +171,22 @@
 <script>
 import Link from './base/Link'
 import Icon from './base/Icon'
+import CityPopup from '@/components/CityPopup'
 
 export default {
   name: 'Footer',
   components: {
     Link,
-    Icon
+    Icon,
+    CityPopup
   },
   props: {
     productDetails: Object
+  },
+  data() {
+    return {
+      activeCityPopup: false
+    }
   },
   computed: {
     kitchenCategories() {
@@ -185,12 +206,19 @@ export default {
       }
     },
     activeCity() {
-      return this.$store.state.cities[0]
+      return this.$store.getters.activeCity
     }
   },
   methods: {
     showModal(modal) {
       this.$store.commit('setModal', modal)
+      this.$store.commit('setModalData', this.modalData)
+    },
+    openCityPopup() {
+      this.activeCityPopup = true
+    },
+    closeCityPopup() {
+      this.activeCityPopup = false
     }
   }
 }
@@ -341,11 +369,30 @@ export default {
 
   &__city {
     display: inline-block;
+    position: relative;
     margin-top: 44px;
+  }
+
+  &__city-current {
+    display: block;
     font-size: 16px;
     line-height: (20/16);
     text-decoration: underline;
     color: $color-gray;
+  }
+
+  &__city-popup {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 20px;
+    width: 300px;
+    z-index: 5;
+
+    &.is-active {
+      display: block;
+    }
   }
 
   &__phone {
