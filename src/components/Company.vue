@@ -5,9 +5,8 @@
     <div class="company__row">
       <div class="company__image">
         <picture>
-          <source srcset="../assets/img/company-md.jpg" :media="'(min-width: ' + $breakpoints.md + 'px)'">
-          <source srcset="../assets/img/company.jpg">                
-          <img src="../assets/img/company-md.jpg" alt="">
+          <source srcset="../assets/img/founders-md.jpg" :media="'(min-width: ' + $breakpoints.md + 'px)'">        
+          <img src="../assets/img/founders.jpg" alt="">
         </picture>
       </div>
       <div class="company__content">

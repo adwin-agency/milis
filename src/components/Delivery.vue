@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col col-12 col-lg-6">
         <div class="delivery__image anim-img js-anim" v-anim="true">
-          <img src="../assets/img/delivery.jpg" alt="">
+          <img src="../assets/img/delivery-2.jpg" alt="">
         </div>
       </div>
       <div class="col col-12 col-lg-6 col-xl-5 delivery__content-col">

@@ -14,9 +14,8 @@
             <div class="info__about-content">
               <div class="info__about-img" v-if="$mobile">
                 <picture>
-                  <source srcset="../assets/img/info-photo-md.jpg" :media="'(min-width: ' + $breakpoints.md + 'px)'">
-                  <source srcset="../assets/img/info-photo.jpg">                
-                  <img src="../assets/img/info-photo-md.jpg" alt="">
+                  <source srcset="../assets/img/founders-md.jpg" :media="'(min-width: ' + $breakpoints.md + 'px)'">              
+                  <img src="../assets/img/founders.jpg" alt="">
                 </picture>
               </div>
               <p class="info__quote">Мы основатели компании “Милис”: Артем и Милла. В этой статье мы хотели бы ответить на самые популярные вопросы клиентов.
@@ -46,7 +45,7 @@
               </div>
             </div>
             <div class="info__about-img anim-img" :class="{'show': anim}" v-if="!$mobile">               
-              <img src="../assets/img/info-photo-md.jpg" alt="">
+              <img src="../assets/img/founders-md.jpg" alt="">
             </div>
           </div>        
         </div>

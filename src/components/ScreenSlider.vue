@@ -141,6 +141,7 @@ export default {
   &__next {
     position: absolute;
     bottom: 0;
+    transform: translateZ(0);
     z-index: 2;
   }
 

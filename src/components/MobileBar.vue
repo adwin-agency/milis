@@ -3,7 +3,7 @@
     <MobileMenu
       class="mobile-bar__menu"
       :class="{'is-active': activeMenu}"
-      @closeMenu="toggleMenu"
+      @closeMenu="closeMenu"
     />
     <div class="mobile-bar__wrapper">
       <div class="mobile-bar__items">
@@ -12,6 +12,7 @@
             class="mobile-bar__item mobile-bar__item_first"
             :to="{name: 'main'}"
             exact
+            @click.native="closeMenu"
           >
             <Icon
               class="mobile-bar__icon"
@@ -22,6 +23,7 @@
           <RouterLink 
             class="mobile-bar__item"
             :to="{name: 'about'}"
+            @click.native="closeMenu"
           >
             <Icon
               class="mobile-bar__icon"
@@ -33,6 +35,7 @@
         <RouterLink 
           class="mobile-bar__item"
           :to="{name: 'catalog'}"
+          @click.native="closeMenu"
         >
           <span class="mobile-bar__round">
             <Icon
@@ -89,9 +92,29 @@ export default {
       return this.$store.getters.activeCity
     }
   },
+  destroyed() {
+    this.closeMenu()
+  },
   methods: {
+    openMenu() {
+      this.activeMenu = true
+      document.body.classList.add('is-mobile-menu')
+      document.body.style.overflow = 'hidden'
+    },
+
+    closeMenu() {
+      this.activeMenu = false
+      const bodyClassList = document.body.classList
+
+      bodyClassList.remove('is-mobile-menu')
+
+      if (!bodyClassList.contains('is-mobile-filters') && !bodyClassList.contains('is-modal')) {
+        document.body.style.overflow = ''
+      }
+    },
+
     toggleMenu() {
-      this.activeMenu = !this.activeMenu
+      this.activeMenu ? this.closeMenu() : this.openMenu()
     }
   }
 }
@@ -225,7 +248,7 @@ export default {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     transform: translateX(100%);
     transition: transform .3s ease;
 

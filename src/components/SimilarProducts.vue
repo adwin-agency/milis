@@ -68,6 +68,7 @@ export default {
 
   &__item {
     width: 336px;
+    padding-bottom: 5px;
 
     &:first-child {
       margin-left: 10px;

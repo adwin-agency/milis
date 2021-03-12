@@ -9,13 +9,10 @@
           class="service__slider"
         >
           <SwiperSlide class="service__image anim-img js-anim" v-anim="true" >
-            <img src="../assets/img/service.jpg" alt="">
+            <img src="../assets/img/service-01.jpg" alt="">
           </SwiperSlide>
           <SwiperSlide class="service__image">
-            <img src="../assets/img/service.jpg" alt="">
-          </SwiperSlide>
-          <SwiperSlide class="service__image">
-            <img src="../assets/img/service.jpg" alt="">
+            <img src="../assets/img/service-02.jpg" alt="">
           </SwiperSlide>
           <ButtonNav
             prev

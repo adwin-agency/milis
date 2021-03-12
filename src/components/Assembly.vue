@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col col-12 col-lg-7">
         <div class="assembly__image anim-img js-anim" v-anim="true">
-          <img src="../assets/img/assembly.jpg" alt="">
+          <img src="../assets/img/assembly-2.jpg" alt="">
         </div>
       </div>
       <div class="col col-12 col-lg-5">

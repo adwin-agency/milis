@@ -169,7 +169,6 @@ export default {
     }
 
     &__desc {
-      max-width: 260px;
       padding-top: 16px;
       padding-left: 21px;
       font-size: 14px;

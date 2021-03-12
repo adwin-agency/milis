@@ -41,8 +41,9 @@
                   {{details.old_price}} ₽
                 </p>
                 <p class="details__price">от 
-                  <span class="details__price-num">{{details.price}} ₽</span>
+                  <span class="details__price-num">{{details.price}} ₽<span>*</span></span>
                 </p>
+                <p class="details__price-note"><span>*</span>за базовую комплектацию</p>
               </div>
               <Button
                 small
@@ -204,10 +205,25 @@ export default {
 
   &__price-num {
     font-size: 30px;
+
+    span {
+      color: $color-red;
+    }
+  }
+
+  &__price-note {
+    margin-top: 2px;
+    width: 100%;
+    font-size: 12px;
+    color: $color-blue;
+
+    span {
+      color: $color-red;
+    }
   }
 
   &__btn {
-    margin-top: 8px;
+    margin-top: 12px;
     width: 100%;
   }
 
@@ -346,6 +362,10 @@ export default {
 
     &__price-num {
       font-size: 50px;
+    }
+
+    &__price-note {
+      margin-top: 0;
     }
 
     &__btn {

@@ -33,7 +33,7 @@
           <TextInput
             class="modal-calc__field"
             textarea
-            label="Комментарий"
+            label="Размер и пожелания"
             name="comment"
           />
           <div class="modal-calc__file" :class="{'is-active': inputFileName}">
@@ -218,8 +218,7 @@ export default {
           this.sending = false
           this.sendSuccess = true
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
           this.sending = false
           this.sendError = true
         })

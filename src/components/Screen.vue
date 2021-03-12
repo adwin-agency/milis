@@ -48,8 +48,9 @@
                 <RouterLink :to="{name: 'product', params: {category: kitchen.category, kitchen: kitchen.url}}">{{kitchen.name}}</RouterLink>  
               </h2>
               <p class="screen__price">от 
-                <span class="screen__price-num">{{kitchen.price}} ₽</span>
+                <span class="screen__price-num">{{kitchen.price}} ₽<span>*</span></span>
               </p>
+              <p class="screen__price-note"><span>*</span>за базовую комплектацию</p>
               <Button
                 class="screen__btn"
                 modal="calc"
@@ -253,6 +254,19 @@ export default {
 
   &__price-num {
     font-size: 30px;
+
+    span {
+      color: $color-red;
+    }
+  }
+
+  &__price-note {
+    font-size: 12px;
+    color: $color-blue;
+
+    span {
+      color: $color-red;
+    }
   }
 
   &__btn {
@@ -318,6 +332,10 @@ export default {
     &__price-num {
       margin-left: 10px;
       font-size: 60px;
+    }
+    
+    &__price-note {
+      margin-top: 5px;
     }
 
     &__btn {
@@ -424,6 +442,10 @@ export default {
 
     &__price-num {
       font-size: 60px;
+    }
+
+    &__price-note {
+      font-size: 14px;
     }
 
     &__btn {

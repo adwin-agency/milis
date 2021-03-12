@@ -88,8 +88,9 @@
       <div class="catalog-card__prices">
         <p v-if="kitchen.old_price" class="catalog-card__oldprice">{{kitchen.old_price}} ₽</p> 
         <p class="catalog-card__price">от 
-          <span class="catalog-card__price-num">{{kitchen.price}} ₽</span>
+          <span class="catalog-card__price-num">{{kitchen.price}} ₽<span>*</span></span>
         </p>
+        <p class="catalog-card__price-note"><span>*</span>за базовую комплектацию</p>
       </div>
     </div>
   </div>
@@ -219,6 +220,7 @@ export default {
   &__next {
     position: absolute;
     bottom: 0;
+    transform: translateZ(0);
     z-index: 1;
   }
 
@@ -266,6 +268,7 @@ export default {
     text-decoration: underline;
     color: $color-blue;
     background-color: #fff;
+    transform: translateZ(0);
     z-index: 1;
   }
 
@@ -339,6 +342,19 @@ export default {
 
   &__price-num {
     font-size: 30px;
+
+    span {
+      color: $color-red;
+    }
+  }
+
+  &__price-note {
+    font-size: 12px;
+    color: $color-blue;
+
+    span {
+      color: $color-red;
+    }
   }
 
   @include media(lg) {
@@ -394,6 +410,10 @@ export default {
         &__price {
           font-size: 22px;
           line-height: (36/22);
+        }
+
+        &__price-note {
+          margin-top: -8px;
         }
       }
     }

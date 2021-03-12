@@ -281,7 +281,6 @@ export default {
   &__map {
     margin: 0 (-$container-padding);
     height: 300px;
-    background-color: #ccc;
   }
 
   @include media(md) {

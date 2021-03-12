@@ -99,6 +99,7 @@ export default {
   },
   methods: {
     showModal() {
+      document.body.classList.add('is-modal')
       document.body.style.paddingRight = window.innerWidth - document.documentElement.clientWidth + 'px'
       document.body.style.overflow = 'hidden'
       this.active = true     
@@ -110,7 +111,14 @@ export default {
     
     afterLeave() {
       document.body.style.paddingRight = ''
-      document.body.style.overflow = ''
+      const bodyClassList = document.body.classList
+
+      bodyClassList.remove('is-modal')
+
+      if (!bodyClassList.contains('is-mobile-menu') && !bodyClassList.contains('is-mobile-filters')) {
+        document.body.style.overflow = ''
+      }
+      
       this.$store.commit('setModal', null)
       this.$store.commit('setModalData', null)
     }

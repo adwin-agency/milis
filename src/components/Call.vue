@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col col-12 col-xl-5">
         <div class="call__image anim-img js-anim" v-anim="true" >
-          <img src="../assets/img/call-form.jpg" alt="">
+          <img src="../assets/img/call-form-2.jpg" alt="">
         </div>
         <p class="call__decor" v-if="$windowWidth >= $breakpoints.xl">Все просто!</p>
       </div>

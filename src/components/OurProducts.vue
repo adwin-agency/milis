@@ -5,15 +5,22 @@
         <div class="row">
           <div class="col col-12 col-xl-10">
             <Header
-              v-if="$mobile"
-              class="page-header-sticky"
-              :class="{'is-fixed': fixedHeader}"
+              v-if="fixedHeader"
+              class="page-header-fixed"
+              :class="{'is-sticky': stickyHeader}"
+              fixed
               filters
               @openFilters="toggleFilters"
             />
+            <div
+              v-if="fixedHeader"
+              class="page-header-spacer"
+            ></div>
             <Header
               v-else
               class="page-header fade-slide-down js-anim"
+              filters
+              @openFilters="toggleFilters"
               v-anim="true"
             />
           </div>
@@ -44,9 +51,8 @@
           <div class="our-products__items">
             <div class="our-products__image">
               <picture>
-                <source srcset="@/assets/img/our-products-md.jpg" :media="'(min-width: ' + $breakpoints.md + 'px)'">
-                <source srcset="@/assets/img/our-products.jpg">                
-                <img src="@/assets/img/our-products-md.jpg" alt="">
+                <source srcset="@/assets/img/founders-md.jpg" :media="'(min-width: ' + $breakpoints.md + 'px)'">              
+                <img src="@/assets/img/founders.jpg" alt="">
               </picture>
             </div>
             <div class="our-products__content">
@@ -115,6 +121,7 @@ export default {
   data() {
     return {
       fixedHeader: false,
+      stickyHeader: false,
       activeFilters: false,
       dropdowns: [
         {arrow: true, title: 'Бесплатный дизайн-проект', desc: 'Наш дизайнер составит проект вашей будущей кухни совершенно бесплатно, даже в том случае, если вы по какой-то причине решите отказаться от наших услуг.'},
@@ -159,11 +166,24 @@ export default {
       }
     },
     handleScroll() {
-      this.fixedHeader = window.scrollY > 0
+      this.fixedHeader = window.scrollY > 300
+      this.stickyHeader = window.scrollY > 600
     },
     toggleFilters() {
-      this.activeFilters = !this.activeFilters
-      document.body.style.overflow = this.activeFilters ? 'hidden' : ''
+      if (this.activeFilters) {
+        this.activeFilters = false
+        const bodyClassList = document.body.classList
+
+        bodyClassList.remove('is-mobile-filters')
+
+        if (!bodyClassList.contains('is-mobile-menu') && !bodyClassList.contains('is-modal')) {
+          document.body.style.overflow = ''
+        }
+      } else {
+        this.activeFilters = true
+        document.body.classList.add('is-mobile-filters')
+        document.body.style.overflow = 'hidden'
+      }
     },
     applyFilters(category, style) {
       this.toggleFilters()
@@ -448,6 +468,7 @@ export default {
 
     &__features {
       margin-top: 48px;
+      margin-right: 50px;
     }
 
     &__card-wrap {

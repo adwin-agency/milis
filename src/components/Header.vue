@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header :class="['header', {'header_fixed': fixed}]">
     <RouterLink
       :to="{name: 'main'}"
       exact
@@ -112,7 +112,8 @@ export default {
   props: {
     main: Boolean,
     info: Boolean,
-    filters: Boolean
+    filters: Boolean,
+    fixed: Boolean
   },
   data() {
     return {
@@ -154,6 +155,11 @@ export default {
   align-items: center;
   padding-top: 20px;
   font-family: $font-secondary;
+
+  &_fixed {
+    padding: 10px $container-padding;
+    background-color: #fff;
+  }
 
   &__logo {
     flex-shrink: 0;
@@ -293,6 +299,10 @@ export default {
 
   @include media(md) {
     padding-top: 24px;
+
+    &_fixed {
+      padding: 10px $container-padding-md;
+    }
     
     &__logo {
       width: 80px;
@@ -303,6 +313,34 @@ export default {
     align-items: flex-start;
     padding-top: 28px;
 
+    &_fixed {
+      align-items: center;
+      padding: 20px $container-padding-md;
+
+      #{$b} {
+        &__actions {
+          display: flex;
+          align-items: center;
+        }
+
+        &__nav {
+          margin-right: 188px;
+        }
+
+        &__menu {
+          left: -100px;
+        }
+
+        &__contacts {
+          margin-top: 0;
+        }
+
+        &__city {
+          margin-right: 60px;
+        }
+      }
+    }
+
     &__logo {
       width: 100px;
     }
@@ -310,6 +348,16 @@ export default {
 
   @include media(xl) {
     padding-top: 43px;
+
+    &_fixed {
+      padding: 28px $container-padding-md;
+
+      #{$b} {
+        &__menu {
+          left: -200px;
+        }
+      }
+    }
 
     &__logo {
       width: 132px;

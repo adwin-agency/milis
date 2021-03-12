@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col col-12" v-if="$mobile">
         <div class="about__image">
-          <img src="../assets/img/about.jpg" alt="">
+          <img src="../assets/img/about-2.jpg" alt="">
         </div>
       </div>
       <div class="col col-12 col-lg-6 col-xl-5 about__main-col">
@@ -19,12 +19,12 @@
           <Company class="about__company" />
         </div>        
         <div class="about__add-img anim-img js-anim" v-anim="true">
-          <img src="../assets/img/about-add.jpg" alt="">
+          <img src="../assets/img/about-add-2.jpg" alt="">
         </div>
       </div>
       <div class="col col-12 col-lg-6">
         <div class="about__image anim-img js-anim" v-anim="true" v-if="!$mobile">
-          <img src="../assets/img/about.jpg" alt="">
+          <img src="../assets/img/about-2.jpg" alt="">
         </div>
         <Production class="about__production" />
         <Materials class="about__materials" />
