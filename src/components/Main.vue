@@ -44,7 +44,7 @@
           @wheel="handleSectionsWheel"
         >
           <Info class="main__info" :anim="animInfo" />
-          <Footer class="main__footer" v-if="!$mobile" />
+          <Footer class="main__footer" />
         </div>
       </SwiperSlide>
     </Swiper>
@@ -101,6 +101,7 @@ export default {
       showTop: false,
       showPagination: false,
       animInfo: false,
+      wheelDelta: 0,
 
       swiperOptions: {
         speed: 500,
@@ -175,7 +176,12 @@ export default {
         return
       }
 
-      e.deltaY < 0 ? this.swiper.slidePrev() : this.swiper.slideNext()
+      this.wheelDelta += e.deltaY
+
+      if (Math.abs(this.wheelDelta) >= 250) {
+        this.wheelDelta < 0 ? this.swiper.slidePrev() : this.swiper.slideNext()
+        this.wheelDelta = 0
+      }
     },
 
     handleSectionsWheel(e) {
@@ -183,7 +189,14 @@ export default {
         return
       }
 
-      e.deltaY < 0 && this.sections.scrollTop === 0 && this.swiper.slidePrev()
+      if (this.sections.scrollTop === 0) {
+        this.wheelDelta += e.deltaY
+
+        if (this.wheelDelta <= -250) {
+          this.swiper.slidePrev()
+          this.wheelDelta = 0
+        }
+      }
     }
   }
 }
@@ -205,7 +218,6 @@ export default {
     opacity: 0;
     transform: translateY(-20px);
     transition: opacity .3s ease, transform .3s ease;
-    z-index: 2;
 
     &.show {
       opacity: 1;
@@ -214,7 +226,9 @@ export default {
   }
 
   &__header {
+    position: relative;
     width: 100%;
+    z-index: 2;
   }
 
   &__screens {
@@ -242,6 +256,7 @@ export default {
 
   &__sections {
     height: 100%;
+    padding-bottom: 35px;
     overflow-y: scroll;
   }
 
@@ -319,6 +334,10 @@ export default {
       height: 144px;
     }
 
+    &__sections {
+      padding-bottom: 72px;
+    }
+
     &__pagination {
       left: $container-padding-md;
       bottom: 140px;
@@ -346,6 +365,10 @@ export default {
 
     &__wrapper::after {
       display: none;
+    }
+
+    &__sections {
+      padding-bottom: 0;
     }
 
     &__pagination {

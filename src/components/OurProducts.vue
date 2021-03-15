@@ -156,6 +156,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
   },
   destroyed() {
+    this.activeFilters && this.toggleFilters()
     window.removeEventListener('resize', this.handleResize)
     window.removeEventListener('scroll', this.handleScroll)
   },

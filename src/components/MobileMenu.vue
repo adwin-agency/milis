@@ -69,17 +69,17 @@
           {{activeCity && activeCity.phone}}
         </a>
       </div>
-    </div>    
-    <div class="mobile-menu__footer">
+    </div>
+    <!-- <div class="mobile-menu__footer">
       <div class="container">
         <p class="mobile-menu__label">Фабрика Милис - Всё просто!</p>
-        <!-- <RouterLink
+        <RouterLink
           class="mobile-menu__title-link mobile-menu__blog-link"
           :to="{name: 'blog'}"
           @click.native="closeMenu"
         >
           Блог о дизайне
-        </RouterLink>     -->
+        </RouterLink>    
         <div class="mobile-menu__link-group">
           <Link
             class="mobile-menu__link"
@@ -120,7 +120,7 @@
               @close="closeCityPopup"
             />
           </div>
-          <!-- <div class="mobile-menu__social">
+          <div class="mobile-menu__social">
             <a href="" class="mobile-menu__social-item">
               <Icon name="youtube" />
             </a>
@@ -130,7 +130,7 @@
             <a href="" class="mobile-menu__social-item">
               <Icon name="insta" />
             </a>
-          </div> -->
+          </div>
         </div>
         <button
           type="button"
@@ -149,21 +149,21 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import Link from './base/Link'
+// import Link from './base/Link'
 import Icon from './base/Icon'
-import CityPopup from '@/components/CityPopup'
+// import CityPopup from '@/components/CityPopup'
 
 export default {
   name: 'MobileMenu',
   components: {
-    Link,
+    // Link,
     Icon,
-    CityPopup
+    // CityPopup
   },
   data() {
     return {

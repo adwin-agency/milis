@@ -1,10 +1,7 @@
 <template>
   <div class="v-page">
     <slot></slot>
-    <Footer
-      v-if="!$mobile"
-      :productDetails="productDetails"
-    />
+    <Footer :productDetails="productDetails" />
   </div>
 </template>
 

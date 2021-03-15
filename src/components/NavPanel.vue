@@ -5,7 +5,7 @@
       <div class="nav-panel__pagination">
         <slot name="pagination"></slot>
       </div>
-      <div class="nav-panel__group nav-panel__group_wide">
+      <div class="nav-panel__group">
         <RouterLink
           :to="{name: 'about'}"
           v-slot="{ href, navigate }"
@@ -30,11 +30,11 @@
             @click.native="navigate"
           />
         </RouterLink>
-        <Link
+        <!-- <Link
           class="nav-panel__item"
           text="Хочу пригласить дизайнера"
           modal="call"
-        />
+        /> -->
       </div>
     </template>
 
@@ -151,13 +151,13 @@
           />
         </RouterLink>
       </div>
-      <div class="nav-panel__group">
+      <!-- <div class="nav-panel__group">
         <Link
           class="nav-panel__item"
           text="Хочу пригласить дизайнера"
           modal="call"
         />
-      </div>
+      </div> -->
     </template>
 
   </div>

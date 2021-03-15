@@ -43,7 +43,7 @@
                 <p class="details__price">от 
                   <span class="details__price-num">{{details.price}} ₽<span>*</span></span>
                 </p>
-                <p class="details__price-note"><span>*</span>за базовую комплектацию</p>
+                <p class="details__price-note"><span>*</span>за весь гарнитур</p>
               </div>
               <Button
                 small

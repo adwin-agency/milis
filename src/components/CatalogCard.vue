@@ -90,7 +90,7 @@
         <p class="catalog-card__price">от 
           <span class="catalog-card__price-num">{{kitchen.price}} ₽<span>*</span></span>
         </p>
-        <p class="catalog-card__price-note"><span>*</span>за базовую комплектацию</p>
+        <p class="catalog-card__price-note"><span>*</span>за весь гарнитур</p>
       </div>
     </div>
   </div>
@@ -257,17 +257,17 @@ export default {
     display: flex;
     align-items: center;
     position: absolute;
-    right: -1px;
-    bottom: -1px;
-    padding: 10px 1px 9px 20px;
+    right: 0;
+    bottom: 0;
+    padding: 10px 5px 10px 20px;
     border-top-left-radius: 30px;
     font-family: $font-secondary;
     font-weight: bold;
     font-size: 12px;
     line-height: 1.47;
     text-decoration: underline;
-    color: $color-blue;
-    background-color: #fff;
+    color: $color-white;
+    background-color: $color-green;
     transform: translateZ(0);
     z-index: 1;
   }
@@ -380,7 +380,7 @@ export default {
         }
 
         &__btn {
-          padding: 15px 10px 15px 35px;
+          padding: 15px 20px 15px 35px;
         }
 
         &__content {
@@ -445,7 +445,7 @@ export default {
         }
 
         &__btn {
-          padding-right: #{$container-padding-md + 10px};
+          padding-right: #{$container-padding-md + 20px};
         }
 
         &__discount {
@@ -468,12 +468,11 @@ export default {
     }
 
     &__btn {
-      padding: 10px 0 8px 24px;
+      padding: 10px 10px 10px 24px;
     }
 
     &__btn-icon {
       margin-left: 8px;
-      margin-right: 8px;
       width: 18px;
       height: 18px;
     }
@@ -527,7 +526,7 @@ export default {
     &_top {
       #{$b} {
         &__btn {
-          padding-right: #{$container-padding-xl + 10px};
+          padding-right: #{$container-padding-xl + 20px};
         }
 
         &__content {

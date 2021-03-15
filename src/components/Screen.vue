@@ -50,7 +50,7 @@
               <p class="screen__price">от 
                 <span class="screen__price-num">{{kitchen.price}} ₽<span>*</span></span>
               </p>
-              <p class="screen__price-note"><span>*</span>за базовую комплектацию</p>
+              <p class="screen__price-note"><span>*</span>за весь гарнитур</p>
               <Button
                 class="screen__btn"
                 modal="calc"

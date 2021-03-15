@@ -3,7 +3,10 @@
     <div class="container">
       <div class="footer__section">
         <div class="row">
-          <div class="col col-8">
+          <div
+            v-if="!$mobile"
+            class="col col-8"
+          >
             <RouterLink
               :to="{name: 'main'}"
               exact
@@ -72,10 +75,15 @@
               </div>
             </div>
           </div>
-          <div class="col col-4">
+          <div class="col col-12 col-lg-4">
             <div class="footer__side">
               <p class="footer__label">Фабрика Милис - Всё просто!</p>
-              <!-- <RouterLink to="/blog" class="footer__link">Блог о дизайне</RouterLink> -->
+              <!-- <RouterLink
+                :to="{name: 'blog'}"
+                class="footer__link footer__link_lg"
+              >
+                Блог о дизайне
+              </RouterLink> -->
               <div class="footer__link-group">
                 <Link
                   class="footer__link"
@@ -91,7 +99,7 @@
                 />
               </div>
               <div class="footer__contacts">
-                <p class="footer__title">Доставка и сборка</p>
+                <p class="footer__title">Работаем без выходных</p>
                 <p class="footer__time">с 9:00 - до 22:00</p>
                 <div class="footer__city">
                   <button
@@ -104,8 +112,9 @@
                   <CityPopup
                     class="footer__city-popup"
                     :class="{'is-active': activeCityPopup}"
-                    right
+                    rightmobile
                     @select="closeCityPopup"
+                    @close="closeCityPopup"
                   />
                 </div>
                 <a
@@ -135,12 +144,7 @@
       </div>
       <div class="footer__section">
         <div class="row">
-          <div class="col col-4">
-            <div class="footer__policy">
-              <a href="#">Политика конфиденциальности</a>
-            </div>
-          </div>
-          <div class="col col-4">
+          <div class="col col-12 col-lg-4">
             <div class="footer__question">
               <button
                 type="button"
@@ -151,7 +155,12 @@
               </button>
             </div>
           </div>
-          <div class="col col-4">
+          <div class="col col-12 col-lg-4 footer__policy-col">
+            <div class="footer__policy">
+              <a href="#">Политика конфиденциальности</a>
+            </div>
+          </div>
+          <div class="col col-12 col-lg-4">
             <div class="footer__payment">
               <p class="footer__payment-text">мы принимаем карты к оплате</p>
               <div class="footer__payment-icon">
@@ -226,12 +235,12 @@ export default {
 
 <style lang="scss">
 .footer {
-  padding: 40px 0 30px;
+  padding: 38px 0;
   font-family: $font-secondary;
   background-color: $color-blue;
 
   &__section {
-    margin-bottom: 100px;
+    margin-bottom: 35px;
 
     &:last-child {
       margin-bottom: 0;
@@ -316,11 +325,6 @@ export default {
     }
   }
 
-  &__side {
-    margin-top: 22px;
-    text-align: right;
-  }
-
   &__label,
   &__title,
   &__time {
@@ -341,15 +345,21 @@ export default {
   &__link-group {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    margin-top: 130px;
+    align-items: flex-start;
+    margin-top: 32px;
   }
 
   &__link {
     margin-bottom: 22px;
+    text-align: left;
     font-size: 16px;
     line-height: (20/16);
     color: $color-white;
+
+    &_lg {
+      font-size: 18px;
+      line-height: (22/18);      
+    }
 
     &:last-child {
       margin-bottom: 0;
@@ -359,8 +369,8 @@ export default {
   &__contacts {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    margin-top: 134px;
+    align-items: flex-start;
+    margin-top: 44px;
   }
 
   &__time {
@@ -371,6 +381,7 @@ export default {
     display: inline-block;
     position: relative;
     margin-top: 44px;
+    width: 100%;
   }
 
   &__city-current {
@@ -384,10 +395,11 @@ export default {
   &__city-popup {
     display: none;
     position: absolute;
-    right: 0;
+    left: -$container-padding;
     top: 100%;
     margin-top: 20px;
-    width: 300px;
+    width: calc(100% + #{$container-padding * 2});
+    max-width: 375px;
     z-index: 5;
 
     &.is-active {
@@ -398,8 +410,8 @@ export default {
   &__phone {
     display: flex;
     align-items: center;
-    margin-top: 12px;
-    font-size: 34px;
+    margin-top: 18px;
+    font-size: 26px;
     line-height: (41/34);
     text-decoration: underline;
     color: $color-gray;
@@ -409,7 +421,6 @@ export default {
   &__phone-icon {
     width: 34px;
     height: 34px;
-    margin-top: 6px;
     margin-right: 10px;
     fill: currentColor;
   }
@@ -430,15 +441,10 @@ export default {
   }
 
   &__policy {
-    margin-top: 18px;
+    margin-top: 32px;
     font-size: 14px;
     line-height: (17/14);
     color: $color-gray;
-  }
-
-  &__question {
-    margin-top: 20px;
-    text-align: center;    
   }
 
   &__question-btn {
@@ -449,8 +455,8 @@ export default {
   
   &__payment {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
+    margin-top: 17px;
     padding-right: 6px;
     font-size: 12px;
     line-height: (15/12);
@@ -458,6 +464,7 @@ export default {
   }
 
   &__payment-text {
+    display: none;
     margin-right: 30px;
   }
 
@@ -468,6 +475,73 @@ export default {
 
     &:last-child {
       margin-right: 0;
+    }
+  }
+
+  @include media(lg) {
+    padding: 40px 0 30px;
+
+    &__section {
+      margin-bottom: 100px;
+    }
+
+    &__side {
+      margin-top: 22px;
+      text-align: right;
+    }
+
+    &__link-group,
+    &__contacts {
+      align-items: flex-end;
+    }
+
+    &__link-group {
+      margin-top: 130px;
+    }
+
+    &__contacts {
+      margin-top: 134px;
+    }
+
+    &__city {
+      width: auto;
+    }
+
+    &__city-popup {
+      left: auto;
+      right: 0;
+      width: 300px;
+    }
+
+    &__phone {
+      margin-top: 12px;
+      font-size: 34px;
+    }
+
+    &__phone-icon {
+      margin-top: 6px;
+    }
+
+    &__policy-col {
+      order: -1;
+    }
+
+    &__policy {
+      margin-top: 18px;
+    }
+
+    &__question {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    &__payment {
+      justify-content: flex-end;
+      margin-top: 0;
+    }
+
+    &__payment-text {
+      display: block;
     }
   }
 

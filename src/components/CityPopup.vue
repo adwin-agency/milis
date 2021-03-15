@@ -1,5 +1,5 @@
 <template>
-  <div :class="['city-popup', {'city-popup_r': right}]">
+  <div :class="['city-popup', {'city-popup_r-mobile': rightmobile}]">
     <p class="city-popup__title">{{title}}</p>
     <div
       v-if="detection"
@@ -58,7 +58,7 @@ export default {
     Icon
   },
   props: {
-    right: Boolean,
+    rightmobile: Boolean,
     detection: Boolean
   },
   computed: {
@@ -108,13 +108,6 @@ export default {
     border: 11px solid transparent;
     border-bottom-color: #EDEDED;
     pointer-events: none;
-  }
-
-  &_r {
-    &::before {
-      left: auto;
-      right: 30px;
-    }
   }
 
   &__title {
@@ -177,8 +170,8 @@ export default {
     position: absolute;
     top: 12px;
     right: 15px;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     fill: $color-blue;
   }
 
@@ -189,9 +182,10 @@ export default {
       left: 83px;
     }
 
-    &_r {
+    &_r-mobile {
       &::before {
         left: auto;
+        right: 30px;
       }
     }
 

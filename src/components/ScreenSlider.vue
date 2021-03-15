@@ -1,42 +1,47 @@
 <template>
   <div class="screen-slider">
-    <Swiper
-      :options="swiperOptions"
-      ref="mySwiper"
-      class="screen-slider__images"
+    <RouterLink
+      :to="{name: 'product', params: {category: kitchen.category, kitchen: kitchen.url}}"
+      class="screen-slider__box"
     >
-      <SwiperSlide
-        v-for="(picture, index) in kitchen.pictures"
-        :key="index"
+      <Swiper
+        :options="swiperOptions"
+        ref="mySwiper"
+        class="screen-slider__images"
       >
-        <div
-          v-if="index === 0"
-          class="screen-slider__image"
-          :class="{'anim-img js-anim': first}"
-          v-anim="first && {delay: 250}"
+        <SwiperSlide
+          v-for="(picture, index) in kitchen.pictures"
+          :key="index"
         >
-          <img :src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
-        </div>
-        <div
-          v-else
-          class="screen-slider__image"
-        >
-          <img class="swiper-lazy" :data-src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
-        </div>
-      </SwiperSlide>
-      <ButtonNav
-        class="screen-slider__prev"
-        :class="[{'show': anim && first}, {'show-in': first ? anim && active : active}]"
-        prev
-        slot="button-prev"
-      />
-      <ButtonNav
-        class="screen-slider__next"
-        :class="[{'show': anim && first}, {'show-in': first ? anim && active : active}]"
-        next
-        slot="button-next"
-      />
-    </Swiper>
+          <div
+            v-if="index === 0"
+            class="screen-slider__image"
+            :class="{'anim-img js-anim': first}"
+            v-anim="first && {delay: 250}"
+          >
+            <img :src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
+          </div>
+          <div
+            v-else
+            class="screen-slider__image"
+          >
+            <img class="swiper-lazy" :data-src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
+          </div>
+        </SwiperSlide>
+        <ButtonNav
+          class="screen-slider__prev"
+          :class="[{'show': anim && first}, {'show-in': first ? anim && active : active}]"
+          prev
+          slot="button-prev"
+        />
+        <ButtonNav
+          class="screen-slider__next"
+          :class="[{'show': anim && first}, {'show-in': first ? anim && active : active}]"
+          next
+          slot="button-next"
+        />
+      </Swiper>
+    </RouterLink>
     <div
       class="screen-slider__btns"
       :class="[{'show': anim && first}, {'show-in': first ? anim && active : active}]"
@@ -119,8 +124,13 @@ export default {
   position: relative;
   overflow: hidden;
 
+  &__box,
   &__images {
     height: 100%;
+  }
+
+  &__box {
+    display: block;
   }
 
   &__image {
