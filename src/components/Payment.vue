@@ -32,7 +32,7 @@
               <span class="payment__feature-icon">
                 <Icon name="leaf" />
               </span>
-              Предоплата 20% требуется только в случае срочного изготовления (от 14 дней)
+              Предоплата 20%
             </p>
             <p class="payment__feature">
               <span class="payment__feature-icon">

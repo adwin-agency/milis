@@ -48,7 +48,7 @@
           slot="button-next"  
         />
       </Swiper>
-      <p v-if="kitchen.discount" class="catalog-card__label">Скидка на данное предложение</p>
+      <p v-if="kitchen.discount" class="catalog-card__label">Скидка на материалы</p>
       <Discount
         v-if="kitchen.discount"
         class="catalog-card__discount"

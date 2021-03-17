@@ -149,9 +149,8 @@ export default {
 
   &__characteristic {
     display: flex;
-    // align-items: center;
     margin-bottom: 13px;
-    font-size: 10px;
+    font-size: 12px;
     line-height: (16/10);
     color: $color-gray-middle;
 
@@ -160,7 +159,7 @@ export default {
       flex-shrink: 0;
       width: 4px;
       height: 4px;
-      margin-top: 6px;
+      margin-top: 8px;
       margin-right: 6px;
       border-radius: 50%;
       background-color: $color-blue;

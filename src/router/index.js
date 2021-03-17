@@ -8,8 +8,8 @@ import AboutView from '../views/AboutView'
 import DeliveryView from '../views/DeliveryView'
 import PaymentView from '../views/PaymentView'
 import ReviewsView from '../views/ReviewsView'
-import BlogView from '../views/BlogView'
-import ArticleView from '../views/ArticleView'
+// import BlogView from '../views/BlogView'
+// import ArticleView from '../views/ArticleView'
 import ContactsView from '../views/ContactsView'
 import NotFoundView from '../views/NotFoundView'
 // import store from '@/store'
@@ -20,86 +20,72 @@ const routes = [
   {
     path: '/',
     component: MainView,
-    name: 'main',
-    meta: { title: 'Главная' }
+    name: 'main'
   },
   {
     path: '/kitchens',
     component: CatalogView,
-    name: 'catalog',
-    meta: { title: 'Каталог' }
+    name: 'catalog'
   },
   {
     path: '/kitchens/:category',
     component: CatalogView,
-    name: 'category',
-    meta: { title: 'Каталог' }
+    name: 'category'
   },
   {
     path: '/kitchens/:category/:kitchen',
     component: ProductView,
-    name: 'product',
-    meta: { title: 'Кухня' }
+    name: 'product'
   },
   {
     path: '/technics',
     component: TechnicsView,
-    name: 'technics',
-    meta: { title: 'Техника' }
+    name: 'technics'
   },
   {
     path: '/technics/:category',
     component: TechnicsView,
-    name: 'techcategory',
-    meta: { title: 'Техника' }
+    name: 'techcategory'
   },
   {
     path: '/about',
     component: AboutView,
-    name: 'about',
-    meta: { title: 'Материалы' }
+    name: 'about'
   },
   {
     path: '/delivery',
     component: DeliveryView,
-    name: 'delivery',
-    meta: { title: 'Доставка и монтаж' }
+    name: 'delivery'
   },
   {
     path: '/payment',
     component: PaymentView,
-    name: 'payment',
-    meta: { title: 'Оплата' }
+    name: 'payment'
   },
   {
     path: '/reviews',
     component: ReviewsView,
-    name: 'reviews',
-    meta: { title: 'Отзывы' }
+    name: 'reviews'
   },
-  {
-    path: '/blog',
-    component: BlogView,
-    name: 'blog',
-    meta: { title: 'Блог' }
-  },
-  {
-    path: '/article',
-    component: ArticleView,
-    name: 'article',
-    meta: { title: 'Статья' }
-  },
+  // {
+  //   path: '/blog',
+  //   component: BlogView,
+  //   name: 'blog'
+  // },
+  // {
+  //   path: '/article',
+  //   component: ArticleView,
+  //   name: 'article'
+  // },
   {
     path: '/contacts',
     component: ContactsView,
-    name: 'contacts',
-    meta: { title: 'Контакты' }
+    name: 'contacts'
   },
   {
     path: '*',
     component: NotFoundView,
-    name: 'notfound',
-    meta: { title: 'Страница не найдена' }
+    name: 'notfound'
   }
 ]
 
@@ -117,13 +103,5 @@ const router = new VueRouter({
     }
   }
 })
-
-// router.afterEach((to) => {
-//   const exceptions = ['catalog', 'category', 'product', 'technics', 'techcategory']
-
-//   if (!exceptions.find(item => item === to.name)) {
-//     document.title = to.meta.title
-//   }  
-// })
 
 export default router

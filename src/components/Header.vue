@@ -5,7 +5,7 @@
       exact
       class="header__logo"
     >
-      <img src="../assets/img/logo.svg" alt="Milis">
+      <img src="../assets/img/logo-2.svg" alt="Milis">
     </RouterLink>
     <div class="header__actions" v-if="!$mobile">
       <nav class="header__nav">
@@ -354,7 +354,7 @@ export default {
 
       #{$b} {
         &__menu {
-          left: -200px;
+          left: -250px;
         }
       }
     }
@@ -364,7 +364,7 @@ export default {
     }
 
     &__nav-item {
-      margin-right: 46px;
+      margin-right: 36px;
       font-size: 14px;
       line-height: (17/14);
     }
@@ -395,6 +395,19 @@ export default {
     &__phone-icon {
       width: 20px;
       height: 20px;
+    }
+  }
+
+  @include media(xxl) {
+    &__nav-item {
+      margin-right: 36px;
+      font-size: 16px;
+      line-height: (20/16);
+    }
+
+    &__city-current {
+      font-size: 14px;
+      line-height: (17/14);
     }
   }
 }

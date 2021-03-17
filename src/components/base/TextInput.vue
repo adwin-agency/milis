@@ -108,7 +108,7 @@ export default {
     top: 0;
     right: 0;
     bottom: 0;
-    border: 1px solid $color-gray;
+    border: 1px solid $color-gray-middle;
     pointer-events: none;
     transition: border-color .3s ease;
   }
@@ -120,7 +120,7 @@ export default {
     padding: 0 10px;
     font-size: 11px;
     line-height: (17/11);
-    color: $color-gray;
+    color: $color-gray-middle;
     background-color: inherit;
     pointer-events: none;
     transition: color .3s ease, transform .3s ease;

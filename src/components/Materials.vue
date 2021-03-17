@@ -5,7 +5,7 @@
     <div class="materials__items">
       <div class="materials__item materials__item_big">
         <div class="materials__image">
-          <img src="../assets/img/materials-01.jpg" alt="">
+          <img src="../assets/img/materials-04.jpg" alt="">
         </div>
         <div class="materials__badge">
           <span class="materials__badge-bg">
@@ -18,7 +18,7 @@
           <Icon name="leaf"/>
         </div>
         <p class="materials__title">Фасады мдф</p>
-        <div class="materials__desc">Производство компании Egger; пленка ПВХ, пластик</div>
+        <div class="materials__desc">Международный стандарт от Kronospam</div>
       </div>
       <div class="materials__item">
         <div class="materials__image">
@@ -28,17 +28,17 @@
           <Icon name="leaf"/>
         </div>
         <p class="materials__title">Корпус</p>
-        <div class="materials__desc">ЛДСП фирмы Kronospan класса E0.5</div>
+        <div class="materials__desc">Австрийское качество</div>
       </div>
       <div class="materials__item">
         <div class="materials__image">
-          <img src="../assets/img/materials-03.jpg" alt="">
+          <img src="../assets/img/materials-05.jpg" alt="">
         </div>
         <div class="materials__leaf">
           <Icon name="leaf"/>
         </div>
         <p class="materials__title">Столешница</p>
-        <div class="materials__desc">Из ЛДСП толщиной до 60 мм</div>
+        <div class="materials__desc">Влагостойкие столешницы</div>
       </div>
     </div>
   </div>
@@ -184,9 +184,8 @@ export default {
   }
 
   &__desc {
-    margin-top: 6px;
-    font-size: 10px;
-    line-height: (14/10);
+    font-size: 12px;
+    line-height: (19/14);
     color: $color-gray-middle;
   }
 
@@ -229,6 +228,10 @@ export default {
     &__image {
       padding-top: calc(100% + 20px);
     }
+
+    &__desc {
+      font-size: 14px;
+    }
   }
 
   @include media(lg) {
@@ -268,7 +271,8 @@ export default {
     }
 
     &__leaf {
-      margin-top: -4px;
+      margin-top: -15px;
+      margin-left: 5px;
       width: 18px;
       height: 18px;
     }
@@ -279,7 +283,7 @@ export default {
     }
 
     &__desc {
-      margin-top: -2px;
+      font-size: 12px;
     }
   }
 
@@ -308,7 +312,8 @@ export default {
     }
 
     &__desc {
-      margin-top: 8px;
+      margin-top: 5px;
+      font-size: 14px;
     }
   }
 }

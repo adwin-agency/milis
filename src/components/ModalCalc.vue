@@ -12,7 +12,7 @@
         <input type="hidden" name="item_id" :value="inputItemId">
         <input type="hidden" name="product_type" :value="inputProductType">
         <p class="modal-calc__title">Рассчитать стоимость</p>
-        <p class="modal-calc__desc">Вы можете оставить номер, размеры и пожелания и мы перезвоним Вам с рассчетом</p>
+        <p class="modal-calc__desc">Вы можете оставить номер, размеры и пожелания и мы перезвоним Вам с расчетом</p>
         <div class="modal-calc__fields">
           <TextInput
             class="modal-calc__field"
@@ -88,7 +88,7 @@
           <span class="modal-calc__feature-icon">
             <Icon name="heart" />
           </span>
-          Рассчет до рубля за 5 минут
+          Расчет до рубля за 5 минут
         </p>
         <p class="modal-calc__feature">
           <span class="modal-calc__feature-icon">
