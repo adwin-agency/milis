@@ -26,12 +26,6 @@ $grid-gap: 20px;
 $mobile-bar-height: 62px;
 $mobile-bar-height-md: 70px;
 
-// $m1: 40px;
-// $m2: 60px;
-// $m3: 90px;
-// $m4: 150px;
-// $m5: 200px;
-
 $bounce: cubic-bezier(0.25, 0.1, 0.25, 1.2);
 
 $breakpoints: (
@@ -39,6 +33,7 @@ $breakpoints: (
   sm: 570px,
   md: 750px,
   lg: 1150px,
+  lg2: 1280px,
   xl: 1600px,
   xxl: 1900px
 );

@@ -4,13 +4,14 @@
       <div class="col col-12 col-lg-6" v-if="$windowWidth < $breakpoints.xl">
         <Header class="page-header fade-slide-down js-anim" v-anim="true" />
       </div>
-      <div class="col col-12 col-xl-7 details__slider-col">
+      <div class="col col-12" v-if="$windowWidth < $breakpoints.xl"></div>
+      <div class="col col-12 col-lg2-7 details__slider-col">
         <DetailSlider
           class="details__slider"
           :details="details"
         />
       </div>
-      <div class="col col-12 col-lg-9 col-xl-5">
+      <div class="col col-12 col-lg-9 col-lg2-5">
         <Header class="page-header fade-slide-down js-anim" v-anim="true" v-if="$windowWidth >= $breakpoints.xl" />
         <div class="details__wrapper fade-bounce-right js-anim" v-anim="true">
           <div class="details__nav">
@@ -428,6 +429,28 @@ export default {
     }
   }
 
+  @include media(lg2) {
+    &__slider-col {
+      order: 1;
+    }
+
+    &__slider {
+      margin-left: -54px;
+    }
+
+    &__wrapper {
+      padding-right: 80px;
+    }
+
+    &__info {
+      padding-right: 0;
+    }
+
+    &__features {
+      display: none;
+    }
+  }
+
   @include media(xl) {
     &__nav {
       margin-top: 56px;
@@ -442,6 +465,7 @@ export default {
     }
 
     &__features {
+      display: block;
       margin-top: 10px;
     }
 
@@ -453,10 +477,6 @@ export default {
       margin-top: 44px;
       font-size: 16px;
       line-height: (33/16);
-    }
-
-    &__slider-col {
-      order: 1;
     }
     
     &__slider {

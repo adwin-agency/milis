@@ -1,7 +1,7 @@
 <template>
   <div
     class="catalog-card"
-    :class="[{'catalog-card_high': high}, {'catalog-card_alt': alt}, {'catalog-card_top': top}]"
+    :class="[{'catalog-card_high': high}, {'catalog-card_alt': alt}, {'catalog-card_top': top}, {'catalog-card_in': similar}]"
   >
     <RouterLink
       v-if="$mobile || (!alt && !top)"
@@ -117,7 +117,6 @@ export default {
     alt: Boolean,
     top: Boolean,
     kitchen: Object,
-    catalogPage: Number,
     similar: Boolean,
     animDelay: Number
   },
@@ -188,6 +187,19 @@ export default {
   border-top: 1px solid #D9D9D9;
   padding-top: 11px;
 
+  &_in {
+    #{$b} {
+      &__images {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      &__discount {
+        right: -14px;
+      }
+    }
+  }
+
   &__category {
     font-size: 14px;
     line-height: (16/14);
@@ -198,6 +210,7 @@ export default {
   &__images {
     display: block;
     position: relative;
+    margin: 0 (-$container-padding);
     margin-top: 14px;
   }
 
@@ -249,7 +262,7 @@ export default {
   &__discount {
     position: absolute;
     top: -18px;
-    right: -14px;
+    right: 4px;
     z-index: 1;
   }
 
@@ -354,6 +367,17 @@ export default {
 
     span {
       color: $color-red;
+    }
+  }
+
+  @include media(md) {
+    &__images {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    &__discount {
+      right: -14px;
     }
   }
 

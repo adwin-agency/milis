@@ -38,7 +38,7 @@
           />
         </div>
       </div>
-      <div class="col col-9" v-if="$windowWidth >= $breakpoints.lg && $windowWidth < $breakpoints.xl">
+      <div class="col col-9 col-lg2-8" v-if="$windowWidth >= $breakpoints.lg && $windowWidth < $breakpoints.xl">
         <Steps
           class="service__steps"
           service

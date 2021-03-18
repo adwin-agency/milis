@@ -261,7 +261,7 @@ export default {
     }
   }
 
-  @include media(xl) {
+  @include media(lg2) {
     &__image {
       padding-top: 60%;
     }

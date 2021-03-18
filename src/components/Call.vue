@@ -160,9 +160,27 @@ export default {
     }
   }
 
+  @include media(lg2) {
+    &__image {
+      margin: 0;
+
+      img {
+        margin-bottom: -29%;
+      }
+    }
+
+    &__content {
+      margin: 0;
+    }
+  }
+
   @include media(xl) {
     &__image {
       margin: 0 -150px 0 (-$container-padding-xl);
+
+      img {
+        margin-bottom: 0;
+      }
     }
 
     &__content {

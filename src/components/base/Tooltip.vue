@@ -104,6 +104,7 @@ export default {
     opacity: 0;
     pointer-events: none;
     transition: opacity .3s ease;
+    z-index: 1;
 
     &::after {
       content: "";
