@@ -85,7 +85,7 @@ export default {
 .info {
   $b: &;
 
-  padding: 78px 0 60px;
+  padding: 14px 0 30px;
 
   &__heading {
     font-family: $font-secondary;
@@ -188,7 +188,7 @@ export default {
 
   @include media(md) {
     padding-top: 0;
-    padding-bottom: 120px;
+    padding-bottom: 60px;
 
     &__image {
       display: block;

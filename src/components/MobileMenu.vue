@@ -1,60 +1,62 @@
 <template>
-  <div
-    class="mobile-menu"
-    ref="mobileMenu"
-  >
+  <div class="mobile-menu">
     <div class="mobile-menu__header">
       <div class="container">
-        <div class="mobile-menu__logo">
-          <img src="../assets/img/logo.svg" alt="Milis">
-        </div>
+        <RouterLink
+          :to="{name: 'main'}"
+          exact
+          class="mobile-menu__logo"
+          @click.native="$emit('close')"
+        >
+          <img src="../assets/img/logo-2.svg" alt="Milis">
+        </RouterLink>
         <nav class="mobile-menu__nav">
           <RouterLink
             class="mobile-menu__nav-item"
             :to="{name: 'catalog'}"
-            @click.native="closeMenu"
+            @click.native="$emit('close')"
           >
             Кухни
           </RouterLink>
           <RouterLink
             class="mobile-menu__nav-item"
             :to="{name: 'about'}"
-            @click.native="closeMenu"
+            @click.native="$emit('close')"
           >
             Материалы
           </RouterLink>
           <RouterLink
             class="mobile-menu__nav-item"
             :to="{name: 'delivery'}"
-            @click.native="closeMenu"
+            @click.native="$emit('close')"
           >
             Доставка и монтаж
           </RouterLink>
           <RouterLink
             class="mobile-menu__nav-item"
             :to="{name: 'payment'}"
-            @click.native="closeMenu"
+            @click.native="$emit('close')"
           >
             Оплата
           </RouterLink>
           <RouterLink
             class="mobile-menu__nav-item"
             :to="{name: 'technics'}"
-            @click.native="closeMenu"
+            @click.native="$emit('close')"
           >
             Техника
           </RouterLink>
           <RouterLink
             class="mobile-menu__nav-item"
             :to="{name: 'reviews'}"
-            @click.native="closeMenu"
+            @click.native="$emit('close')"
           >
             Отзывы
           </RouterLink>
           <RouterLink
             class="mobile-menu__nav-item"
             :to="{name: 'contacts'}"
-            @click.native="closeMenu"
+            @click.native="$emit('close')"
           >
             Контакты
           </RouterLink>
@@ -68,7 +70,52 @@
           </span>
           {{activeCity && activeCity.phone}}
         </a>
+        <div class="mobile-menu__contacts">
+          <!-- <div class="mobile-menu__social">
+            <a href="#" class="mobile-menu__social-item">
+              <Icon name="youtube"/>
+            </a>
+            <a href="#" class="mobile-menu__social-item">
+              <Icon name="vk"/>
+            </a>
+            <a href="#" class="mobile-menu__social-item">
+              <Icon name="insta"/>
+            </a>
+          </div> -->
+          <button
+            class="mobile-menu__city"
+            @click="openCityPopup"
+          >
+            {{activeCity && activeCity.name}}
+          </button> 
+          <CityPopup
+            class="mobile-menu__city-popup"
+            :class="{'is-active': activeCityPopup}"
+            @select="closeCityPopup"
+            @close="closeCityPopup"
+          />
+        </div>
+        <div class="mobile-menu__link-group">
+          <Link
+            class="mobile-menu__link"
+            text="Хочу пригласить дизайнера"
+            modal="call"
+            :modalData="modalData"
+          />
+          <Link
+            class="mobile-menu__link"
+            text="Рассчитать по моим размерам"
+            modal="calc"
+            :modalData="modalData"
+          />
+        </div>
       </div>
+      <button
+        class="mobile-menu__close"
+        @click="$emit('close')"
+      >
+        <Icon name="close" />
+      </button>
     </div>
     <!-- <div class="mobile-menu__footer">
       <div class="container">
@@ -154,16 +201,16 @@
 </template>
 
 <script>
-// import Link from './base/Link'
+import Link from './base/Link'
 import Icon from './base/Icon'
-// import CityPopup from '@/components/CityPopup'
+import CityPopup from '@/components/CityPopup'
 
 export default {
   name: 'MobileMenu',
   components: {
-    // Link,
+    Link,
     Icon,
-    // CityPopup
+    CityPopup
   },
   data() {
     return {
@@ -189,13 +236,6 @@ export default {
     }
   },
   methods: {
-    closeMenu() {
-      this.$emit('closeMenu')
-      setTimeout(() => {
-        this.$refs.mobileMenu.scroll(0, 0)
-      }, 300)
-    },
-
     showModal(modal) {
       this.$store.commit('setModal', modal)
       this.$store.commit('setModalData', this.modalData)
@@ -214,53 +254,25 @@ export default {
 <style lang="scss">
 .mobile-menu {
   position: relative;
-  padding-bottom: $mobile-bar-height;
   font-family: $font-secondary;
   background-color: $color-white;
   overflow-y: auto;
 
-  &__close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 30px;
-    height: 30px;
-
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      margin: auto;
-      width: 24px;
-      height: 2px;
-      background-color: $color-blue;
-    }
-
-    &::before {
-      transform: rotate(45deg);
-    }
-
-    &::after {
-      transform: rotate(-45deg);
-    }
-  }
-
   &__header {
-    padding: 25px 0 32px;
+    padding: 10px 0 56px;
   }
 
   &__logo {
+    display: inline-flex;
+    align-items: center;
     width: 69px;
+    height: 45px;
   }
 
   &__nav {
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
+    margin-top: 40px;
   }
 
   &__nav-item {
@@ -277,7 +289,7 @@ export default {
   &__phone {
     display: inline-flex;
     align-items: center;
-    margin-top: 60px;
+    margin-top: 50px;
     font-weight: bold;
     font-size: 22px;
     line-height: (27/22);
@@ -290,6 +302,15 @@ export default {
     height: 35px;
     margin-right: 10px;
     fill: $color-green;
+  }
+
+  &__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 24px;
+    height: 24px;
+    fill: $color-blue;
   }
 
   &__footer {
@@ -321,7 +342,7 @@ export default {
   &__link {
     margin-bottom: 24px;
     text-align: left;
-    color: $color-white;
+    color: $color-blue;
 
     &:last-child {
       margin-bottom: 0;
@@ -339,17 +360,18 @@ export default {
   }
 
   &__contacts {
-    margin-top: 44px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+    margin-top: 40px;
   }
 
   &__city {
     position: relative;
-  }
-
-  &__city-current {
-    display: block;
-    font-size: 16px;
-    line-height: (20/16);
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: (17/14);
     text-decoration: underline;
     color: $color-gray;
   }
@@ -359,7 +381,7 @@ export default {
     position: absolute;
     left: -$container-padding;
     top: 100%;
-    margin-top: 18px;
+    margin-top: 0;
     width: calc(100% + #{$container-padding * 2});
     max-width: 375px;
     z-index: 5;
@@ -371,13 +393,15 @@ export default {
 
   &__social {
     display: flex;
-    margin-top: 14px;
+    margin-right: 40px;
+    margin-bottom: 20px;
   }
 
   &__social-item {
     width: 32px;
     height: 32px;
     margin-right: 10px;
+    fill: $color-blue;
 
     &:last-child {
       margin-right: 0;
@@ -413,7 +437,9 @@ export default {
   }
 
   @include media(md) {
-    padding-bottom: $mobile-bar-height-md;
+    &__logo {
+      width: 80px;
+    }
   }
 }
 </style>

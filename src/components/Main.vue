@@ -1,6 +1,13 @@
 <template>
   <div class="main">
+    <Header
+      v-if="$mobile"
+      class="main__header"
+      main
+      :info="activeSlide === kitchens.length"
+    />
     <div
+      v-else
       class="main__top"
       :class="{'show': showTop}"
     >
@@ -44,7 +51,10 @@
           @wheel="handleSectionsWheel"
         >
           <Info class="main__info" :anim="animInfo" />
-          <Footer class="main__footer" />
+          <Footer
+            v-if="!$mobile"
+            class="main__footer"
+          />
         </div>
       </SwiperSlide>
     </Swiper>
@@ -157,7 +167,7 @@ export default {
     },
 
     handleSectionsScroll() {
-      if (this.changing) {
+      if (this.$mobile || this.changing) {
         return
       }
 
@@ -207,7 +217,7 @@ export default {
   $b: &;
 
   position: relative;
-  padding-bottom: $mobile-bar-height;
+  padding-top: 65px;
   overflow: hidden;
 
   &__top {
@@ -226,8 +236,11 @@ export default {
   }
 
   &__header {
-    position: relative;
+    position: fixed;
+    left: 0;
+    top: 0;
     width: 100%;
+    height: 65px;
     z-index: 2;
   }
 
@@ -265,7 +278,7 @@ export default {
     position: absolute;
     left: $container-padding;
     right: 50%;
-    bottom: 77px;
+    bottom: 15px;
     width: auto;
     text-align: left;
     pointer-events: none;
@@ -328,7 +341,6 @@ export default {
   }
 
   @include media(md) {
-    padding-bottom: $mobile-bar-height-md;
 
     &__wrapper::after {
       height: 144px;
@@ -340,7 +352,7 @@ export default {
 
     &__pagination {
       left: $container-padding-md;
-      bottom: 140px;
+      bottom: 70px;
     }
 
     &__pagination-item {
@@ -356,11 +368,17 @@ export default {
   }
 
   @include media(lg) {
+    padding-top: 0;
     padding-bottom: 0;
 
     &__top {
       transform: translateY(-100%);
       transition-duration: .5s;
+    }
+
+    &__header {
+      position: relative;
+      height: auto;
     }
 
     &__wrapper::after {

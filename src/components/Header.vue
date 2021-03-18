@@ -52,6 +52,7 @@
           <CityPopup
             class="header__city-popup"
             :class="{'is-active': cityDetection || activeCityPopup}"
+            arrow="left"
             :detection="cityDetection"
             @select="closeCityPopup"
           />
@@ -82,7 +83,7 @@
       />
     </RouterLink> -->
     <button
-      v-if="filters && $mobile"
+      v-if="filters"
       class="header__filters"
       type="button"
       @click="$emit('openFilters')"
@@ -92,6 +93,32 @@
       </span>
       Фильтры
     </button>
+    <a
+      :href="`tel:${activeCity && activeCity.phone}`"
+      class="header__call-btn"
+    >
+      <Icon name="call" />
+    </a>
+    <button
+      class="header__menu-btn"
+      type="button"
+      @click="openMobileMenu"
+    >
+      <Icon name="menu" />
+    </button>
+    <MobileMenu
+      v-if="$mobile"
+      class="header__mobile-menu"
+      :class="{'is-active': activeMobileMenu}"
+      @close="closeMobileMenu"
+    />
+    <CityPopup
+      v-if="$mobile && cityDetection"
+      class="header__city-popup is-active"
+      fixed
+      :detection="true"
+      @select="closeCityPopup"
+    />
   </header>
 </template>
 
@@ -100,6 +127,7 @@ import Icon from './base/Icon'
 // import ButtonAlt from './base/ButtonAlt'
 import CityPopup from './CityPopup'
 import Menu from './Menu'
+import MobileMenu from '@/components/MobileMenu'
 
 export default {
   name: 'Header',
@@ -107,7 +135,8 @@ export default {
     Icon,
     // ButtonAlt,
     CityPopup,
-    Menu
+    Menu,
+    MobileMenu
   },
   props: {
     main: Boolean,
@@ -118,6 +147,7 @@ export default {
   data() {
     return {
       activeMenu: false,
+      activeMobileMenu: false,
       activeCityPopup: false
     }
   },
@@ -129,13 +159,44 @@ export default {
       return this.$store.state.cityDetection
     }
   },
+  created() {
+    window.addEventListener('resize', this.handleResize)
+  },
+  destroyed() {
+    this.closeMobileMenu()
+    window.removeEventListener('resize', this.handleResize)
+  },
   methods: {
+    handleResize() {
+      if (!this.$mobile && this.activeMobileMenu) {
+        this.closeMobileMenu()
+      }
+    },
+
     openMenu() {
       this.activeMenu = true
     },
     closeMenu() {
       this.activeMenu = false
     },
+
+    openMobileMenu() {
+      this.activeMobileMenu = true
+      document.body.classList.add('is-mobile-menu')
+      document.body.style.overflow = 'hidden'
+    },
+    closeMobileMenu() {
+      this.activeMobileMenu = false
+
+      const bodyClassList = document.body.classList
+
+      bodyClassList.remove('is-mobile-menu')
+
+      if (!bodyClassList.contains('is-mobile-filters') && !bodyClassList.contains('is-modal')) {
+        document.body.style.overflow = ''
+      }
+    },
+
     openCityPopup() {
       this.activeCityPopup = true
     },
@@ -151,18 +212,15 @@ export default {
   $b: &;
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding-top: 20px;
+  padding: 10px $container-padding;
   font-family: $font-secondary;
-
-  &_fixed {
-    padding: 10px $container-padding;
-    background-color: #fff;
-  }
+  background-color: $color-white;
+  box-shadow: 0px 7px 9px rgba(207, 207, 207, 0.25);
 
   &__logo {
     flex-shrink: 0;
+    margin-right: auto;
     width: 69px;
   }
 
@@ -253,10 +311,9 @@ export default {
     display: none;
     position: absolute;
     left: 50%;
-    top: 100%;
-    margin-top: 20px;
-    width: 300px;
-    transform: translateX(-34%);
+    top: 0;
+    width: 100%;
+    transform: translateX(-50%);
     z-index: 5;
 
     &.is-active {
@@ -284,7 +341,6 @@ export default {
   &__filters {
     display: flex;
     align-items: center;
-    margin-left: auto;
     font-weight: bold;
     font-size: 14px;
     line-height: (16/14);
@@ -297,8 +353,46 @@ export default {
     height: 12px;
   }
 
+  &__call-btn {
+    flex-shrink: 0;
+    margin-left: auto;
+    width: 22px;
+    height: 22px;
+  }
+
+  &__menu-btn {
+    flex-shrink: 0;
+    margin-left: 24px;
+    width: 24px;
+    height: 24px;
+    fill: $color-blue;
+  }
+
+  &__mobile-menu {
+    position: fixed;
+    left: 100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform .3s ease;
+
+    &.is-active {
+      transform: translateX(-100%);
+    }
+  }
+
+  @include media(xs) {
+    &__call-btn {
+      margin-left: 56px;
+    }
+
+    &__menu-btn {
+      margin-left: 38px;
+    }
+  }
+
   @include media(md) {
-    padding-top: 24px;
+    padding: 10px $container-padding-md;
 
     &_fixed {
       padding: 10px $container-padding-md;
@@ -311,11 +405,15 @@ export default {
 
   @include media(lg) {
     align-items: flex-start;
+    padding: 0;
     padding-top: 28px;
+    background-color: transparent;
+    box-shadow: none;
 
     &_fixed {
       align-items: center;
       padding: 20px $container-padding-md;
+      background-color: $color-white;
 
       #{$b} {
         &__actions {
@@ -343,6 +441,19 @@ export default {
 
     &__logo {
       width: 100px;
+    }
+
+    &__call-btn,
+    &__menu-btn {
+      display: none;
+    }
+
+    &__city-popup {
+      left: -35px;
+      top: 100%;
+      margin-top: 20px;
+      width: 300px;
+      transform: none;
     }
   }
 

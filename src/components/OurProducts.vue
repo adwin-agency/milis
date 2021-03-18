@@ -5,24 +5,24 @@
         <div class="row">
           <div class="col col-12 col-xl-10">
             <Header
-              v-if="fixedHeader"
-              class="page-header-fixed"
-              :class="{'is-sticky': stickyHeader}"
-              fixed
+              v-if="$mobile"
+              class="page-header"
               filters
               @openFilters="toggleFilters"
             />
-            <div
-              v-if="fixedHeader"
-              class="page-header-spacer"
-            ></div>
+            <template v-else-if="fixedHeader">
+              <Header
+                class="page-header-fixed"
+                :class="{'is-sticky': stickyHeader}"
+                fixed
+              />
+              <div class="page-header-spacer"></div>
+            </template>
             <Header
               v-else
               class="page-header fade-slide-down js-anim"
-              filters
-              @openFilters="toggleFilters"
               v-anim="true"
-            />
+            />          
           </div>
         </div>
         <div class="our-products__wrapper fade-bounce-right js-anim" v-anim="true">

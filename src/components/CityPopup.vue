@@ -1,5 +1,10 @@
 <template>
-  <div :class="['city-popup', {'city-popup_r-mobile': rightmobile}]">
+  <div class="city-popup" :class="{'is-fixed': fixed}">
+    <span
+      v-if="arrow"
+      class="city-popup__arrow"
+      :class="{'city-popup__arrow_r': arrow === 'right'}"
+    ></span>
     <p class="city-popup__title">{{title}}</p>
     <div
       v-if="detection"
@@ -58,7 +63,8 @@ export default {
     Icon
   },
   props: {
-    rightmobile: Boolean,
+    arrow: String,
+    fixed: Boolean,
     detection: Boolean
   },
   computed: {
@@ -94,13 +100,29 @@ export default {
 
 <style lang="scss">
 .city-popup {
+  $b: &;
+
   position: relative;
   padding: 16px 20px;
   font-family: $font-primary;
   background: #EDEDED;
   box-shadow: 0px 21px 14px -19px rgba(95, 159, 255, 0.25);
 
-  &::before {
+  &.is-fixed {
+    text-align: center;
+
+    #{$b} {
+      &__close {
+        display: none;
+      }
+
+      &__btns {
+        justify-content: center;
+      }
+    }
+  }
+
+  &__arrow {
     content: "";
     position: absolute;
     left: 50px;
@@ -108,6 +130,11 @@ export default {
     border: 11px solid transparent;
     border-bottom-color: #EDEDED;
     pointer-events: none;
+
+    &_r {
+      left: auto;
+      right: 30px;
+    }
   }
 
   &__title {
@@ -180,13 +207,6 @@ export default {
 
     &::before {
       left: 83px;
-    }
-
-    &_r-mobile {
-      &::before {
-        left: auto;
-        right: 30px;
-      }
     }
 
     &__btns {

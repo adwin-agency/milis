@@ -190,17 +190,24 @@ button {
 
 .page-top {
   position: relative;
+  padding-top: 65px;
+
+  @include media(lg) {
+    padding-top: 0;
+  }
 }
 
 .page-header {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   right: 0;
+  height: 65px;
   z-index: 2;
 
   @include media(lg) {
     position: relative;
+    height: auto;
   }
 }
 

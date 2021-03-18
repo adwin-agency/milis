@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="app" :class="{'full-h': main}">
     <RouterView />
-    <MobileBar class="app__mobile-bar" v-if="$mobile" />
+    <!-- <MobileBar class="app__mobile-bar" v-if="$mobile" /> -->
     <Modal />
     <Preloader
       v-if="loading"
@@ -12,14 +12,14 @@
 
 <script>
 import Preloader from './components/base/Preloader'
-import MobileBar from './components/MobileBar'
+// import MobileBar from './components/MobileBar'
 import Modal from './components/Modal'
 
 export default {
   name: 'App',
   components: {
     Preloader,
-    MobileBar,
+    // MobileBar,
     Modal
   },
   computed: {
@@ -55,12 +55,7 @@ export default {
 
 <style lang="scss">
 .app {
-  padding-bottom: $mobile-bar-height;
   overflow: hidden;
-
-  &.full-h {
-    padding-bottom: 0;
-  }
   
   &__mobile-bar {
     position: fixed;
@@ -77,14 +72,6 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 1000;
-  }
-
-  @include media(md) {
-    padding-bottom: $mobile-bar-height-md;
-  }
-
-  @include media(lg) {
-    padding-bottom: 0;
   }
 }
 </style>

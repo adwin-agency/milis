@@ -112,7 +112,7 @@
                   <CityPopup
                     class="footer__city-popup"
                     :class="{'is-active': activeCityPopup}"
-                    rightmobile
+                    :arrow="$mobile ? 'left' : 'right'"
                     @select="closeCityPopup"
                     @close="closeCityPopup"
                   />
