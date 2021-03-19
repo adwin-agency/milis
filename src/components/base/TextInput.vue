@@ -1,5 +1,5 @@
 <template>
-  <div :class="['text-input', {'text-input_ta': textarea}, {'is-error': error}]">
+  <div :class="['text-input', {'text-input_ta': textarea}, {'text-input_sm': small}, {'is-error': error}]">
     <component
       :is="inputTag"
       class="text-input__field"
@@ -35,7 +35,8 @@ export default {
     type: String,
     name: String,
     textarea: Boolean,
-    error: Boolean
+    error: Boolean,
+    small: Boolean
   },
   data() {
     return {
@@ -79,7 +80,20 @@ export default {
       height: 123px;
       resize: none;
     }
-  }  
+  }
+
+  &_sm {
+    #{$b}__field {
+      height: 36px;
+    }
+    #{$b}__label {
+      top: 10px;
+
+      &.is-active {
+        transform: translateY(-20px);
+      }
+    }
+  }
 
   &__field {
     display: block;

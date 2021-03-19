@@ -31,7 +31,8 @@ const store = new Vuex.Store({
     technicsPages: null,
     reviews: null,
     reviewsPages: null,
-    initialReview: null
+    initialReview: null,
+    initialDetailSlide: null
   },
 
   getters: {
@@ -100,6 +101,9 @@ const store = new Vuex.Store({
     },
     setInitialReview(state, id) {
       state.initialReview = id
+    },
+    setInitialDetailSlide(state, index) {
+      state.initialDetailSlide = index
     }
   },
 

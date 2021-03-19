@@ -5,6 +5,7 @@
       :options="swiperOptions"
       ref="mySwiper"
       class="detail-slider__container"
+      @click.native="showModal"
       v-anim="true"
     >
       <SwiperSlide
@@ -30,6 +31,7 @@
             :key="index"
             class="detail-slider__tooltip"
             :style="`top:${point.coords.top}; left:${point.coords.left}`"
+            @click.stop
           >
             <Tooltip
               :right="parseFloat(point.coords.left) < 50"
@@ -41,12 +43,12 @@
       <ButtonNav
         prev
         class="detail-slider__prev"
-        slot="button-prev"  
+        slot="button-prev"
       />
       <ButtonNav
         next
         class="detail-slider__next"
-        slot="button-next"  
+        slot="button-next"
       />
       <div
         class="detail-slider__pagination"
@@ -113,6 +115,17 @@ export default {
         itemId: this.details.id,
         productType: this.details.product_type
       }
+    }
+  },
+  methods: {
+    showModal(e) {
+      if (this.$windowWidth < this.$breakpoints.lg2 || !e.target.closest('.swiper-slide')) {
+        return
+      }
+
+      this.$store.commit('setModal', 'details')
+      this.$store.commit('setModalData', this.modalData)
+      this.$store.commit('setInitialDetailSlide', this.$refs.mySwiper.swiper.realIndex)
     }
   }
 }
@@ -238,6 +251,7 @@ export default {
     &__tooltip {
       display: block;
       position: absolute;
+      cursor: auto;
     }
     
     &__discount {
@@ -262,6 +276,10 @@ export default {
   }
 
   @include media(lg2) {
+    &__item {
+      cursor: zoom-in;
+    }
+
     &__image {
       padding-top: 60%;
     }

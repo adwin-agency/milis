@@ -1,16 +1,16 @@
 <template>
-  <div class="modal-review">
-    <div class="modal-review__wrapper">
+  <div class="modal-slides">
+    <div class="modal-slides__wrapper">
       <Swiper
-        class="modal-review__slider"
+        class="modal-slides__slider"
         :options="swiperOptions"
         ref="mySwiper"
         @slideChange="onSlideChange"
       >
         <SwiperSlide
-          v-for="(picture, index) in reviewsPictures"
+          v-for="(picture, index) in pictures"
           :key="index"
-          class="modal-review__slide"
+          class="modal-slides__slide"
         >
           <img
             class="swiper-lazy"
@@ -19,44 +19,49 @@
         </SwiperSlide>
       </Swiper>
       <div
-        v-if="currentReview"
-        class="modal-review__content"
+        v-if="type === 'reviews' && currentReview"
+        class="modal-slides__content"
       >
-        <p class="modal-review__date">{{currentReview.date}}</p>
-        <p class="modal-review__title">{{currentReview.name}}
-          <span class="modal-review__rating">
-            <span class="modal-review__rating-icon">
+        <p class="modal-slides__date">{{currentReview.date}}</p>
+        <p class="modal-slides__title">{{currentReview.name}}
+          <span class="modal-slides__rating">
+            <span class="modal-slides__rating-icon">
               <Icon :name="`smile-${currentReview.rating}`" />
             </span>
             {{currentReview.rating}}</span>
         </p>
-        <p class="modal-review__desc">{{currentReview.description}}</p>
+        <p class="modal-slides__desc">{{currentReview.description}}</p>
       </div>
-      <span class="modal-review__prev">
+      <ModalDetails
+        v-if="type === 'details'"
+        :details="details"
+        class="modal-slides__details"
+      />
+      <span class="modal-slides__prev">
         <Icon name="arrow-left" />
       </span>
-      <span class="modal-review__next">
+      <span class="modal-slides__next">
         <Icon name="arrow-right" />
       </span>
     </div>      
     <Swiper
-      class="modal-review__gallery"
+      class="modal-slides__gallery"
       :options="galleryOptions"
       ref="myGallery"
     >
       <SwiperSlide
-        v-for="(picture, index) in reviewsPictures"
+        v-for="(picture, index) in pictures"
         :key="index"
-        class="modal-review__gallery-item"
+        class="modal-slides__gallery-item"
         :class="{'is-active': activeSlide === index}"
         @click.native="onGalleryClick"
       >
-        <div class="modal-review__gallery-image">
-          <img :src="`https://milismebel.ru${picture.preview.path}`" alt="">
+        <div class="modal-slides__gallery-image">
+          <img :src="`https://milismebel.ru${type === 'reviews' ? picture.preview.path : picture.tablet.path}`" alt="">
         </div>
       </SwiperSlide>
     </Swiper>
-    <div class="modal-review__close" @click="$emit('close')">
+    <div class="modal-slides__close" @click="$emit('close')">
       <Icon name="close" />
     </div>
   </div>
@@ -64,17 +69,20 @@
 
 <script>
 import Icon from './base/Icon'
+import ModalDetails from '@/components/ModalDetails'
 import { swiper as Swiper, swiperSlide as SwiperSlide } from 'vue-awesome-swiper'
 
 export default {
-  name: 'ModalReview',
+  name: 'ModalSlides',
   components: {
     Icon,
+    ModalDetails,
     Swiper,
     SwiperSlide
   },
   props: {
-    initial: Number
+    initial: Number,
+    type: String
   },
   data() {
     return {
@@ -83,8 +91,8 @@ export default {
         initialSlide: this.initial || 0,
         resistanceRatio: 0,
         navigation: {
-          nextEl: '.modal-review__next',
-          prevEl: '.modal-review__prev',
+          nextEl: '.modal-slides__next',
+          prevEl: '.modal-slides__prev',
         },
         lazy: {
           loadPrevNext: true
@@ -116,6 +124,9 @@ export default {
     gallery() {
       return this.$refs.myGallery.swiper
     },
+    pictures() {
+      return this.type === 'reviews' && this.reviewsPictures || this.type === 'details' && this.detailsPictures
+    },
     reviews() {
       return this.$store.state.reviews
     },
@@ -124,9 +135,27 @@ export default {
     },
     currentReview() {
       return this.reviews && this.reviews.find(item => item.id === this.reviewsPictures[this.activeSlide].id)
+    },
+    details() {
+      return this.$store.state.kitchenDetails.info
+    },
+    detailsPictures() {
+      return this.$store.state.kitchenDetails.info.pictures
     }
   },
+  created() {
+    window.addEventListener('resize', this.handleResize)
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize)
+  },
   methods: {
+    handleResize() {
+      if (this.$windowWidth < this.$breakpoints.lg2 && this.type === 'details') {
+        this.$emit('close')
+      }
+    },
+
     onSlideChange() {
       const swiper = this.swiper
       const gallery = this.gallery
@@ -150,7 +179,7 @@ export default {
 </script>
 
 <style lang="scss">
-.modal-review {
+.modal-slides {
   position: relative;
   padding: 108px 0 30px;
   background-color: $color-white;
@@ -278,6 +307,11 @@ export default {
     height: 30px;
     fill: $color-gray;
     cursor: pointer;
+    z-index: 1;
+  }
+
+  &__details {
+    position: relative;
     z-index: 1;
   }
 

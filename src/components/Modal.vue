@@ -28,10 +28,19 @@
           @close="closeModal"
         />
 
-        <ModalReview
+        <ModalSlides
           v-if="modal === 'review'"
-          class="modal__review"
+          class="modal__slides"
           :initial="initialReviewIndex"
+          type="reviews"
+          @close="closeModal"
+        />
+
+        <ModalSlides
+          v-if="modal === 'details'"
+          class="modal__slides"
+          :initial="initialDetailSlide"
+          type="details"
           @close="closeModal"
         />
 
@@ -51,7 +60,7 @@ import ModalCall from '@/components/ModalCall'
 import ModalQuestion from '@/components/ModalQuestion'
 import ModalCalc from '@/components/ModalCalc'
 import ModalWrite from '@/components/ModalWrite'
-import ModalReview from '@/components/ModalReview'
+import ModalSlides from '@/components/ModalSlides'
 import ModalTechnics from '@/components/ModalTechnics'
 
 export default {
@@ -61,7 +70,7 @@ export default {
     ModalQuestion,
     ModalCalc,
     ModalWrite,
-    ModalReview,
+    ModalSlides,
     ModalTechnics
   },
   data() {
@@ -75,6 +84,9 @@ export default {
     },
     initialReviewIndex() {
       return this.$store.getters.initialReviewIndex
+    },
+    initialDetailSlide() {
+      return this.$store.state.initialDetailSlide
     }
   },
   watch: {
@@ -84,7 +96,8 @@ export default {
           call: 'open_designer',
           calc: 'open_size',
           technics: 'open_buy',
-          question: 'open_question'
+          question: 'open_question',
+          details: 'open_inner_size'
         }
 
         if (newModal in modalGoals) {
@@ -96,13 +109,26 @@ export default {
 
         this.showModal()
       }
+    },
+    $route() {
+      if (this.active) {
+        this.closeModal()
+      }
     }
   },
   methods: {
     showModal() {
+      const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth + 'px'
+
       document.body.classList.add('is-modal')
-      document.body.style.paddingRight = window.innerWidth - document.documentElement.clientWidth + 'px'
+      document.body.style.paddingRight = scrollBarWidth
       document.body.style.overflow = 'hidden'
+
+      const fixedHeader = document.querySelector('.page-header-fixed')
+      if (fixedHeader) {
+        fixedHeader.style.marginRight = scrollBarWidth
+      }
+
       this.active = true     
     },
 
@@ -112,8 +138,13 @@ export default {
     
     afterLeave() {
       document.body.style.paddingRight = ''
-      const bodyClassList = document.body.classList
 
+      const fixedHeader = document.querySelector('.page-header-fixed')
+      if (fixedHeader) {
+        fixedHeader.style.marginRight = ''
+      }
+
+      const bodyClassList = document.body.classList
       bodyClassList.remove('is-modal')
 
       if (!bodyClassList.contains('is-mobile-menu') && !bodyClassList.contains('is-mobile-filters')) {
@@ -185,7 +216,7 @@ export default {
     max-width: 1065px;
   }
 
-  &__review {
+  &__slides {
     width: 100%;
   }
 

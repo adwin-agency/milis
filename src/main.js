@@ -58,6 +58,7 @@ Vue.prototype.$breakpoints = {
   sm: 570,
   md: 750,
   lg: 1150,
+  lg2: 1280,
   xl: 1600
 }
 

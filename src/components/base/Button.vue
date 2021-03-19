@@ -31,6 +31,7 @@ export default {
     arrow: Boolean,
     icon: String,
     send: Boolean,
+    sendsm: Boolean,
     small: Boolean,
     underline: Boolean,
     blue: Boolean,
@@ -46,6 +47,7 @@ export default {
       return [
         'btn',
         {'btn_send': this.send},
+        {'btn_sendsm': this.sendsm},
         {'btn_sm': this.small},
         {'btn_u': this.underline},
         {'btn_blue': this.blue},
@@ -121,6 +123,13 @@ export default {
     line-height: (17/11);
   }
 
+  &_sendsm {
+    height: 36px;
+    padding: 12px;
+    font-size: 11px;
+    line-height: (17/11);
+  }
+
   &_square {
     width: 172px;
     height: 133px;
@@ -165,6 +174,10 @@ export default {
     }
 
     &_send {
+      padding: 12px;
+    }
+
+    &_sendsm {
       padding: 12px;
     }
   }

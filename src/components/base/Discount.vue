@@ -1,5 +1,5 @@
 <template>
-  <div class="discount">
+  <div :class="['discount', {'discount_sm': small}]">
     <div class="discount__bg">
       <Icon name="double-leaf"/>
     </div>
@@ -16,13 +16,16 @@ export default {
     Icon
   },
   props: {
-    value: String
+    value: String,
+    small: Boolean
   }
 }
 </script>
 
 <style lang="scss">
 .discount {
+  $b: &;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,6 +38,13 @@ export default {
   font-size: 19px;
   line-height: (31/19);
   color: $color-white;
+
+  &_sm {
+    width: 54px;
+    height: 56px;
+    font-size: 14px;
+    line-height: (23/14);
+  }
 
   &__bg {
     position: absolute;
