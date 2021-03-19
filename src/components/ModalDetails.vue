@@ -66,7 +66,7 @@
         <FormSuccess
           :class="{'is-active': sendSuccess}"
           small
-          :title="`Ваша заявка \n успешно отправлена!`"
+          :title="`Ваша заявка успешно отправлена!`"
         />
       </div>
     </form>
@@ -153,7 +153,7 @@ export default {
 
       this.sending = true
       this.sendError = false
-      const data = new FormData(this.$refs.calcform)
+      const data = new FormData(this.$refs.detailsform)
 
       api.sendForm(data, 'inner_size')
         .then(() => {
@@ -262,7 +262,7 @@ export default {
   &__form {
     display: flex;
     position: relative;
-    margin-top: 20px;
+    padding-top: 20px;
   }
 
   &__field {
@@ -295,7 +295,7 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
-    padding: 20px;
+    padding-top: 20px;
     background-color: #fff;
     opacity: 0;
     pointer-events: none;

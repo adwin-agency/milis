@@ -57,7 +57,7 @@
         @click.native="onGalleryClick"
       >
         <div class="modal-slides__gallery-image">
-          <img :src="`https://milismebel.ru${type === 'reviews' ? picture.preview.path : picture.tablet.path}`" alt="">
+          <img :src="`https://milismebel.ru${picture.preview.path}`" alt="">
         </div>
       </SwiperSlide>
     </Swiper>
