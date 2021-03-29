@@ -105,6 +105,7 @@ export default {
           window.VK && window.VK.Goal('initiate_checkout')
           window.dataLayer = window.dataLayer || []
           window.dataLayer.push({'event': modalGoals[newModal]})
+          window.dataLayer.push({'event': 'open_form'})
         }
 
         this.showModal()

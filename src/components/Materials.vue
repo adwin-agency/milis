@@ -18,7 +18,7 @@
           <Icon name="leaf"/>
         </div>
         <p class="materials__title">Фасады мдф</p>
-        <div class="materials__desc">Международный стандарт от Kronospam</div>
+        <div class="materials__desc">Австрийское качество от Egger</div>
       </div>
       <div class="materials__item">
         <div class="materials__image">
@@ -28,7 +28,7 @@
           <Icon name="leaf"/>
         </div>
         <p class="materials__title">Корпус</p>
-        <div class="materials__desc">Австрийское качество</div>
+        <div class="materials__desc">Международный стандарт{{'\xa0'}}от Kronospam</div>
       </div>
       <div class="materials__item">
         <div class="materials__image">
