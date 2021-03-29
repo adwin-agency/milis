@@ -47,7 +47,7 @@
               <h2 class="screen__heading">
                 <RouterLink :to="{name: 'product', params: {category: kitchen.category, kitchen: kitchen.url}}">{{kitchen.name}}</RouterLink>  
               </h2>
-              <p class="screen__price">от 
+              <p class="screen__price">
                 <span class="screen__price-num">{{kitchen.price}} ₽<span>*</span></span>
               </p>
               <p class="screen__price-note"><span>*</span>за весь гарнитур</p>

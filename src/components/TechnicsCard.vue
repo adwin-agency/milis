@@ -7,7 +7,7 @@
       {{technic.category_rus}}
     </RouterLink>
     <p class="technics-card__title">{{technic.name}}</p>
-    <p class="technics-card__price">от 
+    <p class="technics-card__price">
       <span class="technics-card__price-num">{{technic.price}} ₽</span>
     </p>
     <div class="technics-card__row">

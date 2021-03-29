@@ -28,7 +28,7 @@
           <Icon name="leaf"/>
         </div>
         <p class="materials__title">Корпус</p>
-        <div class="materials__desc">Международный стандарт{{'\xa0'}}от Kronospam</div>
+        <div class="materials__desc">Международный стандарт{{'\xa0'}}от Kronospan</div>
       </div>
       <div class="materials__item">
         <div class="materials__image">

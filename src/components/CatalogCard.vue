@@ -87,7 +87,7 @@
       </div>
       <div class="catalog-card__prices">
         <p v-if="kitchen.old_price" class="catalog-card__oldprice">{{kitchen.old_price}} ₽</p> 
-        <p class="catalog-card__price">от 
+        <p class="catalog-card__price">
           <span class="catalog-card__price-num">{{kitchen.price}} ₽<span>*</span></span>
         </p>
         <p class="catalog-card__price-note"><span>*</span>за весь гарнитур</p>

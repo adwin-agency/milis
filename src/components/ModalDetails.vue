@@ -11,7 +11,7 @@
           >
             {{details.old_price}} ₽
           </p>
-          <p class="modal-details__price">от <span class="modal-details__price-num">{{details.price}}</span> ₽</p>
+          <p class="modal-details__price"><span class="modal-details__price-num">{{details.price}}</span> ₽</p>
         </div>
         <Discount
           v-if="details.discount"
