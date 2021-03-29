@@ -27,6 +27,7 @@
         </div>
         <div class="our-products__wrapper fade-bounce-right js-anim" v-anim="true">
           <FilterMenu
+            v-if="!$mobile"
             class="our-products__menu"
             filterType="catalog"
           />
@@ -37,6 +38,7 @@
             {{heading}}
           </h1>
           <FilterTags
+            v-if="!$mobile"
             class="our-products__tags"
             :tags="tags"
             :activeTag="activeTag"
@@ -219,7 +221,7 @@ export default {
   }
 
   &__heading {
-    margin-top: 3px;
+    margin-top: 12px;
     width: 100%;
     font-family: $font-secondary;
     font-weight: bold;

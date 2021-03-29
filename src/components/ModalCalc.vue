@@ -97,7 +97,7 @@
           При расчете — 3D проект в{{'\xa0'}}подарок
         </p>
       </div>
-      <p class="modal-calc__date">Акция ограничена <br>до <b>{{promoDate}}</b></p>
+      <!-- <p class="modal-calc__date">Акция ограничена <br>до <b>{{promoDate}}</b></p> -->
       <img src="@/assets/img/modal-calc.png" alt="" class="modal-calc__image">
       <span class="modal-calc__like">
         <Icon name="hand-like" />
@@ -360,7 +360,7 @@ export default {
 
   &__side {
     position: relative;
-    padding: 40px 20px 220px;
+    padding: 40px 20px 270px;
     background-color: #EEEEEE;
   }
 
@@ -453,7 +453,7 @@ export default {
 
   @include media(xs) {
     &__side {
-      padding: 40px 20px 185px;
+      padding: 40px 20px 270px;
     }
   }
 
