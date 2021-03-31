@@ -49,7 +49,7 @@
               <span class="modal-calc__file-icon">
                 <Icon name="attach" />
               </span>
-              {{inputFileName || 'Прикрепить фото эскиза'}}
+              {{inputFileName || 'Можно прикрепить эскиз проекта'}}
             </label>
             <span
               class="modal-calc__file-remove"
@@ -64,7 +64,7 @@
           type="submit"
           class="modal-calc__btn"
         >
-          Отправить
+          Рассчитать
         </Button>
         <p
           v-if="sendError"
@@ -88,13 +88,13 @@
           <span class="modal-calc__feature-icon">
             <Icon name="heart" />
           </span>
-          Расчет до рубля за 5 минут
+          Расчет за 5 минут
         </p>
         <p class="modal-calc__feature">
           <span class="modal-calc__feature-icon">
             <Icon name="heart" />
           </span>
-          При расчете — 3D проект в{{'\xa0'}}подарок
+          Выезд дизайнера и{{'\xa0'}}3D&#8209;проект — БЕСПЛАТНО
         </p>
       </div>
       <!-- <p class="modal-calc__date">Акция ограничена <br>до <b>{{promoDate}}</b></p> -->
@@ -463,7 +463,7 @@ export default {
     }
 
     &__side {
-      padding: 70px 360px 80px 80px;
+      padding: 70px 370px 80px 80px;
       min-height: 332px;
     }
 
