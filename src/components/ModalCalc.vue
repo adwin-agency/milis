@@ -97,7 +97,7 @@
           Выезд дизайнера и{{'\xa0'}}3D&#8209;проект — БЕСПЛАТНО
         </p>
       </div>
-      <!-- <p class="modal-calc__date">Акция ограничена <br>до <b>{{promoDate}}</b></p> -->
+      <p class="modal-calc__date">Акция ограничена <br>до <b>{{promoDate}}</b></p>
       <img src="@/assets/img/modal-calc.png" alt="" class="modal-calc__image">
       <span class="modal-calc__like">
         <Icon name="hand-like" />
@@ -261,8 +261,8 @@ export default {
 
   &__desc {
     margin-top: 10px;
-    font-size: 11px;
-    line-height: (17/11);
+    font-size: 14px;
+    line-height: (22/14);
   }
 
   &__fields {
@@ -538,13 +538,6 @@ export default {
       right: 25px;
       width: 22px;
       height: 22px;
-    }
-  }
-
-  @include media(xl) {
-    &__desc {
-      font-size: 14px;
-      line-height: (22/14);
     }
   }
 }

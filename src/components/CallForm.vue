@@ -269,8 +269,8 @@ export default {
 
   &__desc {
     margin-top: 10px;
-    font-size: 11px;
-    line-height: (17/11);
+    font-size: 14px;
+    line-height: (22/14);
   }
 
   &__items {
@@ -449,8 +449,6 @@ export default {
     }
 
     &__desc {
-      font-size: 12px;
-      line-height: (19/12);
       max-width: 620px;
     }
 
@@ -564,11 +562,6 @@ export default {
           margin-bottom: 38px;
         }
       }
-    }
-
-    &__desc {
-      font-size: 14px;
-      line-height: (22/14);
     }
 
     &__fields {

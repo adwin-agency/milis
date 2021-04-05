@@ -243,6 +243,7 @@ export default {
 
   &__field {
     margin-bottom: 22px;
+    background-color: #fff;
 
     &:last-child {
       margin-bottom: 0;

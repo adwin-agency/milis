@@ -195,8 +195,8 @@ export default {
 
   &__desc {
     margin-top: 10px;
-    font-size: 11px;
-    line-height: (17/11);
+    font-size: 14px;
+    line-height: (22/14);
   }
 
   &__fields {
@@ -303,8 +303,6 @@ export default {
   @include media(xl) {
     &__desc {
       padding-right: 10px;
-      font-size: 14px;
-      line-height: (22/14);
     }
   }
 }

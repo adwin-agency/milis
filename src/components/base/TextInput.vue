@@ -85,12 +85,13 @@ export default {
   &_sm {
     #{$b}__field {
       height: 36px;
+      padding: 8px 16px;
     }
     #{$b}__label {
-      top: 10px;
+      top: 6px;
 
       &.is-active {
-        transform: translateY(-20px);
+        transform: translateY(-18px);
       }
     }
   }
@@ -100,7 +101,7 @@ export default {
     width: 100%;
     height: 55px;
     padding: 16px;
-    font-size: 11px;
+    font-size: 14px;
     line-height: (17/11);
     caret-color: $color-green;
 
@@ -130,9 +131,9 @@ export default {
   &__label {
     position: absolute;
     left: 6px;
-    top: 18px;    
+    top: 15px;    
     padding: 0 10px;
-    font-size: 11px;
+    font-size: 14px;
     line-height: (17/11);
     color: $color-gray-middle;
     background-color: inherit;

@@ -119,15 +119,11 @@ export default {
   &_send {
     height: 55px;
     padding: 12px;
-    font-size: 11px;
-    line-height: (17/11);
   }
 
   &_sendsm {
     height: 36px;
     padding: 12px;
-    font-size: 11px;
-    line-height: (17/11);
   }
 
   &_square {
