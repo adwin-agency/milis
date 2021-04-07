@@ -173,7 +173,7 @@ export default {
     },
 
     showModal() {
-      this.$store.commit('setModal', 'calc')
+      this.$store.commit('setModal', 'quiz')
       this.$store.commit('setModalData', this.modalData)
     }
   }

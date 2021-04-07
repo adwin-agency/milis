@@ -50,6 +50,12 @@
           @close="closeModal"
         />
 
+        <ModalQuiz
+            v-if="modal === 'quiz'"
+            class="modal__quiz"
+            @close="closeModal"
+        />
+
       </div>
     </div>
   </transition>
@@ -62,10 +68,12 @@ import ModalCalc from '@/components/ModalCalc'
 import ModalWrite from '@/components/ModalWrite'
 import ModalSlides from '@/components/ModalSlides'
 import ModalTechnics from '@/components/ModalTechnics'
+import ModalQuiz from "@/components/ModalQuiz";
 
 export default {
   name: 'Modal',
   components: {
+    ModalQuiz,
     ModalCall,
     ModalQuestion,
     ModalCalc,
