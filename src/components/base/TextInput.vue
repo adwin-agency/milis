@@ -5,6 +5,7 @@
       class="text-input__field"
       :type="type"
       :name="name"
+      :placeholder="placeholder"
       autocomplete="off"
       v-imask="mask"
       @accept="type === 'tel' && $emit('input', $event.detail.value)"
@@ -34,6 +35,7 @@ export default {
     label: String,
     type: String,
     name: String,
+    placeholder: String,
     textarea: Boolean,
     error: Boolean,
     small: Boolean
