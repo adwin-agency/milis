@@ -10,178 +10,147 @@
     </div>
 
     <form class="modal-quiz__form" action="" method="POST">
-      <!-- step 1 -->
-      <div class="modal-quiz__step">
-        <p class="modal-quiz__name">Выберите форму и введите размеры будущей кухни</p>
-        <div class="modal-quiz__grid d-flex">
+      <div class="modal-quiz__steps quiz-steps">
 
-          <div class="modal-quiz__section">
-            <div class="modal-quiz__inner d-flex">
-              <p class="modal-quiz__desc">
-                <span class="modal-quiz__number">1</span>
-              </p>
-              <ul class="modal-quiz__type quiz-type d-flex">
-                <li
-                    v-for="(label, index) in labels"
-                    :key="index"
-                    class="quiz-type__element"
-                >
-                  <label class="quiz-type__label">
-                    <input type="radio" :class="'quiz-type__radio ' + index" :value="label.value" name="quiz-type"
-                           tabindex="-1">
-                    <div class="quiz-type__label-box d-flex">
-                      <span class="quiz-type__name">{{ label.title }}</span>
-                      <Icon class="quiz-type__check" name="check-circle"/>
-                      <Icon class="quiz-type__icon" :name="label.icon"/>
+        <!-- step 1 -->
+        <div class="modal-quiz__step quiz-steps-one d-flex">
+          <p class="modal-quiz__name">Выберите форму и введите размеры будущей кухни</p>
+          <div class="modal-quiz__grid d-flex">
+
+            <div class="modal-quiz__section">
+              <div class="modal-quiz__inner d-flex">
+                <p class="modal-quiz__desc">
+                  <span class="modal-quiz__number">1</span>
+                </p>
+                <ul class="modal-quiz__type quiz-type d-flex">
+
+                  <li
+                      v-for="(label, index) in labels"
+                      :key="index"
+                      class="quiz-type__element"
+                  >
+                    <label class="quiz-type__label">
+                      <input type="radio" :class="'quiz-type__radio ' + index" :value="label.value" name="quiz-type" tabindex="-1" :checked="index == 0" @change="changeType(label.value)">
+                      <div class="quiz-type__label-box d-flex">
+                        <span class="quiz-type__name">{{ label.title }}</span>
+                        <Icon class="quiz-type__check" name="check-circle"/>
+                        <Icon class="quiz-type__icon" :name="label.icon"/>
+                      </div>
+                    </label>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+
+            <div class="modal-quiz__section modal-quiz__section_large">
+              <div class="modal-quiz__inner d-flex">
+                <p class="modal-quiz__desc">
+                  <span class="modal-quiz__number">2</span>
+                </p>
+                <div class="modal-quiz__layout quiz-layout">
+                  <p class="modal-quiz__name modal-quiz__name_font-primary">Размеры стен, где будет расположена
+                    кухня</p>
+                  <div class="quiz-layout__arrow">
+                    <span class="quiz-layout__arrow-element"></span>
+                    <span class="quiz-layout__arrow-element"></span>
+                  </div>
+
+                  <div class="quiz-layout__main d-flex">
+
+                    <div class="quiz-layout__arrow quiz-layout__arrow_vertical" v-if="currentType != 'pryamye' ">
+                      <span class="quiz-layout__arrow-element"></span>
+                      <span class="quiz-layout__arrow-element"></span>
                     </div>
+
+                    <ul class="quiz-layout__row wrap d-flex">
+
+<!--                      <li class="quiz-layout__block d-flex"-->
+<!--                          :class="{'quiz-layout__block_vertical': n > 1}"-->
+<!--                          v-for="n in 3"-->
+<!--                          :key="n"-->
+<!--                      >-->
+<!--                        <input type="number" class="quiz-layout__input" name="quiz-size[]" placeholder="1,2 см">-->
+<!--                      </li>-->
+
+                      <li class="quiz-layout__block d-flex">
+                        <input type="number" class="quiz-layout__input" name="quiz-size[]" placeholder="1,2 см" @input="onSizeInput('size_one', $event)">
+                      </li>
+                      <li class="quiz-layout__block quiz-layout__block_vertical d-flex" v-if="currentType != 'pryamye' ">
+                        <input type="number" class="quiz-layout__input" name="quiz-size[]" placeholder="1,2 см" @input="onSizeInput('size_two', $event)">
+                      </li>
+                      <li class="quiz-layout__block quiz-layout__block_vertical d-flex" v-if="currentType == 'shaped'  ">
+                        <input type="number" class="quiz-layout__input" name="quiz-size[]" placeholder="1,2 см" @input="onSizeInput('size_three', $event)">
+                      </li>
+                    </ul>
+
+                    <div class="quiz-layout__arrow quiz-layout__arrow_vertical" v-if="currentType == 'shaped'">
+                      <span class="quiz-layout__arrow-element"></span>
+                      <span class="quiz-layout__arrow-element"></span>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-quiz__footer d-flex">
+            <button type="button" class="modal-quiz__button modal-quiz__button-next modal-quiz__button_disable d-flex" :disabled="buttonDisabled">
+              <span class="modal-quiz__button-text">Следующий шаг</span>
+              <Icon class="modal-quiz__button-icon" name="button-arrow"/>
+            </button>
+          </div>
+        </div>
+        <!-- / step 1 / -->
+
+        <!-- step 2 -->
+        <div class="modal-quiz__step quiz-steps-two d-flex" style="display: none;">
+          <p class="modal-quiz__name">Выберите материал и фурнитуру будущей кухни</p>
+
+          <div class="modal-quiz__grid d-flex">
+
+            <div class="modal-quiz__section">
+              <p class="modal-quiz__desc modal-quiz__desc_size-small">
+                <span class="modal-quiz__number modal-quiz__number_size-medium">1</span>
+                Материалы
+              </p>
+              <ul class="modal-quiz__list quiz-list">
+                <li
+                    v-for="(label, index) in materials"
+                    :key="index"
+                    class="quiz-list__element"
+                >
+                  <label class="quiz-list__label">
+                    <input type="radio" :class="'quiz-list__radio ' + index" :value="label.title" name="quiz-materials"
+                           tabindex="-1">
+                    <span class="quiz-list__name">{{ label.title }}</span>
                   </label>
                 </li>
               </ul>
             </div>
-          </div>
-
-          <div class="modal-quiz__section modal-quiz__section_large">
-
-            <div class="modal-quiz__inner d-flex">
-
-              <p class="modal-quiz__desc">
-                <span class="modal-quiz__number">2</span>
+            <div class="modal-quiz__section">
+              <p class="modal-quiz__desc modal-quiz__desc_size-small">
+                <span class="modal-quiz__number modal-quiz__number_size-medium">2</span>
+                Фурнитура
               </p>
-
-              <div class="modal-quiz__layout quiz-layout">
-                <p class="modal-quiz__name">Размеры стен, где будет расположена кухня</p>
-
-                <div class="quiz-layout__arrow">
-                  <span class="quiz-layout__arrow-element"></span>
-                  <span class="quiz-layout__arrow-element"></span>
-                </div>
-                <div class="quiz-layout__main d-flex">
-
-                  <div class="quiz-layout__arrow quiz-layout__arrow_vertical">
-                    <span class="quiz-layout__arrow-element"></span>
-                    <span class="quiz-layout__arrow-element"></span>
-                  </div>
-
-                  <ul class="quiz-layout__row wrap d-flex">
-
-                    <li class="quiz-layout__block d-flex"
-                        :class="{'quiz-layout__block_vertical': n > 1}"
-                        v-for="n in 3"
-                        :key="n"
-                    >
-                      <input type="number" class="quiz-layout__input" name="quiz-size[]" placeholder="1,2 см">
-                    </li>
-
-                  </ul>
-
-                  <div class="quiz-layout__arrow quiz-layout__arrow_vertical">
-                    <span class="quiz-layout__arrow-element"></span>
-                    <span class="quiz-layout__arrow-element"></span>
-                  </div>
-
-                </div>
-              </div>
-
+              <ul class="modal-quiz__list quiz-list">
+                <li
+                    v-for="(label, index) in furniture"
+                    :key="index"
+                    class="quiz-list__element"
+                >
+                  <label class="quiz-list__label">
+                    <input type="radio" :class="'quiz-list__radio ' + index" :value="label.title" name="quiz-furniture"
+                           tabindex="-1">
+                    <span class="quiz-list__name">{{ label.title }}</span>
+                  </label>
+                </li>
+              </ul>
             </div>
-          </div>
-        </div>
-        <div class="modal-quiz__footer">
-          <button type="button" class="modal-quiz__button modal-quiz__button-next modal-quiz__button_disable d-flex">
-            <span class="modal-quiz__button-text">Следующий шаг</span>
-            <Icon class="modal-quiz__button-icon" name="button-arrow"/>
-          </button>
-        </div>
-      </div>
-      <!-- / step 1 / -->
 
-      <!-- step 2 -->
-      <div class="modal-quiz__step" style="display:none;">
-        <div class="modal-quiz__section">
-          <p class="modal-quiz__name">Выберите материал и фурнитуру будущей кухни</p>
-          <p class="modal-quiz__desc modal-quiz__desc_size-small">
-            <span class="modal-quiz__number modal-quiz__number_size-medium">1</span>
-            Материалы
-          </p>
-          <ul class="modal-quiz__list quiz-list">
-            <li
-                v-for="(label, index) in materials"
-                :key="index"
-                class="quiz-list__element"
-            >
-              <label class="quiz-list__label">
-                <input type="radio" :class="'quiz-list__radio ' + index" :value="label.title" name="quiz-materials"
-                       tabindex="-1">
-                <span class="quiz-list__name">{{ label.title }}</span>
-              </label>
-            </li>
-          </ul>
-        </div>
-        <div class="modal-quiz__section">
-          <p class="modal-quiz__desc modal-quiz__desc_size-small">
-            <span class="modal-quiz__number modal-quiz__number_size-medium">2</span>
-            Фурнитура
-          </p>
-          <ul class="modal-quiz__list quiz-list">
-            <li
-                v-for="(label, index) in furniture"
-                :key="index"
-                class="quiz-list__element"
-            >
-              <label class="quiz-list__label">
-                <input type="radio" :class="'quiz-list__radio ' + index" :value="label.title" name="quiz-furniture"
-                       tabindex="-1">
-                <span class="quiz-list__name">{{ label.title }}</span>
-              </label>
-            </li>
-          </ul>
-        </div>
-        <div class="modal-quiz__footer">
-          <button type="button" class="modal-quiz__button modal-quiz__button-next modal-quiz__button_disable d-flex">
-            <span class="modal-quiz__button-text">Следующий шаг</span>
-            <Icon class="modal-quiz__button-icon" name="button-arrow"/>
-          </button>
-          <button type="button" class="modal-quiz__button modal-quiz__button-prev d-flex">
-            <Icon class="modal-quiz__button-icon" name="button-arrow"/>
-            <span class="modal-quiz__button-text">Вернуться назад</span>
-          </button>
-        </div>
-      </div>
-      <!-- / step 2 / -->
-
-      <!-- step 3 -->
-      <div class="modal-quiz__step" style="display:none;">
-        <div class="modal-quiz__section">
-          <p class="modal-quiz__desc modal-quiz__desc_size-large">
-            Ваши пожелания к дизайну
-          </p>
-          <TextInput class="modal-quiz__textarea" textarea name="quiz-comment"
-                     placeholder="У меня маленькая и темная кухня,  мне хотелось бы добавить яркости..."/>
-          <div class="modal-calc__file modal-quiz-file" :class="{'is-active': inputFileName}">
-            <label class="modal-calc__file-label">
-              <input
-                  class="modal-calc__file-input"
-                  type="file"
-                  name="file"
-                  accept="image/*"
-                  ref="fileInput"
-                  @change="onFileChange"
-              >
-              <span class="modal-calc__file-icon">
-                  <Icon name="attach"/>
-                </span>
-              {{ inputFileName || 'Прикрепить фото эскиза' }}
-            </label>
-            <span
-                class="modal-calc__file-remove"
-                @click="onFileRemove"
-            >
-              <Icon name="close"/>
-              </span>
           </div>
-          <p class="modal-quiz__text">
-            *Этот шаг можно пропустить
-          </p>
-          <div class="modal-quiz__footer">
+
+          <div class="modal-quiz__footer d-flex">
             <button type="button" class="modal-quiz__button modal-quiz__button-next modal-quiz__button_disable d-flex">
               <span class="modal-quiz__button-text">Следующий шаг</span>
               <Icon class="modal-quiz__button-icon" name="button-arrow"/>
@@ -192,44 +161,123 @@
             </button>
           </div>
         </div>
-      </div>
-      <!-- / step 3 / -->
+        <!-- / step 2 / -->
 
-      <!-- step 4 -->
-      <div class="modal-quiz__step" style="display:none;">
-        <div class="modal-quiz__section">
+        <!-- step 3 -->
+        <div class="modal-quiz__step quiz-steps-three d-flex" style="display:none;">
+          <p class="modal-quiz__desc modal-quiz__desc_size-large">
+            Ваши пожелания к дизайну
+          </p>
+          <div class="modal-quiz__grid d-flex">
+            <div class="modal-quiz__section">
+
+              <TextInput class="modal-quiz__textarea" textarea name="quiz-comment"
+                         placeholder="У меня маленькая и темная кухня,  мне хотелось бы добавить яркости..."/>
+              <div class="modal-quiz__row d-flex">
+                <div class="modal-calc__file modal-quiz-file" :class="{'is-active': inputFileName}">
+                  <label class="modal-calc__file-label">
+                    <input
+                        class="modal-calc__file-input"
+                        type="file"
+                        name="file"
+                        accept="image/*"
+                        ref="fileInput"
+                        @change="onFileChange"
+                    >
+                    <span class="modal-calc__file-icon">
+                      <Icon name="attach"/>
+                    </span>
+                    {{ inputFileName || 'Прикрепить фото эскиза' }}
+                  </label>
+                  <span
+                      class="modal-calc__file-remove"
+                      @click="onFileRemove"
+                  >
+                  <Icon name="close"/>
+                  </span>
+                </div>
+                <p class="modal-quiz__text">
+                  *Этот шаг можно пропустить
+                </p>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-quiz__footer d-flex">
+            <button type="button" class="modal-quiz__button modal-quiz__button-next modal-quiz__button_disable d-flex">
+              <span class="modal-quiz__button-text">Следующий шаг</span>
+              <Icon class="modal-quiz__button-icon" name="button-arrow"/>
+            </button>
+            <button type="button" class="modal-quiz__button modal-quiz__button-prev d-flex">
+              <Icon class="modal-quiz__button-icon" name="button-arrow"/>
+              <span class="modal-quiz__button-text">Вернуться назад</span>
+            </button>
+          </div>
+        </div>
+        <!-- / step 3 / -->
+
+        <!-- step 4 -->
+        <div class="modal-quiz__step quiz-steps-four d-flex" style="display:none;">
           <p class="modal-quiz__desc modal-quiz__desc_size-large">
             Спасибо! Мы уже начали расчет
           </p>
-          <p class="modal-quiz__desc modal-quiz__desc_size-small modal-quiz__desc_font-primary">
-            Если вы оставите свои контакты, то мы сможем <span class="modal-quiz__desc-color">закрепить скидку и подарить вам фурнитуру</span>
-          </p>
-          <TextInput
-              class="modal-calc__field modal-quiz__field"
-              label="Имя"
-              type="text"
-              name="name"
-              :error="errors.name"
-              @input="onInput('name', $event)"
-          />
-          <TextInput
-              class="modal-calc__field modal-quiz__field"
-              label="Телефон"
-              type="tel"
-              name="phone"
-              :error="errors.phone"
-              @input="onInput('phone', $event)"
-          />
+          <div class="modal-quiz__grid d-flex">
+            <div class="modal-quiz__section">
+              <p class="modal-quiz__desc modal-quiz__desc_size-small modal-quiz__desc_font-primary">
+                Если вы оставите свои контакты, то мы сможем <span class="modal-quiz__desc-color">закрепить скидку и подарить вам фурнитуру</span>
+              </p>
+              <div class="modal-quiz__fields">
+                <TextInput
+                    class="modal-calc__field modal-quiz__field"
+                    label="Имя"
+                    type="text"
+                    name="name"
+                    :error="errors.name"
+                    @input="onInput('name', $event)"
+                />
+                <TextInput
+                    class="modal-calc__field modal-quiz__field"
+                    label="Телефон"
+                    type="tel"
+                    name="phone"
+                    :error="errors.phone"
+                    @input="onInput('phone', $event)"
+                />
+                <div class="modal-quiz__footer d-flex">
+                  <button type="submit" class="modal-quiz__button modal-quiz__submit modal-quiz__button-next d-flex">
+                    <span class="modal-quiz__button-text">Закрепить скидку и получить подарок</span>
+                  </button>
+                  <button type="button" class="modal-quiz__button modal-quiz__button-prev d-flex">
+                    <Icon class="modal-quiz__button-icon" name="button-arrow"/>
+                    <span class="modal-quiz__button-text">Вернуться назад</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="modal-quiz__section">
+              <div class="modal-quiz__banner">
+                <img src="@/assets/img/quiz-banner.jpg" alt="" class="modal-quiz__banner-image">
+                <span class="modal-quiz__like">
+                  <Icon name="hand-like" />
+                </span>
+                <div class="modal-quiz__circle">
+                  <span>Ваша скидка</span>
+                </div>
+                <span class="modal-quiz__smile">
+                  <Icon name="smile-5" />
+                </span>
+                <Discount
+                    class="modal-quiz__discount"
+                    value="47"
+                />
+              </div>
+            </div>
+          </div>
+
         </div>
-        <button type="submit" class="modal-quiz__button modal-quiz__submit modal-quiz__button-next d-flex">
-          <span class="modal-quiz__button-text">Закрепить скидку и получить подарок</span>
-        </button>
-        <button type="button" class="modal-quiz__button modal-quiz__button-prev d-flex">
-          <Icon class="modal-quiz__button-icon" name="button-arrow"/>
-          <span class="modal-quiz__button-text">Вернуться назад</span>
-        </button>
+        <!-- / step 4 / -->
+
       </div>
-      <!-- / step 4 / -->
     </form>
 
   </div>
@@ -239,12 +287,18 @@
 // import Button from './base/Button'
 import Icon from './base/Icon'
 import TextInput from "@/components/base/TextInput";
+import Discount from "@/components/base/Discount";
 // import api from '@/api'
+// import {IMaskDirective} from 'vue-imask'
 
 export default {
   name: 'ModalQuiz',
+  // directives: {
+  //   imask: IMaskDirective
+  // },
   components: {
     TextInput,
+    Discount,
     // Button,
     Icon,
   },
@@ -253,10 +307,15 @@ export default {
   },
   data() {
     return {
+      buttonDisabled: true,
+      currentType: 'uglovie',
+      // mask: {
+      //   mask: '0,000'
+      // },
       labels: [
         {title: 'Угловая', value: 'uglovie', icon: 'icon-corner'},
         {title: 'Прямая', value: 'pryamye', icon: 'icon-straight'},
-        {title: 'П-образная', value: 'pryamye', icon: 'icon-shaped'},
+        {title: 'П-образная', value: 'shaped', icon: 'icon-shaped'},
       ],
       materials: [
         {title: 'МДФ пленка ПВХ'},
@@ -268,7 +327,10 @@ export default {
       ],
       inputs: {
         name: '',
-        phone: ''
+        phone: '',
+        size_one: '',
+        size_two: '',
+        size_three: '',
       },
       errors: {
         name: false,
@@ -286,6 +348,22 @@ export default {
     }
   },
   methods: {
+    onSizeInput(name, e){
+      this.inputs[name] = e.target.value
+
+      for (let key in this.inputs) {
+        if (key.includes('size') && this.inputs[key] === '') {
+          return
+        }
+      }
+
+      this.buttonDisabled = false
+    },
+
+    changeType(value){
+      this.currentType = value;
+    },
+
     onSuccess() {
       this.success = true
     },
@@ -320,6 +398,7 @@ export default {
   font-family: $font-secondary;
   position: relative;
   max-width: 1090px;
+  overflow: hidden;
 
   .d-flex {
     display: flex;
@@ -345,8 +424,9 @@ export default {
     flex-direction: column;
   }
 
-  &__inner{
+  &__inner {
     flex-direction: column;
+
   }
 
   &__title {
@@ -359,7 +439,6 @@ export default {
 
   &__form {
     background-color: #fff;
-    padding: 23px 20px 40px;
   }
 
   &__name {
@@ -367,6 +446,15 @@ export default {
     line-height: 27px;
     color: $color-blue;
     margin: 0px 0px 14px;
+
+    &_font-primary {
+      font-family: $font-primary;
+    }
+  }
+
+  &__step {
+    flex-direction: column;
+    padding: 23px 20px 40px;
   }
 
   &__section {
@@ -429,7 +517,7 @@ export default {
     font-weight: 700;
     line-height: 1;
     width: 100%;
-    margin: 36px auto 0px;
+    margin: 31px auto 0px;
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -459,6 +547,7 @@ export default {
       color: $color-blue;
       font-size: 14px;
       max-width: 270px;
+      padding: 5px;
 
       #{$b}__button-text {
         text-decoration: underline;
@@ -485,8 +574,14 @@ export default {
   }
 
   &__textarea {
-    margin: 26px 0px 0px;
-    height: 259px;
+
+    .text-input__field {
+      height: 259px;
+    }
+  }
+
+  &__row {
+    flex-direction: column;
   }
 
   &__text {
@@ -494,6 +589,30 @@ export default {
     font-size: 16px;
     color: $color-black-gray;
     font-weight: 500;
+  }
+
+  &__footer {
+    flex-direction: column;
+  }
+
+  &__banner{
+    margin: 30px 0px 0px;
+
+    &-image{
+      width: 120%;
+      margin: 0px -20px -40px;
+      object-fit: cover;
+      max-height: 400px;
+    }
+
+  }
+
+  &__circle{
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: $color-red;
   }
 
   &__close {
@@ -506,7 +625,10 @@ export default {
     cursor: pointer;
   }
 
+  // media
+
   @include media(lg) {
+    width: 100%;
 
     &__logo {
       display: block;
@@ -519,13 +641,34 @@ export default {
 
     &__grid {
       flex-direction: row;
-      width: 100%;
-      margin: 0px -15px;
+      flex: 1;
+      margin: 42px -15px 0px;
     }
 
-    &__inner{
+    &__inner {
       flex-direction: row;
       align-items: flex-start;
+    }
+
+    &__name {
+      margin-bottom: 0;
+    }
+
+    &__layout {
+      margin: 0px;
+      background-color: $color-gray-7;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+      border-radius: 4px;
+      padding: 18px 35px 37px;
+      flex: 1;
+    }
+
+    &__type {
+      margin-top: 0;
+    }
+
+    &__list {
+      margin: 44px 0px 0px;
     }
 
     &__section {
@@ -533,22 +676,32 @@ export default {
       padding: 0px 15px;
 
       &_large {
-        flex: 1 0 50%;
-        max-width: 50%;
+        flex: 2;
       }
     }
 
-    &__number{
+    &__desc {
+      font-size: 32px;
+
+      &_size-large {
+        margin-bottom: 0;
+      }
+    }
+
+    &__number {
       line-height: 1;
+      font-size: 50px;
+      margin-right: 31px;
+      display: block;
     }
 
     &__form {
-      padding-bottom: 0;
+      overflow: hidden;
     }
 
     &__step {
-      display: flex;
-      flex-wrap: wrap;
+      padding: 42px 40px 0px;
+      min-height: 670px;
     }
 
     &__close {
@@ -557,14 +710,50 @@ export default {
       transform: translateY(-50%);
     }
 
-    &__footer {
-      flex: 1 0 100%;
-    }
-
-    &__type{
+    &__type {
       flex-direction: column;
     }
 
+    &__fields {
+      margin: 57px 0px 0px;
+      max-width: 507px;
+
+      .modal-calc__field {
+        margin-top: 23px;
+      }
+    }
+
+    &__button {
+      width: 420px;
+      border-radius: 60px 0px 0px 0px;
+      margin: 0;
+
+      &-next {
+        margin-left: auto;
+      }
+
+      &-prev {
+        justify-content: flex-start;
+      }
+    }
+
+    &__row {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__footer {
+      width: 100%;
+      margin-top: auto;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .quiz-layout .modal-quiz__name {
+      margin-bottom: 29px;
+    }
   }
 
 }
@@ -587,6 +776,45 @@ export default {
   fill: $color-green;
   width: 34px;
   height: 34px;
+}
+
+// media
+
+@include media(lg) {
+
+  .quiz-steps-two .modal-quiz__grid {
+    margin-top: 104px;
+  }
+
+  .quiz-steps-two .modal-quiz__desc {
+    display: flex;
+    align-items: center;
+  }
+
+  .modal-quiz-file.modal-calc__file {
+    width: 430px;
+  }
+
+  .quiz-steps-four .modal-quiz__desc_size-small {
+    font-size: 26px;
+    line-height: 38px;
+    max-width: 70%;
+  }
+
+  .quiz-steps-four .modal-quiz__footer {
+    flex-direction: column;
+    margin: 23px 0px 0px;
+  }
+
+  .quiz-steps-four .modal-quiz__button-next {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .quiz-steps-four .modal-quiz__button-prev {
+    margin: 93px 0px 0px;
+  }
+
 }
 
 
@@ -709,6 +937,26 @@ export default {
     padding: 8px 15px;
   }
 
+  // media
+
+  @include media(lg) {
+    &__main {
+      margin: 26px 0px 0px;
+    }
+    &__row {
+      padding: 0px 26px;
+    }
+    &__block {
+      min-height: 99px;
+
+      &_vertical {
+        margin: 18px 0px 0px;
+        height: 200px;
+        flex-basis: 143px;
+      }
+    }
+  }
+
 }
 
 //type
@@ -780,6 +1028,43 @@ export default {
       display: block;
     }
   }
+
+  // media
+
+  @include media(lg) {
+
+    &__element {
+      margin: 0px 0px 20px;
+
+      &:last-child {
+        margin: 0px;
+      }
+    }
+
+    &__label {
+      &-box {
+        padding: 27px;
+        width: 210px;
+        min-height: 150px;
+      }
+    }
+
+    &__name {
+      font-size: 22px;
+    }
+
+    &__icon {
+      width: 65px;
+      height: 42px;
+    }
+
+    &__check {
+      top: 20px;
+      right: 20px;
+      width: 27px;
+      height: 27px;
+    }
+  }
 }
 
 // list
@@ -816,6 +1101,19 @@ export default {
     padding: 21px 20px 22px;
     border-radius: 60px;
     color: #fff;
+  }
+
+  // media
+
+  @include media(lg) {
+    &__element {
+      margin: 0px 0px 31px;
+    }
+
+    &__name {
+      padding: 27px 30px 25px;
+    }
+
   }
 
 }

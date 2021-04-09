@@ -13,7 +13,24 @@
         <input type="hidden" name="product_type" :value="inputProductType">
         <p class="modal-calc__title">Рассчитать стоимость</p>
         <p class="modal-calc__desc">Вы можете оставить номер, размеры и пожелания и мы перезвоним Вам с расчетом</p>
+
         <div class="modal-calc__fields">
+          <TextInput
+              class="modal-calc__field"
+              label="Имя"
+              type="text"
+              name="name"
+              :error="errors.name"
+              @input="onInput('name', $event)"
+          />
+          <TextInput
+              class="modal-calc__field"
+              label="Телефон"
+              type="tel"
+              name="phone"
+              :error="errors.phone"
+              @input="onInput('phone', $event)"
+          />
 
           <TextInput
             class="modal-calc__field"
