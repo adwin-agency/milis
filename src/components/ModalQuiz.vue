@@ -13,7 +13,7 @@
       <div class="modal-quiz__steps quiz-steps">
 
         <!-- step 1 -->
-        <div class="modal-quiz__step quiz-steps-one d-flex">
+        <div class="modal-quiz__step quiz-steps-one d-flex" >
           <p class="modal-quiz__name">Выберите форму и введите размеры будущей кухни</p>
           <div class="modal-quiz__grid d-flex">
 
@@ -104,7 +104,7 @@
         <!-- / step 1 / -->
 
         <!-- step 2 -->
-        <div class="modal-quiz__step quiz-steps-two d-flex" style="display: none;">
+        <div class="modal-quiz__step quiz-steps-two d-flex" style="display:none;" >
           <p class="modal-quiz__name">Выберите материал и фурнитуру будущей кухни</p>
 
           <div class="modal-quiz__grid d-flex">
@@ -221,11 +221,12 @@
           <p class="modal-quiz__desc modal-quiz__desc_size-large">
             Спасибо! Мы уже начали расчет
           </p>
+          <p class="modal-quiz__desc modal-quiz__desc_size-small modal-quiz__desc_font-primary">
+            Если вы оставите свои контакты, то мы сможем <span class="modal-quiz__desc-color">закрепить скидку и подарить вам фурнитуру</span>
+          </p>
           <div class="modal-quiz__grid d-flex">
             <div class="modal-quiz__section">
-              <p class="modal-quiz__desc modal-quiz__desc_size-small modal-quiz__desc_font-primary">
-                Если вы оставите свои контакты, то мы сможем <span class="modal-quiz__desc-color">закрепить скидку и подарить вам фурнитуру</span>
-              </p>
+
               <div class="modal-quiz__fields">
                 <TextInput
                     class="modal-calc__field modal-quiz__field"
@@ -254,22 +255,23 @@
                 </div>
               </div>
             </div>
-            <div class="modal-quiz__section">
+            <div class="modal-quiz__section modal-quiz__section_banner">
               <div class="modal-quiz__banner">
                 <img src="@/assets/img/quiz-banner.jpg" alt="" class="modal-quiz__banner-image">
-                <span class="modal-quiz__like">
-                  <Icon name="hand-like" />
-                </span>
-                <div class="modal-quiz__circle">
-                  <span>Ваша скидка</span>
+                <div class="modal-quiz__circle modal-quiz__banner-element">
+                  <span>Ваша <br> скидка</span>
+                  <span class="modal-quiz__like modal-quiz__banner-element">
+                    <Icon name="hand-like" />
+                  </span>
+                  <span class="modal-quiz__smile modal-quiz__banner-element">
+                    <Icon name="smile-5" />
+                  </span>
+                  <Discount
+                      class="modal-quiz__discount modal-quiz__banner-element"
+                      value="47"
+                  />
                 </div>
-                <span class="modal-quiz__smile">
-                  <Icon name="smile-5" />
-                </span>
-                <Discount
-                    class="modal-quiz__discount"
-                    value="47"
-                />
+
               </div>
             </div>
           </div>
@@ -397,7 +399,7 @@ export default {
 
   font-family: $font-secondary;
   position: relative;
-  max-width: 1090px;
+  max-width: 600px;
   overflow: hidden;
 
   .d-flex {
@@ -596,23 +598,66 @@ export default {
   }
 
   &__banner{
-    margin: 30px 0px 0px;
+    position: relative;
+    margin: 30px -20px -40px;
+    overflow: hidden;
 
     &-image{
-      width: 120%;
-      margin: 0px -20px -40px;
       object-fit: cover;
-      max-height: 400px;
+      max-height: 350px;
     }
 
+    &-element{
+      position: absolute;
+    }
+
+  }
+
+  &__fields{
+    margin: 23px 0px 0px;
   }
 
   &__circle{
     position: absolute;
     width: 300px;
     height: 300px;
+    padding: 50px 0px 30px;
     border-radius: 50%;
     background-color: $color-red;
+    bottom: -150px;
+    left: 0%;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-size: 36px;
+    line-height: 45px;
+    font-family: $font-primary;
+    font-weight: 700;
+    z-index: 20;
+  }
+
+  &__smile{
+    top: 0px;
+    left: 60px;
+    width: 38px;
+    height: 38px;
+  }
+
+  &__like{
+    width: 78px;
+    height: 78px;
+    top: -50px;
+    left: 150px;
+    z-index: 1;
+  }
+
+  .discount{
+    width: 132px;
+    height: 132px;
+    font-size: 36px;
+    right: -50px;
+    top: 0;
   }
 
   &__close {
@@ -625,9 +670,18 @@ export default {
     cursor: pointer;
   }
 
+
   // media
 
+  @include media(sm) {
+    &__circle{
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
   @include media(lg) {
+    max-width: 1090px;
     width: 100%;
 
     &__logo {
@@ -661,6 +715,7 @@ export default {
       border-radius: 4px;
       padding: 18px 35px 37px;
       flex: 1;
+      min-height: 455px;
     }
 
     &__type {
@@ -678,6 +733,32 @@ export default {
       &_large {
         flex: 2;
       }
+
+      &_banner{
+        display: flex;
+        align-items: flex-end;
+        margin-right: -170px;
+      }
+    }
+
+    &__banner{
+      margin: 0px;
+      width: 450px;
+      height: auto;
+      border-radius: 400px 0px 0px 0px;
+
+      &-image{
+        max-height: 100%;
+      }
+    }
+
+    &__circle{
+      width: 330px;
+      height: 330px;
+      bottom: -165px;
+      padding: 50px 0px 50px;
+      left: 0;
+      transform: translate(0);
     }
 
     &__desc {
@@ -715,7 +796,7 @@ export default {
     }
 
     &__fields {
-      margin: 57px 0px 0px;
+      margin: 0px 0px 0px;
       max-width: 507px;
 
       .modal-calc__field {
@@ -724,16 +805,31 @@ export default {
     }
 
     &__button {
+      position: relative;
       width: 420px;
       border-radius: 60px 0px 0px 0px;
       margin: 0;
 
       &-next {
         margin-left: auto;
+
+        &:before{
+          content: '';
+          position: absolute;
+          left: 100%;
+          height: 100%;
+          width: 300px;
+          background-color: inherit;
+        }
       }
 
       &-prev {
-        justify-content: flex-start;
+        justify-content: center;
+        text-align: center;
+
+        .icon{
+          left: 0;
+        }
       }
     }
 
@@ -798,6 +894,7 @@ export default {
   .quiz-steps-four .modal-quiz__desc_size-small {
     font-size: 26px;
     line-height: 38px;
+    margin: 26px 0px 0px;
     max-width: 70%;
   }
 
@@ -814,6 +911,11 @@ export default {
   .quiz-steps-four .modal-quiz__button-prev {
     margin: 93px 0px 0px;
   }
+
+  .quiz-steps-four .modal-quiz__button-next:before{
+    display: none;
+  }
+
 
 }
 
