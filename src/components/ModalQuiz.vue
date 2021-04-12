@@ -45,7 +45,7 @@
                         <input
                           type="radio"
                           :class="'quiz-type__radio ' + index"
-                          name="quiz-type"
+                          name="quiz_type"
                           :value="label.value"
                           :checked="currentType === label.id"
                           tabindex="-1"
@@ -108,7 +108,7 @@
                           <input
                             type="text"
                             class="quiz-layout__input"
-                            name="quiz-size[]"
+                            name="quiz_size[]"
                             :value="sizeInputs.size_one"
                             placeholder="1,2 м"
                             v-imask="mask"
@@ -122,7 +122,7 @@
                           <input
                             type="text"
                             class="quiz-layout__input"
-                            name="quiz-size[]"
+                            name="quiz_size[]"
                             :value="sizeInputs.size_two"
                             placeholder="1,2 м"
                             v-imask="mask"
@@ -136,7 +136,7 @@
                           <input
                             type="text"
                             class="quiz-layout__input"
-                            name="quiz-size[]"
+                            name="quiz_size[]"
                             :value="sizeInputs.size_three"
                             placeholder="1,2 м"
                             v-imask="mask"
@@ -202,7 +202,7 @@
                       <input
                         type="radio"
                         :class="'quiz-list__radio ' + index"
-                        name="quiz-materials"
+                        name="quiz_materials"
                         :value="label.title"
                         :checked="currentMaterial === label.title"
                         tabindex="-1"
@@ -228,7 +228,7 @@
                       <input
                         type="radio"
                         :class="'quiz-list__radio ' + index"
-                        name="quiz-furniture"
+                        name="quiz_furniture"
                         :value="label.title"
                         :checked="currentFurniture === label.title"
                         tabindex="-1"
@@ -276,7 +276,7 @@
                 <TextInput
                 textarea
                 class="modal-quiz__textarea"
-                name="quiz-comment"
+                name="quiz_comment"
                 placeholder="У меня маленькая и темная кухня,  мне хотелось бы добавить яркости..."
                 />
                 <div class="modal-quiz__row d-flex">
@@ -453,9 +453,9 @@ export default {
         mask: '0,000'
       },
       labels: [
-        {id: 'corner', title: 'Угловая', value: 'угловая', icon: 'icon-corner'},
-        {id: 'straight', title: 'Прямая', value: 'прямая', icon: 'icon-straight'},
-        {id: 'shaped', title: 'П-образная', value: 'п-образная', icon: 'icon-shaped'},
+        {id: 'corner', title: 'Угловая', value: 'Угловая', icon: 'icon-corner'},
+        {id: 'straight', title: 'Прямая', value: 'Прямая', icon: 'icon-straight'},
+        {id: 'shaped', title: 'П-образная', value: 'П-образная', icon: 'icon-shaped'},
       ],
       materials: [
         {title: 'Эконом'},
