@@ -937,10 +937,10 @@ export default {
     justify-content: center;
     align-items: center;
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    left: -5px;
+    top: -15px;
+    right: -5px;
+    bottom: -5px;
     padding: 20px;
     background-color: #fff;
     opacity: 0;
