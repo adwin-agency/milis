@@ -47,9 +47,9 @@
                           :class="'quiz-type__radio ' + index"
                           name="quiz-type"
                           :value="label.value"
-                          :checked="currentType === label.value"
+                          :checked="currentType === label.id"
                           tabindex="-1"
-                          @change="onTypeChange(label.value)"
+                          @change="onTypeChange(label.id)"
                         >
                         <div class="quiz-type__label-box d-flex">
                           <span class="quiz-type__name">{{ label.title }}</span>
@@ -86,7 +86,10 @@
 
                     <div class="quiz-layout__main d-flex">
 
-                      <div class="quiz-layout__arrow quiz-layout__arrow_vertical" v-if="currentType != 'pryamye' ">
+                      <div
+                        v-if="currentType !== 'straight'"
+                        class="quiz-layout__arrow quiz-layout__arrow_vertical"
+                      >
                         <Icon
                           name="angle-right"
                           class="quiz-layout__arrow-el quiz-layout__arrow-el_t"
@@ -113,7 +116,7 @@
                           >
                         </li>
                         <li
-                          v-if="currentType != 'pryamye'"
+                          v-if="currentType !== 'straight'"
                           class="quiz-layout__block quiz-layout__block_vertical d-flex"
                         >
                           <input
@@ -127,7 +130,7 @@
                           >
                         </li>
                         <li
-                          v-if="currentType == 'shaped'"
+                          v-if="currentType === 'shaped'"
                           class="quiz-layout__block quiz-layout__block_vertical d-flex"
                         >
                           <input
@@ -142,7 +145,10 @@
                         </li>
                       </ul>
 
-                      <div class="quiz-layout__arrow quiz-layout__arrow_vertical" v-if="currentType == 'shaped'">
+                      <div
+                        v-if="currentType === 'shaped'"
+                        class="quiz-layout__arrow quiz-layout__arrow_vertical"
+                      >
                         <Icon
                           name="angle-right"
                           class="quiz-layout__arrow-el quiz-layout__arrow-el_t"
@@ -447,9 +453,9 @@ export default {
         mask: '0,000'
       },
       labels: [
-        {title: 'Угловая', value: 'uglovie', icon: 'icon-corner'},
-        {title: 'Прямая', value: 'pryamye', icon: 'icon-straight'},
-        {title: 'П-образная', value: 'shaped', icon: 'icon-shaped'},
+        {id: 'corner', title: 'Угловая', value: 'угловая', icon: 'icon-corner'},
+        {id: 'straight', title: 'Прямая', value: 'прямая', icon: 'icon-straight'},
+        {id: 'shaped', title: 'П-образная', value: 'п-образная', icon: 'icon-shaped'},
       ],
       materials: [
         {title: 'Эконом'},
@@ -460,7 +466,7 @@ export default {
         {title: 'Премиум'},
       ],
 
-      currentType: 'uglovie',
+      currentType: 'corner',
       sizeInputs: {
         size_one: '',
         size_two: ''
@@ -508,20 +514,20 @@ export default {
     }
   },
   methods: {
-    onTypeChange(value){
+    onTypeChange(id){
       const sizeInputs = {
         size_one: ''
       }
 
-      if (value !== 'pryamye') {
+      if (id !== 'straight') {
         sizeInputs.size_two = ''
       }
 
-      if (value === 'shaped') {
+      if (id === 'shaped') {
         sizeInputs.size_three = ''
       }
 
-      this.currentType = value;
+      this.currentType = id;
       this.sizeInputs = sizeInputs
       this.completedSteps[1] = false
     },
