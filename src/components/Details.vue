@@ -49,7 +49,7 @@
               <Button
                 small
                 class="details__btn"
-                modal="calc"
+                modal="quiz"
                 :modalData="modalData"
               >
                 Рассчитать стоимость

@@ -94,7 +94,7 @@
                 <Link
                   class="footer__link"
                   text="Рассчитать по моим размерам"
-                  modal="calc"
+                  modal="quiz"
                   :modalData="modalData"
                 />
               </div>

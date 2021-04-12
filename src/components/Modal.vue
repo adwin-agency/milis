@@ -1,6 +1,10 @@
 <template>
   <transition name="fade" @after-leave="afterLeave">
-    <div class="modal" v-show="active">
+    <div
+      v-show="active"
+      ref="modal"
+      class="modal"
+    >
       <div class="modal__area">
         <div class="modal__overlay" @click="closeModal"></div>
 
@@ -51,9 +55,10 @@
         />
 
         <ModalQuiz
-            v-if="modal === 'quiz'"
-            class="modal__quiz"
-            @close="closeModal"
+          v-if="modal === 'quiz'"
+          class="modal__quiz"
+          @scrollTop="scrollTopModal"
+          @close="closeModal"
         />
 
       </div>
@@ -105,7 +110,8 @@ export default {
           calc: 'open_size',
           technics: 'open_buy',
           question: 'open_question',
-          details: 'open_inner_size'
+          details: 'open_inner_size',
+          quiz: 'open_quiz'
         }
 
         if (newModal in modalGoals) {
@@ -162,6 +168,10 @@ export default {
       
       this.$store.commit('setModal', null)
       this.$store.commit('setModalData', null)
+    },
+
+    scrollTopModal() {
+      this.$refs.modal.scrollTop = 0
     }
   }
 }

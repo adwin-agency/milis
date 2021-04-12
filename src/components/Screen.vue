@@ -53,7 +53,7 @@
               <p class="screen__price-note"><span>*</span>за весь гарнитур</p>
               <Button
                 class="screen__btn"
-                modal="calc"
+                modal="quiz"
                 :modalData="modalData"
               >
                 Рассчитать стоимость

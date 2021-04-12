@@ -16,20 +16,20 @@
 
         <div class="modal-calc__fields">
           <TextInput
-              class="modal-calc__field"
-              label="Имя"
-              type="text"
-              name="name"
-              :error="errors.name"
-              @input="onInput('name', $event)"
+            class="modal-calc__field"
+            label="Имя"
+            type="text"
+            name="name"
+            :error="errors.name"
+            @input="onInput('name', $event)"
           />
           <TextInput
-              class="modal-calc__field"
-              label="Телефон"
-              type="tel"
-              name="phone"
-              :error="errors.phone"
-              @input="onInput('phone', $event)"
+            class="modal-calc__field"
+            label="Телефон"
+            type="tel"
+            name="phone"
+            :error="errors.phone"
+            @input="onInput('phone', $event)"
           />
 
           <TextInput
