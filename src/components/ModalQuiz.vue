@@ -458,11 +458,11 @@ export default {
         {id: 'shaped', title: 'П-образная', value: 'П-образная', icon: 'icon-shaped'},
       ],
       materials: [
-        {title: 'Эконом'},
+        {title: 'Стандарт'},
         {title: 'Премиум'},
       ],
       furniture: [
-        {title: 'Эконом'},
+        {title: 'Стандарт'},
         {title: 'Премиум'},
       ],
 
