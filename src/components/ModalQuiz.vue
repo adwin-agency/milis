@@ -112,7 +112,6 @@
                             :value="sizeInputs.size_one"
                             placeholder="1,2 м"
                             v-imask="mask"
-                            pattern="\d*"
                             @accept="onSizeInput('size_one', $event)"
                           >
                         </li>
@@ -127,7 +126,6 @@
                             :value="sizeInputs.size_two"
                             placeholder="1,2 м"
                             v-imask="mask"
-                            pattern="\d*"
                             @accept="onSizeInput('size_two', $event)"
                           >
                         </li>
@@ -142,7 +140,6 @@
                             :value="sizeInputs.size_three"
                             placeholder="1,2 м"
                             v-imask="mask"
-                            pattern="\d*"
                             @accept="onSizeInput('size_three', $event)"
                           >
                         </li>

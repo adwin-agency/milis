@@ -32,7 +32,7 @@
               <span class="payment__feature-icon">
                 <Icon name="leaf" />
               </span>
-              Предоплата 20%
+              Предоплата от 30%
             </p>
             <p class="payment__feature">
               <span class="payment__feature-icon">
