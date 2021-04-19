@@ -18,6 +18,7 @@
             :kitchen="kitchen"
             :catalogPage="catalogPage"
             v-anim="true"
+            test
           />
         </div>
 
@@ -32,6 +33,7 @@
               :kitchen="kitchen"
               :catalogPage="catalogPage"
               v-anim="{delay: 200}"
+              test
             />
             <Questions
               v-if="!$mobile"

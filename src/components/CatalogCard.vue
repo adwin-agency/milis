@@ -11,7 +11,14 @@
       {{kitchen.category_rus}} / {{kitchen.style}}
     </RouterLink>
     <RouterLink :to="{name: 'product', params: {category: kitchen.category, kitchen: kitchen.url}}" class="catalog-card__images">
+      <div
+        v-if="test"
+        class="catalog-card__image anim-img js-anim"
+      >
+        <img :src="$mobile ? `https://milismebel.ru${kitchen.pictures[0].tablet.path}` : high ? `https://milismebel.ru${kitchen.pictures[0].square.path}` : `https://milismebel.ru${kitchen.pictures[0].desktop.path}`" alt="">
+      </div>
       <Swiper
+        v-else
         :options="swiperOptions"
         ref="mySwiper"
         class="catalog-card__slider"
@@ -54,6 +61,13 @@
         class="catalog-card__discount"
         :value="kitchen.discount"
       />
+      <button
+        v-if="test"
+        type="button"
+        class="catalog-card__details-btn"
+      >
+        Подробнее
+      </button>
       <button type="button" class="catalog-card__btn" @click.prevent="showModal">
         Рассчитать
         <span class="catalog-card__btn-icon">
@@ -118,7 +132,8 @@ export default {
     top: Boolean,
     kitchen: Object,
     similar: Boolean,
-    animDelay: Number
+    animDelay: Number,
+    test: Boolean
   },
   data() {
     return {
@@ -263,6 +278,18 @@ export default {
     position: absolute;
     top: -18px;
     right: 4px;
+    z-index: 1;
+  }
+
+  &__details-btn {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 10px 20px;
+    font-family: $font-secondary;
+    color: #fff;
+    background-color: $color-blue;
+    transform: translateZ(0);
     z-index: 1;
   }
 
@@ -491,6 +518,10 @@ export default {
       left: 38px;
     }
 
+    &__details-btn {
+      padding: 12px 24px;
+    }
+
     &__btn {
       padding: 10px 10px 10px 24px;
     }
@@ -569,6 +600,10 @@ export default {
 
     &__discount {
       top: -15px;
+    }
+
+    &__details-btn {
+      padding: 15px 30px;
     }
     
     &__stat {

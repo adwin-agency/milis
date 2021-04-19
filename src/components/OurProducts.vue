@@ -77,6 +77,7 @@
             top
             :kitchen="kitchen"
             v-anim="true"
+            test
           />
           <p
             v-else
