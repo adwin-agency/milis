@@ -532,10 +532,19 @@ export default {
       this.completedSteps[1] = false
     },
     onSizeInput(name, e){
+      // let value = e.target.value.replace(',', '.')
+      //
+      // if (value.length > 1) {
+      //   value = value.charAt(0) + '.' + value.slice(1)
+      // }
+
       this.sizeInputs[name] = e.detail.value
+
+      //this.sizeInputs[name].replace(/,/g,'').replace(/(\d{1})/g, "$1,")
 
       for (let key in this.sizeInputs) {
         if (this.sizeInputs[key] === '') {
+
           this.completedSteps[1] = false
           return
         }
@@ -601,6 +610,7 @@ export default {
 
     onSubmit() {
       if (this.currentStep !== 4 || this.sending || this.sendSuccess) {
+        console.log(1)
         return
       }
 
@@ -641,6 +651,15 @@ export default {
 
 .modal-quiz {
   $b: &;
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
   font-family: $font-secondary;
   position: relative;
@@ -700,12 +719,15 @@ export default {
   }
 
   &__step {
-    display: none;
-    padding: 23px 20px 40px;
+    //display: none;
+    height: 0;
+    overflow: hidden;
 
     &.is-active {
+      padding: 23px 20px 40px;
       display: flex;
       flex-direction: column;
+      height: auto;
     }
   }
 
@@ -1089,6 +1111,7 @@ export default {
       &.is-active {
         opacity: 1;
         pointer-events: all;
+        padding: 42px 40px 0px;
       }
     }
 
