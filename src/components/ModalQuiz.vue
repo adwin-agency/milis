@@ -106,7 +106,7 @@
 
                         <li class="quiz-layout__block d-flex">
                           <input
-                            type="text"
+                            type="tel"
                             class="quiz-layout__input"
                             name="quiz_size[]"
                             :value="sizeInputs.size_one"
@@ -120,7 +120,7 @@
                           class="quiz-layout__block quiz-layout__block_vertical d-flex"
                         >
                           <input
-                            type="text"
+                            type="tel"
                             class="quiz-layout__input"
                             name="quiz_size[]"
                             :value="sizeInputs.size_two"
@@ -134,7 +134,7 @@
                           class="quiz-layout__block quiz-layout__block_vertical d-flex"
                         >
                           <input
-                            type="text"
+                            type="tel"
                             class="quiz-layout__input"
                             name="quiz_size[]"
                             :value="sizeInputs.size_three"
