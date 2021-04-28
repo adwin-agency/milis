@@ -26,6 +26,14 @@
           </div>
         </div>
         <div class="our-products__wrapper fade-bounce-right js-anim" v-anim="true">
+          <div class="our-products__working">
+            <p class="our-products__working-title">с 1.05 - 10.05 работаем с 9:00 до 22:00 </p>
+            <p class="our-products__working-desc">Вы можете вызвать дизайнера не выходя из дома</p>
+            <Icon
+              name="leaf"
+              class="our-products__working-icon"
+            />
+          </div>
           <FilterMenu
             v-if="!$mobile"
             class="our-products__menu"
@@ -208,6 +216,36 @@ export default {
 <style lang="scss">
 .our-products {
   padding-top: 64px;
+
+  &__working {
+    position: relative;
+    margin-top: 24px;
+    border-radius: 3px;
+    max-width: 326px;
+    padding: 10px 12px;
+    padding-right: 24px;
+    color: $color-blue;
+    background-color: #DAF1DD;
+
+    &-title {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    &-desc {
+      margin-top: 5px;
+      font-size: 12px;
+    }
+
+    &-icon {
+      position: absolute;
+      right: -12px;
+      bottom: 12px;
+      width: 24px;
+      height: 25px;
+      fill: $color-green;
+    }
+  }
 
   &__menu {
     margin: 18px (-$container-padding) 0;
@@ -434,6 +472,10 @@ export default {
   }
 
   @include media(xl) {
+    &__working + &__menu {
+      margin-top: 25px;
+    }
+
     &__menu {
       margin-top: 60px;
     }
