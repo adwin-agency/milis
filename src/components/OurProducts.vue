@@ -26,14 +26,14 @@
           </div>
         </div>
         <div class="our-products__wrapper fade-bounce-right js-anim" v-anim="true">
-          <div class="our-products__working">
+          <!-- <div class="our-products__working">
             <p class="our-products__working-title">с 1.05 - 10.05 работаем с 9:00 до 22:00 </p>
             <p class="our-products__working-desc">Вы можете вызвать дизайнера не выходя из дома</p>
             <Icon
               name="leaf"
               class="our-products__working-icon"
             />
-          </div>
+          </div> -->
           <FilterMenu
             v-if="!$mobile"
             class="our-products__menu"
