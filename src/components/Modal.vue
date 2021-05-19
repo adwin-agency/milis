@@ -188,7 +188,7 @@ export default {
   bottom: 0;
   overflow-y: auto;
   transform: translate3d(0, 0, 0);
-  z-index: 100;
+  z-index: 99999;
 
   &.fade-enter, &.fade-leave-to {
     opacity: 0;
