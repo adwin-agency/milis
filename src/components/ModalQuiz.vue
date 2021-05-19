@@ -336,10 +336,10 @@
           <!-- step 4 -->
           <div class="modal-quiz__step quiz-steps-four" :class="{'is-active': currentStep === 4}">
             <p class="modal-quiz__desc modal-quiz__desc_size-large">
-              Спасибо! Мы уже начали расчет
+              Спасибо, оставьте свои контактные данные
             </p>
             <p class="modal-quiz__desc modal-quiz__desc_size-small modal-quiz__desc_font-primary">
-              Если вы оставите свои контакты, то мы сможем <span class="modal-quiz__desc-color">закрепить скидку и подарить вам фурнитуру</span>
+              <span class="modal-quiz__desc-color">мы закрепим скидку и подарим вам фурнитуру</span>
             </p>
             <div class="modal-quiz__grid d-flex">
               <div class="modal-quiz__section">
