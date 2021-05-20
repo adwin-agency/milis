@@ -273,6 +273,10 @@ export default {
     margin-top: 10px;
   }
 
+  &__image {
+    margin: 0 (-$container-padding);
+  }
+
   &__content {
     margin-top: 12px;
   }
@@ -383,6 +387,7 @@ export default {
     }
 
     &__image {
+      margin: 0;
       width: calc(50% - 10px);
     }
 
