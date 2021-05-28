@@ -12,6 +12,9 @@ import ReviewsView from '../views/ReviewsView'
 // import ArticleView from '../views/ArticleView'
 import ContactsView from '../views/ContactsView'
 import NotFoundView from '../views/NotFoundView'
+import PayView from '../views/PayView'
+import PaySuccessView from '../views/PaySuccessView'
+import PayFailView from '../views/PayFailView'
 // import store from '@/store'
 
 Vue.use(VueRouter)
@@ -67,6 +70,21 @@ const routes = [
     component: ReviewsView,
     name: 'reviews'
   },
+  {
+    path: '/pay',
+    component: PayView,
+    name: 'pay'
+  },
+  {
+    path: '/pay-success',
+    component: PaySuccessView,
+    name: 'paysuccess'
+  },
+  {
+    path: '/pay-fail',
+    component: PayFailView,
+    name: 'payfail'
+  },
   // {
   //   path: '/blog',
   //   component: BlogView,
@@ -95,7 +113,7 @@ const router = new VueRouter({
   mode: 'history',
   linkActiveClass: 'is-active',
   linkExactActiveClass: 'is-active',
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {
