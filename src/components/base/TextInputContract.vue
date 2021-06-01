@@ -38,7 +38,6 @@ export default {
     name: String,
     placeholder: String,
     textarea: Boolean,
-
     small: Boolean,
     prefix: Array,
   },
@@ -56,7 +55,11 @@ export default {
       return this.textarea ? "textarea" : "input";
     },
   },
-
+  watch: {
+    prefix() {
+      this.$refs.input.value = "";
+    },
+  },
   methods: {
     test(e) {
       this.error = true;
@@ -69,7 +72,10 @@ export default {
           this.$refs.input.value = val;
         }
         if (this.prefix.includes(this.$refs.input.value.toUpperCase())) {
-          this.$emit("inputChar", { mask: true });
+          this.$emit("inputChar", {
+            mask: true,
+            value: this.$refs.input.value,
+          });
           this.error = false;
         } else {
           this.$emit("inputChar", { mask: false });
@@ -84,7 +90,7 @@ export default {
         }
 
         if (firstSymb && lastSymb && val.length >= 2) {
-          this.$emit("inputNum", { mask: true });
+          this.$emit("inputNum", { mask: true, value: this.$refs.input.value });
           this.error = false;
         } else {
           this.$emit("inputNum", { mask: false });

@@ -27,7 +27,7 @@
             <a href="#" class="pay__link">Правила возврата денежных средств</a>
           </div>
         </div>
-        <form class="pay__form">
+        <form class="pay__form" @submit.prevent="onSubmit">
           <div class="pay__leaf">
             <Icon name="leaf" />
           </div>
@@ -45,9 +45,9 @@
                   labelClass="pay__radio-label"
                   radioClass="pay__radio-btn"
                   availible
-                  @updatePay="hideShowPay"
-                  :checked="activeCity && activeCity.code === 'spb'"
+                  :checked="activeCity === 'spb'"
                   value="spb"
+                  @change="handleUserChange($event)"
                 />
                 <Radio
                   name="pay-city"
@@ -55,9 +55,9 @@
                   labelText="Москва"
                   labelClass="pay__radio-label"
                   radioClass="pay__radio-btn"
-                  @updatePay="hideShowPay"
-                  :checked="activeCity && activeCity.code === 'msk'"
+                  :checked="activeCity === 'msk'"
                   value="msk"
+                  @change="handleUserChange($event)"
                 />
               </div>
               <p class="pay__decore">Все просто!</p>
@@ -70,6 +70,8 @@
                   label="Имя и фамилия"
                   name="name"
                   class="pay__input"
+                  :error="errors.name"
+                  @input="onInput('name', $event)"
                 />
               </div>
               <div class="pay__field">
@@ -78,16 +80,30 @@
                   type="tel"
                   name="phone"
                   class="pay__input"
+                  :error="errors.phone"
+                  @input="onInput('phone', $event)"
                 />
               </div>
               <div class="pay__field">
-                <TextInput label="e-mail" name="email" class="pay__input" />
+                <TextInput
+                  label="e-mail"
+                  name="email"
+                  class="pay__input"
+                  :error="errors.mail"
+                  @input="onInput('mail', $event)"
+                />
                 <span class="pay__label"
                   >*После прохождения платежа отправим квитанцию на почту</span
                 >
               </div>
               <div class="pay__field">
-                <TextInput label="Адрес" name="adress" class="pay__input" />
+                <TextInput
+                  label="Адрес"
+                  name="adress"
+                  class="pay__input"
+                  :error="errors.adress"
+                  @input="onInput('adress', $event)"
+                />
                 <span class="pay__label">*Как в договоре</span>
               </div>
               <div class="pay__field pay__field_contract">
@@ -99,6 +115,7 @@
                   :prefix="prefix"
                   @inputChar="inputChar"
                   :error="false"
+                  @input="onInput('contract_text', $event)"
                 />
                 <span class="pay__dash"> - </span>
                 <TextInputContract
@@ -108,17 +125,26 @@
                   placeholder="Цифры"
                   @inputNum="inputNum"
                   :error="false"
+                  :prefix="prefix"
                 />
               </div>
               <div class="pay__field">
-                <TextInput label="Сумма оплаты" name="sum" class="pay__input" />
+                <TextInput
+                  label="Сумма оплаты"
+                  name="sum"
+                  type="number"
+                  class="pay__input"
+                  :error="errors.sum"
+                  @input="onInput('sum', $event)"
+                />
                 <span class="pay__label">*Минимальная сумма 1000 ₽</span>
               </div>
               <div class="pay__field">
                 <Select
                   className="pay__select"
-                  :options="['Тип оплаты', 'Оплата', 'Предоплата']"
+                  :options="['Тип оплаты', 'Доплата', 'Предоплата']"
                   id="payment-type"
+                  @changeSelect="changeSelect"
                 />
               </div>
               <div class="pay__field">
@@ -127,6 +153,7 @@
                   name="message"
                   class="pay__input"
                   textarea
+                  @input="onInput('message', $event)"
                 />
               </div>
               <div class="pay__field">
@@ -136,6 +163,8 @@
                     name="policy"
                     id="pay-policy"
                     class="pay__policy-checkbox"
+                    @change="checkboxClick"
+                    ref="checkbox"
                   />
                   <label for="pay-policy" class="pay__policy"
                     >Нажимая кнопку "Отправить", вы соглашаетесь с
@@ -148,7 +177,11 @@
                 </div>
               </div>
               <div class="pay__field">
-                <Button type="submit" class="pay__btn btn btn_blue">
+                <Button
+                  type="submit"
+                  class="pay__btn btn btn_blue"
+                  :disabled="!numMask || !charMask || !checkBoxChecked"
+                >
                   Отправить
                 </Button>
               </div>
@@ -191,9 +224,11 @@ export default {
   },
   data() {
     return {
-      prefix: [],
       numMask: false,
       charMask: false,
+      checkBoxChecked: false,
+
+      // other
       prefixes: {
         spb: ["СС", "CC"],
         msk: ["ММ"],
@@ -203,52 +238,92 @@ export default {
         spb: "123",
         msk: "",
       },
-      payAvailible: false,
+      errors: {
+        sum: false,
+        adress: false,
+        phone: false,
+        name: false,
+        mail: false,
+      },
+      values: {
+        select: "Предоплата",
+        message: "",
+        sum: "",
+        adress: "",
+        phone: "",
+        name: "",
+        mail: "",
+        orderChar: "",
+        orderNum: "",
+      },
+      userSelection: null,
     };
   },
   computed: {
-    activeCity: {
-      get: function () {
-        return this.$store.getters.activeCity;
-      },
-      set: function (city) {
-        if (this.shopId[city.code] != "") {
-          this.payAvailible = true;
-          console.log(city);
-        } else {
-          this.payAvailible = false;
-          console.log(city);
-        }
-      },
+    baseCity() {
+      return this.$store.getters.activeCity?.code;
+    },
+    activeCity() {
+      return this.userSelection || this.baseCity;
+    },
+    payAvailible() {
+      return this.shopId[this.activeCity] != "";
+    },
+    prefix() {
+      return this.prefixes[this.activeCity];
+    },
+  },
+  watch: {
+    baseCity() {
+      this.userSelection = null;
     },
   },
   created() {},
 
   methods: {
-    hideShowPay(data) {
-      if (data.availible) {
-        this.payAvailible = true;
-      } else {
-        this.payAvailible = false;
-      }
-
-      this.prefix = this.prefixes[data.prefix];
-      console.log(this.prefix);
-    },
     inputChar(data) {
       this.charMask = data.mask;
-      console.log(this.charMask);
+      this.values.orderChar = data.value;
     },
     inputNum(data) {
       this.numMask = data.mask;
-      console.log(this.numMask);
+      this.values.orderNum = data.value;
     },
 
-    testt() {
-      if (this.$store.getters.activeCity.code == "spb") {
-        console.log(this.$store.getters.activeCity.code);
+    handleUserChange(value) {
+      this.userSelection = value;
+    },
+    changeSelect(data) {
+      this.values.select = data.value;
+    },
+    checkboxClick() {
+      if (this.$refs.checkbox.checked) {
+        this.checkBoxChecked = true;
       } else {
-        console.log(this.$store.getters.activeCity.code);
+        this.checkBoxChecked = false;
+      }
+    },
+    onInput(inp, val) {
+      console.log(inp, val);
+      if (this.errors[inp]) {
+        this.errors[inp] = false;
+      }
+
+      this.values[inp] = val;
+    },
+    onSubmit() {
+      for (let input in this.values) {
+        const value = this.values[input];
+
+        if (value.trim() === "" || (input === "phone" && value.length < 16)) {
+          this.errors[input] = true;
+        }
+      }
+
+      for (let error in this.errors) {
+        if (this.errors[error]) {
+          return;
+        }
       }
     },
   },

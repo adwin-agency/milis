@@ -57,6 +57,7 @@ export default {
       this.$refs.select.value = option;
       this.activeSelect = !this.activeSelect;
       this.selected = option;
+      this.$emit("changeSelect", { value: option });
     },
   },
 };

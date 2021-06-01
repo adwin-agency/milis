@@ -9,10 +9,9 @@
       :availible="availible"
       :shopid="shopid"
       :value="value"
+      @change="$emit('change', value)"
     />
-    <label :for="id" :class="labelClass" @click="checkPay">{{
-      labelText
-    }}</label>
+    <label :for="id" :class="labelClass">{{ labelText }}</label>
   </div>
 </template>
 
@@ -34,22 +33,9 @@ export default {
   data() {
     return {};
   },
-  created() {
-    if (this.availible && this.checked) {
-      this.$emit("updatePay", { availible: true, prefix: this.value });
-    } else if (!this.availible && this.checked) {
-      this.$emit("updatePay", { availible: false, prefix: this.value });
-    }
-  },
+  created() {},
   computed: {},
-  methods: {
-    checkPay() {
-      this.$emit("updatePay", {
-        availible: this.availible,
-        prefix: this.value,
-      });
-    },
-  },
+  methods: {},
 };
 </script>
 
