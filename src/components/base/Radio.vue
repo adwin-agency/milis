@@ -6,7 +6,6 @@
       :id="id"
       :class="radioClass"
       :checked="checked"
-      :availible="availible"
       :shopid="shopid"
       :value="value"
       @change="$emit('change', value)"
@@ -26,7 +25,6 @@ export default {
     labelClass: String,
     radioClass: String,
     checked: Boolean,
-    availible: Boolean,
     shopid: String,
     value: String,
   },

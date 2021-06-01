@@ -44,7 +44,6 @@
                   labelText="Санкт-Петербург"
                   labelClass="pay__radio-label"
                   radioClass="pay__radio-btn"
-                  availible
                   :checked="activeCity === 'spb'"
                   value="spb"
                   @change="handleUserChange($event)"
@@ -277,6 +276,9 @@ export default {
     baseCity() {
       this.userSelection = null;
     },
+    prefix() {
+      this.charMask = false;
+    },
   },
   created() {},
 
@@ -399,6 +401,15 @@ export default {
   }
   &__input {
     background-color: white;
+  }
+  &__input input {
+    -moz-appearance: textfield;
+  }
+  &__input input::-webkit-outer-spin-button,
+  &__input input::-webkit-inner-spin-button {
+    display: none;
+    -webkit-appearance: none;
+    margin: 0;
   }
   &__input textarea {
     background-color: white;
