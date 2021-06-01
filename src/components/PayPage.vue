@@ -46,7 +46,8 @@
                   radioClass="pay__radio-btn"
                   availible
                   @updatePay="hideShowPay"
-                  checked
+                  :checked="activeCity && activeCity.code === 'spb'"
+                  value="spb"
                 />
                 <Radio
                   name="pay-city"
@@ -55,6 +56,8 @@
                   labelClass="pay__radio-label"
                   radioClass="pay__radio-btn"
                   @updatePay="hideShowPay"
+                  :checked="activeCity && activeCity.code === 'msk'"
+                  value="msk"
                 />
               </div>
               <p class="pay__decore">Все просто!</p>
@@ -88,18 +91,23 @@
                 <span class="pay__label">*Как в договоре</span>
               </div>
               <div class="pay__field pay__field_contract">
-                <TextInput
+                <TextInputContract
                   label="Номер договора"
                   name="contract-letters"
                   class="pay__input-contract pay__input pay__input-contract_wtext"
                   placeholder="Буквы"
+                  :prefix="prefix"
+                  @inputChar="inputChar"
+                  :error="false"
                 />
                 <span class="pay__dash"> - </span>
-                <TextInput
+                <TextInputContract
                   label=""
                   name="contract-digits"
                   class="pay__input-contract pay__input"
                   placeholder="Цифры"
+                  @inputNum="inputNum"
+                  :error="false"
                 />
               </div>
               <div class="pay__field">
@@ -169,6 +177,7 @@ import Header from "./Header";
 import Radio from "./base/Radio";
 import TextInput from "./base/TextInput";
 import Select from "./base/Select";
+import TextInputContract from "./base/TextInputContract";
 
 export default {
   name: "Payment",
@@ -177,19 +186,69 @@ export default {
     Header,
     Radio,
     TextInput,
+    TextInputContract,
     Select,
   },
   data() {
     return {
+      prefix: [],
+      numMask: false,
+      charMask: false,
+      prefixes: {
+        spb: ["СС", "CC"],
+        msk: ["ММ"],
+        voronej: ["МВЖ", "ДМВЖ"],
+      },
+      shopId: {
+        spb: "123",
+        msk: "",
+      },
       payAvailible: false,
     };
   },
+  computed: {
+    activeCity: {
+      get: function () {
+        return this.$store.getters.activeCity;
+      },
+      set: function (city) {
+        if (this.shopId[city.code] != "") {
+          this.payAvailible = true;
+          console.log(city);
+        } else {
+          this.payAvailible = false;
+          console.log(city);
+        }
+      },
+    },
+  },
+  created() {},
+
   methods: {
     hideShowPay(data) {
       if (data.availible) {
         this.payAvailible = true;
       } else {
         this.payAvailible = false;
+      }
+
+      this.prefix = this.prefixes[data.prefix];
+      console.log(this.prefix);
+    },
+    inputChar(data) {
+      this.charMask = data.mask;
+      console.log(this.charMask);
+    },
+    inputNum(data) {
+      this.numMask = data.mask;
+      console.log(this.numMask);
+    },
+
+    testt() {
+      if (this.$store.getters.activeCity.code == "spb") {
+        console.log(this.$store.getters.activeCity.code);
+      } else {
+        console.log(this.$store.getters.activeCity.code);
       }
     },
   },

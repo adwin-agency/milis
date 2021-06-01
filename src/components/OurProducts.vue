@@ -13,7 +13,7 @@
             <template v-else-if="fixedHeader">
               <Header
                 class="page-header-fixed"
-                :class="{'is-sticky': stickyHeader}"
+                :class="{ 'is-sticky': stickyHeader }"
                 fixed
               />
               <div class="page-header-spacer"></div>
@@ -22,10 +22,13 @@
               v-else
               class="page-header fade-slide-down js-anim"
               v-anim="true"
-            />          
+            />
           </div>
         </div>
-        <div class="our-products__wrapper fade-bounce-right js-anim" v-anim="true">
+        <div
+          class="our-products__wrapper fade-bounce-right js-anim"
+          v-anim="true"
+        >
           <!-- <div class="our-products__working">
             <p class="our-products__working-title">с 1.05 - 10.05 работаем с 9:00 до 22:00 </p>
             <p class="our-products__working-desc">Вы можете вызвать дизайнера не выходя из дома</p>
@@ -39,11 +42,8 @@
             class="our-products__menu"
             filterType="catalog"
           />
-          <h1
-            v-if="!$mobile"
-            class="our-products__heading"
-          >
-            {{heading}}
+          <h1 v-if="!$mobile" class="our-products__heading">
+            {{ heading }}
           </h1>
           <FilterTags
             v-if="!$mobile"
@@ -52,25 +52,30 @@
             :activeTag="activeTag"
             @deselectTag="deselectTag"
           />
-          <h1
-            v-if="$mobile"
-            class="our-products__heading"
-          >
-            {{heading}}
+          <h1 v-if="$mobile" class="our-products__heading">
+            {{ heading }}
           </h1>
           <div class="our-products__items">
             <div class="our-products__image">
               <picture>
-                <source srcset="@/assets/img/founders-md.jpg" :media="'(min-width: ' + $breakpoints.md + 'px)'">              
-                <img src="@/assets/img/founders.jpg" alt="">
+                <source
+                  srcset="@/assets/img/founders-md2.jpg"
+                  :media="'(min-width: ' + $breakpoints.md + 'px)'"
+                />
+                <img src="@/assets/img/founders2.jpg" alt="" />
               </picture>
             </div>
             <div class="our-products__content">
-              <p class="our-products__quote">“Мечтаете о новой кухне? Мы воплотим ваши кухонные желания в реальность и изготовим именно тот гарнитур, который вас полностью устроит! <span class="our-products__author">Артем и Милла</span><span class="our-products__quote-b">Ведь это так просто!”</span></p>
-              <Dropdowns
-                class="our-products__features"
-                :items="dropdowns"
-              />
+              <p class="our-products__quote">
+                “Мечтаете о новой кухне? Мы воплотим ваши кухонные желания в
+                реальность и изготовим именно тот гарнитур, который вас
+                полностью устроит!
+                <span class="our-products__author">Артем и Милла</span
+                ><span class="our-products__quote-b"
+                  >Ведь это так просто!”</span
+                >
+              </p>
+              <Dropdowns class="our-products__features" :items="dropdowns" />
             </div>
           </div>
         </div>
@@ -87,11 +92,9 @@
             v-anim="true"
             test
           />
-          <p
-            v-else
-            class="our-products__stock"
-          >
-            К сожалению, по вашему запросу ничего не найдено. <br>Попробуйте поменять один из фильтров - скорее всего, вас ждёт успех!
+          <p v-else class="our-products__stock">
+            К сожалению, по вашему запросу ничего не найдено. <br />Попробуйте
+            поменять один из фильтров - скорее всего, вас ждёт успех!
           </p>
           <div class="our-products__leaf fade-slide-down js-anim" v-anim="true">
             <Icon name="leaf" />
@@ -102,7 +105,7 @@
     <MobileFilters
       v-if="$mobile"
       class="our-products__mobile-filters"
-      :class="{'is-active': activeFilters}"
+      :class="{ 'is-active': activeFilters }"
       @applyFilters="applyFilters"
       @closeFilters="toggleFilters"
     />
@@ -110,16 +113,16 @@
 </template>
 
 <script>
-import FilterMenu from '@/components/base/FilterMenu'
-import FilterTags from '@/components/base/FilterTags'
-import Dropdowns from '@/components/base/Dropdowns'
-import Icon from '@/components/base/Icon'
-import Header from '@/components/Header'
-import MobileFilters from '@/components/MobileFilters'
-import CatalogCard from '@/components/CatalogCard'
+import FilterMenu from "@/components/base/FilterMenu";
+import FilterTags from "@/components/base/FilterTags";
+import Dropdowns from "@/components/base/Dropdowns";
+import Icon from "@/components/base/Icon";
+import Header from "@/components/Header";
+import MobileFilters from "@/components/MobileFilters";
+import CatalogCard from "@/components/CatalogCard";
 
 export default {
-  name: 'OurProducts',
+  name: "OurProducts",
   components: {
     FilterMenu,
     FilterTags,
@@ -127,7 +130,7 @@ export default {
     Dropdowns,
     Icon,
     Header,
-    CatalogCard
+    CatalogCard,
   },
   data() {
     return {
@@ -135,82 +138,114 @@ export default {
       stickyHeader: false,
       activeFilters: false,
       dropdowns: [
-        {arrow: true, title: 'Бесплатный дизайн-проект', desc: 'Наш дизайнер составит проект вашей будущей кухни совершенно бесплатно, даже в том случае, если вы по какой-то причине решите отказаться от наших услуг.'},
-        {arrow: true, title: 'Изготовление от 14 дней', desc: 'У нас собственный производственный цех, поэтому мы не зависим от посредников. Это позволяет изготавливать кухни гораздо быстрее и избегать неприятных задержек.'},
-        {arrow: true, title: 'Рассрочка до 6 месяцев', desc: 'Предоставляем беспроцентную рассрочку на полгода от наших банков партнеров. Высокий шанс одобрения и быстрое принятие решения!'},
-        {arrow: true, title: '3 простых шага - и кухня у Вас!', desc: 'Наш кухонный мир держится на трех китах - Заказ, Доставка, Сборка. Пройдет совсем немного времени с момента вашей заявки до момента, когда гарнитур уже в полном обмундировании будет радовать глаз у вас дома!'}
-      ]
-    }
+        {
+          arrow: true,
+          title: "Бесплатный дизайн-проект",
+          desc:
+            "Наш дизайнер составит проект вашей будущей кухни совершенно бесплатно, даже в том случае, если вы по какой-то причине решите отказаться от наших услуг.",
+        },
+        {
+          arrow: true,
+          title: "Изготовление от 14 дней",
+          desc:
+            "У нас собственный производственный цех, поэтому мы не зависим от посредников. Это позволяет изготавливать кухни гораздо быстрее и избегать неприятных задержек.",
+        },
+        {
+          arrow: true,
+          title: "Рассрочка до 6 месяцев",
+          desc:
+            "Предоставляем беспроцентную рассрочку на полгода от наших банков партнеров. Высокий шанс одобрения и быстрое принятие решения!",
+        },
+        {
+          arrow: true,
+          title: "3 простых шага - и кухня у Вас!",
+          desc:
+            "Наш кухонный мир держится на трех китах - Заказ, Доставка, Сборка. Пройдет совсем немного времени с момента вашей заявки до момента, когда гарнитур уже в полном обмундировании будет радовать глаз у вас дома!",
+        },
+      ],
+    };
   },
   computed: {
     categories() {
-      return this.$store.state.kitchenCategories
+      return this.$store.state.kitchenCategories;
     },
     activeCategory() {
-      return this.$route.params.category
+      return this.$route.params.category;
     },
     heading() {
-      return this.activeCategory && this.categories ? this.categories.find(item => item.url === this.activeCategory).name : 'Наши кухни'
+      return this.activeCategory && this.categories
+        ? this.categories.find((item) => item.url === this.activeCategory).name
+        : "Наши кухни";
     },
     tags() {
-      return this.$store.state.kitchenStyles
+      return this.$store.state.kitchenStyles;
     },
     activeTag() {
-      return this.$route.query.style
+      return this.$route.query.style;
     },
     kitchen() {
-      return this.$store.state.catalogKitchens[0]
-    }
+      return this.$store.state.catalogKitchens[0];
+    },
   },
   created() {
-    window.addEventListener('resize', this.handleResize)
-    window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener("resize", this.handleResize);
+    window.addEventListener("scroll", this.handleScroll);
   },
   destroyed() {
-    this.activeFilters && this.toggleFilters()
-    window.removeEventListener('resize', this.handleResize)
-    window.removeEventListener('scroll', this.handleScroll)
+    this.activeFilters && this.toggleFilters();
+    window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
     handleResize() {
       if (!this.$mobile && this.activeFilters) {
-        this.toggleFilters()
+        this.toggleFilters();
       }
     },
     handleScroll() {
-      this.fixedHeader = window.scrollY > 300
-      this.stickyHeader = window.scrollY > 600
+      this.fixedHeader = window.scrollY > 300;
+      this.stickyHeader = window.scrollY > 600;
     },
     toggleFilters() {
       if (this.activeFilters) {
-        this.activeFilters = false
-        const bodyClassList = document.body.classList
+        this.activeFilters = false;
+        const bodyClassList = document.body.classList;
 
-        bodyClassList.remove('is-mobile-filters')
+        bodyClassList.remove("is-mobile-filters");
 
-        if (!bodyClassList.contains('is-mobile-menu') && !bodyClassList.contains('is-modal')) {
-          document.body.style.overflow = ''
+        if (
+          !bodyClassList.contains("is-mobile-menu") &&
+          !bodyClassList.contains("is-modal")
+        ) {
+          document.body.style.overflow = "";
         }
       } else {
-        this.activeFilters = true
-        document.body.classList.add('is-mobile-filters')
-        document.body.style.overflow = 'hidden'
+        this.activeFilters = true;
+        document.body.classList.add("is-mobile-filters");
+        document.body.style.overflow = "hidden";
       }
     },
     applyFilters(category, style) {
-      this.toggleFilters()
+      this.toggleFilters();
 
       if (category === this.activeCategory && style === this.activeTag) {
-        return
+        return;
       }
 
-      this.$router.push({name: category ? 'category': 'catalog', params: {category}, query: style ? {style} : null})
+      this.$router.push({
+        name: category ? "category" : "catalog",
+        params: { category },
+        query: style ? { style } : null,
+      });
     },
     deselectTag() {
-      this.$router.push({name: this.activeCategory ? 'category' : 'catalog', params: {category: this.activeCategory}})
-    }
-  }
-}
+      this.$router.push({
+        name: this.activeCategory ? "category" : "catalog",
+        params: { category: this.activeCategory },
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -225,7 +260,7 @@ export default {
     padding: 10px 12px;
     padding-right: 24px;
     color: $color-blue;
-    background-color: #DAF1DD;
+    background-color: #daf1dd;
 
     &-title {
       font-weight: bold;
@@ -266,7 +301,7 @@ export default {
     font-weight: bold;
     font-size: 34px;
     line-height: (47/34);
-    color: $color-blue; 
+    color: $color-blue;
   }
 
   &__items {
@@ -352,7 +387,7 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
-    transition: transform .3s ease;
+    transition: transform 0.3s ease;
     z-index: 10;
 
     &.is-active {
@@ -427,7 +462,7 @@ export default {
 
   @include media(lg) {
     padding-top: 0;
-    
+
     &__menu {
       margin-left: 0;
       margin-right: 0;
