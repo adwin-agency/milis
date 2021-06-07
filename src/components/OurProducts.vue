@@ -90,7 +90,6 @@
             top
             :kitchen="kitchen"
             v-anim="true"
-            test
           />
           <p v-else class="our-products__stock">
             К сожалению, по вашему запросу ничего не найдено. <br />Попробуйте
