@@ -278,7 +278,6 @@ export default {
     position: absolute;
     left: 0;
     top: 100%;
-    width: 900px;
     box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.25);
     opacity: 0;
     pointer-events: none;
@@ -483,10 +482,6 @@ export default {
     &__nav-arrow {
       width: 12px;
       height: 12px;
-    }
-
-    &__menu {
-      width: 1207px;
     }
 
     &__city {

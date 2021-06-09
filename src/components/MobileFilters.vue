@@ -18,7 +18,7 @@
         {{category.name}}
       </button>
     </div>
-    <div class="filter-details__tags">
+    <!-- <div class="filter-details__tags">
       <p class="filter-details__tags-title">Вы уже определились со стилем?</p>
       <button
         v-for="(style, index) in kitchenStyles"
@@ -31,7 +31,7 @@
         {{style.name}}
         <span class="filter-details__tag-close"></span>
       </button>
-    </div>
+    </div> -->
     <Button
       class="filter-details__btn"
       @click.native="applyFilters"
@@ -114,6 +114,8 @@ export default {
 .filter-details {
   $b: &;
 
+  display: flex;
+  flex-direction: column;
   position: relative;
   padding: 60px $container-padding 120px;
   background-color: $color-white;
@@ -123,6 +125,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: auto;
     padding-left: 25px;
   }
 
@@ -206,6 +209,10 @@ export default {
       z-index: -1;
     }
 
+    &:last-child {
+      margin-bottom: 0;
+    }
+
     &.is-active {
       transform: translateX(16px);
       color: $color-white;
@@ -262,7 +269,7 @@ export default {
   }
 
   &__btn {
-    margin-top: 14px;
+    margin-top: 30px;
     width: 100%;
   }
 
@@ -273,16 +280,6 @@ export default {
     width: 20px;
     height: 20px;
     fill: $color-blue;
-  }
-
-  @include media(md) {
-    &__panel {
-      padding: 25px $container-padding-md;
-    }
-
-    &__menu {
-      padding: 60px $container-padding-md 40px;
-    }
   }
 }
 </style>

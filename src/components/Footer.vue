@@ -16,7 +16,7 @@
             </RouterLink>
             <div class="footer__menu">
               <div class="footer__menu-row">
-                <div class="footer__menu-col">
+                <!-- <div class="footer__menu-col">
                   <p class="footer__menu-title">Какой стиль кухни <br>Вы предпочитаете?</p>
                   <ul>
                     <li
@@ -27,7 +27,7 @@
                       <RouterLink :to="{name: 'catalog', query: {style: style.code}}">{{style.name}}</RouterLink>
                     </li>
                   </ul>
-                </div>
+                </div> -->
                 <div class="footer__menu-col">
                   <p class="footer__menu-title">Вы определились <br>с формой?</p>
                   <ul>
@@ -562,12 +562,9 @@ export default {
       padding-bottom: 82px;
     }
 
-    &__menu-row {
-      justify-content: space-between;
-    }
-
     &__menu-col {
       width: 25%;
+      margin-right: 12.5%;
     }
 
     &__menu-title {

@@ -45,13 +45,13 @@
           <h1 v-if="!$mobile" class="our-products__heading">
             {{ heading }}
           </h1>
-          <FilterTags
+          <!-- <FilterTags
             v-if="!$mobile"
             class="our-products__tags"
             :tags="tags"
             :activeTag="activeTag"
             @deselectTag="deselectTag"
-          />
+          /> -->
           <h1 v-if="$mobile" class="our-products__heading">
             {{ heading }}
           </h1>
@@ -113,7 +113,7 @@
 
 <script>
 import FilterMenu from "@/components/base/FilterMenu";
-import FilterTags from "@/components/base/FilterTags";
+// import FilterTags from "@/components/base/FilterTags";
 import Dropdowns from "@/components/base/Dropdowns";
 import Icon from "@/components/base/Icon";
 import Header from "@/components/Header";
@@ -124,7 +124,7 @@ export default {
   name: "OurProducts",
   components: {
     FilterMenu,
-    FilterTags,
+    // FilterTags,
     MobileFilters,
     Dropdowns,
     Icon,

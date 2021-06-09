@@ -21,7 +21,7 @@
       </RouterLink>
     </div>
     <nav class="menu__nav">
-      <div class="menu__col">
+      <!-- <div class="menu__col">
         <p class="menu__title">Какой стиль кухни <br>Вы предпочитаете?</p>
         <ul class="menu__list">
           <li
@@ -38,7 +38,7 @@
             </RouterLink>
           </li>
         </ul>
-      </div>
+      </div> -->
       <div class="menu__col">
         <p class="menu__title">Вы определились <br>с формой?</p>
         <ul class="menu__list">
@@ -139,6 +139,7 @@ export default {
     font-weight: bold;
     font-size: 24px;
     line-height: (32/24);
+    white-space: nowrap;
     color: $color-blue;
 
     &:last-child {
@@ -148,12 +149,11 @@ export default {
 
   &__nav {
     display: flex;
-    justify-content: space-between;
     margin-top: 50px;
   }
 
   &__col {
-    margin-right: 30px;
+    margin-right: 100px;
 
     &:last-child {
       margin-right: 0;
@@ -168,6 +168,10 @@ export default {
     color: $color-blue;
   }
 
+  &__title {
+    white-space: nowrap;
+  }
+
   &__list {
     margin-top: 18px;
   }
@@ -175,6 +179,7 @@ export default {
   &__item {
     font-size: 14px;
     line-height: (17/14);
+    white-space: nowrap;
     margin-bottom: 18px;
     color: $color-black-gray;
 
@@ -251,6 +256,8 @@ export default {
     }
 
     &__col {
+      margin-right: 235px;
+
       &:last-child {
         margin-right: 30px;
       }
