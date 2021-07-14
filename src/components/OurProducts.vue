@@ -59,12 +59,13 @@
             <div class="our-products__image">
               <picture>
                 <source
-                  srcset="@/assets/img/founders-md2.jpg"
+                  srcset="@/assets/img/founders-banner-md.jpg"
                   :media="'(min-width: ' + $breakpoints.md + 'px)'"
                 />
-                <img src="@/assets/img/founders2.jpg" alt="" />
+                <img src="@/assets/img/founders-banner.jpg" alt="" />
               </picture>
             </div>
+            <!-- <DiscountBanner class="our-products__banner" /> -->
             <div class="our-products__content">
               <p class="our-products__quote">
                 “Мечтаете о новой кухне? Мы воплотим ваши кухонные желания в
@@ -119,6 +120,7 @@ import Icon from "@/components/base/Icon";
 import Header from "@/components/Header";
 import MobileFilters from "@/components/MobileFilters";
 import CatalogCard from "@/components/CatalogCard";
+// import DiscountBanner from "@/components/DiscountBanner";
 
 export default {
   name: "OurProducts",
@@ -130,6 +132,7 @@ export default {
     Icon,
     Header,
     CatalogCard,
+    // DiscountBanner
   },
   data() {
     return {
@@ -394,6 +397,10 @@ export default {
     }
   }
 
+  &__banner {
+    margin: 0 (-$container-padding);
+  }
+
   @include media(md) {
     padding-top: 75px;
 
@@ -457,6 +464,13 @@ export default {
     &__feature {
       margin-bottom: 10px;
     }
+
+    &__banner {
+      align-self: flex-start;
+      margin: 0;
+      width: calc(50% - 10px);
+      max-width: 340px;
+    }
   }
 
   @include media(lg) {
@@ -507,6 +521,10 @@ export default {
 
     &__features {
       margin-top: 10px;
+    }
+
+    &__banner {
+      width: 48%;
     }
   }
 
@@ -565,6 +583,10 @@ export default {
       top: -14px;
       width: 80px;
       height: 80px;
+    }
+
+    &__banner {
+      width: 40%;
     }
   }
 }
