@@ -55,6 +55,7 @@ Vue.directive('anim', {
 })
 
 Vue.prototype.$breakpoints = {
+  xs: 370,
   sm: 570,
   md: 750,
   lg: 1150,

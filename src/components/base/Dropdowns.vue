@@ -1,13 +1,29 @@
 <template>
-  <div class="dropdowns">
+  <div
+    :class="[
+      'dropdowns',
+      {'dropdowns_products': products}
+    ]"
+  >
     <div
       v-for="(item, index) in items"
       :key="index"
-      class="dropdowns__item"
-      :class="{'is-active': activeItem === index}"
+      :class="[
+        'dropdowns__item',
+        {'is-active': activeItem === index}
+      ]"
     >
       <p class="dropdowns__title" @click="onTitleClick(index)">
-        <span class="dropdowns__arrow">
+        <span
+          v-if="products"
+          class="dropdowns__icon"
+        >
+          <Icon name="leaf" />
+        </span>
+        <span
+          v-else
+          class="dropdowns__arrow"
+        >
           <Icon name="caret-right" />
         </span>
         {{item.title}}
@@ -28,7 +44,8 @@ export default {
     Icon
   },
   props: {
-    items: Array
+    items: Array,
+    products: Boolean
   },
   data() {
     return {
@@ -58,12 +75,29 @@ export default {
 .dropdowns {
   $b: &;
 
+  &_products {
+    #{$b} {
+      &__item {
+        margin-bottom: 18px;
+      }
+
+      &__title {
+        font-size: 16px;
+      }
+
+      &__desc {
+        font-size: 14px;
+      }
+    }
+  }
+
+
   &__item {
     margin-bottom: 8px;
 
     &:last-child {
       margin-bottom: 0;
-    }
+    }    
 
     &.is-active {
       #{$b} {
@@ -98,6 +132,16 @@ export default {
     transition: transform .3s ease;
   }
 
+  &__icon {
+    position: absolute;
+    left: -2px;
+    top: -6px;
+    width: 22px;
+    height: 22px;
+    fill: $color-green;
+    z-index: -1;
+  }
+
   &__content {
     height: 0;
     opacity: 0;
@@ -113,6 +157,20 @@ export default {
   }
 
   @include media(md) {
+    &_products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: -28px;
+
+      #{$b} {
+        &__item {
+          width: 46%;
+          margin-bottom: 28px;
+        }
+      }
+    }
+
     &__item {
       margin-bottom: 10px;
     }

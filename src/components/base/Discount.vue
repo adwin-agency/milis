@@ -44,6 +44,10 @@ export default {
     height: 56px;
     font-size: 14px;
     line-height: (23/14);
+
+    #{$b}__text {
+      padding-top: 0;
+    }
   }
 
   &__bg {

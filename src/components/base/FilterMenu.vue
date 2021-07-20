@@ -1,41 +1,43 @@
 <template>
   <div class="filter-menu">
     <div class="filter-menu__wrapper">
-      <template v-if="filterType === 'catalog'">
-        <RouterLink
-          v-for="(category, index) in kitchenCategories"
-          :key="index"
-          class="filter-menu__item"
-          :class="{'is-active': activeCategory === category.url}"
-          :to="{
-            name: activeCategory === category.url ? 'catalog' : 'category',
-            params: {category: activeCategory === category.url ? false : category.url},
-            query: activeStyle ? {style: activeStyle} : false
-          }"
-        >
-          {{category.name}}
-          <span class="filter-menu__close">
-            <Icon name="close" />
-          </span>
-        </RouterLink>
-      </template>
-      <template v-if="filterType === 'technics'">
-        <RouterLink
-          v-for="(category, index) in technicsCategories"
-          :key="index"
-          class="filter-menu__item"
-          :class="{'is-active': activeCategory === category.url}"
-          :to="{
-            name: activeCategory === category.url ? 'technics' : 'techcategory',
-            params: {category: activeCategory === category.url ? false : category.url}
-          }"
-        >
-          {{category.name}}
-          <span class="filter-menu__close">
-            <Icon name="close" />
-          </span>
-        </RouterLink>
-      </template>
+      <div class="filter-menu__items">
+        <template v-if="filterType === 'catalog'">
+          <RouterLink
+            v-for="(category, index) in kitchenCategories"
+            :key="index"
+            class="filter-menu__item"
+            :class="{'is-active': activeCategory === category.url}"
+            :to="{
+              name: activeCategory === category.url ? 'catalog' : 'category',
+              params: {category: activeCategory === category.url ? false : category.url},
+              query: activeStyle ? {style: activeStyle} : false
+            }"
+          >
+            {{category.name}}
+            <span class="filter-menu__close">
+              <Icon name="close" />
+            </span>
+          </RouterLink>
+        </template>
+        <template v-if="filterType === 'technics'">
+          <RouterLink
+            v-for="(category, index) in technicsCategories"
+            :key="index"
+            class="filter-menu__item"
+            :class="{'is-active': activeCategory === category.url}"
+            :to="{
+              name: activeCategory === category.url ? 'technics' : 'techcategory',
+              params: {category: activeCategory === category.url ? false : category.url}
+            }"
+          >
+            {{category.name}}
+            <span class="filter-menu__close">
+              <Icon name="close" />
+            </span>
+          </RouterLink>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -72,9 +74,11 @@ export default {
 .filter-menu {
   $b: &;
 
-  overflow: hidden;
-
   &__wrapper {
+    overflow: hidden;
+  }
+
+  &__items {
     display: flex;
     margin-bottom: -20px;
     padding-bottom: 20px;
@@ -92,12 +96,14 @@ export default {
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    margin-right: 10px;
-    padding: 7px 14px;
+    margin-right: 20px;
+    padding: 6px 22px;
     border-radius: 85px;
-    font-size: 12px;
-    line-height: (14/12);
-    background-color: $color-gray-6;
+    border: 1px solid $color-gray;
+    font-size: 16px;
+    line-height: (19/16);
+    color: $color-blue;
+    text-decoration: underline;
 
     &:last-child {
       margin-right: 0;
@@ -122,26 +128,24 @@ export default {
   }
 
   @include media(md) {
-    &__wrapper {
+    &__items {
       &::before,
       &::after {
         width: $container-padding-md;
       }
     }
-
-    &__item {
-      padding: 8px 19px;
-      font-size: 14px;
-      line-height: (16/14);
-    }
   }
 
   @include media(lg) {
-    overflow: visible;
+    padding-right: 12px;
 
     &__wrapper {
+      overflow: visible;
+    }
+
+    &__items {
       flex-wrap: wrap;
-      margin-bottom: -26px;
+      margin-bottom: -20px;
       padding-bottom: 0;
       overflow-x: visible;
 
@@ -152,34 +156,12 @@ export default {
     }
 
     &__item {
-      margin-right: 26px;
-      margin-bottom: 26px;
-      padding: 0;
-      font-size: 14px;
-      line-height: (16/14);
-      text-decoration: underline;
-      color: $color-gray-middle;
-      background-color: transparent;
+      margin-right: 18px;
+      margin-bottom: 18px;
 
       &_main {
         color: $color-blue;
       }
-
-      &.is-active {
-        font-weight: bold;
-        color: $color-blue;
-        background-color: transparent;
-      }
-    }
-
-    &__close {
-      fill: $color-blue;
-    }
-  }
-
-  @include media(xl) {
-    &__item {
-      margin-right: 48px;
     }
   }
 }

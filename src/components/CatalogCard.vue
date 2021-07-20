@@ -57,7 +57,7 @@
       </Swiper>
       <p v-if="kitchen.discount" class="catalog-card__label">Скидка на материалы</p>
       <Discount
-        v-if="kitchen.discount"
+        v-if="$windowWidth < $breakpoints.xs && kitchen.discount"
         class="catalog-card__discount"
         :value="kitchen.discount"
       />
@@ -106,6 +106,12 @@
         </p>
         <p class="catalog-card__price-note"><span>*</span>за весь гарнитур</p>
       </div>
+      <Discount
+        v-if="$windowWidth >= $breakpoints.xs && kitchen.discount"
+        :value="kitchen.discount"
+        small
+        class="catalog-card__discount"
+      />
     </div>
   </div>
 </template>
@@ -210,7 +216,8 @@ export default {
       }
 
       &__discount {
-        right: -14px;
+        margin-right: 0;
+        transform: translateZ(0);
       }
     }
   }
@@ -274,13 +281,6 @@ export default {
     z-index: 1;
   }
 
-  &__discount {
-    position: absolute;
-    top: -18px;
-    right: 4px;
-    z-index: 1;
-  }
-
   &__details-btn {
     position: absolute;
     left: 0;
@@ -299,7 +299,7 @@ export default {
     position: absolute;
     right: 0;
     bottom: 0;
-    padding: 10px 5px 10px 20px;
+    padding: 12px 15px 12px 25px;
     border-top-left-radius: 30px;
     font-family: $font-secondary;
     font-weight: bold;
@@ -319,10 +319,15 @@ export default {
     margin-left: 8px;
   }
 
+  &__discount {
+    position: absolute;
+    top: -18px;
+    right: 4px;
+    z-index: 1;
+  }
+
   &__content {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
     margin-top: 17px;
   }
 
@@ -341,11 +346,13 @@ export default {
   &__stat {
     display: flex;
     align-items: center;
-    font-weight: normal;
-    font-size: 10px;
-    line-height: (12/10);
-    color: $color-gray-middle;
-    fill: $color-gray;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: (17/14);
+    color: $color-blue;
+    fill: none;
+    stroke: $color-red;
+    stroke-width: 2px;
     transition: fill .3s ease;
 
     &.is-active {
@@ -362,6 +369,7 @@ export default {
 
   &__prices {
     flex-shrink: 0;
+    margin-left: auto;
     text-align: right;
   }
 
@@ -397,6 +405,16 @@ export default {
     }
   }
 
+  @include media(xs) {
+    &__discount {
+      position: relative;
+      top: auto;
+      right: auto;
+      margin-left: 10px;
+      margin-right: -10px;
+    }
+  }
+
   @include media(md) {
     &__images {
       margin-left: 0;
@@ -404,7 +422,7 @@ export default {
     }
 
     &__discount {
-      right: -14px;
+      margin-right: 0;
     }
   }
 
@@ -490,19 +508,6 @@ export default {
         &__image {
           padding-top: 75.3%;
         }
-
-        &__content {
-          padding-right: $container-padding-md;
-        }
-
-        &__btn {
-          padding-right: #{$container-padding-md + 20px};
-        }
-
-        &__discount {
-          top: 20px;
-          right: 24px;
-        }
       }
     }
 
@@ -578,28 +583,12 @@ export default {
       }
     }
 
-    &_top {
-      #{$b} {
-        &__btn {
-          padding-right: #{$container-padding-xl + 20px};
-        }
-
-        &__content {
-          padding-right: $container-padding-xl;
-        }
-      }
-    }
-
     &__image {
       padding-top: 68.3%;
     }
 
     &__next {
       left: 42px;
-    }
-
-    &__discount {
-      top: -15px;
     }
 
     &__details-btn {

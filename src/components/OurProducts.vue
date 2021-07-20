@@ -1,9 +1,9 @@
 <template>
   <div class="our-products page-top">
     <div class="row">
-      <div class="col col-12 col-lg-6">
+      <div class="col col-12 col-lg-6 col-xl-5">
         <div class="row">
-          <div class="col col-12 col-xl-10">
+          <div class="col col-12">
             <Header
               v-if="$mobile"
               class="page-header"
@@ -37,14 +37,20 @@
               class="our-products__working-icon"
             />
           </div> -->
+          <h1 class="our-products__heading">
+            {{ heading }}
+            <RouterLink
+              v-if="$windowWidth >= $breakpoints.md"
+              :to="{name: 'catalog'}"
+              class="our-products__reset"
+            >
+              Сбросить фильтры
+            </RouterLink>
+          </h1>
           <FilterMenu
-            v-if="!$mobile"
             class="our-products__menu"
             filterType="catalog"
           />
-          <h1 v-if="!$mobile" class="our-products__heading">
-            {{ heading }}
-          </h1>
           <!-- <FilterTags
             v-if="!$mobile"
             class="our-products__tags"
@@ -52,11 +58,8 @@
             :activeTag="activeTag"
             @deselectTag="deselectTag"
           /> -->
-          <h1 v-if="$mobile" class="our-products__heading">
-            {{ heading }}
-          </h1>
           <div class="our-products__items">
-            <div class="our-products__image">
+            <!-- <div class="our-products__image">
               <picture>
                 <source
                   srcset="@/assets/img/founders-banner-md.jpg"
@@ -64,24 +67,23 @@
                 />
                 <img src="@/assets/img/founders-banner.jpg" alt="" />
               </picture>
-            </div>
-            <!-- <DiscountBanner class="our-products__banner" /> -->
+            </div> -->
+            <DiscountBanner class="our-products__banner" />
             <div class="our-products__content">
               <p class="our-products__quote">
-                “Мечтаете о новой кухне? Мы воплотим ваши кухонные желания в
-                реальность и изготовим именно тот гарнитур, который вас
-                полностью устроит!
-                <span class="our-products__author">Артем и Милла</span
-                ><span class="our-products__quote-b"
-                  >Ведь это так просто!”</span
-                >
+                “Создать кухню Вашей мечты <b>просто</b>. Мы создадим вам кухню на заказ именно ту, о которой вы мечтали!”
+                <span class="our-products__quote-slogan">Всё просто!</span>
               </p>
-              <Dropdowns class="our-products__features" :items="dropdowns" />
+              <Dropdowns
+                :items="dropdowns"
+                products
+                class="our-products__features"
+              />
             </div>
           </div>
         </div>
       </div>
-      <div class="col col-6" v-if="!$mobile">
+      <div class="col col-6 col-xl-7" v-if="!$mobile">
         <div class="our-products__card-wrap">
           <CatalogCard
             v-if="kitchen"
@@ -120,7 +122,7 @@ import Icon from "@/components/base/Icon";
 import Header from "@/components/Header";
 import MobileFilters from "@/components/MobileFilters";
 import CatalogCard from "@/components/CatalogCard";
-// import DiscountBanner from "@/components/DiscountBanner";
+import DiscountBanner from "@/components/DiscountBanner";
 
 export default {
   name: "OurProducts",
@@ -132,7 +134,7 @@ export default {
     Icon,
     Header,
     CatalogCard,
-    // DiscountBanner
+    DiscountBanner
   },
   data() {
     return {
@@ -285,7 +287,19 @@ export default {
   }
 
   &__menu {
-    margin: 18px (-$container-padding) 0;
+    position: relative;
+    margin: 25px (-$container-padding) 40px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -50px;
+      right: 0;
+      bottom: -40px;
+      background-color: #F3F3F3;
+      z-index: -1;
+    }
   }
 
   &__tags {
@@ -297,52 +311,46 @@ export default {
   }
 
   &__heading {
-    margin-top: 12px;
+    margin-top: 32px;
     width: 100%;
     font-family: $font-secondary;
     font-weight: bold;
-    font-size: 34px;
-    line-height: (47/34);
+    font-size: 40px;
+    line-height: (69/50);
     color: $color-blue;
-  }
-
-  &__items {
-    margin-top: 10px;
   }
 
   &__image {
     margin: 0 (-$container-padding);
   }
 
-  &__content {
-    margin-top: 12px;
-  }
-
   &__quote {
-    font-size: 12px;
-    line-height: (20/12);
+    position: relative;
+    margin-top: -12px;
+    border-radius: 3px;
+    padding: 20px;
+    font-size: 16px;
+    line-height: (26/16);
+    background-color: #f3f3f3;
 
     &::after {
       content: "";
       display: block;
       clear: both;
     }
+
+    &-slogan {
+      float: right;
+      margin-top: -8px;
+      margin-bottom: -26px;
+      font-family: $font-decorative;
+      font-size: 40px;
+      color: $color-blue;
+    }
   }
 
-  &__author {
-    float: right;
-    margin-top: 6px;
-    margin-left: 30px;
-    font-family: $font-decorative;
-    font-size: 30px;
-    line-height: (26/30);
-    color: $color-gray-5;
-  }
-
-  &__quote-b {
-    display: block;
-    margin-bottom: 12px;
-    font-weight: bold;
+  &__features {
+    margin-top: 25px;
   }
 
   &__feature {
@@ -356,7 +364,6 @@ export default {
 
   &__card-wrap {
     position: relative;
-    margin-right: -$container-padding-md;
     height: 100%;
   }
 
@@ -401,11 +408,17 @@ export default {
     margin: 0 (-$container-padding);
   }
 
+  @include media(xs) {
+    &__heading {
+      font-size: 48px;
+    }
+  }
+
   @include media(md) {
     padding-top: 75px;
 
     &__menu {
-      margin: 25px (-$container-padding-md) 0;
+      margin: 22px (-$container-padding-md) 40px;
     }
 
     &__tags {
@@ -417,14 +430,21 @@ export default {
     }
 
     &__heading {
-      margin-top: 18px;
-      font-size: 44px;
-      line-height: (61/44);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+      font-size: 50px;
+      line-height: (69/50);
     }
 
-    &__items {
-      display: flex;
-      margin-top: 22px;
+    &__reset {
+      margin-top: 10px;
+      font-family: $font-primary;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: (19/16);
+      text-decoration: underline;
     }
 
     &__image {
@@ -432,33 +452,18 @@ export default {
       width: calc(50% - 10px);
     }
 
-    &__content {
-      flex: 1;
-      margin-left: 20px;
-      margin-top: 18px;
-    }
-
     &__quote {
-      display: flex;
-      flex-direction: column;
-      font-size: 16px;
-      line-height: (26/16);
-    }
+      margin-top: -20px;
+      padding: 30px 40px;
 
-    &__author {
-      order: 1;
-      margin-left: 0;
-      margin-top: 32px;
-      font-size: 40px;
-      line-height: (27/60);
-    }
-
-    &__quote-b {
-      margin-bottom: 0;
+      &-slogan {
+        margin-top: -12px;
+        margin-right: 20px;
+      }
     }
 
     &__features {
-      margin-top: 48px;
+      margin-top: 28px;
     }
 
     &__feature {
@@ -466,10 +471,7 @@ export default {
     }
 
     &__banner {
-      align-self: flex-start;
-      margin: 0;
-      width: calc(50% - 10px);
-      max-width: 340px;
+      margin: 0 (-$container-padding-md);
     }
   }
 
@@ -479,6 +481,12 @@ export default {
     &__menu {
       margin-left: 0;
       margin-right: 0;
+      margin-bottom: 20px;
+
+      &::before {
+        left: -$container-padding-md;
+        bottom: -20px;
+      }
     }
 
     &__tags {
@@ -489,52 +497,48 @@ export default {
 
     &__heading {
       margin-top: 8px;
+      font-size: 40px;
+    }
+
+    &__reset {
+      margin-top: 0;
+      margin-right: 10px;
     }
 
     &__items {
-      margin-top: 16px;
+      margin-top: 65px;
     }
 
     &__image {
       width: 35.5%;
     }
 
-    &__content {
-      margin-left: 24px;
-      margin-top: 0;
-    }
-
     &__quote {
-      display: block;
-      padding-right: 40px;
-      font-size: 12px;
-      line-height: (20/12);
-    }
-
-    &__author {
-      margin-left: 20px;
-      margin-top: 34px;
-      margin-right: -10px;
-      font-size: 30px;
-      line-height: (21/30);
+      margin-top: -12px;
+      margin-left: -36px;
     }
 
     &__features {
-      margin-top: 10px;
+      margin-top: 30px;
     }
 
     &__banner {
-      width: 48%;
+      margin: 0;
     }
   }
 
   @include media(xl) {
-    &__working + &__menu {
-      margin-top: 25px;
+    &__wrapper {
+      margin-right: -35px;
     }
 
-    &__menu {
-      margin-top: 60px;
+    &__reset {
+      margin-top: 10px;
+      margin-right: 36px;
+    }
+
+    &__working + &__menu {
+      margin-top: 25px;
     }
 
     &__heading {
@@ -544,38 +548,25 @@ export default {
     }
 
     &__items {
-      margin-top: 14px;
+      margin-top: 100px;
     }
 
     &__image {
       width: 38.5%;
     }
 
-    &__content {
-      margin-left: 56px;
-      margin-top: 56px;
-    }
-
     &__quote {
-      padding-right: 110px;
-      font-size: 16px;
-      line-height: 1.62;
-    }
-
-    &__author {
-      margin-top: 26px;
-      margin-right: -16px;
-      font-size: 40px;
-      line-height: 0.68;
+      margin-right: 105px;
     }
 
     &__features {
-      margin-top: 48px;
-      margin-right: 50px;
+      margin-top: 75px;
+      margin-right: 80px;
     }
 
     &__card-wrap {
-      margin-right: -$container-padding-xl;
+      margin-left: 65px;
+      margin-right: 0;
     }
 
     &__leaf {
@@ -583,10 +574,6 @@ export default {
       top: -14px;
       width: 80px;
       height: 80px;
-    }
-
-    &__banner {
-      width: 40%;
     }
   }
 }

@@ -2,29 +2,21 @@
   <div class="discount-banner">
     <div class="discount-banner__circle"></div>
     <div class="discount-banner__inner">
-      <template v-if="$windowWidth < $breakpoints.md">
-        <p class="discount-banner__title">со<br>скидкой</p>
-        <div class="discount-banner__details">
-          <p class="discount-banner__value">
-            -47%
-            <Icon name="leaf" class="discount-banner__icon" />
-          </p>
-          <p class="discount-banner__date">до 01.09</p>
-        </div>
-      </template>
-      <template v-else>
-        <div class="discount-banner__top">
-          <p class="discount-banner__title">Скидки<br>на кухни</p>
-          <p class="discount-banner__value">
-            -47%
-            <Icon name="leaf" class="discount-banner__icon" />
-          </p>
-        </div>
+      <p class="discount-banner__title">Скидка<br>на кухни</p>
+      <div class="discount-banner__details">
+        <p class="discount-banner__value">
+          -47%
+          <Icon name="leaf" class="discount-banner__icon" />
+        </p>
         <p class="discount-banner__date">до 01.09</p>
-        <div class="discount-banner__img">
-          <img src="@/assets/img/founders3.png" alt>
-        </div>
-      </template>      
+      </div>
+      <div
+        v-if="$windowWidth >= $breakpoints.md"
+        class="discount-banner__founders"
+      >
+        <p class="discount-banner__note">Основатели компании Милис<br>Артем и Мила</p>
+        <img src="@/assets/img/founders3.png" alt class="discount-banner__img">
+      </div>
     </div>
   </div>
 </template>
@@ -49,35 +41,46 @@ export default {
 
   &__circle {
     position: absolute;
-    left: -21px;
-    top: -23px;
-    width: 143px;
-    height: 143px;
+    left: -75px;
+    top: -65px;
+    width: 226px;
+    height: 226px;
     border-radius: 50%;
-    background-color: $color-green;
+    background-color: rgba($color-green, 0.5);
 
-    &::before {
+    &::before,
+    &::after {
       content: '';
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 194px;
-      height: 194px;
-      border-radius: 50%;
-      background-color: rgba($color-green, 0.5);
-      transform: translate(-45%, -45%);
+      border-radius: 50%;      
+      transform: translate(-50%, -50%);
+    }
+
+    &::before {
+      width: 474px;
+      height: 474px;
+      background-color: rgba(120, 144, 207, 0.4);
+      transform: translate(-44%, -55%);
+    }
+
+    &::after {
+      width: 143px;
+      height: 143px;
+      background-color: $color-green;
     }
   }
 
   &__inner {
     display: flex;
     position: relative;
-    padding: 22px 20px;
+    padding: 22px 20px 52px;
   }
 
   &__title {
     flex-shrink: 0;
-    margin-right: auto;
+    margin-right: 5px;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 24px;
@@ -85,12 +88,12 @@ export default {
   }
 
   &__details {
-    margin-right: calc(50% - 80px);
-    text-align: center;
-    transform: translateX(30%);
+    flex-shrink: 0;
+    margin: 0 auto;
   }
 
   &__value {
+    display: inline-block;
     position: relative;
     font-family: $font-secondary;
     font-weight: bold;
@@ -101,8 +104,8 @@ export default {
 
   &__icon {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 5px;
+    right: -12px;
     width: 37px;
     height: 39px;
     fill: $color-green;
@@ -110,90 +113,80 @@ export default {
   }
 
   &__date {
-    border-top: 2px solid #fff;
-    padding-top: 5px;
+    margin-top: -25px;
+    margin-left: 45px;
     font-weight: 500;
     font-size: 30px;
     line-height: (49/30);
   }
 
   @include media(md) {
-    &__inner {
-      flex-direction: column;
-      height: 100%;
-      padding: 14px 35px;
+    &__circle {
+      left: -62px;
     }
 
-    &__top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    &__inner {
+      padding: 18px 20px 52px;
     }
 
     &__title {
-      text-transform: none;
+      margin-right: 12px;
     }
 
-    &__value {
-      margin-left: 12px;
-      margin-right: 8px;
+    &__details {
+      margin-left: 0;
     }
 
     &__date {
-      margin: 15px auto auto;
+      border-bottom: 2px solid #fff;
     }
 
-    &__img {
+    &__founders {
+      display: flex;
       position: relative;
-      margin: -80px -35px -14px auto;
-      width: calc(100% + 35px);
-      pointer-events: none;
+      margin-top: -18px;
+      margin-right: -20px;
+      margin-bottom: -52px;
+      width: 390px;
 
       &::before {
         content: "";
         position: absolute;
-        right: -80px;
-        bottom: -35px;
-        width: 103%;
-        padding-top: 103%;
+        left: 50%;
+        top: 50%;
+        width: 285px;
+        height: 285px;
         border-radius: 50%;
         background-color: #E4E4E4;
+        transform: translate(-37%, -25%);        
       }
+    }
 
-      img {
-        position: relative;
-      }
+    &__note {
+      position: absolute;
+      bottom: 34px;
+      right: 65%;
+      padding: 10px 68px 10px 22px;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: (15/14);
+      text-align: right;
+      white-space: nowrap;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+      background-color: rgba(196, 196, 196, 0.4);
+      backdrop-filter: blur(68px);
+    }
+
+    &__img {
+      position: relative;
+      margin-top: auto;
     }
   }
 
   @include media(lg) {
     &__inner {
-      padding: 14px 20px;
-    }
-
-    &__value {
-      font-size: 40px;
-    }
-
-    &__img {
-      margin-right: -20px;
-      width: calc(100% + 20px);
-    }
-  }
-
-  @include media(xl) {
-    &__inner {
-      padding: 14px 35px;
-    }
-
-    &__value {
-      font-size: 50px;
-      margin-right: 8px;
-    }
-
-    &__img {
-      margin-right: -35px;
-      width: calc(100% + 35px);
+      min-height: 230px;
     }
   }
 }
