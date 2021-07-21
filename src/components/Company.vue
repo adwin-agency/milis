@@ -66,7 +66,7 @@ export default {
   }
 
   &__items {
-    margin-top: 13px;
+    margin-top: 23px;
   }
 
   &__item {

@@ -8,7 +8,10 @@
         />
       </div>
       <div class="col col-12 col-lg-9 col-lg2-8 col-xl-7">
-        <Materials class="product-parts__materials"/>
+        <Materials
+          parts
+          class="product-parts__materials"
+        />
       </div>
     </div>
   </div>
@@ -63,7 +66,6 @@ export default {
 
     &__materials {
       margin-left: 60px;
-      margin-right: 140px;
     }
   }
 }

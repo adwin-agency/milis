@@ -541,6 +541,12 @@ export default {
       margin-top: 25px;
     }
 
+    &__menu {
+      &::before {
+        left: -$container-padding-xl;
+      }
+    }
+
     &__heading {
       margin-top: 12px;
       font-size: 50px;

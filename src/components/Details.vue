@@ -15,18 +15,11 @@
         <Header class="page-header fade-slide-down js-anim" v-anim="true" v-if="$windowWidth >= $breakpoints.xl" />
         <div class="details__wrapper fade-bounce-right js-anim" v-anim="true">
           <div class="details__nav">
-            <RouterLink
+            <Back
+              sm
               :to="{name: 'catalog'}"
-              v-slot="{ href, navigate }"
-              custom
-            >
-              <Back
-                sm
-                :href="href"
-                class="details__back"
-                @click.native="navigate"
-              />
-            </RouterLink>
+              class="details__back"
+            />
             <p class="details__category">
               <RouterLink :to="{name: 'category', params: {category: details.category}}">{{details.category_rus}} / {{details.style}}</RouterLink>
             </p>

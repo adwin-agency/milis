@@ -14,17 +14,8 @@
       ]"
     >
       <p class="dropdowns__title" @click="onTitleClick(index)">
-        <span
-          v-if="products"
-          class="dropdowns__icon"
-        >
+        <span class="dropdowns__icon">
           <Icon name="leaf" />
-        </span>
-        <span
-          v-else
-          class="dropdowns__arrow"
-        >
-          <Icon name="caret-right" />
         </span>
         {{item.title}}
       </p>
@@ -75,25 +66,8 @@ export default {
 .dropdowns {
   $b: &;
 
-  &_products {
-    #{$b} {
-      &__item {
-        margin-bottom: 18px;
-      }
-
-      &__title {
-        font-size: 16px;
-      }
-
-      &__desc {
-        font-size: 14px;
-      }
-    }
-  }
-
-
   &__item {
-    margin-bottom: 8px;
+    margin-bottom: 18px;
 
     &:last-child {
       margin-bottom: 0;
@@ -117,7 +91,7 @@ export default {
     position: relative;
     font-family: $font-secondary;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 16px;
     line-height: (20/12);
     color: $color-blue;
     cursor: pointer;
@@ -151,8 +125,7 @@ export default {
 
   &__desc {
     padding-top: 10px;
-    padding-left: 24px;
-    font-size: 12px;
+    font-size: 14px;
     line-height: (23/14);
   }
 
@@ -171,10 +144,6 @@ export default {
       }
     }
 
-    &__item {
-      margin-bottom: 10px;
-    }
-
     &__title {
       font-size: 18px;
       line-height: (29/18);
@@ -185,12 +154,6 @@ export default {
       width: 17px;
       height: 17px;
       margin-right: 6px;
-    }
-
-    &__desc {
-      padding-left: 23px;
-      padding-right: 70px;
-      font-size: 14px;
     }
   }
 
@@ -208,8 +171,6 @@ export default {
 
     &__desc {
       padding-top: 4px;
-      padding-left: 14px;
-      padding-right: 0;
       font-size: 12px;
       line-height: (20/12);
     }
@@ -228,7 +189,6 @@ export default {
 
     &__desc {
       padding-top: 16px;
-      padding-left: 21px;
       font-size: 14px;
       line-height: (23/14);
     }

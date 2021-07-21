@@ -9,13 +9,10 @@
       <div class="col col-12 col-lg-6 col-xl-5 about__main-col">
         <Header class="page-header fade-slide-down js-anim" v-anim="true" />
         <div class="about__wrapper fade-bounce-right js-anim" v-anim="true">
-          <RouterLink :to="{name: 'catalog'}" v-slot="{ href, navigate }" custom>
-            <Back
-              :href="href"
-              class="about__back"
-              @click.native="navigate"
-            />
-          </RouterLink>
+          <Back
+            :to="{name: 'catalog'}"
+            class="about__back"
+          />
           <Company class="about__company" />
         </div>        
         <div class="about__add-img anim-img js-anim" v-anim="true">

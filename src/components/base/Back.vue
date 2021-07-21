@@ -1,12 +1,16 @@
 <template>
-  <div :class="['back', {'back_sm': sm}]">
-    <a :href="href" class="back__link">
-      <span class="back__arrow">
-        <Icon name="arrow-left"/>
-      </span>
-      <span class="back__title">Назад в каталог</span>      
-    </a>
-  </div>
+  <RouterLink
+    :to="to"
+    :class="['back', {'back_sm': sm}]"
+  >
+    <span class="back__arrow">
+      <Icon name="arrow-left"/>
+    </span>
+    <span
+      v-if="!sm || $windowWidth >= $breakpoints.md"
+      class="back__title"
+    >Назад в каталог</span>
+  </RouterLink>
 </template>
 
 <script>
@@ -18,7 +22,7 @@ export default {
     Icon
   },
   props: {
-    href: String,
+    to: Object,
     sm: Boolean
   }
 }
@@ -28,27 +32,29 @@ export default {
 .back {
   $b: &;
 
-  display: inline-block;
-  padding-bottom: 25px;
-  border-bottom: 1px solid $color-gray;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  font-family: $font-secondary;
+  font-size: 10px;
+  line-height: (12/10);
+  text-decoration: underline;
+  color: $color-blue;
 
-  &_sm {
-    padding-bottom: 0;
-    border-bottom: none;
-
-    #{$b}__title {
-      display: none;
-    }  
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    margin-top: 15px;
+    border-bottom: 1px solid $color-gray;
   }
 
-  &__link {
-    display: flex;
-    align-items: center;
-    font-family: $font-secondary;
-    font-size: 10px;
-    line-height: (12/10);
-    text-decoration: underline;
-    color: $color-blue;
+  &_sm {
+    &::after {
+      display: none;
+    }
   }
 
   &__arrow {
@@ -62,14 +68,14 @@ export default {
   }
 
   @include media(md) {
-    &_sm {
-      padding-bottom: 25px;
-      border-bottom: 1px solid $color-gray;
+    border-radius: 2px;
+    border-bottom: none;
+    padding: 16px;
+    background-color: #f3f3f3;
 
-      #{$b}__title {
-        display: inline;
-      }
-    }    
+    &::after {
+      display: none;
+    }
 
     &__arrow {
       width: 14px;
