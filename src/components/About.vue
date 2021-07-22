@@ -1,5 +1,5 @@
 <template>
-  <div class="about page-top">
+  <div class="about">
     <div class="row">
       <div class="col col-12" v-if="$mobile">
         <div class="about__image">
@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="col col-12 col-lg-6 col-xl-5 about__main-col">
-        <Header class="page-header fade-slide-down js-anim" v-anim="true" />
+        <Header class="slide-down js-anim" v-anim="true" />
         <div class="about__wrapper fade-bounce-right js-anim" v-anim="true">
           <Back
             :to="{name: 'catalog'}"

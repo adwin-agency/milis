@@ -1,5 +1,5 @@
 <template>
-  <div class="blog page-top">
+  <div class="blog">
     <div class="row">
       <div class="col col-12 col-lg-6 blog__image-col">
         <div class="blog__image anim-img js-anim" v-anim="true">

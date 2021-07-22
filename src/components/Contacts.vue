@@ -1,5 +1,5 @@
 <template>
-  <div class="contacts page-top">
+  <div class="contacts">
     <div class="row">
       <div class="col col-12 col-lg-6 contacts__map-col">
         <YandexMap
@@ -25,7 +25,7 @@
         </YandexMap>
       </div>
       <div class="col col-12 col-lg-6 col-xl-5">
-        <Header class="page-header fade-slide-down js-anim" v-anim="true" />
+        <Header class="slide-down js-anim" v-anim="true" />
         <div class="contacts__content fade-bounce-right js-anim" v-anim="true">
           <h1 class="contacts__heading">Контакты</h1>
           <div class="contacts__items">

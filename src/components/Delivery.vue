@@ -1,5 +1,5 @@
 <template>
-  <div class="delivery page-top">
+  <div class="delivery">
     <div class="row">
       <div class="col col-12 col-lg-6">
         <div class="delivery__image anim-img js-anim" v-anim="true">
@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="col col-12 col-lg-6 col-xl-5 delivery__content-col">
-        <Header class="page-header fade-slide-down js-anim" v-anim="true" />
+        <Header class="slide-down js-anim" v-anim="true" />
         <div class="delivery__content fade-bounce-right js-anim" v-anim="true">
           <h1 class="delivery__heading">Доставка в срок</h1>
           <p class="delivery__text">После изготовления кухня хранится на складе, что гарантирует ее сохранность. Наши специалисты созвонятся с вами и обговорят удобное время доставки, не забыв уточнить ваш адрес. <br><br>Осуществляем доставку <b>по Москве, Санкт-Петербургу, Московской и Ленинградской областям</b></p>

@@ -1,5 +1,5 @@
 <template>
-  <div class="reviews page-top">
+  <div class="reviews">
     <div class="row">
       <div class="col col-12 col-lg-6 reviews__image-col">
         <div class="reviews__image anim-img js-anim" v-anim="true">
@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="col col-12 col-lg-6 col-xl-5">
-        <Header class="page-header fade-slide-down js-anim" v-anim="true" />
+        <Header class="slide-down js-anim" v-anim="true" />
         <div class="reviews__wrapper fade-bounce-right js-anim" v-anim="true">
           <h1 class="heading reviews__heading">Отзывы о нас</h1>
           <TextWrap

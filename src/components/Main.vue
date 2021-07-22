@@ -2,20 +2,17 @@
   <div class="main">
     <Header
       v-if="$mobile"
-      class="main__header"
       main
       :info="activeSlide === kitchens.length"
     />
     <div
       v-else
-      class="main__top"
-      :class="{'show': showTop}"
+      class="main__top show"
     >
       <div class="container">
         <div class="row">
           <div class="col col-12 col-lg-6 col-xl-5">
-            <Header
-              class="main__header"
+            <Header class="slide-down js-anim" v-anim="true"
               main
               :info="activeSlide === kitchens.length"
             />
@@ -217,7 +214,7 @@ export default {
   $b: &;
 
   position: relative;
-  padding-top: 65px;
+  padding-top: $header-height;
   overflow: hidden;
 
   &__top {
@@ -228,20 +225,12 @@ export default {
     opacity: 0;
     transform: translateY(-20px);
     transition: opacity .3s ease, transform .3s ease;
+    z-index: 20;
 
     &.show {
       opacity: 1;
       transform: none;
     }
-  }
-
-  &__header {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 65px;
-    z-index: 2;
   }
 
   &__screens {
@@ -341,6 +330,7 @@ export default {
   }
 
   @include media(md) {
+    padding-top: $header-height-md;
 
     &__wrapper::after {
       height: 144px;

@@ -55,6 +55,7 @@ export default {
 
 <style lang="scss">
 .app {
+  padding-top: $header-height;
   overflow: hidden;
   
   &__mobile-bar {
@@ -72,6 +73,14 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 1000;
+  }
+
+  @include media(md) {
+    padding-top: $header-height-md;
+  }
+
+  @include media(xl) {
+    padding-top: $header-height-xl;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <header :class="['header', {'header_fixed': fixed}]">
+  <header class="header">
     <RouterLink
       :to="{name: 'main'}"
       exact
@@ -7,7 +7,14 @@
     >
       <img src="../assets/img/logo-2.svg" alt="Milis">
     </RouterLink>
-    <div class="header__actions" v-if="!$mobile">
+    <div
+      v-if="$windowWidth >= $breakpoints.md"
+      class="header__slogan"
+    >
+      <p class="header__decor">Всё просто!</p>
+      <p class="header__note">Кухни за 3 шага</p>
+    </div>
+    <template v-if="!$mobile">
       <nav class="header__nav">
         <div
           class="header__nav-item"
@@ -39,8 +46,20 @@
         <div class="header__nav-item">
           <RouterLink class="header__link" :to="{name: 'payment'}">Оплата</RouterLink>
         </div>
+        <div class="header__nav-item">
+          <RouterLink class="header__link" :to="{name: 'contacts'}">Контакты</RouterLink>
+        </div>
       </nav>
       <div class="header__contacts">
+        <a
+          :href="`tel:${activeCity && activeCity.phone}`"
+          class="header__phone"
+        >
+          <span class="header__phone-icon">
+            <Icon name="phone"/>
+          </span>
+          {{activeCity && activeCity.phone}}
+        </a>
         <div class="header__city">
           <button
             class="header__city-current"
@@ -52,22 +71,13 @@
           <CityPopup
             class="header__city-popup"
             :class="{'is-active': cityDetection || activeCityPopup}"
-            arrow="left"
+            arrow="right"
             :detection="cityDetection"
             @select="closeCityPopup"
           />
         </div>
-        <a
-          :href="`tel:${activeCity && activeCity.phone}`"
-          class="header__phone"
-        >
-          <span class="header__phone-icon">
-            <Icon name="phone"/>
-          </span>
-          {{activeCity && activeCity.phone}}
-        </a>
       </div>
-    </div>
+    </template>
     <!-- <RouterLink
       :to="{name: 'blog'}"
       v-slot="{ href, navigate }"
@@ -141,8 +151,7 @@ export default {
   props: {
     main: Boolean,
     info: Boolean,
-    filters: Boolean,
-    fixed: Boolean
+    filters: Boolean
   },
   data() {
     return {
@@ -213,10 +222,16 @@ export default {
 
   display: flex;
   align-items: center;
-  padding: 10px $container-padding;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: $header-height;
+  padding: 0 $container-padding;
   font-family: $font-secondary;
   background-color: $color-white;
   box-shadow: 0px 7px 9px rgba(207, 207, 207, 0.25);
+  z-index: 20;
 
   &__logo {
     flex-shrink: 0;
@@ -230,12 +245,13 @@ export default {
 
   &__nav {
     display: flex;
+    margin-right: auto;
   }
 
   &__nav-item {
     position: relative;
-    margin-right: 24px;
-    font-size: 12px;
+    margin-right: 22px;
+    font-size: 14px;
     line-height: (15/12);
     color: $color-blue;
     cursor: pointer;
@@ -276,7 +292,7 @@ export default {
 
   &__menu {
     position: absolute;
-    left: 0;
+    left: -120px;
     top: 100%;
     box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.25);
     opacity: 0;
@@ -288,19 +304,17 @@ export default {
 
   &__contacts {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 20px;
+    flex-direction: column;
+    align-items: flex-end;
   }
 
   &__city {
+    margin-top: 4px;
     position: relative;
-    margin-right: 18px;
   }
 
   &__city-current {
-    display: block;
-    font-size: 10px;
+    font-size: 12px;
     line-height: (12/10);
     text-decoration: underline;
     color: $color-gray;
@@ -309,11 +323,10 @@ export default {
   &__city-popup {
     display: none;
     position: absolute;
-    left: 50%;
-    top: 0;
-    width: 100%;
-    transform: translateX(-50%);
-    z-index: 5;
+    right: 0;
+    top: 100%;
+    margin-top: 20px;
+    width: 300px;
 
     &.is-active {
       display: block;
@@ -324,15 +337,15 @@ export default {
     display: flex;
     align-items: center;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     line-height: (17/14);
     text-decoration: underline;
     color: $color-blue;
   }
 
   &__phone-icon {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     margin-right: 4px;
     fill: $color-green;
   }
@@ -391,53 +404,33 @@ export default {
   }
 
   @include media(md) {
-    padding: 10px $container-padding-md;
-
-    &_fixed {
-      padding: 10px $container-padding-md;
-    }
+    height: $header-height-md;
+    padding: 0 $container-padding-md;
     
     &__logo {
       width: 80px;
+      margin-right: 48px;
+    }
+
+    &__slogan {
+      margin-right: auto;
+    }
+
+    &__decor {
+      margin-bottom: -14px;
+      font-family: $font-decorative;
+      font-size: 40px;
+      color: $color-blue;
+    }
+
+    &__note {
+      margin-left: 72px;
+      font-size: 14px;
+      color: $color-blue;
     }
   }
 
   @include media(lg) {
-    align-items: flex-start;
-    padding: 0;
-    padding-top: 28px;
-    background-color: transparent;
-    box-shadow: none;
-
-    &_fixed {
-      align-items: center;
-      padding: 20px $container-padding-md;
-      background-color: $color-white;
-
-      #{$b} {
-        &__actions {
-          display: flex;
-          align-items: center;
-        }
-
-        &__nav {
-          margin-right: 188px;
-        }
-
-        &__menu {
-          left: -100px;
-        }
-
-        &__contacts {
-          margin-top: 0;
-        }
-
-        &__city {
-          margin-right: 60px;
-        }
-      }
-    }
-
     &__logo {
       width: 100px;
     }
@@ -446,37 +439,20 @@ export default {
     &__menu-btn {
       display: none;
     }
-
-    &__city-popup {
-      left: -35px;
-      top: 100%;
-      margin-top: 20px;
-      width: 300px;
-      transform: none;
-    }
   }
 
   @include media(xl) {
-    padding-top: 43px;
-
-    &_fixed {
-      padding: 28px $container-padding-md;
-
-      #{$b} {
-        &__menu {
-          left: -250px;
-        }
-      }
-    }
+    height: $header-height-xl;
+    padding: 0 $container-padding-xl;
 
     &__logo {
       width: 132px;
     }
 
     &__nav-item {
-      margin-right: 36px;
-      font-size: 14px;
-      line-height: (17/14);
+      margin-right: 54px;
+      font-size: 16px;
+      line-height: (20/16);
     }
 
     &__nav-arrow {
@@ -484,36 +460,27 @@ export default {
       height: 12px;
     }
 
+    &__menu {
+      left: 0;
+    }
+
     &__city {
-      margin-right: 50px;      
+      margin-top: 12px;
     }
 
     &__city-current {
-      font-size: 12px;
-      line-height: (15/12);
+      font-size: 16px;
+      line-height: (20/16);
     }
 
     &__phone {
-      font-size: 16px;
-      line-height: (20/16);
+      font-size: 20px;
+      line-height: (24/20);
     }
 
     &__phone-icon {
-      width: 20px;
-      height: 20px;
-    }
-  }
-
-  @include media(xxl) {
-    &__nav-item {
-      margin-right: 36px;
-      font-size: 16px;
-      line-height: (20/16);
-    }
-
-    &__city-current {
-      font-size: 14px;
-      line-height: (17/14);
+      width: 27px;
+      height: 27px;
     }
   }
 }

@@ -316,6 +316,7 @@ export default {
 
     &__image {
       margin-left: 20px;
+      margin-top: $header-height-md;
       overflow: hidden;
 
       img {
@@ -364,7 +365,7 @@ export default {
     padding-bottom: 62px;
 
     &__content-col {
-      padding-top: 166px;
+      padding-top: 200px;
     }
 
     &__heading {
@@ -381,12 +382,13 @@ export default {
     }
 
     &__materials {
-      margin-top: 20px;
+      margin-top: 60px;
       margin-right: -100px;
     }
 
     &__image {
       margin-left: 68px;
+      margin-top: $header-height-xl;
       margin-right: -$container-padding-xl;
 
       img {

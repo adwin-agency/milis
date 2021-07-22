@@ -1,26 +1,12 @@
 <template>
-  <div class="our-products page-top">
+  <div class="our-products">
     <div class="row">
       <div class="col col-12 col-lg-6 col-xl-5">
         <div class="row">
           <div class="col col-12">
             <Header
-              v-if="$mobile"
-              class="page-header"
-              filters
-              @openFilters="toggleFilters"
-            />
-            <template v-else-if="fixedHeader">
-              <Header
-                class="page-header-fixed"
-                :class="{ 'is-sticky': stickyHeader }"
-                fixed
-              />
-              <div class="page-header-spacer"></div>
-            </template>
-            <Header
-              v-else
-              class="page-header fade-slide-down js-anim"
+              :filters="$mobile"
+              class="slide-down js-anim"
               v-anim="true"
             />
           </div>
@@ -98,9 +84,9 @@
             К сожалению, по вашему запросу ничего не найдено. <br />Попробуйте
             поменять один из фильтров - скорее всего, вас ждёт успех!
           </p>
-          <div class="our-products__leaf fade-slide-down js-anim" v-anim="true">
+          <!-- <div class="our-products__leaf fade-slide-down js-anim" v-anim="true">
             <Icon name="leaf" />
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -118,7 +104,7 @@
 import FilterMenu from "@/components/base/FilterMenu";
 // import FilterTags from "@/components/base/FilterTags";
 import Dropdowns from "@/components/base/Dropdowns";
-import Icon from "@/components/base/Icon";
+// import Icon from "@/components/base/Icon";
 import Header from "@/components/Header";
 import MobileFilters from "@/components/MobileFilters";
 import CatalogCard from "@/components/CatalogCard";
@@ -131,15 +117,13 @@ export default {
     // FilterTags,
     MobileFilters,
     Dropdowns,
-    Icon,
+    // Icon,
     Header,
     CatalogCard,
     DiscountBanner
   },
   data() {
     return {
-      fixedHeader: false,
-      stickyHeader: false,
       activeFilters: false,
       dropdowns: [
         {
@@ -193,22 +177,16 @@ export default {
   },
   created() {
     window.addEventListener("resize", this.handleResize);
-    window.addEventListener("scroll", this.handleScroll);
   },
   destroyed() {
     this.activeFilters && this.toggleFilters();
     window.removeEventListener("resize", this.handleResize);
-    window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
     handleResize() {
       if (!this.$mobile && this.activeFilters) {
         this.toggleFilters();
       }
-    },
-    handleScroll() {
-      this.fixedHeader = window.scrollY > 300;
-      this.stickyHeader = window.scrollY > 600;
     },
     toggleFilters() {
       if (this.activeFilters) {
@@ -254,8 +232,6 @@ export default {
 
 <style lang="scss">
 .our-products {
-  padding-top: 64px;
-
   &__working {
     position: relative;
     margin-top: 24px;
@@ -364,6 +340,7 @@ export default {
 
   &__card-wrap {
     position: relative;
+    margin-top: 57px;
     height: 100%;
   }
 
@@ -415,8 +392,6 @@ export default {
   }
 
   @include media(md) {
-    padding-top: 75px;
-
     &__menu {
       margin: 22px (-$container-padding-md) 40px;
     }
@@ -496,7 +471,6 @@ export default {
     }
 
     &__heading {
-      margin-top: 8px;
       font-size: 40px;
     }
 
@@ -548,7 +522,6 @@ export default {
     }
 
     &__heading {
-      margin-top: 12px;
       font-size: 50px;
       line-height: (69/50);
     }
@@ -571,8 +544,8 @@ export default {
     }
 
     &__card-wrap {
+      margin-top: 70px;
       margin-left: 65px;
-      margin-right: 0;
     }
 
     &__leaf {

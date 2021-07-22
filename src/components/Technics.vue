@@ -1,5 +1,5 @@
 <template>
-  <div class="technics page-top">
+  <div class="technics">
     <div class="row">
       <div class="col col-12 col-lg-6">
         <Swiper
@@ -42,7 +42,7 @@
       <div class="col col-12 col-lg-6 technics__content-col">
         <div class="row">
           <div class="col col-12 col-xl-10">
-            <Header class="page-header fade-slide-down js-anim" v-anim="true" />
+            <Header class="slide-down js-anim" v-anim="true" />
           </div>
         </div>
         <div class="technics__wrapper fade-bounce-right js-anim" v-anim="true">

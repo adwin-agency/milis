@@ -1,8 +1,8 @@
 <template>
-  <div class="not-found page-top">
+  <div class="not-found">
     <div class="row">
       <div class="col col-12 col-lg-6 col-xl-5">
-        <Header class="page-header fade-slide-down js-anim" v-anim="true" />
+        <Header class="slide-down js-anim" v-anim="true" />
       </div>
       <div class="col col-12">
         <div class="not-found__main">

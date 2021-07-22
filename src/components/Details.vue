@@ -1,8 +1,8 @@
 <template>
-  <div class="details page-top">
+  <div class="details">
     <div class="row">
       <div class="col col-12 col-lg-6" v-if="$windowWidth < $breakpoints.xl">
-        <Header class="page-header fade-slide-down js-anim" v-anim="true" />
+        <Header class="slide-down js-anim" v-anim="true" />
       </div>
       <div class="col col-12" v-if="$windowWidth < $breakpoints.xl"></div>
       <div class="col col-12 col-lg2-7 details__slider-col">
@@ -12,7 +12,7 @@
         />
       </div>
       <div class="col col-12 col-lg-9 col-lg2-5">
-        <Header class="page-header fade-slide-down js-anim" v-anim="true" v-if="$windowWidth >= $breakpoints.xl" />
+        <Header class="slide-down js-anim" v-anim="true" v-if="$windowWidth >= $breakpoints.xl" />
         <div class="details__wrapper fade-bounce-right js-anim" v-anim="true">
           <div class="details__nav">
             <Back

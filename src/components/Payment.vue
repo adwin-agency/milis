@@ -1,5 +1,5 @@
 <template>
-  <div class="payment page-top">
+  <div class="payment">
     <div class="row">
       <div class="col col-12 col-lg-6 payment__image-col">
         <div class="payment__image anim-img js-anim" v-anim="true">
@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="col col-12 col-lg-6 col-xl-5">
-        <Header class="page-header fade-slide-down js-anim" v-anim="true" />
+        <Header class="slide-down js-anim" v-anim="true" />
         <div class="payment__content fade-bounce-right js-anim" v-anim="true">
           <h1 class="payment__heading">Оплата</h1>
           <div class="payment__desc">
