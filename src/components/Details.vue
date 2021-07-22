@@ -57,6 +57,10 @@
               <p class="details__feature">Бесплатный 3D проект </p>
             </div>
           </div>
+          <p
+            v-if="$windowWidth >= $breakpoints.md"
+            class="details__desc"
+          >{{details.description}}</p>
           <div class="details__stats">
             <p class="details__note">
               <span class="details__note-icon">
@@ -76,7 +80,10 @@
               {{newLikesCount || details.likes}}
             </button>
           </div>          
-          <p class="details__desc">{{details.description}}</p>
+          <p
+            v-if="$windowWidth < $breakpoints.md"
+            class="details__desc"
+          >{{details.description}}</p>
         </div>
       </div>
     </div>
@@ -265,6 +272,7 @@ export default {
 
   &__stats {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     margin-top: 27px;
   }
@@ -287,10 +295,13 @@ export default {
   &__stat {
     display: flex;
     align-items: center;
-    font-size: 10px;
-    line-height: (12/10);
-    color: $color-gray-middle;
-    fill: $color-gray;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: (17/14);
+    color: $color-blue;
+    fill: none;
+    stroke: $color-red;
+    stroke-width: 2px;
     transition: fill .3s ease;
 
     &.is-active {
@@ -413,6 +424,7 @@ export default {
     }
 
     &__stats {
+      justify-content: flex-start;
       margin-top: 38px;
     }
 
@@ -441,6 +453,10 @@ export default {
 
     &__features {
       display: none;
+    }
+
+    &__stats {
+      justify-content: space-between;
     }
   }
 
