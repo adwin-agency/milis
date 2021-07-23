@@ -30,18 +30,13 @@
       class="city-popup__btns"
     >
       <button
+        v-for="(city, index) in cities"
+        :key="index"
         class="city-popup__btn city-popup__btn_sm city-popup__btn_blue"
         type="button"
-        @click="selectCity('spb')"
+        @click="selectCity(city.code)"
       >
-        Санкт-Петербург
-      </button>
-      <button
-        class="city-popup__btn city-popup__btn_sm city-popup__btn_blue"
-        type="button"
-        @click="selectCity('msk')"
-      >
-        Москва
+        {{city.name}}
       </button>
     </div>
     <button
@@ -68,6 +63,9 @@ export default {
     detection: Boolean
   },
   computed: {
+    cities() {
+      return this.$store.state.cities
+    },
     activeCity() {
       return this.$store.getters.activeCity
     },
@@ -146,12 +144,15 @@ export default {
 
   &__btns {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 12px;
+    margin-bottom: -10px;
   }
 
   &__btn {
     min-width: 74px;
     margin-right: 20px;
+    margin-bottom: 10px;
     padding: 6px 15px;
     border-radius: 100px;
     font-size: 14px;
@@ -187,10 +188,6 @@ export default {
         background-color: $color-blue;
       }
     }
-
-    &:last-child {
-      margin-right: 0;
-    }
   }
 
   &__close {
@@ -212,6 +209,7 @@ export default {
     &__btns {
       justify-content: center;
       margin-top: 10px;
+      margin-right: -12px;
     }
 
     &__btn {
