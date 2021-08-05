@@ -7,6 +7,7 @@
             <Header
               :filters="$mobile"
               class="slide-down js-anim"
+              @openFilters="toggleFilters"
               v-anim="true"
             />
           </div>
@@ -374,7 +375,7 @@ export default {
     width: 100%;
     height: 100%;
     transition: transform 0.3s ease;
-    z-index: 10;
+    z-index: 20;
 
     &.is-active {
       transform: translateX(-100%);

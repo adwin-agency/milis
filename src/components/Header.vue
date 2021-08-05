@@ -98,7 +98,10 @@
       type="button"
       @click="$emit('openFilters')"
     >
-      <span class="header__filters-icon">
+      <span
+        class="header__filters-icon"
+        :class="{'is-active': selectedFilters}"
+      >
         <Icon name="filters" />
       </span>
       Фильтры
@@ -166,6 +169,9 @@ export default {
     },
     cityDetection() {
       return this.$store.state.cityDetection
+    },
+    selectedFilters() {
+      return this.$route.params.category
     }
   },
   created() {
@@ -360,9 +366,24 @@ export default {
   }
 
   &__filters-icon {
+    position: relative;
+    margin-top: -3px;
     margin-right: 10px;
     width: 18px;
     height: 12px;
+
+    &.is-active {
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: $color-green;
+      }
+    }
   }
 
   &__call-btn {
