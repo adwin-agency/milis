@@ -18,8 +18,8 @@
                   <img src="../assets/img/founders-banner.jpg" alt="">
                 </picture>
               </div>
-              <p class="info__quote">Мы основатели компании “Милис”: Артем и Милла. В этой статье мы хотели бы ответить на самые популярные вопросы клиентов.
-                <span class="info__author">Артем и{{'\xa0'}}Милла</span>
+              <p class="info__quote">Мы основатели компании “Милис”: Артем и Мила. В этой статье мы хотели бы ответить на самые популярные вопросы клиентов.
+                <span class="info__author">Артем и{{'\xa0'}}Мила</span>
               </p>              
               <div class="info__about-details">              
                 <div class="info__items">
