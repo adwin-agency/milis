@@ -92,7 +92,7 @@
         @click.native="navigate"
       />
     </RouterLink> -->
-    <button
+    <!-- <button
       v-if="filters"
       class="header__filters"
       type="button"
@@ -105,12 +105,13 @@
         <Icon name="filters" />
       </span>
       Фильтры
-    </button>
+    </button> -->
     <a
       :href="`tel:${activeCity && activeCity.phone}`"
       class="header__call-btn"
     >
-      <Icon name="call" />
+      <!-- <Icon name="call" /> -->
+      {{activeCity && activeCity.phone}}
     </a>
     <button
       class="header__menu-btn"
@@ -389,8 +390,10 @@ export default {
   &__call-btn {
     flex-shrink: 0;
     margin-left: auto;
-    width: 22px;
-    height: 22px;
+    // width: 22px;
+    // height: 22px;
+    font-weight: bold;
+    color: $color-blue;
   }
 
   &__menu-btn {
