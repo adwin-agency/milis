@@ -26,7 +26,7 @@
                 Оплата не прошла!
               </h1>
               <p class="pay-result__text">
-                Попробуйте еще раз, или свяжитесь с нами
+                Попробуйте еще раз или свяжитесь с нами
               </p>
               <RouterLink :to="{ name: 'catalog' }" class="pay-result__link"
                 >Вернуться в каталог</RouterLink
