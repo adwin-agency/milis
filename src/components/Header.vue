@@ -126,13 +126,13 @@
       :class="{'is-active': activeMobileMenu}"
       @close="closeMobileMenu"
     />
-    <!-- <CityPopup
+    <CityPopup
       v-if="$mobile && cityDetection"
       class="header__city-popup is-active"
       fixed
       :detection="true"
       @select="closeCityPopup"
-    /> -->
+    />
   </header>
 </template>
 
@@ -330,7 +330,7 @@ export default {
   &__city-popup {
     display: none;
     position: absolute;
-    right: 0;
+    right: 10px;
     top: 100%;
     margin-top: 20px;
     width: 300px;
