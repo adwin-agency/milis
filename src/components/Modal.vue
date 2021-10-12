@@ -115,7 +115,6 @@ export default {
         }
 
         if (newModal in modalGoals) {
-          window.fbq && window.fbq('track', 'Lead', {content_name: 'micro'})
           window.VK && window.VK.Goal('initiate_checkout')
           window.dataLayer = window.dataLayer || []
           window.dataLayer.push({'event': modalGoals[newModal]})

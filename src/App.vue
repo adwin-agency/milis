@@ -35,6 +35,12 @@ export default {
     this.storeScreen()
     this.$store.dispatch('loadBase')
     window.addEventListener('resize', this.handleResize)
+
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('a[href^="tel"]')) {
+        window.fbq && window.fbq('track', 'Contact')
+      }
+    })
   },
   destroyed() {
     window.removeEventListener('resize', this.handleResize)
