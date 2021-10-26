@@ -48,8 +48,8 @@
           >
             <Questions
               class="catalog__questions"
-              :title="questions[Math.floor(index / 2)].title"
-              :desc="questions[Math.floor(index / 2)].desc"
+              :title="questions[Math.floor((index % 10) / 2)].title"
+              :desc="questions[Math.floor((index % 10) / 2)].desc"
             />
           </div>
         </template>

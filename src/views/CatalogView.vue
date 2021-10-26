@@ -17,12 +17,20 @@
           class="v-catalog__nav-panel"
           navType="catalog"
         >
-          <template v-slot:pagination>
+          <template #navigation>
             <Pagination
+              v-if="isPagination"
               :pages="pages"
               :activePage="activePage"
               @changePage="changePage"
             />
+            <Button
+              v-else-if="activePage > 2 && activePage < pages"
+              class="nav-panel__btn"
+              @click.native="showMore"
+            >
+              Показать еще
+            </Button>
           </template>
         </NavPanel>
       </div>
@@ -31,13 +39,14 @@
 </template>
 
 <script>
+import store from '@/store'
 import Divider from '@/components/base/Divider'
 import Pagination from '@/components/base/Pagination'
 import Page from '@/components/Page'
 import OurProducts from '@/components/OurProducts'
 import Catalog from '@/components/Catalog'
 import NavPanel from '@/components/NavPanel'
-import store from '@/store'
+import Button from '@/components/base/Button'
 
 export default {
   name: 'CatalogView',
@@ -47,11 +56,14 @@ export default {
     Page,
     OurProducts,
     Catalog,
-    NavPanel
+    NavPanel,
+    Button
   },
   data() {
     return {
-      activePage: 1
+      activePage: 1,
+      isMediaSm: this.$windowWidth < this.$breakpoints.md,
+      isLoading: false
     }
   },
   computed: {
@@ -66,6 +78,9 @@ export default {
     },
     kitchenStyle() {
       return this.$route.query.style
+    },
+    isPagination() {
+      return this.$windowWidth >= this.$breakpoints.md
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -82,11 +97,44 @@ export default {
     store.dispatch('loadCatalogKitchens', {category, style})
       .then(() => next(vm => vm.activePage = 1))
   },
+  created() {
+    window.addEventListener('resize', this.handleResize)
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   methods: {
     changePage(num) {
       window.scrollTo({top: 0, behavior: 'smooth'})
       store.dispatch('loadCatalogKitchens', {page: num, category: this.kitchenCategory, style: this.kitchenStyle})
         .then(() => this.activePage = num)
+    },
+    showMore() {
+      this.isLoading = true
+      store.dispatch('loadMoreKitchens', {page: this.activePage + 1, category: this.kitchenCategory, style: this.kitchenStyle})
+        .then(() => {
+          this.activePage++
+          this.isLoading = false
+        })
+    },
+    handleResize() {
+      if (this.isMediaSm !== this.$windowWidth < this.$breakpoints.md) {
+        this.isMediaSm = this.$windowWidth < this.$breakpoints.md
+        this.$router.go()
+      }
+    },
+    handleScroll() {
+      if (this.isPagination || this.activePage > 2 || this.isLoading) {
+        return
+      }
+
+      const catalog = document.querySelector('.v-catalog__catalog')
+
+      if (catalog.getBoundingClientRect().bottom - window.innerHeight * 2 <= 0) {
+        this.showMore()
+      }
     }
   }
 }

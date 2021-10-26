@@ -71,23 +71,25 @@
           {{activeCity && activeCity.phone}}
         </a>
         <div class="mobile-menu__contacts">
-          <!-- <div class="mobile-menu__social">
-            <a href="#" class="mobile-menu__social-item">
-              <Icon name="youtube"/>
+          <div class="mobile-menu__social">
+            <a href="https://www.facebook.com/milismebel/" class="mobile-menu__social-item" target="_blank">
+              <Icon name="facebook"/>
             </a>
-            <a href="#" class="mobile-menu__social-item">
-              <Icon name="vk"/>
-            </a>
-            <a href="#" class="mobile-menu__social-item">
+            <a href="https://www.instagram.com/milismebel.ru/" class="mobile-menu__social-item" target="_blank">
               <Icon name="insta"/>
             </a>
-          </div> -->
-          <button
-            class="mobile-menu__city"
-            @click="openCityPopup"
-          >
-            {{activeCity && activeCity.name}}
-          </button> 
+            <a href="https://vk.com/milismebel" class="mobile-menu__social-item" target="_blank">
+              <Icon name="vk"/>
+            </a>
+          </div>
+          <div class="mobile-menu__city">
+            <button
+              class="mobile-menu__city-btn"
+              @click="openCityPopup"
+            >
+              {{activeCity && activeCity.name}}
+            </button>
+          </div>           
           <CityPopup
             class="mobile-menu__city-popup"
             :class="{'is-active': activeCityPopup}"
@@ -370,6 +372,10 @@ export default {
   &__city {
     position: relative;
     margin-bottom: 20px;
+    width: 150px;
+  }
+
+  &__city-btn {
     font-size: 14px;
     line-height: (17/14);
     text-decoration: underline;

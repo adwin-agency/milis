@@ -2,8 +2,8 @@
   <div class="nav-panel">
 
     <template v-if="navType === 'catalog' || navType === 'technics' || navType === 'blog'">
-      <div class="nav-panel__pagination">
-        <slot name="pagination"></slot>
+      <div class="nav-panel__navigation">
+        <slot name="navigation"></slot>
       </div>
       <div class="nav-panel__group">
         <RouterLink
@@ -189,7 +189,7 @@ export default {
     }
   }
   
-  &__pagination {
+  &__navigation {
     width: 100%;
     margin-bottom: 56px;
   }
@@ -204,8 +204,12 @@ export default {
     }
   }
 
+  &__btn {
+    width: 100%;
+  }
+
   @include media(md) {
-    &__pagination {
+    &__navigation {
       margin-bottom: 70px;
     }
   }
@@ -216,7 +220,7 @@ export default {
     justify-content: space-between;
     align-items: center;
 
-    &__pagination {
+    &__navigation {
       margin-bottom: 60px;
     }
 
@@ -245,7 +249,7 @@ export default {
   }
 
   @include media(xl) {
-    &__pagination {
+    &__navigation {
       width: auto;
       margin-bottom: 0;
     }

@@ -84,7 +84,7 @@ const store = new Vuex.Store({
       state.mainKitchens = kitchens
     },
     setCatalogKitchens(state, response) {
-      state.catalogKitchens = response.goods
+      state.catalogKitchens = response.more ? [...state.catalogKitchens, ...response.goods] : response.goods
       state.catalogPages = response.pages
     },
     setKitchenDetails(state, details) {
@@ -136,6 +136,16 @@ const store = new Vuex.Store({
     loadCatalogKitchens({ commit }, params) {
       api.getCatalogKitchens(params)
         .then(response => commit('setCatalogKitchens', response))
+    },
+
+    loadMoreKitchens({ commit }, params) {
+      return new Promise(resolve => {
+        api.getCatalogKitchens(params)
+          .then(response => {
+            commit('setCatalogKitchens', {...response, more: true})
+            resolve()
+          })
+      })
     },
 
     loadKitchenDetails({ commit }, url) {

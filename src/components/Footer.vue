@@ -126,17 +126,17 @@
                   </span>
                   {{activeCity && activeCity.phone}}
                 </a>
-                <!-- <div class="footer__social">
-                  <a href="#" class="footer__social-item">
-                    <Icon name="youtube"/>
+                <div class="footer__social">
+                  <a href="https://www.facebook.com/milismebel/" class="footer__social-item" target="_blank">
+                    <Icon name="facebook"/>
                   </a>
-                  <a href="#" class="footer__social-item">
-                    <Icon name="vk"/>
-                  </a>
-                  <a href="#" class="footer__social-item">
+                  <a href="https://www.instagram.com/milismebel.ru/" class="footer__social-item" target="_blank">
                     <Icon name="insta"/>
                   </a>
-                </div> -->
+                  <a href="https://vk.com/milismebel" class="footer__social-item" target="_blank">
+                    <Icon name="vk"/>
+                  </a>
+                </div>
               </div>
             </div>
           </div>          
@@ -434,6 +434,7 @@ export default {
     width: 34px;
     height: 34px;
     margin-right: 10px;
+    fill: $color-gray;
 
     &:last-child {
       margin-right: 0;

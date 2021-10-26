@@ -15,7 +15,7 @@
           class="v-technics__nav-panel"
           navType="technics"
         >
-          <template v-slot:pagination>
+          <template #navigation>
             <Pagination
               :pages="technicsPages"
               :activePage="activePage"
