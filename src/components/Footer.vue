@@ -156,9 +156,9 @@
             </div>
           </div>
           <div class="col col-12 col-lg-4 footer__policy-col">
-            <div class="footer__policy">
+            <!-- <div class="footer__policy">
               <a href="#">Политика конфиденциальности</a>
-            </div>
+            </div> -->
           </div>
           <div class="col col-12 col-lg-4">
             <div class="footer__payment">

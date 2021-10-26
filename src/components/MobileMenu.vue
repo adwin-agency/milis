@@ -70,6 +70,10 @@
           </span>
           {{activeCity && activeCity.phone}}
         </a>
+        <p class="mobile-menu__time">
+          <b>Работаем без выходных</b><br>
+          с 9:00 - до 22:00
+        </p>
         <div class="mobile-menu__contacts">
           <div class="mobile-menu__social">
             <a href="https://www.facebook.com/milismebel/" class="mobile-menu__social-item" target="_blank">
@@ -110,6 +114,22 @@
             modal="calc"
             :modalData="modalData"
           />
+        </div>
+        <div class="mobile-menu__question">
+          <button
+            class="mobile-menu__question-btn"
+            @click.prevent="showModal('question')"
+          >
+            Остались вопросы?
+          </button>
+        </div>
+        <div class="mobile-menu__payment">
+          <div class="mobile-menu__payment-icon">
+            <Icon name="visa"/>
+          </div>
+          <div class="mobile-menu__payment-icon">
+            <Icon name="mastercard"/>
+          </div>
         </div>
       </div>
       <button
@@ -427,19 +447,31 @@ export default {
     line-height: (17/14);
   }
 
-  &__payment {
-    display: flex;
-    margin-top: 16px;
+  &__time {
+    margin-top: 30px;
+    color: $color-blue;
   }
 
-  &__payment-item {
+  &__question {
+    margin-top: 30px;
+  }
+
+  &__question-btn {
+    font-size: 18px;
+    color: $color-blue;
+  }
+
+  &__payment {
+    display: flex;
+    align-items: center;
+    margin-top: 17px;
+  }
+
+  &__payment-icon {
     width: 34px;
     height: 34px;
-    margin-right: 10px;
-
-    &:last-child {
-      margin-right: 0;
-    }
+    margin-right: 12px;
+    fill: $color-blue;
   }
 
   @include media(md) {

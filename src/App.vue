@@ -7,10 +7,12 @@
       v-if="loading"
       class="app__preloader"
     />
+    <ArrowUp v-if="!main && isMediaSm" class="app__arrow-up" />
   </div>
 </template>
 
 <script>
+import ArrowUp from './components/base/ArrowUp'
 import Preloader from './components/base/Preloader'
 // import MobileBar from './components/MobileBar'
 import Modal from './components/Modal'
@@ -20,7 +22,8 @@ export default {
   components: {
     Preloader,
     // MobileBar,
-    Modal
+    Modal,
+    ArrowUp
   },
   computed: {
     loading() {
@@ -29,6 +32,9 @@ export default {
     },
     main() {
       return this.$route.name === 'main'
+    },
+    isMediaSm() {
+      return this.$windowWidth < this.$breakpoints.md
     }
   },
   created() {
@@ -79,6 +85,13 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 1000;
+  }
+
+  &__arrow-up {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    z-index: 10;
   }
 
   @include media(md) {
