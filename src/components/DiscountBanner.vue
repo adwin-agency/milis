@@ -8,7 +8,7 @@
           -47%
           <Icon name="leaf" class="discount-banner__icon" />
         </p>
-        <p class="discount-banner__date">до 25.10</p>
+        <p class="discount-banner__date">с 30 октября <br>по 7 ноября</p>
       </div>
       <div
         v-if="$windowWidth >= $breakpoints.md"
@@ -113,11 +113,10 @@ export default {
   }
 
   &__date {
-    margin-top: -25px;
-    margin-left: 45px;
+    margin-top: -10px;
+    margin-left: -20px;
     font-weight: 500;
     font-size: 30px;
-    line-height: (49/30);
   }
 
   @include media(md) {
@@ -138,13 +137,14 @@ export default {
     }
 
     &__date {
+      margin-left: 45px;
       border-bottom: 2px solid #fff;
     }
 
     &__founders {
       display: flex;
       position: relative;
-      margin-top: -18px;
+      margin-top: 15px;
       margin-right: -20px;
       margin-bottom: -52px;
       width: 390px;
@@ -187,6 +187,17 @@ export default {
   @include media(lg) {
     &__inner {
       min-height: 230px;
+    }
+
+    &__date {
+      margin-left: -15px;
+      margin-bottom: 40px;
+    }
+  }
+
+  @include media(xl) {
+    &__date {
+      margin-left: 45px;
     }
   }
 }
