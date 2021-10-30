@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       activePage: 1,
-      isMediaSm: this.$windowWidth < this.$breakpoints.md,
+      isMediaSm: null,
       isLoading: false
     }
   },
@@ -100,6 +100,7 @@ export default {
   created() {
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
+    this.isMediaSm = this.$windowWidth < this.$breakpoints.md
   },
   destroyed() {
     window.removeEventListener('resize', this.handleResize)
