@@ -90,7 +90,7 @@ export default {
   &__arrow-up {
     position: fixed;
     right: 30px;
-    bottom: 30px;
+    bottom: 90px;
     z-index: 10;
   }
 
