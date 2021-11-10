@@ -172,7 +172,7 @@
             </div>
           </div>
         </div>
-        <p class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено</p>
+        <p class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено <span>2021 ©</span></p>
       </div>
     </div>
   </footer>
@@ -485,6 +485,10 @@ export default {
     text-align: center;
     font-size: 12px;
     color: $color-gray;
+
+    span {
+      white-space: nowrap;
+    }
   }
 
   @include media(lg) {
