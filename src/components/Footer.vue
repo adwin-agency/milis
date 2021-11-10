@@ -172,6 +172,7 @@
             </div>
           </div>
         </div>
+        <p class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено</p>
       </div>
     </div>
   </footer>
@@ -477,6 +478,13 @@ export default {
     &:last-child {
       margin-right: 0;
     }
+  }
+
+  &__copyright {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: $color-gray;
   }
 
   @include media(lg) {
