@@ -8,7 +8,7 @@
           -47%
           <Icon name="leaf" class="discount-banner__icon" />
         </p>
-        <p class="discount-banner__date">13 - 21 ноября</p>
+        <p class="discount-banner__date">20 - 28 ноября</p>
       </div>
       <div
         v-if="$windowWidth >= $breakpoints.md"
