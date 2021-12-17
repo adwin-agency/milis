@@ -8,7 +8,7 @@
           -47%
           <Icon name="leaf" class="discount-banner__icon" />
         </p>
-        <p class="discount-banner__date">7 - 19 декабря</p>
+        <p class="discount-banner__date">20 - 23 декабря</p>
       </div>
       <div
         v-if="$windowWidth >= $breakpoints.md"
@@ -116,7 +116,13 @@ export default {
     margin-top: -10px;
     margin-left: -20px;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 24px;
+  }
+
+  @include media(xs) {
+    &__date {
+      font-size: 30px;
+    }
   }
 
   @include media(md) {
