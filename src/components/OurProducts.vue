@@ -16,14 +16,14 @@
           class="our-products__wrapper fade-bounce-right js-anim"
           v-anim="true"
         >
-          <!-- <div class="our-products__working">
-            <p class="our-products__working-title">с 1.05 - 10.05 работаем с 9:00 до 22:00 </p>
+          <div class="our-products__working">
+            <p class="our-products__working-title">с 31.12 по 09.01 работаем с 9:00 до 22:00 </p>
             <p class="our-products__working-desc">Вы можете вызвать дизайнера не выходя из дома</p>
             <Icon
               name="leaf"
               class="our-products__working-icon"
             />
-          </div> -->
+          </div>
           <h1 class="our-products__heading">
             {{ heading }}
             <RouterLink
@@ -105,7 +105,7 @@
 import FilterMenu from "@/components/base/FilterMenu";
 // import FilterTags from "@/components/base/FilterTags";
 import Dropdowns from "@/components/base/Dropdowns";
-// import Icon from "@/components/base/Icon";
+import Icon from "@/components/base/Icon";
 import Header from "@/components/Header";
 import MobileFilters from "@/components/MobileFilters";
 import CatalogCard from "@/components/CatalogCard";
@@ -118,7 +118,7 @@ export default {
     // FilterTags,
     MobileFilters,
     Dropdowns,
-    // Icon,
+    Icon,
     Header,
     CatalogCard,
     DiscountBanner
