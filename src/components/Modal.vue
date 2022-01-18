@@ -138,10 +138,8 @@ export default {
       document.body.style.paddingRight = scrollBarWidth
       document.body.style.overflow = 'hidden'
 
-      const fixedHeader = document.querySelector('.page-header-fixed')
-      if (fixedHeader) {
-        fixedHeader.style.marginRight = scrollBarWidth
-      }
+      const header = document.querySelector('.header')
+      header.style.marginRight = scrollBarWidth
 
       this.active = true     
     },
@@ -153,10 +151,8 @@ export default {
     afterLeave() {
       document.body.style.paddingRight = ''
 
-      const fixedHeader = document.querySelector('.page-header-fixed')
-      if (fixedHeader) {
-        fixedHeader.style.marginRight = ''
-      }
+      const header = document.querySelector('.header')
+      header.style.marginRight = ''
 
       const bodyClassList = document.body.classList
       bodyClassList.remove('is-modal')
