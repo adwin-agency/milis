@@ -17,7 +17,7 @@
           v-anim="true"
         >
           <!-- <div class="our-products__working">
-            <p class="our-products__working-title">с 31.12 по 09.01 работаем с 9:00 до 22:00 </p>
+            <p class="our-products__working-title">с 31.12 по 09.01 работаем с 9:00 до 20:00 </p>
             <p class="our-products__working-desc">Вы можете вызвать дизайнера не выходя из дома</p>
             <Icon
               name="leaf"

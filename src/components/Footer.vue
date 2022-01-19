@@ -100,7 +100,7 @@
               </div>
               <div class="footer__contacts">
                 <p class="footer__title">Работаем без выходных</p>
-                <p class="footer__time">с 9:00 - до 22:00</p>
+                <p class="footer__time">с 9:00 - до 20:00</p>
                 <div class="footer__city">
                   <button
                     class="footer__city-current"

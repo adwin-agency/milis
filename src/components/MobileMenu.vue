@@ -72,7 +72,7 @@
         </a>
         <p class="mobile-menu__time">
           <b>Работаем без выходных</b><br>
-          с 9:00 - до 22:00
+          с 9:00 - до 20:00
         </p>
         <div class="mobile-menu__contacts">
           <div class="mobile-menu__social">
@@ -171,7 +171,7 @@
           >
             Доставка и сборка
           </RouterLink>
-          <p class="mobile-menu__time">с 9:00 - до 22:00</p>
+          <p class="mobile-menu__time">с 9:00 - до 20:00</p>
         </div>
         <div class="mobile-menu__contacts">
           <div class="mobile-menu__city">
