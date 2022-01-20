@@ -13,7 +13,7 @@
     <div class="technics-card__row">
       <div class="technics-card__img-col">
         <div class="technics-card__image">
-          <img :src="`https://milismebel.ru${technic.picture}`" alt="">
+          <img :src="$basepath + technic.picture" alt="">
         </div>
       </div>
       <div class="technics-card__side-col">

@@ -14,7 +14,7 @@
         >
           <img
             class="swiper-lazy"
-            :data-src="`https://milismebel.ru${$mobile ? picture.tablet.path : picture.desktop.path}`" alt=""
+            :data-src="$basepath + ($mobile ? picture.tablet.path : picture.desktop.path)" alt=""
           >
         </SwiperSlide>
       </Swiper>
@@ -57,7 +57,7 @@
         @click.native="onGalleryClick"
       >
         <div class="modal-slides__gallery-image">
-          <img :src="`https://milismebel.ru${picture.preview.path}`" alt="">
+          <img :src="$basepath + picture.preview.path" alt="">
         </div>
       </SwiperSlide>
     </Swiper>

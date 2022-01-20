@@ -15,7 +15,7 @@
         v-if="test"
         class="catalog-card__image anim-img js-anim"
       >
-        <img :src="$mobile ? `https://milismebel.ru${kitchen.pictures[0].tablet.path}` : high ? `https://milismebel.ru${kitchen.pictures[0].square.path}` : `https://milismebel.ru${kitchen.pictures[0].desktop.path}`" alt="">
+        <img :src="$basepath + ($mobile ? kitchen.pictures[0].tablet.path : high ? kitchen.pictures[0].square.path : kitchen.pictures[0].desktop.path)" alt="">
       </div>
       <Swiper
         v-else
@@ -32,13 +32,13 @@
             v-if="index === 0"
             class="catalog-card__image anim-img js-anim"
           >
-            <img :src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : high ? `https://milismebel.ru${picture.square.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
+            <img :src="$basepath + ($mobile ? picture.tablet.path : high ? picture.square.path : picture.desktop.path)" alt="">
           </div>
           <div
             v-else
             class="catalog-card__image"
           >
-            <img class="swiper-lazy" :data-src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : high ? `https://milismebel.ru${picture.square.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
+            <img class="swiper-lazy" :data-src="$basepath + ($mobile ? picture.tablet.path : high ? picture.square.path : picture.desktop.path)" alt="">
           </div>
         </SwiperSlide>
         <ButtonNav

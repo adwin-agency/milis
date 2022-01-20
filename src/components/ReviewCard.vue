@@ -3,7 +3,7 @@
     <div class="review-card__side">
       <p class="review-card__date">{{reviewData.date}}</p>
       <div class="review-card__image">
-        <img :src="`https://milismebel.ru${reviewData.pictures[0].preview.path}`" alt="">
+        <img :src="$basepath + reviewData.pictures[0].preview.path" alt="">
       </div>
     </div>
     <div class="review-card__content">

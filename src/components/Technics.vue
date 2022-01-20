@@ -17,13 +17,13 @@
           >
             <img
               v-if="index === 0"
-             :src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : `https://milismebel.ru${picture.desktop.path}`"
+             :src="$basepath + ($mobile ? picture.tablet.path : picture.desktop.path)"
              alt=""
             >
             <img
               v-else
               class="swiper-lazy"
-              :data-src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : `https://milismebel.ru${picture.desktop.path}`"
+              :data-src="$basepath + ($mobile ? picture.tablet.path : picture.desktop.path)"
               alt=""
             >
           </SwiperSlide>

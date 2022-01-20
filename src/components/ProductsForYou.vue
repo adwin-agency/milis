@@ -16,7 +16,7 @@
           :to="{name: 'category', params: {category: category.url}}"
         >
           <span class="products-for-you__image">
-            <img :src="`https://milismebel.ru${category.picture}`" alt="">
+            <img :src="$basepath + category.picture" alt="">
           </span>
           <span class="products-for-you__title">{{category.name}}</span>
         </RouterLink>

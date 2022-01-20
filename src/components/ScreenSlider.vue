@@ -19,13 +19,13 @@
             :class="{'anim-img js-anim': first}"
             v-anim="first && {delay: 250}"
           >
-            <img :src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
+            <img :src="$basepath + ($mobile ? picture.tablet.path : picture.desktop.path)" alt="">
           </div>
           <div
             v-else
             class="screen-slider__image"
           >
-            <img class="swiper-lazy" :data-src="$mobile ? `https://milismebel.ru${picture.tablet.path}` : `https://milismebel.ru${picture.desktop.path}`" alt="">
+            <img class="swiper-lazy" :data-src="$basepath + ($mobile ? picture.tablet.path : picture.desktop.path)" alt="">
           </div>
         </SwiperSlide>
         <ButtonNav

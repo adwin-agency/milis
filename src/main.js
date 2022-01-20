@@ -54,6 +54,8 @@ Vue.directive('anim', {
   }
 })
 
+Vue.prototype.$basepath = process.env.NODE_ENV === 'production' ? '' : 'https://milismebel.ru'
+
 Vue.prototype.$breakpoints = {
   xs: 370,
   sm: 570,
