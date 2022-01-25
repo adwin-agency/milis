@@ -1,20 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import MainView from '../views/MainView'
-import CatalogView from '../views/CatalogView'
-import ProductView from '../views/ProductView'
-import TechnicsView from '../views/TechnicsView'
-import AboutView from '../views/AboutView'
-import DeliveryView from '../views/DeliveryView'
-import PaymentView from '../views/PaymentView'
-import ReviewsView from '../views/ReviewsView'
-// import BlogView from '../views/BlogView'
-// import ArticleView from '../views/ArticleView'
-import ContactsView from '../views/ContactsView'
-import NotFoundView from '../views/NotFoundView'
-import PayView from '../views/PayView'
-import PaySuccessView from '../views/PaySuccessView'
-import PayFailView from '../views/PayFailView'
+const MainView = () => import('../views/MainView')
+const CatalogView = () => import('../views/CatalogView')
+const ProductView = () => import('../views/ProductView')
+const TechnicsView = () => import('../views/TechnicsView')
+const AboutView = () => import('../views/AboutView')
+const DeliveryView = () => import('../views/DeliveryView')
+const PaymentView = () => import('../views/PaymentView')
+const ReviewsView = () => import('../views/ReviewsView')
+// const BlogView = () => import('../views/BlogView')
+// const ArticleView = () => import('../views/ArticleView')
+const ContactsView = () => import('../views/ContactsView')
+const NotFoundView = () => import('../views/NotFoundView')
+const PayView = () => import('../views/PayView')
+const PaySuccessView = () => import('../views/PaySuccessView')
+const PayFailView = () => import('../views/PayFailView')
 // import store from '@/store'
 
 Vue.use(VueRouter)
