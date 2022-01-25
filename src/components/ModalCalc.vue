@@ -171,7 +171,8 @@ export default {
       return this.modalData && this.modalData.productType
     },
     promoDate() {
-      return '24 января' || this.$store.state.promoDate
+      // return this.$store.state.promoDate
+      return '31 января'
     }
   },
   methods: {
