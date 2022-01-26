@@ -148,7 +148,10 @@ const store = new Vuex.Store({
       })
     },
 
-    loadKitchenDetails({ commit }, url) {
+    loadKitchenDetails({ state, commit }, url) {
+      if (state.kitchenDetails !== null) {
+        commit('setKitchenDetails', null)
+      }
       api.getKitchenDetails(url)
         .then(response => commit('setKitchenDetails', response))
     },
