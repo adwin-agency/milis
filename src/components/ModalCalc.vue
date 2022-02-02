@@ -172,7 +172,7 @@ export default {
     },
     promoDate() {
       // return this.$store.state.promoDate
-      return '31 января'
+      return '7 февраля'
     }
   },
   methods: {
