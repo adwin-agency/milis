@@ -138,15 +138,15 @@
                 />
                 <span class="pay__label">*Минимальная сумма 1000 ₽</span>
               </div>
-              <div class="pay__field">
+              <!-- <div class="pay__field">
                 <Select
                   className="pay__select"
                   :options="['Тип оплаты', 'Доплата', 'Предоплата']"
                   id="payment-type"
                   @changeSelect="changeSelect"
                 />
-              </div>
-              <div class="pay__field">
+              </div> -->
+              <div class="pay__field pay__field_lg">
                 <TextInput
                   label="Комментарии (необязательно)"
                   name="message"
@@ -208,7 +208,7 @@ import Icon from "./base/Icon";
 import Header from "./Header";
 import Radio from "./base/Radio";
 import TextInput from "./base/TextInput";
-import Select from "./base/Select";
+// import Select from "./base/Select";
 import TextInputContract from "./base/TextInputContract";
 
 export default {
@@ -219,7 +219,7 @@ export default {
     Radio,
     TextInput,
     TextInputContract,
-    Select,
+    // Select,
   },
   data() {
     return {
@@ -503,6 +503,9 @@ export default {
     &__field .text-input_ta .text-input__field {
       height: 45px;
       overflow: hidden;
+    }
+    &__field_lg {
+      grid-column: 1 / -1;
     }
     &__label {
       height: 0px;
