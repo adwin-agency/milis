@@ -3,12 +3,7 @@
     <h1 class="company__heading">О компании</h1>
     <p class="company__decor">Кухни «Милис» - это просто!</p>
     <div class="company__row">
-      <div class="company__image">
-        <picture>
-          <source srcset="../assets/img/discount-banner-01-07-02-md.jpg" :media="'(min-width: ' + $breakpoints.md + 'px)'">        
-          <img src="../assets/img/discount-banner-01-07-02.jpg" alt="">
-        </picture>
-      </div>
+      <Promo class="company__image"/>
       <div class="company__content">
         <p class="company__desc">Компания “Милис” занимается производством кухонь с 2015 года. <br><br>Мы решили объединить то, что прекрасно умеем оба! Мила всю жизнь посвятила дизайну мебели и в частности кухонь. А я прекрасно знаю, как из эскиза на бумаге воплотить это в жизнь.</p>
         <Dropdowns class="company__items" :items="dropdowns" />
@@ -19,11 +14,13 @@
 
 <script>
 import Dropdowns from './base/Dropdowns'
+import Promo from './Promo.vue'
 
 export default {
   name: 'Company',
   components: {
-    Dropdowns
+    Dropdowns,
+    Promo
   },
   data() {
     return {

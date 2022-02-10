@@ -19,7 +19,7 @@ const store = new Vuex.Store({
     cities: null,
     cityDetection: false,
     activeCityCode: null,
-    promoDate: null,
+    promoDate: ['8 февраля', '14 февраля'],
     
     mainKitchens: null,
     catalogKitchens: null,
@@ -44,6 +44,13 @@ const store = new Vuex.Store({
     },
     initialReviewIndex(state, getters) {
       return getters.reviewsPictures && getters.reviewsPictures.findIndex(item => item.id === state.initialReview)
+    },
+    promoData(state) {
+      const start = state.promoDate[0].split(' ')
+      const end = state.promoDate[1].split(' ')
+      const sameMonth = start[1] === end[1]
+
+      return { sameMonth, lines: sameMonth ? [start[0] + ' - ' + end[0], end[1]] : ['c ' + start.join(' '), 'по ' + end.join(' ')] }
     }
   },
 
@@ -68,7 +75,7 @@ const store = new Vuex.Store({
       state.technicsCategories = base.categories_tehnics
       state.cities = base.cities
       state.activeCityCode = base.detected_city
-      state.promoDate = base.main_info[0].stock
+      // state.promoDate = base.main_info[0].stock
     },
     setCityDetection(state, detection) {
       state.cityDetection = detection

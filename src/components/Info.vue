@@ -12,12 +12,7 @@
           >Кухни на заказ</h2>
           <div class="info__about">
             <div class="info__about-content">
-              <div class="info__about-img" v-if="$mobile">
-                <picture>
-                  <source srcset="../assets/img/discount-banner-01-07-02-md.jpg" :media="'(min-width: ' + $breakpoints.md + 'px)'">        
-                  <img src="../assets/img/discount-banner-01-07-02.jpg" alt="">
-                </picture>
-              </div>
+              <Promo v-if="$mobile" class="info__about-img" />
               <p class="info__quote">Мы основатели компании “Милис”: Артем и Мила. В этой статье мы хотели бы ответить на самые популярные вопросы клиентов.
                 <span class="info__author">Артем и{{'\xa0'}}Мила</span>
               </p>              
@@ -44,9 +39,7 @@
                 </RouterLink>
               </div>
             </div>
-            <div class="info__about-img anim-img" :class="{'show': anim}" v-if="!$mobile">               
-              <img src="../assets/img/discount-banner-01-07-02-md.jpg" alt="">
-            </div>
+            <Promo v-if="!$mobile" class="info__about-img" scaled :anim="anim" />
           </div>        
         </div>
         <div class="col col-12 col-lg-7 col-xl-5 info__content-col">
@@ -68,12 +61,14 @@
 <script>
 import Steps from './Steps'
 import Materials from './Materials'
+import Promo from './Promo'
 
 export default {
   name: 'Info',
   components: {
     Steps,
-    Materials
+    Materials,
+    Promo
   },
   props: {
     anim: Boolean

@@ -8,7 +8,8 @@
           -47%
           <Icon name="leaf" class="discount-banner__icon" />
         </p>
-        <p class="discount-banner__date">с 1 по 7 февраля</p>
+        <p v-if="promoData.sameMonth" class="discount-banner__date">{{ promoData.lines.join(' ') }}</p>
+        <p v-else class="discount-banner__date">{{ promoData.lines[0] }}<br>{{ promoData.lines[1] }}</p>
       </div>
       <div
         v-if="$windowWidth >= $breakpoints.md"
@@ -28,6 +29,11 @@ export default {
   name: 'DiscountBanner',
   components: {
     Icon
+  },
+  computed: {
+    promoData() {
+      return this.$store.getters.promoData 
+    }
   }
 }
 </script>
