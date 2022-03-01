@@ -66,6 +66,12 @@ const api = {
       //
     }
 
+    // window.Comagic?.addOfflineRequest?.({
+    //   name: data.get('name'),
+    //   phone: data.get('phone'),
+    //   message: data.get('message')
+    // })
+
     return fetch('/send.php', {method: 'POST', body: data})
       .then(response => {
 
