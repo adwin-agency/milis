@@ -19,7 +19,7 @@ const store = new Vuex.Store({
     cities: null,
     cityDetection: false,
     activeCityCode: null,
-    promoDate: ['22 февраля', '28 февраля'],
+    promoDate: ['01 марта', '07 марта'],
     
     mainKitchens: null,
     catalogKitchens: null,
