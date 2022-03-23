@@ -76,12 +76,12 @@
         </p>
         <div class="mobile-menu__contacts">
           <div class="mobile-menu__social">
-            <a href="https://www.facebook.com/milismebel/" class="mobile-menu__social-item" target="_blank">
+            <!-- <a href="https://www.facebook.com/milismebel/" class="mobile-menu__social-item" target="_blank">
               <Icon name="facebook"/>
             </a>
             <a href="https://www.instagram.com/milismebel.ru/" class="mobile-menu__social-item" target="_blank">
               <Icon name="insta"/>
-            </a>
+            </a> -->
             <a href="https://vk.com/milismebel" class="mobile-menu__social-item" target="_blank">
               <Icon name="vk"/>
             </a>
