@@ -160,7 +160,19 @@ const store = new Vuex.Store({
         commit('setKitchenDetails', null)
       }
       api.getKitchenDetails(url)
-        .then(response => commit('setKitchenDetails', response))
+        .then(response => {
+          commit('setKitchenDetails', response)
+
+          const _tmr = window._tmr || (window._tmr = [])
+
+          _tmr.push({
+            type: 'itemView',
+            productid: response.info.id.toString(),
+            pagetype: 'product',
+            list: '2',
+            totalvalue: response.info.price
+          })
+        })
     },
 
     loadTechnics({ commit }, params) {
