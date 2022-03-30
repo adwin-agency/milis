@@ -110,7 +110,8 @@ export default {
       return {
         item: this.kitchen.name,
         itemId: this.kitchen.id,
-        productType: this.kitchen.product_type
+        productType: this.kitchen.product_type,
+        price: this.kitchen.price
       }
     }
   }

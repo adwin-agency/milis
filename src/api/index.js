@@ -95,6 +95,18 @@ const api = {
         window.dataLayer = window.dataLayer || []
         window.dataLayer.push({'event': 'formSubmit'})
         window.dataLayer.push({'event': type})
+
+        if (type === 'size' && data.get('item_id') !== '') {
+          const _tmr = window._tmr || (window._tmr = [])
+
+          _tmr.push({
+            type: 'itemView',
+            productid: data.get('item_id'),
+            pagetype: 'cart',
+            list: '2',
+            totalvalue: data.get('price')
+          })
+        }
       })
   }
 }

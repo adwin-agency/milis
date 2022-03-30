@@ -253,7 +253,8 @@ export default {
       return this.kitchenDetails ? {
         item: this.kitchenDetails.info.name,
         itemId: this.kitchenDetails.info.id,
-        productType: this.kitchenDetails.info.product_type
+        productType: this.kitchenDetails.info.product_type,
+        price: this.kitchenDetails.info.price
       } : undefined
     }
   },

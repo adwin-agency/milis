@@ -122,7 +122,8 @@ export default {
       return {
         item: this.details.name,
         itemId: this.details.id,
-        productType: this.details.product_type
+        productType: this.details.product_type,
+        price: this.details.price
       }
     }
   },

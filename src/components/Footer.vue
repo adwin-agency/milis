@@ -212,7 +212,8 @@ export default {
       return this.productDetails && {
         item: this.productDetails.name,
         itemId: this.productDetails.id,
-        productType: this.productDetails.product_type
+        productType: this.productDetails.product_type,
+        price: this.productDetails.price
       }
     },
     activeCity() {

@@ -11,6 +11,7 @@
         <input type="hidden" name="item" :value="inputItem">
         <input type="hidden" name="item_id" :value="inputItemId">
         <input type="hidden" name="product_type" :value="inputProductType">
+        <input type="hidden" name="price" :value="inputPrice">
         <p class="modal-calc__title">Рассчитать стоимость</p>
         <p class="modal-calc__desc">Вы можете оставить номер, размеры и пожелания и мы перезвоним Вам с расчетом</p>
 
@@ -169,6 +170,9 @@ export default {
     },
     inputProductType() {
       return this.modalData && this.modalData.productType
+    },
+    inputPrice() {
+      return this.modalData && this.modalData.price
     },
     promoDate() {
       return this.$store.state.promoDate[1]
