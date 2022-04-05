@@ -19,7 +19,7 @@ const store = new Vuex.Store({
     cities: null,
     cityDetection: false,
     activeCityCode: null,
-    promoDate: ['22 марта', '28 марта'],
+    promoDate: ['', ''],
     
     mainKitchens: null,
     catalogKitchens: null,
@@ -75,7 +75,7 @@ const store = new Vuex.Store({
       state.technicsCategories = base.categories_tehnics
       state.cities = base.cities
       state.activeCityCode = base.detected_city
-      // state.promoDate = base.main_info[0].stock
+      state.promoDate = base.stocks
     },
     setCityDetection(state, detection) {
       state.cityDetection = detection
