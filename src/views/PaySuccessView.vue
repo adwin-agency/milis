@@ -1,11 +1,11 @@
 <template>
   <Page>
-    <div class="v-payment">
+    <div class="v-pay-success">
       <div class="container">
-        <PaySuccess class="v-payment__payment" />
-        <Divider class="v-payment__divider scale-right js-anim" v-anim="true" />
-        <ProductsForYou class="v-payment__products-for-you" />
-        <NavPanel class="v-payment__nav-panel" navType="payment" />
+        <PaySuccess class="v-pay-success__payment" />
+        <Divider class="v-pay-success__divider scale-right js-anim" v-anim="true" />
+        <ProductsForYou class="v-pay-success__products-for-you" />
+        <NavPanel class="v-pay-success__nav-panel" navType="payment" />
       </div>
     </div>
   </Page>
@@ -30,3 +30,69 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.v-pay-success {
+  &__payment {
+    margin-bottom: 40px;
+  }
+
+  &__credit {
+    margin-bottom: 60px;
+  }
+
+  &__divider {
+    margin-bottom: 60px;
+  }
+
+  &__products-for-you {
+    margin-bottom: 60px;
+  }
+
+  &__nav-panel {
+    margin-bottom: 60px;
+  }
+
+  @include media(md) {
+    &__credit {
+      margin-bottom: 80px;
+    }
+
+    &__products-for-you {
+      margin-bottom: 40px;
+    }
+  }
+
+  @include media(lg) {
+    &__payment {
+      margin-bottom: 60px;
+    }
+
+    &__credit {
+      margin-bottom: 90px;
+    }
+
+    &__divider {
+      margin-bottom: 90px;
+    }
+
+    &__products-for-you {
+      margin-bottom: 50px;
+    }
+  }
+
+  @include media(xl) {
+    &__payment {
+      margin-bottom: 150px;
+    }
+
+    &__products-for-you {
+      margin-bottom: 60px;
+    }
+
+    &__nav-panel {
+      margin-bottom: 90px;
+    }
+  }
+}
+</style>

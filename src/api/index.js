@@ -72,7 +72,9 @@ const api = {
     //   message: data.get('message')
     // })
 
-    return fetch('/send.php', {method: 'POST', body: data})
+    const url = type === 'payment' ? '/include/youkassa/payment.php' : '/send.php'
+
+    return fetch(url, {method: 'POST', body: data})
       .then(response => {
 
         if (!response.ok) {

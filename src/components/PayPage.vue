@@ -24,10 +24,16 @@
                 <Icon name="mastercard" />
               </div>
             </div>
-            <a href="#" class="pay__link">Правила возврата денежных средств</a>
+            <a
+              href="/docs/return.pdf"
+              target="_blank"
+              class="pay__link"
+            >
+              Правила возврата денежных средств
+            </a>
           </div>
         </div>
-        <form class="pay__form" @submit.prevent="onSubmit">
+        <form class="pay__form" ref="form" @submit.prevent="onSubmit">
           <div class="pay__leaf">
             <Icon name="leaf" />
           </div>
@@ -167,12 +173,22 @@
                   />
                   <label for="pay-policy" class="pay__policy"
                     >Нажимая кнопку "Отправить", вы соглашаетесь с
-                    <a href="#" class="pay__link"
-                      >политикой конфиденциальности</a
+                    <a
+                      :href="policyLink"
+                      target="_blank"
+                      class="pay__link"
                     >
+                      политикой конфиденциальности
+                    </a>
                     и
-                    <a href="#" class="pay__link">публичной офертой.</a></label
-                  >
+                    <a
+                      :href="offerLink"
+                      target="_blank"
+                      class="pay__link"
+                    >
+                      публичной офертой.
+                    </a>
+                  </label>
                 </div>
               </div>
               <div class="pay__field">
@@ -184,6 +200,12 @@
                   Отправить
                 </Button>
               </div>
+              <p
+                v-if="sendError"
+                class="pay__error"
+              >
+                Ошибка отправки
+              </p>
             </div>
             <div class="pay__not-available" v-else>
               <p class="pay__not-available-tex">
@@ -210,6 +232,7 @@ import Radio from "./base/Radio";
 import TextInput from "./base/TextInput";
 // import Select from "./base/Select";
 import TextInputContract from "./base/TextInputContract";
+import api from "../api"
 
 export default {
   name: "Payment",
@@ -256,6 +279,8 @@ export default {
         orderNum: "",
       },
       userSelection: null,
+      sending: false,
+      sendError: false
     };
   },
   computed: {
@@ -271,6 +296,12 @@ export default {
     prefix() {
       return this.prefixes[this.activeCity];
     },
+    policyLink() {
+      return '/docs/policy_' + this.activeCity + '.pdf'
+    },
+    offerLink() {
+      return '/docs/offer_' + this.activeCity + '.pdf'
+    }
   },
   watch: {
     baseCity() {
@@ -327,6 +358,19 @@ export default {
           return;
         }
       }
+
+      this.sending = true
+      this.sendError = false
+      const data = new FormData(this.$refs.form)
+
+      api.sendForm(data, 'payment')
+        .then(() => {
+          this.sending = false
+        })
+        .catch(() => {
+          this.sending = false
+          this.sendError = true
+        })
     },
   },
 };
@@ -491,6 +535,13 @@ export default {
     font-weight: bold;
     white-space: nowrap;
   }
+
+  &__error {
+    text-align: center;
+    font-family: $font-secondary;
+    font-size: 14px;
+    color: $color-red;
+  }
 }
 
 @media (min-width: 800px) {
@@ -545,6 +596,10 @@ export default {
     &__tel {
       font-weight: bold;
       white-space: nowrap;
+    }
+
+    &__error {
+      grid-column: 2/3;
     }
   }
 }
