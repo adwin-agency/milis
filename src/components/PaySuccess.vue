@@ -62,25 +62,23 @@ export default {
   },
   data() {
     return {
-      time: "",
       timer: 90,
     };
   },
+  computed: {
+    time() {
+      return Math.floor(this.timer / 60).toString().padStart(2, '0') + ':' + (this.timer % 60).toString().padStart(2, '0')
+    }
+  },
   created() {
-    let date = new Date(this.timer * 1000);
-    this.time = date.getMinutes() + ":" + date.getSeconds();
+    const interval = setInterval(() => {
+      this.timer--
 
-    setInterval(() => {
-      if (this.timer > 0) {
-        this.timer -= 1;
-        let date = new Date(this.timer * 1000);
-        this.time = date.getMinutes() + ":" + date.getSeconds();
-      } else {
-        let router = this.$router;
-        router.push({ name: "catalog" });
-        return false;
+      if (this.timer === 0) {
+        this.$router.push({ name: "catalog" })
+        clearInterval(interval)   
       }
-    }, 1000);
+    }, 1000)
   },
 };
 </script>
