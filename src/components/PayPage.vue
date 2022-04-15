@@ -24,13 +24,13 @@
                 <Icon name="mastercard" />
               </div>
             </div>
-            <a
+            <!-- <a
               href="/docs/return.pdf"
               target="_blank"
               class="pay__link"
             >
               Правила возврата денежных средств
-            </a>
+            </a> -->
           </div>
         </div>
         <form class="pay__form" ref="form" @submit.prevent="onSubmit">
@@ -45,7 +45,7 @@
             <div class="pay__city-choose">
               <div class="pay__radios">
                 <Radio
-                  name="pay-city"
+                  name="city"
                   id="pay-city1"
                   labelText="Санкт-Петербург"
                   labelClass="pay__radio-label"
@@ -55,7 +55,7 @@
                   @change="handleUserChange($event)"
                 />
                 <Radio
-                  name="pay-city"
+                  name="city"
                   id="pay-city2"
                   labelText="Москва"
                   labelClass="pay__radio-label"
@@ -70,6 +70,7 @@
 
             <hr class="pay__line" />
             <div class="pay__availible" v-if="payAvailible">
+              <input type="hidden" name="shop_id" :value="shopId[activeCity]">
               <div class="pay__field">
                 <TextInput
                   label="Имя и фамилия"
@@ -104,7 +105,7 @@
               <div class="pay__field">
                 <TextInput
                   label="Адрес"
-                  name="adress"
+                  name="address"
                   class="pay__input"
                   :error="errors.adress"
                   @input="onInput('adress', $event)"
@@ -114,7 +115,7 @@
               <div class="pay__field pay__field_contract">
                 <TextInputContract
                   label="Номер договора"
-                  name="contract-letters"
+                  name="contract-l"
                   class="pay__input-contract pay__input pay__input-contract_wtext"
                   placeholder="Буквы"
                   :prefix="prefix"
@@ -125,7 +126,7 @@
                 <span class="pay__dash"> - </span>
                 <TextInputContract
                   label=""
-                  name="contract-digits"
+                  name="contract-n"
                   class="pay__input-contract pay__input"
                   placeholder="Цифры"
                   @inputNum="inputNum"
@@ -144,18 +145,21 @@
                 />
                 <span class="pay__label">*Минимальная сумма 1000 ₽</span>
               </div>
-              <!-- <div class="pay__field">
+              <div class="pay__field">
                 <Select
                   className="pay__select"
-                  :options="['Тип оплаты', 'Доплата', 'Предоплата']"
+                  name="payment_method"
+                  :options="[
+                    { value: 'sbp', title: 'Система Быстрых Платежей' },
+                    { value: 'cart', title: 'Прочие способы оплаты' }
+                  ]"
                   id="payment-type"
-                  @changeSelect="changeSelect"
                 />
-              </div> -->
+              </div>
               <div class="pay__field pay__field_lg">
                 <TextInput
                   label="Комментарии (необязательно)"
-                  name="message"
+                  name="comment"
                   class="pay__input"
                   textarea
                 />
@@ -164,15 +168,15 @@
                 <div class="pay__policy-container">
                   <input
                     type="checkbox"
-                    name="policy"
+                    name="agreement"
                     id="pay-policy"
                     class="pay__policy-checkbox"
                     @change="checkboxClick"
                     ref="checkbox"
                   />
                   <label for="pay-policy" class="pay__policy"
-                    >Нажимая кнопку "Отправить", вы соглашаетесь с
-                    <a
+                    >Нажимая кнопку "Отправить", вы соглашаетесь с политикой конфиденциальности и публичной офертой.
+                    <!-- <a
                       :href="policyLink"
                       target="_blank"
                       class="pay__link"
@@ -186,7 +190,7 @@
                       class="pay__link"
                     >
                       публичной офертой.
-                    </a>
+                    </a> -->
                   </label>
                 </div>
               </div>
@@ -229,7 +233,7 @@ import Icon from "./base/Icon";
 import Header from "./Header";
 import Radio from "./base/Radio";
 import TextInput from "./base/TextInput";
-// import Select from "./base/Select";
+import Select from "./base/Select";
 import TextInputContract from "./base/TextInputContract";
 import api from "../api"
 
@@ -241,7 +245,7 @@ export default {
     Radio,
     TextInput,
     TextInputContract,
-    // Select,
+    Select,
   },
   data() {
     return {
@@ -251,13 +255,12 @@ export default {
 
       // other
       prefixes: {
-        spb: ["СС", "CC"],
-        msk: ["ММ"],
-        voronej: ["МВЖ", "ДМВЖ"],
+        spb: ["С", "ДС"],
+        msk: ["СМ", "ДСМ"]
       },
       shopId: {
-        spb: "123",
-        msk: "",
+        spb: "899034",
+        msk: "899080",
       },
       errors: {
         sum: false,
@@ -267,7 +270,6 @@ export default {
         mail: false,
       },
       values: {
-        select: "Предоплата",
         sum: "",
         adress: "",
         phone: "",
@@ -323,9 +325,6 @@ export default {
 
     handleUserChange(value) {
       this.userSelection = value;
-    },
-    changeSelect(data) {
-      this.values.select = data.value;
     },
     checkboxClick() {
       if (this.$refs.checkbox.checked) {

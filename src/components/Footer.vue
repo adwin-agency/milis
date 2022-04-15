@@ -138,6 +138,12 @@
                   </a>
                 </div>
               </div>
+              <RouterLink
+                :to="{name: 'pay'}"
+                class="footer__link footer__link_lg"
+              >
+                Оплата онлайн
+              </RouterLink>
             </div>
           </div>          
         </div>
@@ -373,6 +379,7 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     margin-top: 44px;
+    margin-bottom: 30px;
   }
 
   &__time {

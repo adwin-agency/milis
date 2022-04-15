@@ -5,21 +5,25 @@
     :id="id"
   >
     <select :name="name" class="form-select" ref="select">
-      <option v-for="option in options" :key="option.id" :value="option">
-        {{ option }}
+      <option
+        v-for="(option, index) in options"
+        :key="index"
+        :value="option.value"
+      >
+        {{ option.title }}
       </option>
     </select>
     <span class="form-select__selected-text" v-on:click="open">{{
-      selected
+      selectedTitle
     }}</span>
     <ul class="form-select__list">
       <li
-        v-for="option in options"
-        :key="option.id"
-        v-on:click="change(option)"
+        v-for="(option, index) in options"
+        :key="index"
+        v-on:click="change(option.title, option.value)"
         class="form-select__item"
       >
-        {{ option }}
+        {{ option.title }}
       </li>
     </ul>
   </div>
@@ -37,7 +41,7 @@ export default {
   },
   data() {
     return {
-      selected: this.options[0],
+      selectedTitle: this.options[0].title,
       activeSelect: false,
       //id: this.id,
     };
@@ -53,11 +57,11 @@ export default {
     open() {
       this.activeSelect = !this.activeSelect;
     },
-    change(option) {
-      this.$refs.select.value = option;
+    change(title, value) {
+      this.$refs.select.value = value;
       this.activeSelect = !this.activeSelect;
-      this.selected = option;
-      this.$emit("changeSelect", { value: option });
+      this.selectedTitle = title;
+      this.$emit("changeSelect", { value: value });
     },
   },
 };
@@ -80,9 +84,6 @@ export default {
     background-color: white;
     border: 1px solid #0cd725;
     padding: 0 28px;
-  }
-  &__item:first-child {
-    display: none;
   }
   &__item {
     height: 47px;

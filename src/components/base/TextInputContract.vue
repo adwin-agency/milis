@@ -64,7 +64,7 @@ export default {
     test(e) {
       this.error = true;
       let val = e.target.value;
-      if (this.name == "contract-letters") {
+      if (this.name == "contract-l") {
         this.$refs.input.value = val.toUpperCase();
         let mask = /^[A-zА-яЁё]*$/i.test(val);
         if (!mask) {

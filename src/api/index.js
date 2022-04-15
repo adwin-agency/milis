@@ -87,7 +87,11 @@ const api = {
 
         if (response.status !== 'ok') {
           throw new Error()
-        }        
+        }
+        
+        if (response.confirmation_url) {
+          window.location.href = response.confirmation_url
+        }
         
         window.fbq && window.fbq('track', 'Lead')
         window.VK && window.VK.Retargeting.Event('lead')
