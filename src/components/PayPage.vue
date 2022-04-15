@@ -158,7 +158,6 @@
                   name="message"
                   class="pay__input"
                   textarea
-                  @input="onInput('message', $event)"
                 />
               </div>
               <div class="pay__field">
@@ -269,7 +268,6 @@ export default {
       },
       values: {
         select: "Предоплата",
-        message: "",
         sum: "",
         adress: "",
         phone: "",
@@ -337,7 +335,6 @@ export default {
       }
     },
     onInput(inp, val) {
-      console.log(inp, val);
       if (this.errors[inp]) {
         this.errors[inp] = false;
       }
