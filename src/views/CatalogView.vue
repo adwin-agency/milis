@@ -25,7 +25,7 @@
               @changePage="changePage"
             />
             <Button
-              v-else-if="activePage > 2 && activePage < pages"
+              v-else-if="activePage > 1 && activePage < pages"
               class="nav-panel__btn"
               @click.native="showMore"
             >
@@ -127,7 +127,7 @@ export default {
       }
     },
     handleScroll() {
-      if (this.isPagination || this.activePage > 2 || this.isLoading) {
+      if (this.isPagination || this.activePage > 1 || this.isLoading) {
         return
       }
 
