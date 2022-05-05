@@ -36,7 +36,7 @@
           <div class="credit__terms">
             <span class="credit__term">0₽</span>
             <span class="credit__term">0%</span>
-            <span class="credit__term">6мес</span>
+            <span class="credit__term">8мес</span>
           </div>
           <div class="credit__banks" v-if="$windowWidth < $breakpoints.md">
             <div class="credit__bank">

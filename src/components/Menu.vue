@@ -17,7 +17,7 @@
         class="menu__link"
         :to="{name: 'payment'}"
       >
-        Рассрочка 0˙0˙6
+        Рассрочка 0˙0˙8
       </RouterLink>
     </div>
     <nav class="menu__nav">

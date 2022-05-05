@@ -52,7 +52,7 @@
               <div class="details__features-icon">
                 <Icon name="leaf" />
               </div>
-              <p class="details__feature">Рассрочка 0˙0˙6</p>
+              <p class="details__feature">Рассрочка 0˙0˙8</p>
               <p class="details__feature">Гарантия 2 года</p>
               <p class="details__feature">Бесплатный 3D проект </p>
             </div>
