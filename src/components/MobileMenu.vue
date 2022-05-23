@@ -8,16 +8,32 @@
           class="mobile-menu__logo"
           @click.native="$emit('close')"
         >
-          <img src="../assets/img/logo-2.svg" alt="Milis">
+          <img
+            src="../assets/img/logo-2.svg"
+            alt="Milis"
+          >
         </RouterLink>
         <nav class="mobile-menu__nav">
-          <RouterLink
-            class="mobile-menu__nav-item"
-            :to="{name: 'catalog'}"
-            @click.native="$emit('close')"
-          >
-            Кухни
-          </RouterLink>
+          <div class="mobile-menu__nav-item">
+            <RouterLink
+              :to="{name: 'catalog'}"
+              exact
+              @click.native="$emit('close')"
+            >
+              Кухни
+            </RouterLink>
+            <div class="mobile-menu__subnav">
+              <RouterLink
+                v-for="(category, index) in kitchenCategories"
+                :key="index"
+                class="mobile-menu__subnav-item"
+                :to="{name: 'category', params: {category: category.url}}"
+                @click.native="$emit('close')"
+              >
+                {{category.name}}
+              </RouterLink>
+            </div>
+          </div>
           <RouterLink
             class="mobile-menu__nav-item"
             :to="{name: 'about'}"
@@ -82,8 +98,12 @@
             <a href="https://www.instagram.com/milismebel.ru/" class="mobile-menu__social-item" target="_blank">
               <Icon name="insta"/>
             </a> -->
-            <a href="https://vk.com/milismebel" class="mobile-menu__social-item" target="_blank">
-              <Icon name="vk"/>
+            <a
+              href="https://vk.com/milismebel"
+              class="mobile-menu__social-item"
+              target="_blank"
+            >
+              <Icon name="vk" />
             </a>
           </div>
           <div class="mobile-menu__city">
@@ -93,7 +113,7 @@
             >
               {{activeCity && activeCity.name}}
             </button>
-          </div>           
+          </div>
           <CityPopup
             class="mobile-menu__city-popup"
             :class="{'is-active': activeCityPopup}"
@@ -125,10 +145,10 @@
         </div>
         <div class="mobile-menu__payment">
           <div class="mobile-menu__payment-icon">
-            <Icon name="visa"/>
+            <Icon name="visa" />
           </div>
           <div class="mobile-menu__payment-icon">
-            <Icon name="mastercard"/>
+            <Icon name="mastercard" />
           </div>
         </div>
       </div>
@@ -246,16 +266,21 @@ export default {
     kitchen() {
       return this.$route.name === 'product'
     },
+    kitchenCategories() {
+      return this.$store.state.kitchenCategories
+    },
     kitchenDetails() {
       return this.kitchen && this.$store.state.kitchenDetails
     },
     modalData() {
-      return this.kitchenDetails ? {
-        item: this.kitchenDetails.info.name,
-        itemId: this.kitchenDetails.info.id,
-        productType: this.kitchenDetails.info.product_type,
-        price: this.kitchenDetails.info.price
-      } : undefined
+      return this.kitchenDetails
+        ? {
+            item: this.kitchenDetails.info.name,
+            itemId: this.kitchenDetails.info.id,
+            productType: this.kitchenDetails.info.product_type,
+            price: this.kitchenDetails.info.price
+          }
+        : undefined
     }
   },
   methods: {
@@ -303,6 +328,24 @@ export default {
     font-size: 18px;
     line-height: (22/18);
     color: $color-blue;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__subnav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+    border-radius: 20px;
+    padding: 30px 40px;
+    background-color: #f3f3f3;
+  }
+
+  &__subnav-item {
+    margin-bottom: 30px;
 
     &:last-child {
       margin-bottom: 0;
