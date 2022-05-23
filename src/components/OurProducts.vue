@@ -24,20 +24,7 @@
               class="our-products__working-icon"
             />
           </div> -->
-          <h1 class="our-products__heading">
-            {{ heading }}
-            <RouterLink
-              v-if="$windowWidth >= $breakpoints.md"
-              :to="{name: 'catalog'}"
-              class="our-products__reset"
-            >
-              Сбросить фильтры
-            </RouterLink>
-          </h1>
-          <FilterMenu
-            class="our-products__menu"
-            filterType="catalog"
-          />
+          <h1 class="our-products__heading">{{ heading }}</h1>
           <!-- <FilterTags
             v-if="!$mobile"
             class="our-products__tags"
@@ -68,9 +55,27 @@
               />
             </div>
           </div>
+          <div class="our-products__menu">
+            <div
+              v-if="!$mobile"
+              class="our-products__menu-header"
+            >
+              <p class="our-products__menu-heading">Фильтры</p>
+              <RouterLink
+                :to="{name: 'catalog'}"
+                class="our-products__reset"
+              >
+                Сбросить фильтры
+              </RouterLink>
+            </div>
+            <FilterMenu filterType="catalog" />
+          </div>
         </div>
       </div>
-      <div class="col col-6 col-xl-7" v-if="!$mobile">
+      <div
+        class="col col-6 col-xl-7"
+        v-if="!$mobile"
+      >
         <div class="our-products__card-wrap">
           <CatalogCard
             v-if="kitchen"
@@ -81,7 +86,10 @@
             :kitchen="kitchen"
             v-anim="true"
           />
-          <p v-else class="our-products__stock">
+          <p
+            v-else
+            class="our-products__stock"
+          >
             К сожалению, по вашему запросу ничего не найдено. <br />Попробуйте
             поменять один из фильтров - скорее всего, вас ждёт успех!
           </p>
@@ -102,17 +110,17 @@
 </template>
 
 <script>
-import FilterMenu from "@/components/base/FilterMenu";
+import FilterMenu from '@/components/base/FilterMenu'
 // import FilterTags from "@/components/base/FilterTags";
-import Dropdowns from "@/components/base/Dropdowns";
+import Dropdowns from '@/components/base/Dropdowns'
 // import Icon from "@/components/base/Icon";
-import Header from "@/components/Header";
-import MobileFilters from "@/components/MobileFilters";
-import CatalogCard from "@/components/CatalogCard";
-import DiscountBanner from "@/components/DiscountBanner";
+import Header from '@/components/Header'
+import MobileFilters from '@/components/MobileFilters'
+import CatalogCard from '@/components/CatalogCard'
+import DiscountBanner from '@/components/DiscountBanner'
 
 export default {
-  name: "OurProducts",
+  name: 'OurProducts',
   components: {
     FilterMenu,
     // FilterTags,
@@ -129,106 +137,102 @@ export default {
       dropdowns: [
         {
           arrow: true,
-          title: "Бесплатный дизайн-проект",
-          desc:
-            "Дизайнер составит проект вашей будущей кухни совершенно бесплатно, даже в том случае, если вы по какой-то причине решите отказаться от покупки.",
+          title: 'Бесплатный дизайн-проект',
+          desc: 'Дизайнер составит проект вашей будущей кухни совершенно бесплатно, даже в том случае, если вы по какой-то причине решите отказаться от покупки.'
         },
         {
           arrow: true,
-          title: "Изготовление от 14 дней",
-          desc:
-            "У нас собственный производственный цех, поэтому мы не зависим от посредников. Это позволяет изготавливать кухни гораздо быстрее и избегать неприятных задержек.",
+          title: 'Изготовление от 14 дней',
+          desc: 'У нас собственный производственный цех, поэтому мы не зависим от посредников. Это позволяет изготавливать кухни гораздо быстрее и избегать неприятных задержек.'
         },
         {
           arrow: true,
-          title: "Рассрочка до 8 месяцев без первоначального взноса",
-          desc:
-            "Предоставляем беспроцентную рассрочку на 8 месяцев от наших банков партнеров. Высокий шанс одобрения и быстрое принятие решения!",
+          title: 'Рассрочка до 8 месяцев без первоначального взноса',
+          desc: 'Предоставляем беспроцентную рассрочку на 8 месяцев от наших банков партнеров. Высокий шанс одобрения и быстрое принятие решения!'
         },
         {
           arrow: true,
-          title: "3 простых шага - и кухня у Вас!",
-          desc:
-            "Наш кухонный мир держится на трех китах - Заказ, Доставка, Сборка. Пройдет совсем немного времени с момента вашей заявки до момента, когда готовый гарнитур окажется у вас дома.",
-        },
-      ],
-    };
+          title: '3 простых шага - и кухня у Вас!',
+          desc: 'Наш кухонный мир держится на трех китах - Заказ, Доставка, Сборка. Пройдет совсем немного времени с момента вашей заявки до момента, когда готовый гарнитур окажется у вас дома.'
+        }
+      ]
+    }
   },
   computed: {
     categories() {
-      return this.$store.state.kitchenCategories;
+      return this.$store.state.kitchenCategories
     },
     activeCategory() {
-      return this.$route.params.category;
+      return this.$route.params.category
     },
     heading() {
       return this.activeCategory && this.categories
-        ? this.categories.find((item) => item.url === this.activeCategory).name
-        : "Наши кухни";
+        ? this.categories.find(item => item.url === this.activeCategory).name
+        : 'Наши кухни'
     },
     tags() {
-      return this.$store.state.kitchenStyles;
+      return this.$store.state.kitchenStyles
     },
     activeTag() {
-      return this.$route.query.style;
+      return this.$route.query.style
     },
     kitchen() {
-      return this.$store.state.catalogKitchens[0];
-    },
+      return this.$store.state.catalogKitchens[0]
+    }
   },
   created() {
-    window.addEventListener("resize", this.handleResize);
+    window.addEventListener('resize', this.handleResize)
   },
   destroyed() {
-    this.activeFilters && this.toggleFilters();
-    window.removeEventListener("resize", this.handleResize);
+    this.activeFilters && this.toggleFilters()
+    window.removeEventListener('resize', this.handleResize)
   },
   methods: {
     handleResize() {
       if (!this.$mobile && this.activeFilters) {
-        this.toggleFilters();
+        this.toggleFilters()
       }
     },
     toggleFilters() {
       if (this.activeFilters) {
-        this.activeFilters = false;
-        const bodyClassList = document.body.classList;
+        this.activeFilters = false
+        const bodyClassList = document.body.classList
 
-        bodyClassList.remove("is-mobile-filters");
+        bodyClassList.remove('is-mobile-filters')
 
         if (
-          !bodyClassList.contains("is-mobile-menu") &&
-          !bodyClassList.contains("is-modal")
+          !bodyClassList.contains('is-mobile-menu') &&
+          !bodyClassList.contains('is-modal')
         ) {
-          document.body.style.overflow = "";
+          document.body.style.overflow = ''
         }
       } else {
-        this.activeFilters = true;
-        document.body.classList.add("is-mobile-filters");
-        document.body.style.overflow = "hidden";
+        this.activeFilters = true
+        document.body.classList.add('is-mobile-filters')
+        document.body.style.overflow = 'hidden'
       }
     },
     applyFilters(category, style) {
-      this.toggleFilters();
+      this.toggleFilters()
 
       if (category === this.activeCategory && style === this.activeTag) {
-        return;
+        return
       }
 
       this.$router.push({
-        name: category ? "category" : "catalog",
+        name: category ? 'category' : 'catalog',
         params: { category },
-        query: style ? { style } : null,
-      });
+        query: style ? { style } : null
+      })
     },
     deselectTag() {
       this.$router.push({
-        name: this.activeCategory ? "category" : "catalog",
-        params: { category: this.activeCategory },
-      });
-    },
-  },
-};
+        name: this.activeCategory ? 'category' : 'catalog',
+        params: { category: this.activeCategory }
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss">
@@ -265,18 +269,9 @@ export default {
 
   &__menu {
     position: relative;
-    margin: 25px (-$container-padding) 40px;
-
-    &::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: -50px;
-      right: 0;
-      bottom: -40px;
-      background-color: #F3F3F3;
-      z-index: -1;
-    }
+    margin: 25px (-$container-padding) 0;
+    padding: 30px 0;
+    background-color: #f3f3f3;
   }
 
   &__tags {
@@ -288,13 +283,27 @@ export default {
   }
 
   &__heading {
-    margin-top: 32px;
+    position: relative;
+    margin-top: 26px;
     width: 100%;
+    padding: 5px 0 20px;
     font-family: $font-secondary;
     font-weight: bold;
     font-size: 40px;
     line-height: (69/50);
     color: $color-blue;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 100vw;
+      height: 50%;
+      background-color: #f3f3f3;
+      transform: translateX(-50%);
+      z-index: -1;
+    }
   }
 
   &__image {
@@ -311,7 +320,7 @@ export default {
     background-color: #f3f3f3;
 
     &::after {
-      content: "";
+      content: '';
       display: block;
       clear: both;
     }
@@ -394,7 +403,7 @@ export default {
 
   @include media(md) {
     &__menu {
-      margin: 22px (-$container-padding-md) 40px;
+      margin: 30px (-$container-padding-md) 0;
     }
 
     &__tags {
@@ -455,13 +464,32 @@ export default {
     padding-top: 0;
 
     &__menu {
-      margin-left: 0;
-      margin-right: 0;
-      margin-bottom: 20px;
+      margin: 30px 0 0;
+      padding: 30px 34px 30px 0;
 
       &::before {
+        content: '';
+        position: absolute;
         left: -$container-padding-md;
-        bottom: -20px;
+        top: 0;
+        width: $container-padding-md;
+        height: 100%;
+        background-color: inherit;
+      }
+
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      &-heading {
+        font-family: $font-secondary;
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 120%;
+        color: $color-blue;
       }
     }
 
@@ -473,15 +501,15 @@ export default {
 
     &__heading {
       font-size: 40px;
+
+      &::before {
+        display: none;
+      }
     }
 
     &__reset {
       margin-top: 0;
-      margin-right: 10px;
-    }
-
-    &__items {
-      margin-top: 65px;
+      color: $color-blue;
     }
 
     &__image {
@@ -507,11 +535,6 @@ export default {
       margin-right: -35px;
     }
 
-    &__reset {
-      margin-top: 10px;
-      margin-right: 36px;
-    }
-
     &__working + &__menu {
       margin-top: 25px;
     }
@@ -519,16 +542,13 @@ export default {
     &__menu {
       &::before {
         left: -$container-padding-xl;
+        width: $container-padding-xl;
       }
     }
 
     &__heading {
       font-size: 50px;
       line-height: (69/50);
-    }
-
-    &__items {
-      margin-top: 100px;
     }
 
     &__image {
