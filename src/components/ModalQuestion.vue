@@ -12,7 +12,7 @@
         <input type="hidden" name="item_id" :value="inputItemId">
         <input type="hidden" name="product_type" :value="inputProductType">
         <p class="modal-question__title">Задать вопрос</p>
-        <p class="modal-question__desc">Если у Вас остались любые вопросы по сервису, доставке, услугах, товаре оставьте свой номер и мы Вам перезвоним в течении 20 минут</p>
+        <p class="modal-question__desc">У Вас остались любые вопросы по сервису, доставке, услугах или товаре? Оставьте свой номер, и мы Вам перезвоним в течение 20 минут</p>
         <div class="modal-question__fields">
           <TextInput
             class="modal-question__field"
