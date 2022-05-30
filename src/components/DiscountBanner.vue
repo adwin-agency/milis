@@ -14,15 +14,15 @@
       </p>
     </div>
     <p class="discount-banner__date">акция действует {{ promoText }}</p>
-    <div class="discount-banner__founders">
+    <!-- <div class="discount-banner__founders">
       <p class="discount-banner__note">Основатели <br>компании Милис<br>Артем и Мила</p>
       <img
         src="@/assets/img/founders3.png"
         alt
         class="discount-banner__img"
       >
-    </div>
-    <div v-if="!$mobile" class="discount-banner__counter">
+    </div> -->
+    <div class="discount-banner__counter">
       <p class="discount-banner__counter-title">До конца <br>акции осталось</p>
       <Counter :date="promoEnd" />
     </div>
@@ -166,6 +166,21 @@ export default {
     }
   }
 
+  &__counter {
+    position: relative;
+    grid-column: 2/3;
+    grid-row: 1/3;
+    margin: 32px auto 20px;
+    max-width: 280px;
+
+    &-title {
+      font-family: $font-secondary;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 100%;
+    }
+  }
+
   &__note {
     margin-right: -70px;
     flex-shrink: 0;
@@ -211,6 +226,16 @@ export default {
 
     &__founders {
       margin-top: -120px;
+    }
+
+    &__counter {
+      margin-top: -120px;
+      margin-right: 20px;
+      max-width: 230px;
+
+      &-title {
+        text-align: right;
+      }
     }
   }
 
@@ -267,46 +292,10 @@ export default {
     }
 
     &__counter {
-      display: block;
-      position: relative;
-      grid-column: 2/3;
-      grid-row: 1/3;
-      margin-left: 10px;
       margin-top: 32px;
-      margin-right: 24px;
-
-      &-title {
-        font-family: $font-secondary;
-        font-weight: 700;
-        font-size: 18px;
-        line-height: 100%;
-        text-align: right;
-      }
-
-      &-items {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 16px;
-      }
-
-      &-item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 10px;
-        width: 40px;
-        height: 50px;
-        border-radius: 4px;
-        font-family: $font-secondary;
-        font-weight: 700;
-        font-size: 20px;
-        line-height: 100%;
-        background-color: #b9bbc6;
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
+      margin-left: 20px;
+      margin-bottom: 0;
+      max-width: none;
     }
   }
 

@@ -117,10 +117,6 @@ export default {
 
   &_inv {
     #{$b} {
-      &__items {
-        justify-content: flex-start;
-      }
-
       &__text {
         order: -1;
         margin-top: 0;
@@ -131,7 +127,6 @@ export default {
 
   &__items {
     display: flex;
-    justify-content: flex-end;
     margin-top: 16px;
   }
 

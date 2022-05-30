@@ -136,14 +136,7 @@
           Каменная мойка в подарок при покупке кухонного гарнитура
         </p>
       </div>
-      <p
-        v-if="$mobile"
-        class="modal-calc__date"
-      >Акция действует <strong> до {{ promoText }}</strong></p>
-      <div
-        v-else
-        class="modal-calc__counter"
-      >
+      <div class="modal-calc__counter">
         <p class="modal-calc__counter-title">До конца акции осталось</p>
         <Counter
           :date="promoEnd"
@@ -532,6 +525,12 @@ export default {
     z-index: 2;
   }
 
+  @include media(450) {
+    &__counter {
+      margin-bottom: -16%;
+    }
+  }
+
   @include media(md) {
     &__content {
       padding: 38px 100px 45px;
@@ -573,6 +572,10 @@ export default {
     &__discount {
       right: 84px;
       bottom: 58px;
+    }
+
+    &__counter {
+      margin-bottom: 0;
     }
 
     &__close {
