@@ -99,9 +99,15 @@
           </span>
           Выезд дизайнера и{{'\xa0'}}3D&#8209;проект — БЕСПЛАТНО
         </p>
+        <p class="modal-calc__feature">
+          <span class="modal-calc__feature-icon">
+            <Icon name="heart" />
+          </span>
+          Каменная мойка в подарок при покупке кухонного гарнитура
+        </p>
       </div>
-      <p class="modal-calc__date">Акция ограничена <br>до <b>{{promoDate}}</b></p>
-      <img src="@/assets/img/modal-calc.png" alt="" class="modal-calc__image">
+      <p class="modal-calc__date">Срок действия предложения ограничен. <br><strong>Акция продлится до конца месяца</strong></p>
+      <img src="@/assets/img/modal-calc-wash.png" alt="" class="modal-calc__image">
       <span class="modal-calc__like">
         <Icon name="hand-like" />
       </span>
@@ -173,9 +179,6 @@ export default {
     },
     inputPrice() {
       return this.modalData && this.modalData.price
-    },
-    promoDate() {
-      return this.$store.state.promoDate[1]
     }
   },
   methods: {
@@ -366,7 +369,7 @@ export default {
 
   &__side {
     position: relative;
-    padding: 40px 20px 270px;
+    padding: 40px 20px 250px;
     background-color: #EEEEEE;
   }
 
@@ -392,24 +395,25 @@ export default {
 
   &__date {
     margin-top: 35px;
-    font-size: 20px;
+    font-size: 16px;
     line-height: (27/20);
     color: $color-blue;
   }
 
   &__image {
     position: absolute;
-    right: 0;
+    right: -2px;
     bottom: 0;
-    width: 250px;
+    width: 282px;
   }
 
   &__like {
     position: absolute;
-    right: 152px;
-    bottom: 101px;
+    right: 172px;
+    bottom: 110px;
     width: 52px;
     height: 52px;
+    fill: $color-blue;
   }
 
   &__promo {
@@ -457,19 +461,13 @@ export default {
     z-index: 2;
   }
 
-  @include media(xs) {
-    &__side {
-      padding: 40px 20px 270px;
-    }
-  }
-
   @include media(md) {
     &__content {
       padding: 38px 100px 45px;
     }
 
     &__side {
-      padding: 70px 370px 80px 80px;
+      padding: 70px 370px 100px 80px;
       min-height: 332px;
     }
 
@@ -478,35 +476,32 @@ export default {
     }
 
     &__like {
-      right: 180px;
-      bottom: 140px;
+      right: 188px;
+      bottom: 150px;
       width: 72px;
       height: 72px;
     }
 
     &__promo {
-      right: 134px;
+      right: 124px;
       bottom: -123px;
-      width: 300px;
-      height: 300px;
-      padding: 65px 60px;
-      font-size: 36px;
+      width: 280px;
+      height: 280px;
+      padding: 50px 50px;
+      font-size: 38px;
       line-height: (45/36);
     }
 
     &__smile {
-      right: 325px;
-      bottom: 145px;
+      right: 315px;
+      bottom: 125px;
       width: 35px;
       height: 35px;
     }
 
     &__discount {
-      right: 45px;
-      bottom: 15px;
-      width: 144px;
-      height: 148px;
-      font-size: 36px;
+      right: 84px;
+      bottom: 58px;
     }
 
     &__close {
@@ -536,7 +531,20 @@ export default {
     &__side {
       width: 43%;
       border-left: 4px solid $color-green;
-      padding: 124px 40px 352px;
+      padding: 90px 40px 290px;
+    }
+
+    &__promo {
+      right: 164px;
+    }
+
+    &__discount {
+      right: 134px;
+    }
+    
+    &__like {
+      right: 200px;
+      bottom: 140px;
     }
 
     &__close {

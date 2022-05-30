@@ -43,11 +43,22 @@
               </picture>
             </div> -->
             <DiscountBanner class="our-products__banner" />
+            <div class="our-products__discount">
+              <img
+                src="@/assets/img/discount-wash.png"
+                alt=""
+                class="our-products__discount-img"
+              >
+              <div class="our-products__discount-content">
+                <p class="our-products__discount-title">Каменная мойка в подарок при покупке кухонного гарнитура</p>
+                <p class="our-products__discount-desc">Срок действия предложения ограничен. Акция продлится до конца месяца.</p>
+              </div>
+            </div>
             <div class="our-products__content">
-              <p class="our-products__quote">
+              <!-- <p class="our-products__quote">
                 “Создать кухню Вашей мечты <b>просто</b>. Мы создадим кухню на заказ именно ту, о которой вы мечтали!”
                 <span class="our-products__quote-slogan">Всё просто!</span>
-              </p>
+              </p> -->
               <Dropdowns
                 :items="dropdowns"
                 products
@@ -310,6 +321,40 @@ export default {
     margin: 0 (-$container-padding);
   }
 
+  &__discount {
+    margin: 26px (-$container-padding) 0;
+    color: $color-blue;
+    text-align: right;
+    font-family: $font-secondary;
+    background: #f3f3f3;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    &-img {
+      width: auto;
+      height: 100px;
+    }
+
+    &-content {
+      padding: 20px;
+    }
+
+    &-title {
+      position: relative;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 100%;
+    }
+
+    &-desc {
+      position: relative;
+      margin-top: 11px;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 110%;
+    }
+  }
+
   &__quote {
     position: relative;
     margin-top: -12px;
@@ -399,6 +444,53 @@ export default {
     &__heading {
       font-size: 48px;
     }
+
+    &__discount {
+      position: relative;
+      height: 130px;
+
+      &-img {
+        position: absolute;
+        right: 270px;
+        top: 0;
+        height: 100%;
+      }
+
+      &-content {
+        margin-left: auto;
+        max-width: 310px;
+      }
+    }
+  }
+
+  @include media(480) {
+    &__discount {
+      &-img {
+        left: -15px;
+        right: auto;
+      }
+
+      &-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: none;
+        height: 100%;
+        padding-left: 260px;
+      }
+    }
+  }
+
+  @include media(sm) {
+    &__discount {
+      &-title {
+        font-size: 18px;
+      }
+
+      &-desc {
+        font-size: 14px;
+      }
+    }
   }
 
   @include media(md) {
@@ -435,6 +527,16 @@ export default {
     &__image {
       margin: 0;
       width: calc(50% - 10px);
+    }
+
+    &__discount {
+      &-content {
+        max-width: 720px;
+      }
+
+      &-title {
+        font-size: 20px;
+      }
     }
 
     &__quote {
@@ -516,6 +618,23 @@ export default {
       width: 35.5%;
     }
 
+    &__discount {
+      margin: 26px 0 0;
+
+      &-img {
+        left: 0;
+      }
+
+      &-content {
+        max-width: 650px;
+        padding-left: 280px;
+      }
+
+      &-title {
+        font-size: 18px;
+      }
+    }
+
     &__quote {
       margin-top: -12px;
       margin-left: -36px;
@@ -553,6 +672,19 @@ export default {
 
     &__image {
       width: 38.5%;
+    }
+
+    &__discount {
+      height: 165px;
+
+      &-content {
+        max-width: 730px;
+        padding-left: 350px;
+      }
+
+      &-title {
+        font-size: 22px;
+      }
     }
 
     &__quote {

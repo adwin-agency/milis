@@ -1,10 +1,27 @@
 <template>
-  <div class="questions">
+  <div
+    class="questions"
+    :class="{'questions_img': image}"
+  >
     <p class="questions__title">{{title}}</p>
     <p class="questions__desc">{{desc}}</p>
-    <div class="questions__overlay js-anim" v-if="!$mobile">
+    <div
+      class="questions__overlay js-anim"
+      v-if="!$mobile"
+    ></div>
+    <div
+      v-if="image"
+      class="questions__image js-anim"
+    >
+      <img
+        :src="require('@/assets/img/' + image)"
+        alt=""
+      >
     </div>
-    <div class="questions__mark js-anim">
+    <div
+      v-else
+      class="questions__mark js-anim"
+    >
       <Icon name="question" />
     </div>
     <div class="questions__leaf">
@@ -23,7 +40,8 @@ export default {
   },
   props: {
     title: String,
-    desc: String
+    desc: String,
+    image: String
   }
 }
 </script>
@@ -40,6 +58,10 @@ export default {
   min-height: 135px;
   background-color: $color-blue;
   color: $color-white;
+
+  &_img {
+    padding-left: 100px;
+  }
 
   &__title {
     font-family: $font-secondary;
@@ -62,6 +84,14 @@ export default {
     height: 48px;
   }
 
+  &__image {
+    position: absolute;
+    left: -50px;
+    top: 50%;
+    width: 130px;
+    transform: translateY(-50%);
+  }
+
   &__leaf {
     position: absolute;
     top: 30px;
@@ -80,6 +110,10 @@ export default {
       bottom: -24px;
     }
 
+    &__image {
+      left: -40px;
+    }
+
     &__leaf {
       right: -40px;
       width: 100px;
@@ -89,6 +123,12 @@ export default {
 
   @include media(lg) {
     padding: 20px ($container-padding-md + 90px) 20px 120px;
+
+    &_img {
+      min-height: 120px;
+      border-radius: 100px 0 0 100px;
+      padding-left: 180px;
+    }
 
     &__overlay {
       position: absolute;
@@ -100,7 +140,7 @@ export default {
       pointer-events: none;
 
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         right: 0;
         bottom: 0;
@@ -108,7 +148,7 @@ export default {
         padding-top: 100%;
         border-top-left-radius: 100%;
         background-color: $color-white;
-        transition: transform .75s ease;
+        transition: transform 0.75s ease;
       }
 
       &.show {
@@ -124,7 +164,18 @@ export default {
       width: 32px;
       height: 32px;
       opacity: 0;
-      transition: opacity .5s ease .75s;
+      transition: opacity 0.5s ease 0.75s;
+
+      &.show {
+        opacity: 1;
+      }
+    }
+
+    &__image {
+      left: -5px;
+      width: 150px;
+      opacity: 0;
+      transition: opacity 0.5s ease 0.75s;
 
       &.show {
         opacity: 1;
@@ -143,6 +194,11 @@ export default {
   @include media(xl) {
     padding: 20px ($container-padding-xl + 90px) 20px 120px;
 
+    &_img {
+      min-height: 138px;
+      padding-left: 200px;
+    }
+
     &__title {
       font-size: 20px;
     }
@@ -156,6 +212,11 @@ export default {
       bottom: -14px;
       width: 48px;
       height: 48px;
+    }
+
+    &__image {
+      left: -60px;
+      width: 200px;
     }
 
     &__leaf {

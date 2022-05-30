@@ -6,13 +6,13 @@
         <img src="../assets/img/discount-banner.jpg" alt="">
       </picture>
       <svg v-if="$windowWidth < $breakpoints.md" viewBox="0 0 360 80" class="promo__date">
-        <text v-if="promoData.sameMonth" x="320" y="48" text-anchor="end">{{ promoData.lines.join(' ') }}</text>
-        <text v-if="!promoData.sameMonth" x="320" y="30" text-anchor="end">{{ promoData.lines[0] }}</text>
-        <text v-if="!promoData.sameMonth" x="320" y="64" text-anchor="end">{{ promoData.lines[1] }}</text>
+        <text v-if="promoText && sameMonth" x="320" y="48" text-anchor="end">{{ promoText.join(' - ') }}</text>
+        <text v-if="promoText && !sameMonth" x="320" y="30" text-anchor="end">{{ 'с\xa0' + promoText[0] }}</text>
+        <text v-if="promoText && !sameMonth" x="320" y="64" text-anchor="end">{{ 'по\xa0' + promoText[1] }}</text>
       </svg>
       <svg v-else viewBox="0 0 360 80" class="promo__date">
-        <text x="38" y="32">{{ promoData.lines[0] }}</text>
-        <text x="38" y="68">{{ promoData.lines[1] }}</text>
+        <text v-if="promoText" x="38" y="32">{{ sameMonth ? promoText[0] + ' - ' + promoText[1].split('\xa0')[0] : 'с ' + promoText[0] }}</text>
+        <text v-if="promoText" x="38" y="68">{{ sameMonth ? promoText[1].split('\xa0')[1] : 'по ' + promoText[1] }}</text>
       </svg>
     </div>
   </div>
@@ -26,8 +26,11 @@ export default {
     scaled: Boolean
   },
   computed: {
-    promoData() {
-      return this.$store.getters.promoData
+    promoText() {
+      return this.$store.getters.promoText
+    },
+    sameMonth() {
+      return this.promoText && this.promoText[0].length === 2
     }
   }
 }

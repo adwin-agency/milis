@@ -44,7 +44,13 @@ $breakpoints: (
 );
 
 @mixin media($breakpoint) {
-  @media (min-width: map-get($breakpoints, $breakpoint)) {
+  $value: #{$breakpoint}px;
+
+  @if map-has-key($breakpoints, $breakpoint) {
+    $value: map-get($breakpoints, $breakpoint);
+  }
+
+  @media (min-width: $value) {
     @content;
   }
 }

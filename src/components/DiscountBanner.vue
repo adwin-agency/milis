@@ -1,22 +1,34 @@
 <template>
   <div class="discount-banner">
-    <div class="discount-banner__circle"></div>
-    <div class="discount-banner__inner">
-      <p class="discount-banner__title">Скидка<br>на кухни</p>
-      <div class="discount-banner__details">
-        <p class="discount-banner__value">
-          -47%
-          <Icon name="leaf" class="discount-banner__icon" />
-        </p>
-        <p v-if="promoData.sameMonth" class="discount-banner__date">{{ promoData.lines.join(' ') }}</p>
-        <p v-else class="discount-banner__date">{{ promoData.lines[0] }}<br>{{ promoData.lines[1] }}</p>
+    <div class="discount-banner__header">
+      <div class="discount-banner__circle">
+        <div class="discount-banner__circle-bg"></div>
+        <p class="discount-banner__title">Скидка<br>на кухни</p>
       </div>
-      <div
-        v-if="$windowWidth >= $breakpoints.md"
-        class="discount-banner__founders"
+      <p class="discount-banner__value">
+        -47%
+        <Icon
+          name="leaf"
+          class="discount-banner__icon"
+        />
+      </p>
+    </div>
+    <p class="discount-banner__date">акция действует {{ promoText }}</p>
+    <div class="discount-banner__founders">
+      <p class="discount-banner__note">Основатели <br>компании Милис<br>Артем и Мила</p>
+      <img
+        src="@/assets/img/founders3.png"
+        alt
+        class="discount-banner__img"
       >
-        <p class="discount-banner__note">Основатели компании Милис<br>Артем и Мила</p>
-        <img src="@/assets/img/founders3.png" alt class="discount-banner__img">
+    </div>
+    <div class="discount-banner__counter">
+      <p class="discount-banner__counter-title">До конца <br>акции осталось</p>
+      <div class="discount-banner__counter-items">
+        <span class="discount-banner__counter-item">{{ days }}</span>
+        <span class="discount-banner__counter-item">{{ hours }}</span>
+        <span class="discount-banner__counter-item">{{ minutes }}</span>
+        <span class="discount-banner__counter-item">{{ seconds }}</span>
       </div>
     </div>
   </div>
@@ -30,9 +42,66 @@ export default {
   components: {
     Icon
   },
+  data() {
+    return {
+      interval: null,
+      days: '',
+      hours: '',
+      minutes: '',
+      seconds: ''
+    }
+  },
   computed: {
-    promoData() {
-      return this.$store.getters.promoData 
+    promoText() {
+      const text = this.$store.getters.promoText
+      return text ? 'c\xa0' + text[0] + '\xa0по\xa0' + text[1] : null
+    },
+    promoEnd() {
+      return this.$store.state.promoDate?.[1]
+    }
+  },
+  watch: {
+    promoEnd() {
+      if (this.interval) {
+        clearInterval(this.interval)
+      }
+      this.startCounter()
+    }
+  },
+  methods: {
+    startCounter() {
+      const dateArr = this.promoEnd.split('.')
+      const end = new Date(
+        +dateArr[2],
+        +dateArr[1] - 1,
+        +dateArr[0] + 1
+      ).getTime()
+
+      this.interval = setInterval(() => {
+        const now = new Date().getTime()
+        const diff = end > now ? end - now : 0
+
+        this.seconds = Math.floor((diff % (1000 * 60)) / 1000)
+        this.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+        this.hours = Math.floor(
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        )
+        this.days = Math.floor(diff / (1000 * 60 * 60 * 24))
+
+        if (diff <= 0) {
+          clearInterval(this.interval)
+        }
+      }, 1000)
+    }
+  },
+  created() {
+    if (this.promoEnd) {
+      this.startCounter()
+    }
+  },
+  destroyed() {
+    if (this.interval) {
+      clearInterval(this.interval)
     }
   }
 }
@@ -40,62 +109,61 @@ export default {
 
 <style lang="scss">
 .discount-banner {
-  position: relative;  
+  position: relative;
   background-color: $color-blue;
   color: #fff;
   overflow: hidden;
 
-  &__circle {
-    position: absolute;
-    left: -75px;
-    top: -65px;
-    width: 226px;
-    height: 226px;
-    border-radius: 50%;
-    background-color: rgba($color-green, 0.5);
-
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      border-radius: 50%;      
-      transform: translate(-50%, -50%);
-    }
-
-    &::before {
-      width: 474px;
-      height: 474px;
-      background-color: rgba(120, 144, 207, 0.4);
-      transform: translate(-44%, -55%);
-    }
-
-    &::after {
-      width: 143px;
-      height: 143px;
-      background-color: $color-green;
-    }
+  &__header {
+    display: flex;
   }
 
-  &__inner {
-    display: flex;
+  &__circle {
     position: relative;
-    padding: 22px 20px 52px;
+    padding: 20px 25px;
+
+    &-bg {
+      position: absolute;
+      left: 45%;
+      top: 20%;
+      width: 766px;
+      height: 766px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &::before {
+        width: 315px;
+        height: 315px;
+        background-color: rgba(12, 215, 37, 0.2);
+      }
+
+      &::after {
+        width: 184px;
+        height: 184px;
+        background-color: $color-green;
+      }
+    }
   }
 
   &__title {
-    flex-shrink: 0;
-    margin-right: 5px;
-    text-transform: uppercase;
-    font-weight: bold;
+    position: relative;
+    font-family: $font-secondary;
+    font-weight: 700;
     font-size: 24px;
-    line-height: (29/24);
-  }
-
-  &__details {
-    flex-shrink: 0;
-    margin: 0 auto;
+    line-height: 100%;
+    color: #ffffff;
   }
 
   &__value {
@@ -119,97 +187,199 @@ export default {
   }
 
   &__date {
-    margin-top: -10px;
-    margin-left: -20px;
+    display: inline-flex;
+    flex-wrap: wrap;
+    position: relative;
+    margin-top: 32px;
+    margin-left: 10px;
+    border-radius: 100px;
+    width: 230px;
+    padding: 8px 30px;
+    font-family: $font-secondary;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 100%;
+    color: #ffffff;
+    background-color: $color-blue;
+  }
+
+  &__founders {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    position: relative;
+    margin-top: -20px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      right: -50px;
+      bottom: -80px;
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      background-color: #e4e4e4;
+    }
+  }
+
+  &__note {
+    margin-right: -70px;
+    flex-shrink: 0;
+    padding: 16px 30px 16px 30px;
+    font-family: $font-secondary;
     font-weight: 500;
-    font-size: 24px;
+    font-size: 14px;
+    line-height: 100%;
+    text-align: right;
+    color: #ffffff;
+    background-image: linear-gradient(135deg, transparent 20px, #b9bbc6 20px);
+  }
+
+  &__img {
+    position: relative;
+    margin-right: -60px;
+    margin-bottom: -20px;
+    width: 276px;
+  }
+
+  &__counter {
+    display: none;
   }
 
   @include media(xs) {
+    &__value {
+      margin: 20px auto 0;
+    }
+
     &__date {
-      font-size: 30px;
+      margin-top: 20px;
+    }
+
+    &__founders {
+      margin-top: -15%;
+    }
+  }
+
+  @include media(600) {
+    &__value {
+      margin: 0;
+    }
+
+    &__date {
+      margin-top: 32px;
+    }
+
+    &__founders {
+      margin-top: -120px;
     }
   }
 
   @include media(md) {
-    &__circle {
-      left: -62px;
-    }
-
-    &__inner {
-      padding: 18px 20px 52px;
-    }
-
-    &__title {
-      margin-right: 12px;
-    }
-
-    &__details {
-      margin-left: 0;
+    &__value {
+      margin-left: 50px;
     }
 
     &__date {
-      margin-left: 45px;
-      border-bottom: 2px solid #fff;
+      margin-left: 80px;
     }
 
     &__founders {
-      display: flex;
-      position: relative;
-      margin-top: 15px;
-      margin-right: -20px;
-      margin-bottom: -52px;
-      width: 390px;
+      margin-top: -170px;
 
       &::before {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 285px;
-        height: 285px;
-        border-radius: 50%;
-        background-color: #E4E4E4;
-        transform: translate(-37%, -25%);        
+        right: -30px;
+        width: 280px;
+        height: 280px;
       }
     }
 
     &__note {
-      position: absolute;
-      bottom: 34px;
-      right: 65%;
-      padding: 10px 68px 10px 22px;
-      font-style: italic;
-      font-weight: 300;
-      font-size: 14px;
-      line-height: (15/14);
-      text-align: right;
-      white-space: nowrap;
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 16px 100%, 0 calc(100% - 16px));
-      background-color: rgba(196, 196, 196, 0.4);
-      backdrop-filter: blur(68px);
+      margin-right: -100px;
     }
 
     &__img {
-      position: relative;
-      margin-top: auto;
+      width: 396px;
     }
   }
 
   @include media(lg) {
-    &__inner {
-      min-height: 230px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    padding-bottom: 24px;
+
+    &__value {
+      margin-left: 0;
+      margin-top: 10px;
     }
 
     &__date {
-      margin-left: -15px;
-      margin-bottom: 40px;
+      justify-self: start;
+      margin-left: 15px;
+      margin-top: 5px;
+      width: auto;
+      padding: 8px 18px;
+      font-size: 14px;
+    }
+
+    &__founders {
+      display: none;
+    }
+
+    &__counter {
+      display: block;
+      position: relative;
+      grid-column: 2/3;
+      grid-row: 1/3;
+      margin-left: 10px;
+      margin-top: 32px;
+      margin-right: 24px;
+
+      &-title {
+        font-family: $font-secondary;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 100%;
+        text-align: right;
+      }
+
+      &-items {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 16px;
+      }
+
+      &-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+        width: 40px;
+        height: 50px;
+        border-radius: 4px;
+        font-family: $font-secondary;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 100%;
+        background-color: #b9bbc6;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
     }
   }
 
   @include media(xl) {
     &__date {
-      margin-left: 45px;
+      margin-left: 35px;
+      margin-top: 0;
+    }
+
+    &__counter-item {
+      width: 60px;
+      height: 70px;
+      font-size: 25px;
     }
   }
 }
