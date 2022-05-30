@@ -1,17 +1,44 @@
 <template>
-  <div class="modal-calc" :class="{'is-success': sendSuccess}">
+  <div
+    class="modal-calc"
+    :class="{'is-success': sendSuccess}"
+  >
     <div class="modal-calc__content">
       <form
         class="modal-calc__form"
         ref="calcform"
         @submit.prevent="onSubmit"
       >
-        <input type="hidden" name="type" value="size">
-        <input type="hidden" name="page" :value="inputPage">
-        <input type="hidden" name="item" :value="inputItem">
-        <input type="hidden" name="item_id" :value="inputItemId">
-        <input type="hidden" name="product_type" :value="inputProductType">
-        <input type="hidden" name="price" :value="inputPrice">
+        <input
+          type="hidden"
+          name="type"
+          value="size"
+        >
+        <input
+          type="hidden"
+          name="page"
+          :value="inputPage"
+        >
+        <input
+          type="hidden"
+          name="item"
+          :value="inputItem"
+        >
+        <input
+          type="hidden"
+          name="item_id"
+          :value="inputItemId"
+        >
+        <input
+          type="hidden"
+          name="product_type"
+          :value="inputProductType"
+        >
+        <input
+          type="hidden"
+          name="price"
+          :value="inputPrice"
+        >
         <p class="modal-calc__title">Рассчитать стоимость</p>
         <p class="modal-calc__desc">Вы можете оставить номер, размеры и пожелания и мы перезвоним Вам с расчетом</p>
 
@@ -39,13 +66,16 @@
             label="Размер и пожелания"
             name="comment"
           />
-          <div class="modal-calc__file" :class="{'is-active': inputFileName}">
+          <div
+            class="modal-calc__file"
+            :class="{'is-active': inputFileName}"
+          >
             <label class="modal-calc__file-label">
               <input
                 class="modal-calc__file-input"
                 type="file"
                 name="file"
-                accept="image/*"                
+                accept="image/*"
                 ref="fileInput"
                 @change="onFileChange"
               >
@@ -106,11 +136,28 @@
           Каменная мойка в подарок при покупке кухонного гарнитура
         </p>
       </div>
-      <p class="modal-calc__date">Срок действия предложения ограничен. <br><strong>Акция продлится до конца месяца</strong></p>
-      <img src="@/assets/img/modal-calc-wash.png" alt="" class="modal-calc__image">
-      <span class="modal-calc__like">
+      <p
+        v-if="$mobile"
+        class="modal-calc__date"
+      >Акция действует <strong> до {{ promoText }}</strong></p>
+      <div
+        v-else
+        class="modal-calc__counter"
+      >
+        <p class="modal-calc__counter-title">До конца акции осталось</p>
+        <Counter
+          :date="promoEnd"
+          inverse
+        />
+      </div>
+      <img
+        src="@/assets/img/modal-calc-wash.png"
+        alt=""
+        class="modal-calc__image"
+      >
+      <!-- <span class="modal-calc__like">
         <Icon name="hand-like" />
-      </span>
+      </span> -->
       <div class="modal-calc__promo">
         <span>АКЦИЯ МЕСЯЦА</span>
       </div>
@@ -122,7 +169,10 @@
         value="47"
       />
     </div>
-    <div class="modal-calc__close" @click="$emit('close')">
+    <div
+      class="modal-calc__close"
+      @click="$emit('close')"
+    >
       <Icon name="close" />
     </div>
   </div>
@@ -135,6 +185,7 @@ import Icon from './base/Icon'
 import Discount from './base/Discount'
 import FormSuccess from '@/components/FormSuccess'
 import api from '@/api'
+import Counter from './Counter.vue'
 
 export default {
   name: 'ModalCalc',
@@ -143,7 +194,8 @@ export default {
     Button,
     Icon,
     Discount,
-    FormSuccess
+    FormSuccess,
+    Counter
   },
   data() {
     return {
@@ -179,6 +231,12 @@ export default {
     },
     inputPrice() {
       return this.modalData && this.modalData.price
+    },
+    promoText() {
+      return this.$store.getters.promoText?.[1]
+    },
+    promoEnd() {
+      return this.$store.state.promoDate?.[1]
     }
   },
   methods: {
@@ -207,7 +265,7 @@ export default {
       for (let input in this.inputs) {
         const value = this.inputs[input]
 
-        if (value.trim() === '' || input === 'phone' && value.length < 16) {
+        if (value.trim() === '' || (input === 'phone' && value.length < 16)) {
           this.errors[input] = true
         }
       }
@@ -222,7 +280,8 @@ export default {
       this.sendError = false
       const data = new FormData(this.$refs.calcform)
 
-      api.sendForm(data, 'size')
+      api
+        .sendForm(data, 'size')
         .then(() => {
           this.sending = false
           this.sendSuccess = true
@@ -325,7 +384,7 @@ export default {
     height: 22px;
     margin-right: 11px;
     fill: $color-blue;
-    transition: fill .3s ease;
+    transition: fill 0.3s ease;
   }
 
   &__file-remove {
@@ -363,14 +422,14 @@ export default {
     background-color: #fff;
     opacity: 0;
     pointer-events: none;
-    transition: opacity .5s ease;
+    transition: opacity 0.5s ease;
     z-index: -1;
   }
 
   &__side {
     position: relative;
     padding: 40px 20px 250px;
-    background-color: #EEEEEE;
+    background-color: $color-blue;
   }
 
   &__feature {
@@ -379,7 +438,7 @@ export default {
     font-weight: bold;
     font-size: 20px;
     line-height: (27/20);
-    color: $color-blue;
+    color: #fff;
 
     &:last-child {
       margin-bottom: 0;
@@ -397,7 +456,19 @@ export default {
     margin-top: 35px;
     font-size: 16px;
     line-height: (27/20);
-    color: $color-blue;
+    color: #fff;
+  }
+
+  &__counter {
+    margin-top: 40px;
+
+    &-title {
+      font-family: $font-secondary;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 100%;
+      color: $color-green;
+    }
   }
 
   &__image {
@@ -429,7 +500,7 @@ export default {
     font-size: 26px;
     line-height: (33/26);
     color: $color-white;
-    background-color: #E8505B;
+    background-color: #e8505b;
   }
 
   &__smile {
@@ -541,7 +612,7 @@ export default {
     &__discount {
       right: 134px;
     }
-    
+
     &__like {
       right: 200px;
       bottom: 140px;

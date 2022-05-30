@@ -22,34 +22,22 @@
         class="discount-banner__img"
       >
     </div>
-    <div class="discount-banner__counter">
+    <div v-if="!$mobile" class="discount-banner__counter">
       <p class="discount-banner__counter-title">До конца <br>акции осталось</p>
-      <div class="discount-banner__counter-items">
-        <span class="discount-banner__counter-item">{{ days }}</span>
-        <span class="discount-banner__counter-item">{{ hours }}</span>
-        <span class="discount-banner__counter-item">{{ minutes }}</span>
-        <span class="discount-banner__counter-item">{{ seconds }}</span>
-      </div>
+      <Counter :date="promoEnd" />
     </div>
   </div>
 </template>
 
 <script>
 import Icon from '@/components/base/Icon'
+import Counter from './Counter.vue'
 
 export default {
   name: 'DiscountBanner',
   components: {
-    Icon
-  },
-  data() {
-    return {
-      interval: null,
-      days: '',
-      hours: '',
-      minutes: '',
-      seconds: ''
-    }
+    Icon,
+    Counter
   },
   computed: {
     promoText() {
@@ -58,50 +46,6 @@ export default {
     },
     promoEnd() {
       return this.$store.state.promoDate?.[1]
-    }
-  },
-  watch: {
-    promoEnd() {
-      if (this.interval) {
-        clearInterval(this.interval)
-      }
-      this.startCounter()
-    }
-  },
-  methods: {
-    startCounter() {
-      const dateArr = this.promoEnd.split('.')
-      const end = new Date(
-        +dateArr[2],
-        +dateArr[1] - 1,
-        +dateArr[0] + 1
-      ).getTime()
-
-      this.interval = setInterval(() => {
-        const now = new Date().getTime()
-        const diff = end > now ? end - now : 0
-
-        this.seconds = Math.floor((diff % (1000 * 60)) / 1000)
-        this.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-        this.hours = Math.floor(
-          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        )
-        this.days = Math.floor(diff / (1000 * 60 * 60 * 24))
-
-        if (diff <= 0) {
-          clearInterval(this.interval)
-        }
-      }, 1000)
-    }
-  },
-  created() {
-    if (this.promoEnd) {
-      this.startCounter()
-    }
-  },
-  destroyed() {
-    if (this.interval) {
-      clearInterval(this.interval)
     }
   }
 }
@@ -240,10 +184,6 @@ export default {
     margin-right: -60px;
     margin-bottom: -20px;
     width: 276px;
-  }
-
-  &__counter {
-    display: none;
   }
 
   @include media(xs) {
