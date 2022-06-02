@@ -40,7 +40,7 @@
           :value="inputPrice"
         >
         <p class="modal-calc__title">Рассчитать стоимость</p>
-        <p class="modal-calc__desc">Вы можете оставить номер, размеры и пожелания и мы перезвоним Вам с расчетом</p>
+        <p class="modal-calc__desc">Наш специалист позвонит вам и назовет стоимость кухни по самым выгодным условиям.</p>
 
         <div class="modal-calc__fields">
           <TextInput
