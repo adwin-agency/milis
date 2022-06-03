@@ -140,7 +140,7 @@
         <p class="modal-calc__counter-title">До конца акции осталось</p>
         <Counter
           :date="promoEnd"
-          inverse
+          alternative
         />
       </div>
       <img
@@ -456,6 +456,7 @@ export default {
     margin-top: 40px;
 
     &-title {
+      margin-bottom: 16px;
       font-family: $font-secondary;
       font-weight: 700;
       font-size: 18px;

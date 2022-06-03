@@ -1,7 +1,7 @@
 <template>
   <div
     class="counter"
-    :class="{'counter_inv': inverse}"
+    :class="{'counter_alt': alternative}"
   >
     <div class="counter__items">
       <div class="counter__item">
@@ -28,7 +28,7 @@
 export default {
   name: 'Counter',
   props: {
-    inverse: Boolean,
+    alternative: Boolean,
     date: String
   },
   data() {
@@ -115,19 +115,31 @@ export default {
 .counter {
   $b: &;
 
-  &_inv {
+  &_alt {
     #{$b} {
       &__text {
         order: -1;
         margin-top: 0;
         margin-bottom: 6px;
+        font-weight: 500;
+        font-size: 10px;
+        color: #fff;
+      }
+
+      &__num {
+        width: 50px;
+        height: 60px;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 20px;
+        color: #fff;
+        background-color: #b9bbc6;
       }
     }
   }
 
   &__items {
     display: flex;
-    margin-top: 16px;
   }
 
   &__item {
@@ -137,7 +149,6 @@ export default {
     text-align: center;
     font-family: $font-secondary;
     line-height: 100%;
-    color: #fff;
 
     &:last-child {
       margin-right: 0;
@@ -145,32 +156,66 @@ export default {
   }
 
   &__text {
-    margin-top: 10px;
-    font-weight: 500;
-    font-size: 10px;
+    margin-top: 6px;
+    font-weight: 600;
+    font-size: 12px;
   }
 
   &__num {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 60px;
+    width: 60px;
+    height: 62px;
+    border: 1px solid #fff;
     border-radius: 4px;
     font-weight: 700;
-    font-size: 20px;
-    background-color: #b9bbc6;
+    font-size: 30px;
+    color: $color-blue;
+    background-color: #bbe1c0;
   }
 
-  @include media(xl) {
+  @include media(lg) {
+    &__item {
+      margin-right: 8px;
+    }
+
     &__num {
-      width: 60px;
-      height: 70px;
-      font-size: 25px;
+      width: 52px;
     }
 
     &__text {
-      font-size: 12px;
+      font-size: 10px;
+    }
+  }
+
+  @include media(xl) {
+    &_alt {
+      #{$b} {
+        &__num {
+          width: 60px;
+          height: 70px;
+          font-size: 25px;
+        }
+
+        &__text {
+          font-size: 12px;
+        }
+      }
+    }
+
+    &__item {
+      margin-right: 10px;
+    }
+
+    &__num {
+      width: 80px;
+      height: 82px;
+      font-size: 44px;
+    }
+
+    &__text {
+      font-size: 14px;
     }
   }
 }

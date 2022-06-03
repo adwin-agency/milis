@@ -24,7 +24,9 @@
     </div> -->
     <div class="discount-banner__counter">
       <p class="discount-banner__counter-title">До конца <br>акции осталось</p>
-      <Counter :date="promoEnd" />
+      <div class="discount-banner__counter-box">
+        <Counter :date="promoEnd" />
+      </div>
     </div>
   </div>
 </template>
@@ -74,7 +76,7 @@ export default {
       width: 766px;
       height: 766px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.1);
       transform: translate(-50%, -50%);
       pointer-events: none;
 
@@ -91,13 +93,13 @@ export default {
       &::before {
         width: 315px;
         height: 315px;
-        background-color: rgba(12, 215, 37, 0.2);
+        background: rgba(255, 255, 255, 0.2);
       }
 
       &::after {
         width: 184px;
         height: 184px;
-        background-color: $color-green;
+        background: rgba(255, 255, 255, 0.8);
       }
     }
   }
@@ -108,7 +110,7 @@ export default {
     font-weight: 700;
     font-size: 24px;
     line-height: 100%;
-    color: #ffffff;
+    color: $color-blue;
   }
 
   &__value {
@@ -132,8 +134,6 @@ export default {
   }
 
   &__date {
-    display: inline-flex;
-    flex-wrap: wrap;
     position: relative;
     margin-top: 32px;
     margin-left: 10px;
@@ -169,16 +169,18 @@ export default {
 
   &__counter {
     position: relative;
-    grid-column: 2/3;
-    grid-row: 1/3;
-    margin: 32px auto 20px;
-    max-width: 280px;
+    margin-top: 36px;
+    border-radius: 30px 30px 0px 0px;
+    padding: 20px;
+    background-color: $color-green;
 
     &-title {
+      margin-bottom: 16px;
       font-family: $font-secondary;
       font-weight: 700;
       font-size: 18px;
       line-height: 100%;
+      color: $color-blue;
     }
   }
 
@@ -201,88 +203,75 @@ export default {
     margin-bottom: -20px;
     width: 276px;
   }
-
-  @include media(xs) {
-    &__value {
-      margin: 20px auto 0;
-    }
-
+  
+  @include media(400) {
     &__date {
-      margin-top: 20px;
-    }
-
-    &__founders {
-      margin-top: -15%;
-    }
-  }
-
-  @include media(600) {
-    &__value {
-      margin: 0;
-    }
-
-    &__date {
-      margin-top: 32px;
-    }
-
-    &__founders {
-      margin-top: -120px;
+      margin-left: auto;
+      margin-top: 10px;
+      margin-right: auto;
     }
 
     &__counter {
-      margin-top: -120px;
-      margin-right: 20px;
-      max-width: 230px;
+      display: flex;
+      align-items: center;
 
       &-title {
-        text-align: right;
+        flex: 1;
+        margin-top: 4px;
+        margin-right: 10px;
       }
+    }
+  }
+
+  @include media(550) {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+
+    &__date {
+      display: flex;
+      align-items: center;
+      margin-top: 0;
+      margin-left: 30px;
+      border-radius: 0 0 0 30px;
+    }
+
+    &__counter {
+      grid-column: 1/3;
+      width: 500px;
+      margin: 50px auto 0;
     }
   }
 
   @include media(md) {
+    grid-template-columns: 50% 1fr;
+
     &__value {
       margin-left: 50px;
     }
 
-    &__date {
-      margin-left: 80px;
-    }
-
-    &__founders {
-      margin-top: -170px;
-
-      &::before {
-        right: -30px;
-        width: 280px;
-        height: 280px;
-      }
-    }
-
-    &__note {
-      margin-right: -100px;
-    }
-
-    &__img {
-      width: 396px;
+    &__counter {
+      margin-top: 20px;
     }
   }
 
   @include media(lg) {
-    display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr;
     align-items: start;
-    padding-bottom: 24px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+    &__circle-bg::after {
+      background: #fff;
+    }
 
     &__value {
-      margin-left: 0;
-      margin-top: 10px;
+      margin-left: 10px;
     }
 
     &__date {
-      justify-self: start;
-      margin-left: 15px;
-      margin-top: 5px;
+      grid-row: 2/3;
+      border-radius: 100px;
+      margin-left: 6px;
+      margin-bottom: 16px;
       width: auto;
       padding: 8px 18px;
       font-size: 14px;
@@ -293,23 +282,58 @@ export default {
     }
 
     &__counter {
-      margin-top: 32px;
-      margin-left: 20px;
-      margin-bottom: 0;
-      max-width: none;
+      flex-direction: column;
+      align-items: flex-end;
+      grid-column: 2/3;
+      grid-row: 1/3;
+      margin-right: 0;
+      width: auto;
+      padding: 0;
+      background-color: transparent;
+
+      &-title {
+        text-align: right;
+        color: #fff;
+      }
+
+      &-box {
+        border-radius: 30px 0 0 0;
+        padding: 20px 14px 14px;
+        background-color: $color-green;
+      }
     }
   }
 
   @include media(xl) {
-    &__date {
-      margin-left: 35px;
-      margin-top: 0;
+    &__circle-bg::after {
+      width: 200px;
+      height: 200px;
+    }
+    
+    &__title {
+      font-size: 26px;
     }
 
-    &__counter-item {
-      width: 60px;
-      height: 70px;
-      font-size: 25px;
+    &__value {
+      margin-top: 5px;
+      margin-left: 30px;
+      margin-right: -30px;
+      font-size: 58px;
+    }
+
+    &__date {
+      margin-left: 20px;
+      margin-right: 50px;
+      font-size: 16px;
+    }
+
+    &__counter {
+      margin-left: -30px;
+
+      &-title {
+        margin-right: 14px;
+        font-size: 20px;
+      }
     }
   }
 }
