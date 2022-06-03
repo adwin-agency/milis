@@ -42,7 +42,8 @@ export default {
   computed: {
     promoText() {
       const text = this.$store.getters.promoText
-      return text ? 'c\xa0' + text[0] + '\xa0по\xa0' + text[1] : null
+      // return text ? 'c\xa0' + text[0] + '\xa0по\xa0' + text[1] : null
+      return text ? 'до\xa0' + text[1] : null
     },
     promoEnd() {
       return this.$store.state.promoDate?.[1]

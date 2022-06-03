@@ -50,7 +50,7 @@
                 class="our-products__discount-img"
               >
               <div class="our-products__discount-content">
-                <p class="our-products__discount-title">Каменная мойка в подарок при покупке кухонного гарнитура</p>
+                <p class="our-products__discount-title">Каменная мойка в подарок при покупке кухни</p>
                 <p class="our-products__discount-desc">Срок действия предложения ограничен. Акция продлится до конца месяца.</p>
               </div>
             </div>
@@ -458,7 +458,7 @@ export default {
 
       &-content {
         margin-left: auto;
-        max-width: 310px;
+        max-width: 300px;
       }
     }
   }
