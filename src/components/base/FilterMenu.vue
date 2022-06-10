@@ -158,6 +158,7 @@ export default {
     &__item {
       margin-right: 18px;
       margin-bottom: 18px;
+      padding: 12px 30px;
 
       &_main {
         color: $color-blue;

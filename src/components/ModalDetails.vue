@@ -16,7 +16,7 @@
         <Discount
           v-if="details.discount"
           :value="details.discount"
-          small
+          size="sm"
           class="modal-details__discount"
         />
       </div>

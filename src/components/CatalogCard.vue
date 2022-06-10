@@ -4,18 +4,24 @@
     :class="[{'catalog-card_high': high}, {'catalog-card_alt': alt}, {'catalog-card_top': top}, {'catalog-card_in': similar}]"
   >
     <RouterLink
-      v-if="$mobile || (!alt && !top)"
+      v-if="$windowWidth < $breakpoints.lg"
       class="catalog-card__category"
       :to="{name: 'category', params: {category: kitchen.category}}"
     >
       {{kitchen.category_rus}} / {{kitchen.style}}
     </RouterLink>
-    <RouterLink :to="{name: 'product', params: {category: kitchen.category, kitchen: kitchen.url}}" class="catalog-card__images">
+    <RouterLink
+      :to="{name: 'product', params: {category: kitchen.category, kitchen: kitchen.url}}"
+      class="catalog-card__images"
+    >
       <div
         v-if="test"
         class="catalog-card__image anim-img js-anim"
       >
-        <img :src="$basepath + ($mobile ? kitchen.pictures[0].tablet.path : high ? kitchen.pictures[0].square.path : kitchen.pictures[0].desktop.path)" alt="">
+        <img
+          :src="$basepath + ($mobile ? kitchen.pictures[0].tablet.path : high ? kitchen.pictures[0].square.path : kitchen.pictures[0].desktop.path)"
+          alt=""
+        >
       </div>
       <Swiper
         v-else
@@ -32,35 +38,40 @@
             v-if="index === 0"
             class="catalog-card__image anim-img js-anim"
           >
-            <img :src="$basepath + ($mobile ? picture.tablet.path : high ? picture.square.path : picture.desktop.path)" alt="">
+            <img
+              :src="$basepath + ($mobile ? picture.tablet.path : high ? picture.square.path : picture.desktop.path)"
+              alt=""
+            >
           </div>
           <div
             v-else
             class="catalog-card__image"
           >
-            <img class="swiper-lazy" :data-src="$basepath + ($mobile ? picture.tablet.path : high ? picture.square.path : picture.desktop.path)" alt="">
+            <img
+              class="swiper-lazy"
+              :data-src="$basepath + ($mobile ? picture.tablet.path : high ? picture.square.path : picture.desktop.path)"
+              alt=""
+            >
           </div>
         </SwiperSlide>
         <ButtonNav
           prev
-          :sm="alt"
-          :xs="!alt"
+          sm
           class="catalog-card__prev"
-          slot="button-prev"  
+          slot="button-prev"
         />
         <ButtonNav
-          :sm="alt"
-          :xs="!alt"
+          sm
           class="catalog-card__next"
-          slot="button-next"  
+          slot="button-next"
         />
       </Swiper>
-      <p v-if="kitchen.discount" class="catalog-card__label">Скидка на материалы</p>
-      <Discount
-        v-if="$windowWidth < $breakpoints.xs && kitchen.discount"
-        class="catalog-card__discount"
-        :value="kitchen.discount"
-      />
+      <p
+        v-if="kitchen.discount"
+        class="catalog-card__label"
+      >
+        Скидка на материалы
+      </p>
       <button
         v-if="test"
         type="button"
@@ -68,24 +79,34 @@
       >
         Подробнее
       </button>
-      <button type="button" class="catalog-card__btn" @click.prevent="showModal">
+      <button
+        type="button"
+        class="catalog-card__btn"
+        @click.prevent="showModal"
+      >
         Рассчитать
-        <span class="catalog-card__btn-icon">
-          <img src="../assets/img/arrow-right-gradient.svg" alt="">
-        </span>
+        <Icon
+          class="catalog-card__btn-icon"
+          name="arrow-right"
+        />
       </button>
     </RouterLink>
     <div class="catalog-card__content">
       <div class="catalog-card__info">
         <RouterLink
-          v-if="!$mobile && (alt || top)"
+          v-if="$windowWidth >= $breakpoints.lg"
           class="catalog-card__category"
           :to="{name: 'category', params: {category: kitchen.category}}"
         >
           {{kitchen.category_rus}} / {{kitchen.style}}
         </RouterLink>
         <p class="catalog-card__title">
-          <RouterLink :to="{name: 'product', params: {category: kitchen.category, kitchen: kitchen.url}}">{{kitchen.name}}</RouterLink>
+          <RouterLink
+            class="catalog-card__link"
+            :to="{name: 'product', params: {category: kitchen.category, kitchen: kitchen.url}}"
+          >
+            Кухня <span>«{{kitchenName}}»</span>
+          </RouterLink>
           <button
             type="button"
             class="catalog-card__stat"
@@ -93,23 +114,26 @@
             @click="toggleLike"
           >
             <span class="catalog-card__stat-icon">
-              <Icon name="likes"/>
+              <Icon name="likes" />
             </span>
             {{newLikesCount || kitchen.likes}}
           </button>
         </p>
       </div>
       <div class="catalog-card__prices">
-        <p v-if="kitchen.old_price" class="catalog-card__oldprice">{{kitchen.old_price}} ₽</p> 
+        <p
+          v-if="kitchen.old_price"
+          class="catalog-card__oldprice"
+        >{{kitchen.old_price}} ₽</p>
         <p class="catalog-card__price">
           <span class="catalog-card__price-num">{{kitchen.price}} ₽<span>*</span></span>
         </p>
         <p class="catalog-card__price-note"><span>*</span>за весь гарнитур</p>
       </div>
       <Discount
-        v-if="$windowWidth >= $breakpoints.xs && kitchen.discount"
+        v-if="kitchen.discount"
         :value="kitchen.discount"
-        small
+        :size="$windowWidth < $breakpoints.lg ? 'xs' : 'sm'"
         class="catalog-card__discount"
       />
     </div>
@@ -120,7 +144,10 @@
 import Discount from './base/Discount'
 import Icon from './base/Icon'
 import ButtonNav from './base/ButtonNav'
-import { swiper as Swiper, swiperSlide as SwiperSlide } from 'vue-awesome-swiper'
+import {
+  swiper as Swiper,
+  swiperSlide as SwiperSlide
+} from 'vue-awesome-swiper'
 import api from '@/api'
 
 export default {
@@ -162,6 +189,9 @@ export default {
     }
   },
   computed: {
+    kitchenName() {
+      return this.kitchen.name.split(' ').slice(1).join(' ')
+    },
     modalData() {
       return {
         item: this.kitchen.name,
@@ -186,12 +216,11 @@ export default {
 
       data = JSON.stringify(data)
 
-      api.sendLike(data)
-        .then(response => {
-          this.activeLike = !this.activeLike
-          this.sendingLike = false
-          this.newLikesCount = response
-        })
+      api.sendLike(data).then(response => {
+        this.activeLike = !this.activeLike
+        this.sendingLike = false
+        this.newLikesCount = response
+      })
     },
 
     showModal() {
@@ -206,25 +235,30 @@ export default {
 .catalog-card {
   $b: &;
 
-  border-top: 1px solid #D9D9D9;
-  padding-top: 11px;
+  border-bottom: 1px solid #d9d9d9;
+  padding-bottom: 17px;
 
   &_in {
     #{$b} {
+      &__category {
+        margin: 0;
+      }
+
       &__images {
         margin-left: 0;
         margin-right: 0;
       }
 
-      &__discount {
+      &__content {
+        margin-left: 0;
         margin-right: 0;
-        transform: translateZ(0);
       }
     }
   }
 
   &__category {
-    font-size: 14px;
+    margin: 0 -10px;
+    font-size: 12px;
     line-height: (16/14);
     text-decoration: underline;
     color: $color-gray-middle;
@@ -234,7 +268,7 @@ export default {
     display: block;
     position: relative;
     margin: 0 (-$container-padding);
-    margin-top: 14px;
+    margin-top: 8px;
   }
 
   &__image {
@@ -242,7 +276,8 @@ export default {
     padding-top: 75.3%;
     overflow: hidden;
 
-    picture, img {
+    picture,
+    img {
       position: absolute;
       left: 0;
       top: 0;
@@ -265,16 +300,16 @@ export default {
   }
 
   &__next {
-    left: 37px;
+    left: 42px;
   }
 
   &__label {
     position: absolute;
-    left: 24px;
-    top: 20px;
+    left: 20px;
+    top: 12px;
     border-radius: 15px;
     padding: 5px 10px;
-    font-family: $font-secondary;    
+    font-family: $font-secondary;
     font-size: 12px;
     line-height: (15/12);
     color: $color-white;
@@ -318,35 +353,41 @@ export default {
     width: 14px;
     height: 14px;
     margin-left: 8px;
+    fill: currentColor;
   }
 
   &__discount {
-    position: absolute;
-    top: -18px;
-    right: 4px;
-    z-index: 1;
+    margin-left: 7px;
   }
 
   &__content {
     display: flex;
-    margin-top: 17px;
+    margin: 12px -10px 0;
   }
 
   &__info {
-    margin-right: 20px;
+    margin-right: 16px;
   }
 
   &__title {
     font-family: $font-secondary;
     font-weight: bold;
-    font-size: 18px;
-    line-height: (29/18);
+    font-size: 16px;
+    line-height: 120%;
     color: $color-blue;
+  }
+
+  &__link {
+    display: inline-block;
+    span {
+      display: block;
+    }
   }
 
   &__stat {
     display: flex;
     align-items: center;
+    margin-top: 7px;
     font-weight: bold;
     font-size: 14px;
     line-height: (17/14);
@@ -354,7 +395,7 @@ export default {
     fill: none;
     stroke: $color-red;
     stroke-width: 2px;
-    transition: fill .3s ease;
+    transition: fill 0.3s ease;
 
     &.is-active {
       fill: $color-red;
@@ -375,9 +416,8 @@ export default {
   }
 
   &__oldprice {
-    margin-top: -6px;
-    font-size: 20px;
-    line-height: (24/20);
+    font-size: 14px;
+    line-height: (17/14);
     text-decoration: line-through;
     color: $color-gray-middle;
   }
@@ -390,7 +430,7 @@ export default {
   }
 
   &__price-num {
-    font-size: 30px;
+    font-size: 20px;
 
     span {
       color: $color-red;
@@ -399,42 +439,35 @@ export default {
 
   &__price-note {
     font-size: 12px;
-    color: $color-blue;
+    color: $color-gray-middle;
 
     span {
       color: $color-red;
     }
   }
 
-  @include media(xs) {
-    &__discount {
-      position: relative;
-      top: auto;
-      right: auto;
-      margin-left: 10px;
-      margin-right: -10px;
-    }
-  }
-
   @include media(md) {
+    &__category {
+      margin: 0;
+    }
+
     &__images {
       margin-left: 0;
       margin-right: 0;
     }
 
-    &__discount {
+    &__content {
+      margin-left: 0;
       margin-right: 0;
     }
   }
 
   @include media(lg) {
-    padding-top: 20px;
-
     &_alt {
       border-top: none;
       padding-top: 0;
       padding-bottom: 14px;
-      border-bottom: 1px solid #D9D9D9;
+      border-bottom: 1px solid #d9d9d9;
 
       #{$b} {
         &__images {
@@ -512,6 +545,41 @@ export default {
       }
     }
 
+    &_in {
+      #{$b} {
+        &__label {
+          left: 20px;
+          top: 12px;
+        }
+
+        &__info {
+          margin-top: 0;
+        }
+
+        &__category {
+          font-size: 12px;
+        }
+
+        &__title {
+          font-size: 18px;
+        }
+
+        &__oldprice {
+          font-size: 16px;
+        }
+
+        &__price-num {
+          font-size: 22px;
+        }
+      }
+    }
+
+    &__label {
+      left: 30px;
+      top: 26px;
+      padding: 7px 16px;
+    }
+
     &__images {
       margin-top: 24px;
     }
@@ -521,7 +589,7 @@ export default {
     }
 
     &__next {
-      left: 38px;
+      left: 48px;
     }
 
     &__details-btn {
@@ -529,7 +597,7 @@ export default {
     }
 
     &__btn {
-      padding: 10px 10px 10px 24px;
+      padding: 15px 20px 15px 34px;
     }
 
     &__btn-icon {
@@ -539,22 +607,28 @@ export default {
     }
 
     &__category {
-      font-size: 10px;
+      font-size: 14px;
       line-height: (12/10);
     }
 
     &__content {
-      margin-top: 16px;
+      margin-top: 8px;
+    }
+
+    &__info {
+      margin-top: 6px;
     }
 
     &__title {
-      margin-right: -30px;
-      font-size: 18px;
-      line-height: (29/18);
+      display: flex;
+      align-items: flex-end;
+      margin-top: 4px;
+      font-size: 22px;
     }
 
     &__stat {
-      margin-top: 10px;
+      margin-top: 0;
+      margin-left: 5px;
       margin-bottom: 2px;
     }
 
@@ -562,8 +636,27 @@ export default {
       margin-bottom: -2px;
     }
 
+    &__price-num {
+      font-size: 30px;
+    }
+
     &__oldprice {
-      margin-left: 30px;
+      margin-bottom: -2px;
+      font-size: 20px;
+    }
+
+    &__price-note {
+      margin-top: -2px;
+    }
+  }
+
+  @include media(1280) {
+    &_in #{$b}__title span {
+      display: block;
+    }
+
+    &__title span {
+      display: inline;
     }
   }
 
@@ -584,21 +677,49 @@ export default {
       }
     }
 
+    &_in {
+      #{$b} {
+        &__title {
+          display: block;
+          font-size: 16px;
+        }
+
+        &__stat {
+          margin-top: 5px;
+        }
+      }
+    }
+
     &__image {
       padding-top: 68.3%;
     }
 
     &__next {
-      left: 42px;
+      left: 48px;
     }
 
     &__details-btn {
       padding: 15px 30px;
     }
-    
+
     &__stat {
       margin-top: 0;
       margin-bottom: 0;
+    }
+  }
+
+  @include media(1890) {
+    &_in {
+      #{$b} {
+        &__title {
+          display: flex;
+          font-size: 18px;
+        }
+
+        &__stat {
+          margin-top: 0;
+        }
+      }
     }
   }
 }

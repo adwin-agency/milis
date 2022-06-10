@@ -1,5 +1,5 @@
 <template>
-  <div :class="['discount', {'discount_sm': small}]">
+  <div :class="['discount', {[`discount_${size}`]: size}]">
     <div class="discount__bg">
       <Icon name="double-leaf"/>
     </div>
@@ -17,7 +17,7 @@ export default {
   },
   props: {
     value: String,
-    small: Boolean
+    size: String
   }
 }
 </script>
@@ -38,6 +38,17 @@ export default {
   font-size: 19px;
   line-height: (31/19);
   color: $color-white;
+
+  &_xs {
+    width: 39px;
+    height: 41px;
+    font-size: 11px;
+    line-height: 162%;
+
+    #{$b}__text {
+      padding-top: 0;
+    }
+  }
 
   &_sm {
     width: 54px;

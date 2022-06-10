@@ -131,14 +131,8 @@ export default {
 
   @include media(md) {
     &_products {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin-bottom: -28px;
-
       #{$b} {
         &__item {
-          width: 46%;
           margin-bottom: 28px;
         }
       }
@@ -158,6 +152,26 @@ export default {
   }
 
   @include media(lg) {
+    &_products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      #{$b} {
+        &__item {
+          width: 46%;
+        }
+
+        &__title {
+          font-size: 18px;
+        }
+
+        &__desc {
+          font-size: 14px;
+        }
+      }
+    }
+
     &__title {
       font-size: 14px;
       line-height: (23/14);

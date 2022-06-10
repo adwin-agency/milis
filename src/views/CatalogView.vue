@@ -4,15 +4,15 @@
       <div class="container">
         <OurProducts class="v-catalog__our-products"/>
         <Divider
-          v-if="!$mobile && kitchens.length > 1"
+          v-if="!$mobile"
           class="v-catalog__divider-1 scale-right js-anim"
           v-anim="true"
         />
         <Catalog
           class="v-catalog__catalog"
-          :kitchens="$mobile ? kitchens : kitchens.slice(1)"
+          :kitchens="kitchens"
         />
-        <Divider class="v-catalog__divider-2 scale-right js-anim" v-anim="true" />
+        <Divider v-if="$windowWidth >= $breakpoints.md" class="v-catalog__divider-2 scale-right js-anim" v-anim="true" />
         <NavPanel
           class="v-catalog__nav-panel"
           navType="catalog"
@@ -113,6 +113,10 @@ export default {
         .then(() => this.activePage = num)
     },
     showMore() {
+      if (this.isLoading) {
+        return
+      }
+      
       this.isLoading = true
       store.dispatch('loadMoreKitchens', {page: this.activePage + 1, category: this.kitchenCategory, style: this.kitchenStyle})
         .then(() => {

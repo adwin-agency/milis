@@ -145,7 +145,7 @@ export default {
   &__item {
     display: flex;
     flex-direction: column;
-    margin-right: 10px;
+    margin-right: 14px;
     text-align: center;
     font-family: $font-secondary;
     line-height: 100%;
@@ -156,36 +156,60 @@ export default {
   }
 
   &__text {
-    margin-top: 6px;
+    margin-top: 4px;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 13px;
+    line-height: 100%;
   }
 
   &__num {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 62px;
+    width: 64px;
+    height: 56px;
     border: 1px solid #fff;
     border-radius: 4px;
-    font-weight: 700;
-    font-size: 30px;
+    font-weight: 600;
+    font-size: 34px;
+    letter-spacing: -0.02em;
     color: $color-blue;
     background-color: #bbe1c0;
   }
 
   @include media(lg) {
-    &__item {
-      margin-right: 8px;
-    }
-
     &__num {
-      width: 52px;
+      width: 100px;
+      height: 100px;
+      font-size: 60px;
     }
 
     &__text {
-      font-size: 10px;
+      font-size: 20px;
+    }
+  }
+
+  @include media(1300) {
+    &_alt {
+      #{$b} {
+        &__item {
+          margin-right: 14px;
+        }
+      }
+    }
+
+    &__item {
+      margin-right: 28px;
+    }
+
+    &__num {
+      width: 130px;
+      height: 114px;
+      font-size: 70px;
+    }
+
+    &__text {
+      font-size: 26px;
     }
   }
 
@@ -202,20 +226,6 @@ export default {
           font-size: 12px;
         }
       }
-    }
-
-    &__item {
-      margin-right: 10px;
-    }
-
-    &__num {
-      width: 80px;
-      height: 82px;
-      font-size: 44px;
-    }
-
-    &__text {
-      font-size: 14px;
     }
   }
 }

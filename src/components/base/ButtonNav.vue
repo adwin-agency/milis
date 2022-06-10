@@ -57,8 +57,8 @@ export default {
   }
 
   &_sm {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
 
     #{$b}__icon {
       width: 18px;
@@ -86,8 +86,8 @@ export default {
     height: 52px;
 
     &_sm {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
 
       #{$b}__icon {
         width: 18px;
@@ -116,8 +116,8 @@ export default {
     height: 60px;
 
     &_sm {
-      width: 40px;
-      height: 40px;
+      width: 46px;
+      height: 46px;
 
       #{$b}__icon {
         width: 22px;

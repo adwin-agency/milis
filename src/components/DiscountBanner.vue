@@ -1,32 +1,47 @@
 <template>
   <div class="discount-banner">
-    <div class="discount-banner__header">
-      <div class="discount-banner__circle">
-        <div class="discount-banner__circle-bg"></div>
-        <p class="discount-banner__title">Скидка<br>на кухни</p>
+    <div class="discount-banner__circles-l"></div>
+    <div
+      v-if="$windowWidth >= $breakpoints.md"
+      class="discount-banner__circles-r"
+    ></div>
+    <div class="discount-banner__main">
+      <div class="discount-banner__header">
+        <p class="discount-banner__title">Скидка <br>на кухни</p>
+        <p class="discount-banner__value">
+          -47%
+          <Icon
+            name="leaf"
+            class="discount-banner__icon"
+          />
+        </p>
       </div>
-      <p class="discount-banner__value">
-        -47%
-        <Icon
-          name="leaf"
-          class="discount-banner__icon"
-        />
-      </p>
+      <p class="discount-banner__date">акция действует {{ promoText }}</p>
+      <div class="discount-banner__counter">
+        <div class="discount-banner__counter-box">
+          <p class="discount-banner__counter-title">До конца <br>акции осталось</p>
+          <Counter
+            class="discount-banner__counter-items"
+            :date="promoEnd"
+          />
+        </div>
+      </div>
     </div>
-    <p class="discount-banner__date">акция действует {{ promoText }}</p>
-    <!-- <div class="discount-banner__founders">
-      <p class="discount-banner__note">Основатели <br>компании Милис<br>Артем и Мила</p>
+    <div
+      v-if="$windowWidth >= $breakpoints.md"
+      class="discount-banner__founders"
+    >
       <img
         src="@/assets/img/founders3.png"
         alt
         class="discount-banner__img"
       >
-    </div> -->
-    <div class="discount-banner__counter">
-      <p class="discount-banner__counter-title">До конца <br>акции осталось</p>
-      <div class="discount-banner__counter-box">
-        <Counter :date="promoEnd" />
-      </div>
+      <p class="discount-banner__note">
+        <span>Артём и Мила</span><br>
+        дизайнер и главный конструктор,<br>
+        основатели компании
+      </p>
+      <p class="discount-banner__decor">3 простых шага <br>до вашей кухни <br>мечты!</p>
     </div>
   </div>
 </template>
@@ -57,283 +72,431 @@ export default {
 <style lang="scss">
 .discount-banner {
   position: relative;
+  padding: 20px 10px 0;
   background-color: $color-blue;
   color: #fff;
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+
+  &__circles-l {
+    position: absolute;
+    left: -324px;
+    top: -380px;
+    width: 760px;
+    height: 760px;
+    border-radius: 50%;
+    background-color: rgba(#e4e4e4, 0.03);
+    pointer-events: none;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border-radius: 50%;
+      background-color: rgba(#e4e4e4, 0.06);
+      transform: translate(-50%, -50%);
+    }
+
+    &::before {
+      width: 508px;
+      height: 508px;
+    }
+
+    &::after {
+      width: 284px;
+      height: 284px;
+    }
+  }
+
+  &__main {
+    position: relative;
+  }
 
   &__header {
     display: flex;
-  }
-
-  &__circle {
-    position: relative;
-    padding: 20px 25px;
-
-    &-bg {
-      position: absolute;
-      left: 45%;
-      top: 20%;
-      width: 766px;
-      height: 766px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-
-      &::before,
-      &::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      &::before {
-        width: 315px;
-        height: 315px;
-        background: rgba(255, 255, 255, 0.2);
-      }
-
-      &::after {
-        width: 184px;
-        height: 184px;
-        background: rgba(255, 255, 255, 0.8);
-      }
-    }
+    align-items: center;
   }
 
   &__title {
     position: relative;
     font-family: $font-secondary;
     font-weight: 700;
-    font-size: 24px;
-    line-height: 100%;
-    color: $color-blue;
+    font-size: 29px;
+    line-height: 90%;
   }
 
   &__value {
     display: inline-block;
     position: relative;
+    margin-left: 8px;
     font-family: $font-secondary;
     font-weight: bold;
-    font-size: 50px;
-    line-height: (81/50);
+    font-size: 55px;
+    line-height: 100%;
     z-index: 1;
   }
 
   &__icon {
     position: absolute;
-    top: 5px;
-    right: -12px;
-    width: 37px;
-    height: 39px;
+    top: -12px;
+    right: -7px;
+    width: 28px;
+    height: 30px;
     fill: $color-green;
     z-index: -1;
   }
 
   &__date {
-    position: relative;
-    margin-top: 32px;
-    margin-left: 10px;
+    display: inline-block;
+    margin-top: 20px;
     border-radius: 100px;
-    width: 230px;
-    padding: 8px 30px;
+    padding: 16px 40px;
     font-family: $font-secondary;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 100%;
-    color: #ffffff;
     background-color: $color-blue;
   }
 
-  &__founders {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    position: relative;
-    margin-top: -20px;
-
-    &::before {
-      content: '';
-      position: absolute;
-      right: -50px;
-      bottom: -80px;
-      width: 210px;
-      height: 210px;
-      border-radius: 50%;
-      background-color: #e4e4e4;
-    }
-  }
-
   &__counter {
-    position: relative;
-    margin-top: 36px;
-    border-radius: 30px 30px 0px 0px;
-    padding: 20px;
+    margin: 16px -10px 0;
+    border-radius: 20px 20px 0px 0px;
+    padding: 16px 10px;
     background-color: $color-green;
 
+    &-box {
+      margin: 0 auto;
+      max-width: 300px;
+    }
+
     &-title {
-      margin-bottom: 16px;
+      margin-bottom: 8px;
       font-family: $font-secondary;
       font-weight: 700;
-      font-size: 18px;
+      font-size: 20px;
       line-height: 100%;
-      color: $color-blue;
     }
   }
 
-  &__note {
-    margin-right: -70px;
-    flex-shrink: 0;
-    padding: 16px 30px 16px 30px;
-    font-family: $font-secondary;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 100%;
-    text-align: right;
-    color: #ffffff;
-    background-image: linear-gradient(135deg, transparent 20px, #b9bbc6 20px);
+  &__founders {
+    display: none;
   }
 
-  &__img {
-    position: relative;
-    margin-right: -60px;
-    margin-bottom: -20px;
-    width: 276px;
-  }
-  
-  @include media(400) {
-    &__date {
-      margin-left: auto;
-      margin-top: 10px;
-      margin-right: auto;
+  @include media(sm) {
+    &__value {
+      margin: 0 auto;
     }
 
     &__counter {
-      display: flex;
-      align-items: center;
+      &-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: none;
+      }
 
       &-title {
-        flex: 1;
-        margin-top: 4px;
-        margin-right: 10px;
+        margin-right: 30px;
       }
-    }
-  }
-
-  @include media(550) {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-
-    &__date {
-      display: flex;
-      align-items: center;
-      margin-top: 0;
-      margin-left: 30px;
-      border-radius: 0 0 0 30px;
-    }
-
-    &__counter {
-      grid-column: 1/3;
-      width: 500px;
-      margin: 50px auto 0;
     }
   }
 
   @include media(md) {
-    grid-template-columns: 50% 1fr;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 30px 30px 0;
+
+    &__circles-l {
+      left: -300px;
+    }
+
+    &__circles-r {
+      position: absolute;
+      right: -190px;
+      bottom: -240px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: linear-gradient(
+        323.1deg,
+        rgba(228, 228, 228, 0.5) 14.01%,
+        rgba(228, 228, 228, 0.15) 73.03%
+      );
+      opacity: 0.3;
+      pointer-events: none;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 350px;
+        height: 350px;
+        border-radius: 50%;
+        background: radial-gradient(
+          39.93% 39.93% at 51.93% 51.85%,
+          rgba(228, 228, 228, 0) 63.02%,
+          rgba(228, 228, 228, 0.4) 100%
+        );
+        transform: translate(-50%, -50%);
+      }
+    }
 
     &__value {
-      margin-left: 50px;
+      margin: 0;
+      margin-left: 30px;
     }
 
     &__counter {
-      margin-top: 20px;
+      margin: 0;
+      margin-top: -26px;
+      margin-left: -30px;
+      padding: 48px 30px 20px;
+
+      &-title {
+        max-width: 120px;
+      }
+    }
+
+    &__founders {
+      display: block;
+      position: relative;
+      margin-left: -280px;
+      margin-right: -60px;
+      width: 280px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: -80px;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background-color: #e4e4e4;
+      }
+    }
+
+    &__img {
+      position: relative;
+      width: 360px;
+      margin-left: -70px;
+      margin-bottom: -15px;
+    }
+
+    &__note {
+      position: absolute;
+      left: 5px;
+      bottom: 12px;
+      border-bottom-left-radius: 20px 60px;
+      padding: 12px 18px;
+      font-family: $font-secondary;
+      font-style: italic;
+      font-weight: 600;
+      font-size: 10px;
+      line-height: 100%;
+      color: $color-blue;
+      background: linear-gradient(
+        -45deg,
+        transparent 16px,
+        rgba(#e4e4e4, 0.9) 16px
+      );
+
+      span {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 162.6%;
+        color: #000000;
+      }
+    }
+
+    &__decor {
+      position: absolute;
+      left: 0;
+      bottom: 95%;
+      text-align: center;
+      font-family: $font-decorative;
+      font-weight: 400;
+      font-size: 36px;
+      line-height: 0.5;
+      transform: rotate(-10.32deg);
     }
   }
 
   @include media(lg) {
-    grid-template-columns: auto 1fr;
-    align-items: start;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px 40px 0;
 
-    &__circle-bg::after {
-      background: #fff;
+    &__circles-l {
+      left: -420px;
+      top: -550px;
+      width: 1152px;
+      height: 1152px;
+
+      &::before {
+        width: 772px;
+        height: 772px;
+      }
+
+      &::after {
+        width: 430px;
+        height: 430px;
+      }
+    }
+
+    &__circles-r {
+      right: -320px;
+      bottom: -350px;
+      width: 904px;
+      height: 904px;
+
+      &::before {
+        width: 518px;
+        height: 518px;
+      }
+    }
+
+    &__main {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &__title {
+      font-size: 59px;
     }
 
     &__value {
-      margin-left: 10px;
+      margin-left: 40px;
+      font-size: 105px;
+    }
+
+    &__icon {
+      top: -20px;
+      right: -12px;
+      width: 52px;
+      height: 54px;
     }
 
     &__date {
-      grid-row: 2/3;
-      border-radius: 100px;
-      margin-left: 6px;
-      margin-bottom: 16px;
-      width: auto;
-      padding: 8px 18px;
-      font-size: 14px;
-    }
-
-    &__founders {
-      display: none;
+      position: relative;
+      margin-top: 24px;
+      max-width: 360px;
     }
 
     &__counter {
-      flex-direction: column;
-      align-items: flex-end;
-      grid-column: 2/3;
-      grid-row: 1/3;
-      margin-right: 0;
-      width: auto;
-      padding: 0;
-      background-color: transparent;
-
-      &-title {
-        text-align: right;
-        color: #fff;
-      }
+      margin-top: -32px;
+      margin-left: -40px;
+      border-radius: 0 95px 0 0;
+      padding: 64px 75px 30px 44px;
 
       &-box {
-        border-radius: 30px 0 0 0;
-        padding: 20px 14px 14px;
-        background-color: $color-green;
+        justify-content: flex-start;
+        align-items: flex-start;
       }
+
+      &-title {
+        margin-right: 10px;
+        margin-bottom: 0;
+        max-width: 230px;
+        padding-right: 30px;
+        font-size: 30px;
+      }
+    }
+
+    &__founders {
+      width: 364px;
+      margin-left: -364px;
+      margin-right: -90px;
+
+      &::before {
+        bottom: -96px;
+        width: 364px;
+        height: 364px;
+      }
+    }
+
+    &__note {
+      padding-left: 30px;
+    }
+
+    &__img {
+      width: 550px;
+      margin-left: -120px;
+      margin-bottom: -25px;
+    }
+
+    &__decor {
+      left: -80px;
+      bottom: 92%;
+      font-size: 70px;
     }
   }
 
   @include media(xl) {
-    &__circle-bg::after {
-      width: 200px;
-      height: 200px;
-    }
-    
-    &__title {
-      font-size: 26px;
-    }
+    &__circles-r {
+      right: -390px;
+      bottom: -500px;
+      width: 1276px;
+      height: 1276px;
 
-    &__value {
-      margin-top: 5px;
-      margin-left: 30px;
-      margin-right: -30px;
-      font-size: 58px;
-    }
-
-    &__date {
-      margin-left: 20px;
-      margin-right: 50px;
-      font-size: 16px;
-    }
-
-    &__counter {
-      margin-left: -30px;
-
-      &-title {
-        margin-right: 14px;
-        font-size: 20px;
+      &::before {
+        width: 730px;
+        height: 730px;
       }
+    }
+
+    &__founders {
+      width: 506px;
+      margin-left: -506px;
+      margin-right: -110px;
+
+      &::before {
+        bottom: -134px;
+        width: 506px;
+        height: 506px;
+      }
+    }
+
+    &__img {
+      width: 750px;
+      margin-top: -50px;
+      margin-left: -150px;
+      margin-bottom: -30px;
+    }
+
+    &__note {
+      bottom: 16px;
+      border-bottom-left-radius: 30px 80px;
+      padding: 22px;
+      padding-left: 40px;
+      font-size: 14px;
+      background: linear-gradient(
+        -45deg,
+        transparent 26px,
+        rgba(228, 228, 228, 0.9) 26px
+      );
+
+      span {
+        font-size: 24px;
+      }
+    }
+
+    &__decor {
+      left: -300px;
+      bottom: 72%;
+      font-size: 78px;
+    }
+  }
+
+  @include media(1800) {
+    &__decor {
+      left: -320px;
+      bottom: 62%;
+      font-size: 90px;
     }
   }
 }
