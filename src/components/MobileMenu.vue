@@ -360,6 +360,7 @@ export default {
     font-size: 22px;
     line-height: (27/22);
     text-decoration: underline;
+    white-space: nowrap;
     color: $color-blue;
   }
 

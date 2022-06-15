@@ -347,6 +347,7 @@ export default {
     font-size: 16px;
     line-height: (17/14);
     text-decoration: underline;
+    white-space: nowrap;
     color: $color-blue;
   }
 
@@ -392,6 +393,7 @@ export default {
     margin-left: auto;
     // width: 22px;
     // height: 22px;
+    white-space: nowrap;
     font-weight: bold;
     color: $color-blue;
   }

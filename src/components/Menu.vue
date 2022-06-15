@@ -218,6 +218,7 @@ export default {
     font-size: 16px;
     line-height: (20/16);
     text-decoration: underline;
+    white-space: nowrap;
   }
 
   &__phone-icon {
