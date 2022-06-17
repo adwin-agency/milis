@@ -145,6 +145,16 @@
                 />
                 <span class="pay__label">*Минимальная сумма 1000 ₽</span>
               </div>
+              <div v-if="activeCity === 'msk'" class="pay__field">
+                <TextInput
+                  label="Дополнительный номер"
+                  name="additional_number"
+                  type="number"
+                  class="pay__input"
+                  :error="errors.addnum"
+                  @input="onInput('addnum', $event)"
+                />
+              </div>
               <div class="pay__field">
                 <Select
                   className="pay__select"
@@ -268,6 +278,7 @@ export default {
         phone: false,
         name: false,
         mail: false,
+        addnum: false
       },
       values: {
         sum: "",
@@ -277,6 +288,7 @@ export default {
         mail: "",
         orderChar: "",
         orderNum: "",
+        addnum: ""
       },
       userSelection: null,
       sending: false,
@@ -344,7 +356,15 @@ export default {
       for (let input in this.values) {
         const value = this.values[input];
 
-        if (value.trim() === "" || (input === "phone" && value.length < 16)) {
+        if (value.trim() === '' && input !== 'addnum') {
+          this.errors[input] = true;
+        }
+
+        if (input === "phone" && value.length < 16) {
+          this.errors[input] = true;
+        }
+
+        if (input === 'addnum' && value.length > 0 && (value.length < 6 || value.length > 8)) {
           this.errors[input] = true;
         }
       }
