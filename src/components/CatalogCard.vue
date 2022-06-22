@@ -70,7 +70,8 @@
         v-if="kitchen.discount"
         class="catalog-card__label"
       >
-        Скидка на материалы
+        <!--Скидка на материалы-->
+        Рассрочка 0-0-8
       </p>
       <button
         v-if="test"
