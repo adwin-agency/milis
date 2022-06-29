@@ -135,6 +135,12 @@
           </span>
           Каменная мойка в подарок при покупке кухонного гарнитура
         </p>
+        <p class="modal-calc__feature">
+          <span class="modal-calc__feature-icon">
+            <Icon name="heart" />
+          </span>
+          Рассрочка на 8 месяцев без первоначального взноса
+        </p>
       </div>
       <div class="modal-calc__counter">
         <p class="modal-calc__counter-title">До конца акции осталось</p>
@@ -429,8 +435,8 @@ export default {
     display: flex;
     margin-bottom: 19px;
     font-weight: bold;
-    font-size: 20px;
-    line-height: (27/20);
+    font-size: 18px;
+    line-height: (20/18);
     color: #fff;
 
     &:last-child {
@@ -592,7 +598,7 @@ export default {
     &__content {
       position: static;
       flex: 1;
-      padding: 60px 82px 60px 70px;
+      padding: 71px 70px 70px;
     }
 
     &__title {
@@ -606,7 +612,7 @@ export default {
     &__side {
       width: 43%;
       border-left: 4px solid $color-green;
-      padding: 90px 40px 290px;
+      padding: 70px 40px 290px;
     }
 
     &__promo {

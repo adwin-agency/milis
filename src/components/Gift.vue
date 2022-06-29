@@ -20,7 +20,7 @@
 
     <div class="gift__content">
       <p class="gift__title">Каменная мойка в подарок при покупке кухни</p>
-      <p class="gift__desc">Срок действия предложения ограничен. Акция продлится до конца месяца.</p>
+      <p class="gift__desc">Акция продлится до конца месяца</p>
     </div>
   </div>
 </template>
@@ -64,7 +64,7 @@ export default {
     margin-top: 12px;
     margin-left: -8px;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 19px;
     line-height: 110%;
   }
 
@@ -98,7 +98,7 @@ export default {
     }
 
     &__desc {
-      font-size: 14px;
+      font-size: 28px;
     }
   }
 
@@ -136,8 +136,7 @@ export default {
     }
 
     &__desc {
-      margin-top: 26px;
-      font-size: 18px;
+      margin-top: 19px;
     }
   }
 }

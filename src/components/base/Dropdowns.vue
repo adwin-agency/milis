@@ -15,7 +15,7 @@
     >
       <p class="dropdowns__title" @click="onTitleClick(index)">
         <span class="dropdowns__icon">
-          <Icon name="leaf" />
+          <Icon name="leaf-double" />
         </span>
         {{item.title}}
       </p>
@@ -107,13 +107,15 @@ export default {
   }
 
   &__icon {
-    position: absolute;
+    //position: absolute;
+    flex-shrink: 0;
     left: -2px;
     top: -6px;
     width: 22px;
     height: 22px;
     fill: $color-green;
     z-index: -1;
+    margin-right: 15px;
   }
 
   &__content {
@@ -193,7 +195,7 @@ export default {
   @include media(xl) {
     &__title {
       font-size: 18px;
-      line-height: (29/18);
+      line-height: (23/18);
     }
 
     &__arrow {

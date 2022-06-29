@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <RouterLink
-      :to="{name: 'main'}"
+      :to="{name: 'catalog'}"
       exact
       class="header__logo"
     >

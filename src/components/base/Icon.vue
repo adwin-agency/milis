@@ -1,5 +1,5 @@
 <template>
-  <svg class="icon" xmlns="http://www.w3.org/2000/svg">
+  <svg :width="getWidth" class="icon" xmlns="http://www.w3.org/2000/svg">
     <use :xlink:href="iconPath" xmlns:xlink="http://www.w3.org/1999/xlink"/>
   </svg>
 </template>
@@ -8,7 +8,9 @@
 export default {
   name: 'Icon',
   props: {
-    name: String
+    name: String,
+    width: Number,
+    height: Number
   },
   computed: {
     iconPath() {
@@ -16,9 +18,11 @@ export default {
       if (Object.prototype.hasOwnProperty.call(icon, 'default')) {
         icon = icon.default;
       }
-
       return icon.url;
     },
+    getWidth(){
+      return this.width
+    }
   }
 }
 </script>

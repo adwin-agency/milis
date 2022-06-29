@@ -61,7 +61,7 @@ export default {
       const activeCategory = this.categories?.find(
         item => item.url === this.activeCategoryUrl
       )
-      return activeCategory?.name ?? 'Наши кухни'
+      return activeCategory?.name2 ?? 'Наши кухни'
     }
   }
 }

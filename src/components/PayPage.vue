@@ -3,39 +3,43 @@
     <div class="row">
       <div class="col col-12 col-lg-6 payment__image-col">
         <div class="payment__image anim-img js-anim" v-anim="true">
-          <img src="@/assets/img/payment.jpg" alt="" />
+          <img src="@/assets/img/payment.jpg" alt=""/>
         </div>
       </div>
       <div class="col col-12 col-lg-6 col-xl-5">
-        <Header class="slide-down js-anim" v-anim="true" />
+        <Header class="slide-down js-anim" v-anim="true"/>
         <div class="payment__content fade-bounce-right js-anim" v-anim="true">
           <h1 class="payment__heading">Оплата</h1>
           <div class="payment__desc pay__desc">
             <p class="payment__text">
               Оплачивайте кухню картой прямо на сайте или наличными выездному
-              менеджеру. <br />У нас принимаются к оплате карты Visa и Master
-              card<br />
+              менеджеру. <br/>У нас принимаются к оплате карты Visa и Master
+              card<br/>
+
             </p>
             <div class="payment__icons">
               <div class="payment__icon">
-                <Icon name="visa" />
+                <Icon name="visa"/>
               </div>
               <div class="payment__icon">
-                <Icon name="mastercard" />
+                <Icon name="mastercard"/>
+              </div>
+              <div class="payment__icon">
+                <Icon name="mir"/>
               </div>
             </div>
-            <!-- <a
-              href="/docs/return.pdf"
+            <a
+              :href="returnMoneyLink"
               target="_blank"
               class="pay__link"
             >
               Правила возврата денежных средств
-            </a> -->
+            </a>
           </div>
         </div>
         <form class="pay__form" ref="form" @submit.prevent="onSubmit">
           <div class="pay__leaf">
-            <Icon name="leaf" />
+            <Icon name="leaf"/>
           </div>
 
           <div class="pay__city">
@@ -45,177 +49,177 @@
             <div class="pay__city-choose">
               <div class="pay__radios">
                 <Radio
-                  name="city"
-                  id="pay-city1"
-                  labelText="Санкт-Петербург"
-                  labelClass="pay__radio-label"
-                  radioClass="pay__radio-btn"
-                  :checked="activeCity === 'spb'"
-                  value="spb"
-                  @change="handleUserChange($event)"
+                    name="city"
+                    id="pay-city1"
+                    labelText="Санкт-Петербург"
+                    labelClass="pay__radio-label"
+                    radioClass="pay__radio-btn"
+                    :checked="activeCity === 'spb'"
+                    value="spb"
+                    @change="handleUserChange($event)"
                 />
                 <Radio
-                  name="city"
-                  id="pay-city2"
-                  labelText="Москва"
-                  labelClass="pay__radio-label"
-                  radioClass="pay__radio-btn"
-                  :checked="activeCity === 'msk'"
-                  value="msk"
-                  @change="handleUserChange($event)"
+                    name="city"
+                    id="pay-city2"
+                    labelText="Москва"
+                    labelClass="pay__radio-label"
+                    radioClass="pay__radio-btn"
+                    :checked="activeCity === 'msk'"
+                    value="msk"
+                    @change="handleUserChange($event)"
                 />
               </div>
               <p class="pay__decore">Все просто!</p>
             </div>
 
-            <hr class="pay__line" />
+            <hr class="pay__line"/>
             <div class="pay__availible" v-if="payAvailible">
               <input type="hidden" name="shop_id" :value="shopId[activeCity]">
               <div class="pay__field">
                 <TextInput
-                  label="Имя и фамилия"
-                  name="name"
-                  class="pay__input"
-                  :error="errors.name"
-                  @input="onInput('name', $event)"
+                    label="Имя и фамилия"
+                    name="name"
+                    class="pay__input"
+                    :error="errors.name"
+                    @input="onInput('name', $event)"
                 />
               </div>
               <div class="pay__field">
                 <TextInput
-                  label="Телефон"
-                  type="tel"
-                  name="phone"
-                  class="pay__input"
-                  :error="errors.phone"
-                  @input="onInput('phone', $event)"
+                    label="Телефон"
+                    type="tel"
+                    name="phone"
+                    class="pay__input"
+                    :error="errors.phone"
+                    @input="onInput('phone', $event)"
                 />
               </div>
               <div class="pay__field">
                 <TextInput
-                  label="e-mail"
-                  name="email"
-                  class="pay__input"
-                  :error="errors.mail"
-                  @input="onInput('mail', $event)"
+                    label="e-mail"
+                    name="email"
+                    class="pay__input"
+                    :error="errors.mail"
+                    @input="onInput('mail', $event)"
                 />
                 <span class="pay__label"
-                  >*После прохождения платежа отправим квитанцию на почту</span
+                >*После прохождения платежа отправим квитанцию на почту</span
                 >
               </div>
               <div class="pay__field">
                 <TextInput
-                  label="Адрес"
-                  name="address"
-                  class="pay__input"
-                  :error="errors.adress"
-                  @input="onInput('adress', $event)"
+                    label="Адрес"
+                    name="address"
+                    class="pay__input"
+                    :error="errors.adress"
+                    @input="onInput('adress', $event)"
                 />
                 <span class="pay__label">*Как в договоре</span>
               </div>
               <div class="pay__field pay__field_contract">
                 <TextInputContract
-                  label="Номер договора"
-                  name="contract-l"
-                  class="pay__input-contract pay__input pay__input-contract_wtext"
-                  placeholder="Буквы"
-                  :prefix="prefix"
-                  @inputChar="inputChar"
-                  :error="false"
-                  @input="onInput('contract_text', $event)"
+                    label="Номер договора"
+                    name="contract-l"
+                    class="pay__input-contract pay__input pay__input-contract_wtext"
+                    placeholder="Буквы"
+                    :prefix="prefix"
+                    @inputChar="inputChar"
+                    :error="false"
+                    @input="onInput('contract_text', $event)"
                 />
                 <span class="pay__dash"> - </span>
                 <TextInputContract
-                  label=""
-                  name="contract-n"
-                  class="pay__input-contract pay__input"
-                  placeholder="Цифры"
-                  @inputNum="inputNum"
-                  :error="false"
-                  :prefix="prefix"
+                    label=""
+                    name="contract-n"
+                    class="pay__input-contract pay__input"
+                    placeholder="Цифры"
+                    @inputNum="inputNum"
+                    :error="false"
+                    :prefix="prefix"
                 />
               </div>
               <div class="pay__field">
                 <TextInput
-                  label="Сумма оплаты"
-                  name="sum"
-                  type="number"
-                  class="pay__input"
-                  :error="errors.sum"
-                  @input="onInput('sum', $event)"
+                    label="Сумма оплаты"
+                    name="sum"
+                    type="number"
+                    class="pay__input"
+                    :error="errors.sum"
+                    @input="onInput('sum', $event)"
                 />
                 <span class="pay__label">*Минимальная сумма 1000 ₽</span>
               </div>
               <div v-if="activeCity === 'msk'" class="pay__field">
                 <TextInput
-                  label="Дополнительный номер"
-                  name="additional_number"
-                  type="number"
-                  class="pay__input"
-                  :error="errors.addnum"
-                  @input="onInput('addnum', $event)"
+                    label="Дополнительный номер"
+                    name="additional_number"
+                    type="number"
+                    class="pay__input"
+                    :error="errors.addnum"
+                    @input="onInput('addnum', $event)"
                 />
               </div>
               <div class="pay__field">
                 <Select
-                  className="pay__select"
-                  name="payment_method"
-                  :options="[
+                    className="pay__select"
+                    name="payment_method"
+                    :options="[
                     { value: 'sbp', title: 'Система Быстрых Платежей' },
                     { value: 'cart', title: 'Прочие способы оплаты' }
                   ]"
-                  id="payment-type"
+                    id="payment-type"
                 />
               </div>
               <div class="pay__field pay__field_lg">
                 <TextInput
-                  label="Комментарии (необязательно)"
-                  name="comment"
-                  class="pay__input"
-                  textarea
+                    label="Комментарии (необязательно)"
+                    name="comment"
+                    class="pay__input"
+                    textarea
                 />
               </div>
               <div class="pay__field">
                 <div class="pay__policy-container">
                   <input
-                    type="checkbox"
-                    name="agreement"
-                    id="pay-policy"
-                    class="pay__policy-checkbox"
-                    @change="checkboxClick"
-                    ref="checkbox"
+                      type="checkbox"
+                      name="agreement"
+                      id="pay-policy"
+                      class="pay__policy-checkbox"
+                      @change="checkboxClick"
+                      ref="checkbox"
                   />
                   <label for="pay-policy" class="pay__policy"
-                    >Нажимая кнопку "Отправить", вы соглашаетесь с политикой конфиденциальности и публичной офертой.
-                    <!-- <a
-                      :href="policyLink"
-                      target="_blank"
-                      class="pay__link"
+                  >Нажимая кнопку "Отправить", вы соглашаетесь с
+                    <a
+                        :href="policyLink"
+                        target="_blank"
+                        class="pay__link"
                     >
                       политикой конфиденциальности
                     </a>
                     и
                     <a
-                      :href="offerLink"
-                      target="_blank"
-                      class="pay__link"
+                        :href="offerLink"
+                        target="_blank"
+                        class="pay__link"
                     >
                       публичной офертой.
-                    </a> -->
+                    </a>
                   </label>
                 </div>
               </div>
               <div class="pay__field">
                 <Button
-                  type="submit"
-                  class="pay__btn btn btn_blue"
-                  :disabled="!numMask || !charMask || !checkBoxChecked"
+                    type="submit"
+                    class="pay__btn btn btn_blue"
+                    :disabled="!numMask || !charMask || !checkBoxChecked"
                 >
                   Отправить
                 </Button>
               </div>
               <p
-                v-if="sendError"
-                class="pay__error"
+                  v-if="sendError"
+                  class="pay__error"
               >
                 Ошибка отправки
               </p>
@@ -308,6 +312,9 @@ export default {
     prefix() {
       return this.prefixes[this.activeCity];
     },
+    returnMoneyLink() {
+      return '/docs/return-money_' + this.activeCity + '.pdf'
+    },
     policyLink() {
       return '/docs/policy_' + this.activeCity + '.pdf'
     },
@@ -323,7 +330,8 @@ export default {
       this.charMask = false;
     },
   },
-  created() {},
+  created() {
+  },
 
   methods: {
     inputChar(data) {
@@ -380,13 +388,13 @@ export default {
       const data = new FormData(this.$refs.form)
 
       api.sendForm(data, 'payment')
-        .then(() => {
-          this.sending = false
-        })
-        .catch(() => {
-          this.sending = false
-          this.sendError = true
-        })
+          .then(() => {
+            this.sending = false
+          })
+          .catch(() => {
+            this.sending = false
+            this.sendError = true
+          })
     },
   },
 };
@@ -403,21 +411,25 @@ export default {
     margin-right: -20px;
     position: relative;
   }
+
   &__city-text {
     color: #515151;
     font-weight: 700;
     font-size: 16px;
     margin-bottom: 22px;
   }
+
   &__radios {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 10px;
     max-width: 567px;
   }
+
   &__radio-btn {
     display: none;
   }
+
   &__radio-label {
     background-color: #303864;
     color: white;
@@ -432,15 +444,18 @@ export default {
     cursor: pointer;
     text-align: center;
   }
+
   &__radio-btn:checked + &__radio-label {
     background-color: #0cd725;
   }
+
   &__link {
     color: #303864;
     text-decoration: underline;
 
     font-size: 14px;
   }
+
   &__line {
     background-color: #acacac;
     height: 1px;
@@ -450,27 +465,34 @@ export default {
     margin-bottom: 20px;
     margin-top: 20px;
   }
+
   &__input input {
     background-color: white;
+
     &::placeholder {
       color: #acacac;
     }
   }
+
   &__input .text-input__label {
     background: linear-gradient(0deg, white 50%, transparent 50%);
   }
+
   &__input {
     background-color: white;
   }
+
   &__input input {
     -moz-appearance: textfield;
   }
+
   &__input input::-webkit-outer-spin-button,
   &__input input::-webkit-inner-spin-button {
     display: none;
     -webkit-appearance: none;
     margin: 0;
   }
+
   &__input textarea {
     background-color: white;
   }
@@ -479,46 +501,56 @@ export default {
     display: grid;
     row-gap: 20px;
   }
+
   &__label {
     font-size: 12px;
     color: #acacac;
   }
+
   &__field_contract {
     display: grid;
     grid-template-columns: 167px 20px auto;
     align-items: center;
   }
+
   &__dash {
     display: block;
     text-align: center;
     color: #acacac;
     font-size: 24px;
   }
+
   &__input-contract_wtext .text-input__label {
     transform: translateY(-27px);
   }
+
   &__desc .payment__icons {
     margin-bottom: 17px;
   }
+
   &__policy {
     font-size: 14px;
     color: #959494;
     cursor: pointer;
   }
+
   &__btn {
     width: 100%;
   }
+
   &__policy-container {
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 8px;
   }
+
   &__policy-checkbox {
     border-radius: 0px;
     width: 12px;
     height: 12px;
     cursor: pointer;
   }
+
   &__decore {
     font-family: Madelyn, sans-serif;
     font-size: 50px;
@@ -526,6 +558,7 @@ export default {
     text-align: right;
     color: #acacac;
   }
+
   &__leaf {
     fill: #0cd725;
     position: absolute;
@@ -534,19 +567,23 @@ export default {
     width: 57px;
     height: 61px;
   }
+
   &__decore {
     display: none;
   }
+
   &__not-available {
     padding-top: 20px;
     display: grid;
     row-gap: 25px;
   }
+
   &__not-available-tex {
     font-size: 16px;
     line-height: 25px;
     color: #021a76;
   }
+
   &__tel {
     font-weight: bold;
     white-space: nowrap;
@@ -567,32 +604,39 @@ export default {
       column-gap: 20px;
       row-gap: 38px;
     }
+
     &__field .text-input_ta .text-input__field {
       height: 45px;
       overflow: hidden;
     }
+
     &__field_lg {
       grid-column: 1 / -1;
     }
+
     &__label {
       height: 0px;
       overflow: visible;
       display: block;
       margin-top: 5px;
     }
+
     &__city-choose {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     &__decore {
       display: block;
       //margin-right: 20px;
     }
+
     &__radios {
       flex-shrink: 0;
       flex-grow: 1;
     }
+
     &__desc {
       display: grid !important;
       grid-template-columns: auto auto;
@@ -604,11 +648,13 @@ export default {
       max-width: 544px;
       row-gap: 25px;
     }
+
     &__not-available-tex {
       font-size: 16px;
       line-height: 25px;
       color: #021a76;
     }
+
     &__tel {
       font-weight: bold;
       white-space: nowrap;
@@ -619,21 +665,26 @@ export default {
     }
   }
 }
+
 @media (min-width: 1150px) {
   .pay {
     &__form {
       min-width: 1100px;
     }
+
     &__decore {
       margin-right: 20px;
     }
+
     &__line {
       margin-top: 38px;
       margin-bottom: 38px;
     }
+
     &__form {
       padding: 36px 60px 67px;
     }
+
     &__leaf {
       height: 78px;
       width: 73px;
@@ -642,6 +693,7 @@ export default {
     }
   }
 }
+
 .payment {
   &__image {
     margin: 0 (-$container-padding);

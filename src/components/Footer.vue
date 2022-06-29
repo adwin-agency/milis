@@ -8,7 +8,7 @@
             class="col col-8"
           >
             <RouterLink
-              :to="{name: 'main'}"
+              :to="{name: 'catalog'}"
               exact
               class="footer__logo"
             >
@@ -100,7 +100,7 @@
               </div>
               <div class="footer__contacts">
                 <p class="footer__title">Работаем без выходных</p>
-                <p class="footer__time">с 9:00 - до 20:00</p>
+                <p class="footer__time">с 9:00 - до 22:00</p>
                 <div class="footer__city">
                   <button
                     class="footer__city-current"
@@ -162,9 +162,9 @@
             </div>
           </div>
           <div class="col col-12 col-lg-4 footer__policy-col">
-            <!-- <div class="footer__policy">
-              <a href="#">Политика конфиденциальности</a>
-            </div> -->
+            <div class="footer__policy">
+              <a :href="policyLink" target="_blank">Политика конфиденциальности</a>
+            </div>
           </div>
           <div class="col col-12 col-lg-4">
             <div class="footer__payment">
@@ -174,6 +174,9 @@
               </div>
               <div class="footer__payment-icon">
                 <Icon name="mastercard"/>
+              </div>
+              <div class="footer__payment-icon footer__payment-icon_large">
+                <Icon name="mir" :width="92"/>
               </div>
             </div>
           </div>
@@ -224,6 +227,9 @@ export default {
     },
     activeCity() {
       return this.$store.getters.activeCity
+    },
+    policyLink() {
+      return '/docs/policy_' + this.activeCity?.code + '.pdf'
     }
   },
   methods: {
@@ -482,6 +488,10 @@ export default {
     width: 34px;
     height: 34px;
     margin-right: 12px;
+
+    &_large{
+      width: 90px;
+    }
 
     &:last-child {
       margin-right: 0;
