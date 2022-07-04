@@ -256,7 +256,6 @@ export default {
 
     &__questions {
       margin: 0;
-      height: 100%;
     }
 
     &__list {
