@@ -5,28 +5,33 @@
       v-if="$windowWidth >= $breakpoints.md"
       class="discount-banner__circles-r"
     ></div>
-    <div class="discount-banner__main">
-      <div class="discount-banner__header">
-        <p class="discount-banner__title">Скидка <br>на кухни</p>
-        <p class="discount-banner__value">
-          -47%
-          <Icon
-            name="leaf"
-            class="discount-banner__icon"
-          />
-        </p>
-      </div>
-      <p class="discount-banner__date">акция действует {{ promoText }}</p>
-      <div class="discount-banner__counter">
-        <div class="discount-banner__counter-box">
-          <p class="discount-banner__counter-title">До конца <br>акции осталось</p>
-          <Counter
-            class="discount-banner__counter-items"
-            :date="promoEnd"
-          />
-        </div>
-      </div>
+    <picture>
+      <source
+        :media="`(min-width: ${$breakpoints.xl}px)`"
+        srcset="@/assets/img/discount-wash-xl.png"
+      >
+      <source
+        :media="`(min-width: ${$breakpoints.md}px)`"
+        srcset="@/assets/img/discount-wash-md.png"
+      >
+      <img
+        src="@/assets/img/discount-wash.png"
+        alt=""
+        class="discount-banner__pic"
+      >
+    </picture>
+    <div class="discount-banner__header">
+      <p class="discount-banner__title">Скидка <br>на всё</p>
+      <p class="discount-banner__value">
+        -47%
+        <Icon
+          name="leaf-double"
+          class="discount-banner__icon"
+        />
+      </p>
     </div>
+    <p class="discount-banner__date">Акция действует <span>до конца месяца</span></p>
+    <p class="discount-banner__desc">Каменная мойка <br><span>в подарок</span> при <br>покупке <br>кухни</p>
     <div
       v-if="$windowWidth >= $breakpoints.md"
       class="discount-banner__founders"
@@ -41,30 +46,17 @@
         дизайнер и главный конструктор,<br>
         основатели компании
       </p>
-      <p class="discount-banner__decor">3 простых шага <br>до вашей кухни <br>мечты!</p>
     </div>
   </div>
 </template>
 
 <script>
 import Icon from '@/components/base/Icon'
-import Counter from './Counter.vue'
 
 export default {
   name: 'DiscountBanner',
   components: {
-    Icon,
-    Counter
-  },
-  computed: {
-    promoText() {
-      const text = this.$store.getters.promoText
-      // return text ? 'c\xa0' + text[0] + '\xa0по\xa0' + text[1] : null
-      return text ? 'до\xa0' + text[1] : null
-    },
-    promoEnd() {
-      return this.$store.state.promoDate?.[1]
-    }
+    Icon
   }
 }
 </script>
@@ -72,7 +64,7 @@ export default {
 <style lang="scss">
 .discount-banner {
   position: relative;
-  padding: 20px 10px 0;
+  padding: 20px 10px 80px;
   background-color: $color-blue;
   color: #fff;
   box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
@@ -80,42 +72,38 @@ export default {
 
   &__circles-l {
     position: absolute;
-    left: -324px;
-    top: -380px;
-    width: 760px;
-    height: 760px;
+    left: -235px;
+    bottom: -303px;
+    width: 612px;
+    height: 612px;
     border-radius: 50%;
     background-color: rgba(#e4e4e4, 0.03);
     pointer-events: none;
 
-    &::before,
-    &::after {
+    &::before {
       content: '';
       position: absolute;
       left: 50%;
       top: 50%;
       border-radius: 50%;
+      width: 374px;
+      height: 374px;
       background-color: rgba(#e4e4e4, 0.06);
       transform: translate(-50%, -50%);
     }
-
-    &::before {
-      width: 508px;
-      height: 508px;
-    }
-
-    &::after {
-      width: 284px;
-      height: 284px;
-    }
   }
 
-  &__main {
-    position: relative;
+  &__pic {
+    position: absolute;
+    left: 0;
+    bottom: -15px;
+    width: auto;
+    pointer-events: none;
   }
 
   &__header {
     display: flex;
+    justify-content: center;
     align-items: center;
   }
 
@@ -123,7 +111,7 @@ export default {
     position: relative;
     font-family: $font-secondary;
     font-weight: 700;
-    font-size: 29px;
+    font-size: 33px;
     line-height: 90%;
   }
 
@@ -141,42 +129,36 @@ export default {
   &__icon {
     position: absolute;
     top: -12px;
-    right: -7px;
-    width: 28px;
-    height: 30px;
+    right: -14px;
+    width: 32px;
+    height: 32px;
     fill: $color-green;
     z-index: -1;
   }
 
   &__date {
-    display: inline-block;
-    margin-top: 20px;
-    border-radius: 100px;
-    padding: 16px 40px;
+    margin-top: 12px;
+    text-align: center;
     font-family: $font-secondary;
-    font-weight: 700;
-    font-size: 20px;
+    font-weight: 500;
+    font-size: 15px;
     line-height: 100%;
-    background-color: $color-blue;
+
+    span {
+      font-weight: 700;
+    }
   }
 
-  &__counter {
-    margin: 16px -10px 0;
-    border-radius: 20px 20px 0px 0px;
-    padding: 16px 10px;
-    background-color: $color-green;
+  &__desc {
+    margin-top: 35px;
+    text-align: right;
+    font-family: $font-secondary;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 110%;
 
-    &-box {
-      margin: 0 auto;
-      max-width: 300px;
-    }
-
-    &-title {
-      margin-bottom: 8px;
-      font-family: $font-secondary;
-      font-weight: 700;
-      font-size: 20px;
-      line-height: 100%;
+    span {
+      color: $color-green;
     }
   }
 
@@ -184,41 +166,28 @@ export default {
     display: none;
   }
 
-  @include media(sm) {
-    &__value {
-      margin: 0 auto;
-    }
-
-    &__counter {
-      &-box {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        max-width: none;
-      }
-
-      &-title {
-        margin-right: 30px;
-      }
-    }
-  }
-
   @include media(md) {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding: 30px 30px 0;
+    padding: 80px 80px 106px;
 
     &__circles-l {
-      left: -300px;
+      top: -218px;
+      left: -240px;
+      bottom: auto;
+      width: 610px;
+      height: 610px;
+
+      &::before {
+        width: 426px;
+        height: 426px;
+      }
     }
 
     &__circles-r {
       position: absolute;
-      right: -190px;
-      bottom: -240px;
-      width: 600px;
-      height: 600px;
+      right: -200px;
+      bottom: -230px;
+      width: 572px;
+      height: 572px;
       border-radius: 50%;
       background: linear-gradient(
         323.1deg,
@@ -233,8 +202,8 @@ export default {
         position: absolute;
         left: 50%;
         top: 50%;
-        width: 350px;
-        height: 350px;
+        width: 368px;
+        height: 368px;
         border-radius: 50%;
         background: radial-gradient(
           39.93% 39.93% at 51.93% 51.85%,
@@ -245,52 +214,70 @@ export default {
       }
     }
 
-    &__value {
-      margin: 0;
-      margin-left: 30px;
+    &__pic {
+      top: -5px;
+      bottom: auto;
+      width: 260px;
     }
 
-    &__counter {
-      margin: 0;
-      margin-top: -26px;
-      margin-left: -30px;
-      padding: 48px 30px 20px;
+    &__title {
+      br {
+        display: none;
+      }
+    }
 
-      &-title {
-        max-width: 120px;
+    &__value {
+      margin-left: 18px;
+    }
+
+    &__date {
+      position: relative;
+      margin-top: 18px;
+      z-index: 1;
+    }
+
+    &__desc {
+      position: relative;
+      margin: 64px auto 0;
+      max-width: 450px;
+      text-align: center;
+      z-index: 1;
+
+      br {
+        display: none;
       }
     }
 
     &__founders {
       display: block;
-      position: relative;
-      margin-left: -280px;
-      margin-right: -60px;
-      width: 280px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
 
       &::before {
         content: '';
         position: absolute;
-        right: 0;
-        bottom: -80px;
-        width: 280px;
-        height: 280px;
+        right: -36px;
+        bottom: -68px;
+        width: 262px;
+        height: 262px;
         border-radius: 50%;
         background-color: #e4e4e4;
       }
     }
 
     &__img {
-      position: relative;
-      width: 360px;
-      margin-left: -70px;
-      margin-bottom: -15px;
+      position: absolute;
+      right: -80px;
+      bottom: -14px;
+      width: 380px;
     }
 
     &__note {
       position: absolute;
-      left: 5px;
+      right: 10px;
       bottom: 12px;
+      width: 200px;
       border-bottom-left-radius: 20px 60px;
       padding: 12px 18px;
       font-family: $font-secondary;
@@ -313,135 +300,103 @@ export default {
         color: #000000;
       }
     }
-
-    &__decor {
-      position: absolute;
-      left: 0;
-      bottom: 95%;
-      text-align: center;
-      font-family: $font-decorative;
-      font-weight: 400;
-      font-size: 36px;
-      line-height: 0.5;
-      transform: rotate(-10.32deg);
-    }
   }
 
   @include media(lg) {
-    padding: 40px 40px 0;
-
     &__circles-l {
-      left: -420px;
-      top: -550px;
-      width: 1152px;
-      height: 1152px;
+      top: -328px;
+      left: -364px;
+      width: 917px;
+      height: 917px;
 
       &::before {
-        width: 772px;
-        height: 772px;
-      }
-
-      &::after {
-        width: 430px;
-        height: 430px;
+        width: 639px;
+        height: 639px;
       }
     }
 
     &__circles-r {
-      right: -320px;
+      right: -300px;
       bottom: -350px;
-      width: 904px;
-      height: 904px;
+      width: 860px;
+      height: 860px;
 
       &::before {
-        width: 518px;
-        height: 518px;
+        width: 554px;
+        height: 554px;
       }
     }
 
-    &__main {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+    &__pic {
+      width: auto;
     }
 
     &__title {
-      font-size: 59px;
+      font-size: 41px;
     }
 
     &__value {
-      margin-left: 40px;
-      font-size: 105px;
+      font-size: 76px;
     }
 
     &__icon {
-      top: -20px;
-      right: -12px;
-      width: 52px;
-      height: 54px;
+      top: -30px;
+      right: -40px;
+      width: 62px;
+      height: 62px;
     }
 
     &__date {
-      position: relative;
-      margin-top: 24px;
-      max-width: 360px;
+      font-size: 24px;
     }
 
-    &__counter {
-      margin-top: -32px;
-      margin-left: -40px;
-      border-radius: 0 95px 0 0;
-      padding: 64px 75px 30px 44px;
-
-      &-box {
-        justify-content: flex-start;
-        align-items: flex-start;
-      }
-
-      &-title {
-        margin-right: 10px;
-        margin-bottom: 0;
-        max-width: 230px;
-        padding-right: 30px;
-        font-size: 30px;
-      }
+    &__desc {
+      max-width: 600px;
+      font-size: 37px;
     }
 
     &__founders {
-      width: 364px;
-      margin-left: -364px;
-      margin-right: -90px;
-
       &::before {
-        bottom: -96px;
-        width: 364px;
-        height: 364px;
+        right: -54px;
+        bottom: -100px;
+        width: 394px;
+        height: 394px;
       }
     }
 
-    &__note {
-      padding-left: 30px;
-    }
-
     &__img {
-      width: 550px;
-      margin-left: -120px;
-      margin-bottom: -25px;
+      right: -120px;
+      bottom: -20px;
+      width: 570px;
     }
 
-    &__decor {
-      left: -80px;
-      bottom: 92%;
-      font-size: 70px;
+    &__note {
+      right: 70px;
+      width: 250px;
+      padding: 20px 18px 12px;
     }
   }
 
   @include media(xl) {
+    padding: 50px 50px 72px;
+
+    &__circles-l {
+      top: -570px;
+      left: -482px;
+      width: 1326px;
+      height: 1326px;
+
+      &::before {
+        width: 888px;
+        height: 888px;
+      }
+    }
+
     &__circles-r {
-      right: -390px;
-      bottom: -500px;
-      width: 1276px;
-      height: 1276px;
+      right: -405px;
+      bottom: -510px;
+      width: 1278px;
+      height: 1278px;
 
       &::before {
         width: 730px;
@@ -449,54 +404,46 @@ export default {
       }
     }
 
-    &__founders {
-      width: 506px;
-      margin-left: -506px;
-      margin-right: -110px;
+    &__title {
+      font-size: 67px;
+    }
 
+    &__value {
+      font-size: 90px;
+    }
+
+    &__date {
+      margin-top: 22px;
+      font-size: 28px;
+    }
+
+    &__desc {
+      max-width: 870px;
+      font-size: 53px;
+    }
+
+    &__founders {
       &::before {
-        bottom: -134px;
-        width: 506px;
-        height: 506px;
+        right: -74px;
+        bottom: -144px;
+        width: 510px;
+        height: 510px;
       }
     }
 
     &__img {
-      width: 750px;
-      margin-top: -50px;
-      margin-left: -150px;
-      margin-bottom: -30px;
+      right: -150px;
+      bottom: -30px;
+      width: 730px;
     }
 
     &__note {
-      bottom: 16px;
-      border-bottom-left-radius: 30px 80px;
-      padding: 22px;
-      padding-left: 40px;
+      width: 340px;
       font-size: 14px;
-      background: linear-gradient(
-        -45deg,
-        transparent 26px,
-        rgba(228, 228, 228, 0.9) 26px
-      );
 
       span {
         font-size: 24px;
       }
-    }
-
-    &__decor {
-      left: -300px;
-      bottom: 72%;
-      font-size: 78px;
-    }
-  }
-
-  @include media(1800) {
-    &__decor {
-      left: -320px;
-      bottom: 62%;
-      font-size: 90px;
     }
   }
 }
