@@ -6,7 +6,7 @@
       <Promo class="company__image"/>
       <div class="company__content">
         <p class="company__desc">Компания “Милис” занимается производством кухонь с 2015 года. <br><br>Мы решили объединить то, что прекрасно умеем оба! Мила всю жизнь посвятила дизайну мебели и в частности кухонь. А я прекрасно знаю, как из эскиза на бумаге воплотить это в жизнь.</p>
-        <Dropdowns class="company__items" :items="dropdowns" />
+        <Dropdowns class="company__items" :items="dropdowns" disabled />
       </div>
     </div>
   </div>

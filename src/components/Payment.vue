@@ -19,6 +19,9 @@
               <div class="payment__icon">
                 <Icon name="mastercard" />
               </div>
+              <div class="payment__icon payment__icon_lg">
+                <Icon name="mir" />
+              </div>
             </div>
           </div>
           <div class="payment__features">
@@ -100,6 +103,10 @@ export default {
     width: 48px;
     height: 48px;
     margin-right: 22px;
+
+    &_lg {
+      width: 68px;
+    }
 
     &:last-child {
       margin-right: 0;

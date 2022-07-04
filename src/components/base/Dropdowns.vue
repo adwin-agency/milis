@@ -13,7 +13,7 @@
         {'is-active': activeItem === index}
       ]"
     >
-      <p class="dropdowns__title" @click="onTitleClick(index)">
+      <p class="dropdowns__title" :class="{'disabled': disabled}" @click="onTitleClick(index)">
         <span class="dropdowns__icon">
           <Icon name="leaf-double" />
         </span>
@@ -36,7 +36,8 @@ export default {
   },
   props: {
     items: Array,
-    products: Boolean
+    products: Boolean,
+    disabled: Boolean
   },
   data() {
     return {
@@ -45,6 +46,10 @@ export default {
   },
   methods: {
     onTitleClick(index) {
+      if (this.disabled) {
+        return
+      }
+      
       const closingContent = this.activeItem === null ? null : this.$refs.content[this.activeItem]
       const openingContent = this.activeItem === index ? null : this.$refs.content[index]
 
@@ -95,6 +100,10 @@ export default {
     line-height: (20/12);
     color: $color-blue;
     cursor: pointer;
+
+    &.disabled {
+      cursor: auto;
+    }
   }
 
   &__arrow {

@@ -23,6 +23,7 @@
           <Dropdowns
             :items="dropdowns"
             products
+            disabled
             class="catalog__features"
           />
         </div>

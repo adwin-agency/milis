@@ -31,7 +31,7 @@
       </p>
     </div>
     <p class="discount-banner__date">Акция действует <span>до конца месяца</span></p>
-    <p class="discount-banner__desc">Каменная мойка <br><span>в подарок</span> при <br>покупке <br>кухни</p>
+    <p class="discount-banner__desc">Каменная мойка <br><span>в{{'\xa0'}}подарок</span> при <br>покупке <br>кухни</p>
     <div
       v-if="$windowWidth >= $breakpoints.md"
       class="discount-banner__founders"
@@ -164,6 +164,24 @@ export default {
 
   &__founders {
     display: none;
+  }
+
+  @include media(400) {
+    &__desc {
+      br:last-child {
+        display: none;
+      }
+    }
+  }
+
+  @include media(475) {
+    &__desc {
+      margin-left: 150px;
+
+      br {
+        display: none;
+      }
+    }
   }
 
   @include media(md) {

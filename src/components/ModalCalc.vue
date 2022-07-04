@@ -97,7 +97,7 @@
           type="submit"
           class="modal-calc__btn"
         >
-          Рассчитать
+          Рассчитать кухню
         </Button>
         <p
           v-if="sendError"
@@ -133,21 +133,14 @@
           <span class="modal-calc__feature-icon">
             <Icon name="heart" />
           </span>
-          Каменная мойка в подарок при покупке кухонного гарнитура
+          Каменная мойка в подарок
         </p>
         <p class="modal-calc__feature">
           <span class="modal-calc__feature-icon">
             <Icon name="heart" />
           </span>
-          Рассрочка на 8 месяцев без первоначального взноса
+          Рассрочка на 8 месяцев
         </p>
-      </div>
-      <div class="modal-calc__counter">
-        <p class="modal-calc__counter-title">До конца акции осталось</p>
-        <Counter
-          :date="promoEnd"
-          alternative
-        />
       </div>
       <img
         src="@/assets/img/modal-calc-wash.png"
@@ -184,7 +177,6 @@ import Icon from './base/Icon'
 import Discount from './base/Discount'
 import FormSuccess from '@/components/FormSuccess'
 import api from '@/api'
-import Counter from './Counter.vue'
 
 export default {
   name: 'ModalCalc',
@@ -193,8 +185,7 @@ export default {
     Button,
     Icon,
     Discount,
-    FormSuccess,
-    Counter
+    FormSuccess
   },
   data() {
     return {
