@@ -3,8 +3,19 @@
     class="questions"
     :class="{'questions_img': image}"
   >
-    <p class="questions__title">{{title}}</p>
-    <p class="questions__desc">{{desc}}</p>
+    <p
+      class="questions__title"
+      @click="toggleDesc"
+    >
+      {{title}}
+    </p>
+    <div
+      class="questions__desc"
+      :class="{'is-active': isActive}"
+      ref="desc"
+    >
+      <p class="questions__text">{{desc}}</p>
+    </div>
     <div
       class="questions__overlay js-anim"
       v-if="!$mobile"
@@ -42,6 +53,32 @@ export default {
     title: String,
     desc: String,
     image: String
+  },
+  data() {
+    return {
+      isActive: false,
+      timeout: null
+    }
+  },
+  methods: {
+    toggleDesc() {
+      const { desc } = this.$refs
+      desc.style.height = desc.scrollHeight + 'px'
+      clearTimeout(this.timeout)
+
+      if (this.isActive) {
+        this.isActive = false
+        this.timeout = setTimeout(() => {
+          desc.style.height = ''
+        })
+
+      } else {
+        this.isActive = true
+        this.timeout = setTimeout(() => {
+          desc.style.height = 'auto'
+        }, 300)
+      }
+    }
   }
 }
 </script>
@@ -63,12 +100,24 @@ export default {
     font-weight: bold;
     font-size: 20px;
     line-height: (24/20);
+    cursor: pointer;
   }
 
   &__desc {
-    margin-top: 10px;
     font-size: 18px;
     line-height: (25/18);
+    height: 0;
+    opacity: 0;
+    transition: height .3s ease, opacity .3s ease;
+    overflow: hidden;
+
+    &.is-active {
+      opacity: 1;
+    }
+  }
+
+  &__text {
+    padding-top: 10px;
   }
 
   &__mark {
