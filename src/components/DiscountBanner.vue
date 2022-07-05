@@ -30,7 +30,7 @@
         />
       </p>
     </div>
-    <p class="discount-banner__date">Акция действует <span>до конца месяца</span></p>
+    <p class="discount-banner__date">Акция действует <span>{{ promoText }}</span></p>
     <p class="discount-banner__desc">Каменная мойка <br><span>в{{'\xa0'}}подарок</span> при <br>покупке <br>кухни</p>
     <div
       v-if="$windowWidth >= $breakpoints.md"
@@ -57,6 +57,12 @@ export default {
   name: 'DiscountBanner',
   components: {
     Icon
+  },
+  computed: {
+    promoText() {
+      const text = this.$store.getters.promoText
+      return text ? 'до\xa0' + text[1] : null
+    }
   }
 }
 </script>
