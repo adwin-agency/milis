@@ -11,7 +11,7 @@
         <div class="payment__content fade-bounce-right js-anim" v-anim="true">
           <h1 class="payment__heading">Оплата</h1>
           <div class="payment__desc">
-            <p class="payment__text">Оплачивайте кухню картой прямо на сайте или наличными выездному менеджеру. <br>У нас принимаются к оплате карты Visa и Master card</p>
+            <p class="payment__text">Оплачивайте кухню картой прямо на сайте или наличными выездному менеджеру. <br>У нас принимаются к оплате карты Visa, MasterCard и МИР</p>
             <div class="payment__icons">
               <div class="payment__icon">
                 <Icon name="visa" />
