@@ -32,7 +32,7 @@
           :key="kitchen.id + 'b'"
           class="col col-12 col-md-6 catalog__col catalog__col_gift"
         >
-          <Gift class="catalog__gift" />
+          <DesignForm class="catalog__form" />
         </div>
         <div
           v-if="index % 8 === 3"
@@ -101,7 +101,7 @@
 import CatalogCard from '../components/CatalogCard'
 import Questions from '../components/Questions'
 import Dropdowns from './base/Dropdowns.vue'
-import Gift from './Gift.vue'
+import DesignForm from './DesignForm.vue'
 
 export default {
   name: 'Catalog',
@@ -109,7 +109,7 @@ export default {
     CatalogCard,
     Questions,
     Dropdowns,
-    Gift
+    DesignForm
   },
   props: {
     kitchens: Array,
@@ -355,6 +355,10 @@ export default {
 
     &__decor {
       display: block;
+    }
+
+    &__form {
+      margin-right: -$container-padding-xl;
     }
   }
 }

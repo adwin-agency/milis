@@ -29,7 +29,7 @@
               <span class="payment__feature-icon">
                 <Icon name="leaf" />
               </span>
-              Сроки изготовления кухни 1 месяц
+              Сроки изготовления кухонь от 14 дней
             </p>
             <p class="payment__feature">
               <span class="payment__feature-icon">

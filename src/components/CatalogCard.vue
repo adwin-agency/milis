@@ -127,9 +127,10 @@
           class="catalog-card__oldprice"
         >{{kitchen.old_price}} ₽</p>
         <p class="catalog-card__price">
-          <span class="catalog-card__price-num">{{kitchen.price}} ₽<span>*</span></span>
+          <span class="catalog-card__price-num">{{kitchen.price}} ₽</span>
         </p>
-        <p class="catalog-card__price-note"><span>*</span>за весь гарнитур</p>
+        <p class="catalog-card__credit">от {{kitchen.installment}} ₽/мес.</p>
+        <p class="catalog-card__price-note">цена за весь гарнитур</p>
       </div>
       <Discount
         v-if="kitchen.discount"
@@ -253,6 +254,11 @@ export default {
       &__content {
         margin-left: 0;
         margin-right: 0;
+      }
+
+      &__price-note {
+        margin-left: auto;
+        max-width: 100px;
       }
     }
   }
@@ -411,7 +417,6 @@ export default {
   }
 
   &__prices {
-    flex-shrink: 0;
     margin-left: auto;
     text-align: right;
   }
@@ -424,6 +429,7 @@ export default {
   }
 
   &__price {
+    font-family: $font-secondary;
     font-weight: bold;
     font-size: 12px;
     line-height: (24/20);
@@ -438,7 +444,16 @@ export default {
     }
   }
 
+  &__credit {
+    font-family: $font-secondary;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    color: #fb626d;
+  }
+
   &__price-note {
+    font-family: $font-secondary;
     font-size: 12px;
     color: $color-gray-middle;
 
@@ -572,6 +587,10 @@ export default {
         &__price-num {
           font-size: 22px;
         }
+
+        &__credit {
+          font-size: 12px;
+        }
       }
     }
 
@@ -646,8 +665,12 @@ export default {
       font-size: 20px;
     }
 
+    &__credit {
+      font-size: 14px;
+    }
+
     &__price-note {
-      margin-top: -2px;
+      margin-top: 2px;
     }
   }
 
@@ -680,6 +703,10 @@ export default {
 
     &_in {
       #{$b} {
+        &__info {
+          margin-right: 5px;
+        }
+        
         &__title {
           display: block;
           font-size: 16px;
@@ -687,6 +714,18 @@ export default {
 
         &__stat {
           margin-top: 5px;
+        }
+
+        &__prices {
+          display: block;
+        }
+
+        &__credit {
+          font-size: 10px;
+        }
+
+        &__price-note {
+          margin-right: 0;
         }
       }
     }
@@ -707,6 +746,20 @@ export default {
       margin-top: 0;
       margin-bottom: 0;
     }
+
+    &__prices {
+      display: grid;
+      grid-template-columns: auto auto;
+      align-items: center;
+    }
+
+    &__price-note {
+      grid-row: 1/4;
+      margin-left: auto;
+      margin-right: 14px;
+      max-width: 100px;
+      line-height: 1;
+    }
   }
 
   @include media(1890) {
@@ -719,6 +772,10 @@ export default {
 
         &__stat {
           margin-top: 0;
+        }
+
+        &__credit {
+          font-size: 12px;
         }
       }
     }
