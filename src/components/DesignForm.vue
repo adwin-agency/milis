@@ -46,7 +46,7 @@
       </p>
       <p class="design-form__note">Нажимая кнопку "Отправить", вы соглашаетесь с
         <a
-          href="/"
+          :href="policyLink"
           target="_blank"
         >
           Политикой конфиденциальности
@@ -95,6 +95,12 @@ export default {
   computed: {
     page() {
       return this.$route.path
+    },
+    activeCity() {
+      return this.$store.getters.activeCity?.code;
+    },
+    policyLink() {
+      return '/docs/policy_' + this.activeCity + '.pdf'
     }
   },
   methods: {
