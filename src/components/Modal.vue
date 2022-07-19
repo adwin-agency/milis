@@ -24,6 +24,7 @@
           v-if="modal === 'calc'"
           class="modal__calc"
           @close="closeModal"
+          @success="handleCalcSuccess"
         />
         
         <ModalWrite
@@ -73,7 +74,8 @@ import ModalCalc from '@/components/ModalCalc'
 import ModalWrite from '@/components/ModalWrite'
 import ModalSlides from '@/components/ModalSlides'
 import ModalTechnics from '@/components/ModalTechnics'
-import ModalQuiz from "@/components/ModalQuiz";
+import ModalQuiz from "@/components/ModalQuiz"
+import api from '../api'
 
 export default {
   name: 'Modal',
@@ -88,7 +90,8 @@ export default {
   },
   data() {
     return {
-      active: false
+      active: false,
+      ecommerce: null
     }
   },
   computed: {
@@ -100,6 +103,12 @@ export default {
     },
     initialDetailSlide() {
       return this.$store.state.initialDetailSlide
+    },
+    productId() {
+      return this.$store.state.modalData?.itemId
+    },
+    productName() {
+      return this.$store.state.modalData?.item
     }
   },
   watch: {
@@ -122,6 +131,19 @@ export default {
         }
 
         this.showModal()
+      }
+
+      if (newModal === 'calc') {
+        api.ecommerce('add', this.productId, this.productName)
+        this.ecommerce = {
+          id: this.productId,
+          name: this.productName
+        }
+      }
+
+      if (newModal === null && this.ecommerce) {
+        api.ecommerce('remove', this.ecommerce.id, this.ecommerce.name)
+        this.ecommerce = null
       }
     },
     $route() {
@@ -167,6 +189,12 @@ export default {
 
     scrollTopModal() {
       this.$refs.modal.scrollTop = 0
+    },
+
+    handleCalcSuccess() {
+      if (!this.ecommerce) return
+      api.ecommerce('purchase', this.ecommerce.id, this.ecommerce.name)
+      this.ecommerce = null
     }
   }
 }

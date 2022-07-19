@@ -179,6 +179,8 @@ const store = new Vuex.Store({
             list: '2',
             totalvalue: response.info.price
           })
+
+          api.ecommerce('detail', response.info.id, response.info.name)
         })
     },
 

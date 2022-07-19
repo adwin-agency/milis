@@ -275,6 +275,7 @@ export default {
         .then(() => {
           this.sending = false
           this.sendSuccess = true
+          this.$emit('success')
         })
         .catch(() => {
           this.sending = false
