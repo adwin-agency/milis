@@ -39,7 +39,7 @@
             </div>
             <div class="contacts__item">
               <p class="contacts__title">Режим работы</p>
-              <p class="contacts__desc">с 09.00 до 20.00 ежедневно, без выходных</p>
+              <p class="contacts__desc">с 09.00 до 22.00 ежедневно, без выходных</p>
             </div>
           </div>
           <form
