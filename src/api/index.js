@@ -51,7 +51,7 @@ const api = {
   },
 
   sendLike(data) {
-    return this.fetchData(`${dataUrl}/likes.php`, {method: 'POST', headers: {'content-type': 'application/json'}, body: data})
+    return this.fetchData(`${dataUrl}/likes.php`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: data })
   },
 
   sendForm(data, type) {
@@ -74,7 +74,7 @@ const api = {
 
     const url = type === 'payment' ? '/include/youkassa/payment.php' : '/send.php'
 
-    return fetch(url, {method: 'POST', body: data})
+    return fetch(url, { method: 'POST', body: data })
       .then(response => {
 
         if (!response.ok) {
@@ -88,19 +88,19 @@ const api = {
         if (response.status !== 'ok') {
           throw new Error()
         }
-        
+
         if (response.confirmation_url) {
           window.location.href = response.confirmation_url
         }
-        
+
         window.fbq && window.fbq('track', 'Lead')
         window.VK && window.VK.Retargeting.Event('lead')
-        window.gtag && window.gtag('event', type, {event_category: 'Forms'})
+        window.gtag && window.gtag('event', type, { event_category: 'Forms' })
         window.ym && window.ym(73257226, 'reachGoal', type)
         window.ym && window.ym(73257226, 'reachGoal', 'lead')
         window.dataLayer = window.dataLayer || []
-        window.dataLayer.push({'event': 'formSubmit'})
-        window.dataLayer.push({'event': type})
+        window.dataLayer.push({ 'event': 'formSubmit' })
+        window.dataLayer.push({ 'event': type })
 
         if (type === 'size' && data.get('item_id') !== '') {
           const _tmr = window._tmr || (window._tmr = [])
@@ -114,6 +114,34 @@ const api = {
           })
         }
       })
+  },
+
+  ecommerce(eventName, productId, productName) {
+    window.dataLayer = window.dataLayer || []
+
+    const entry = {
+      ecommerce: {
+        currencyCode: 'RUB',
+        [eventName]: {
+          products: [
+            {
+              id: productId,
+              name: productName,
+              category: 'Кухни',
+              quantity: 1
+            }
+          ]
+        }
+      }
+    }
+
+    if (eventName === 'purchase') {
+      entry.ecommerce[eventName].actionField = {
+        id: productId
+      }
+    }
+
+    window.dataLayer.push(entry)
   }
 }
 
