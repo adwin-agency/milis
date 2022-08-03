@@ -39,7 +39,7 @@
             :to="{name: 'about'}"
             @click.native="$emit('close')"
           >
-            Материалы
+            О нас
           </RouterLink>
           <RouterLink
             class="mobile-menu__nav-item"

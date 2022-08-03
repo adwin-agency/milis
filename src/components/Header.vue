@@ -38,7 +38,7 @@
           />
         </div>
         <div class="header__nav-item">
-          <RouterLink class="header__link" :to="{name: 'about'}">Материалы</RouterLink>
+          <RouterLink class="header__link" :to="{name: 'about'}">О нас</RouterLink>
         </div>
         <div class="header__nav-item">
           <RouterLink class="header__link" :to="{name: 'delivery'}">Доставка и монтаж</RouterLink>

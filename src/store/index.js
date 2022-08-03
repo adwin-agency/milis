@@ -134,7 +134,7 @@ const store = new Vuex.Store({
 
           const city = getCookie('city')
 
-          if (city) {
+          if (city && response.cities.find(i => i.code === city)) {
             commit('setActiveCityCode', city)
           } else {
             commit('setCityDetection', true)

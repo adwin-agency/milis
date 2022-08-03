@@ -14,7 +14,7 @@
           <Link
             :href="href"
             class="nav-panel__item"
-            text="Материалы"
+            text="О нас"
             @click.native="navigate"
           />
         </RouterLink>

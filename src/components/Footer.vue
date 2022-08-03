@@ -67,7 +67,7 @@
                   <div class="footer__nav-item"><RouterLink :to="{name: 'payment'}">Рассрочка</RouterLink></div>
                 </div>
                 <div class="footer__nav-col">
-                  <div class="footer__nav-item"><RouterLink :to="{name: 'about'}">Материалы</RouterLink></div>
+                  <div class="footer__nav-item"><RouterLink :to="{name: 'about'}">О нас</RouterLink></div>
                   <div class="footer__nav-item"><RouterLink :to="{name: 'delivery'}">Доставка и монтаж</RouterLink></div>
                   <div class="footer__nav-item"><RouterLink :to="{name: 'payment'}">Оплата</RouterLink></div>
                   <div class="footer__nav-item"><RouterLink :to="{name: 'contacts'}">Контакты</RouterLink></div>
