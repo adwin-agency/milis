@@ -11,7 +11,7 @@
       v-if="$windowWidth >= $breakpoints.md"
       class="header__slogan"
     >
-      <p class="header__decor">Всё просто!</p>
+      <p class="header__decor">Фабрика кухонь</p>
       <p class="header__note">Кухни за 3 шага</p>
     </div>
     <template v-if="!$mobile">

@@ -14,7 +14,7 @@
       :class="{'is-active': isActive}"
       ref="desc"
     >
-      <p class="questions__text">{{desc}}</p>
+      <p class="questions__text" v-html="desc"></p>
     </div>
     <div
       class="questions__overlay js-anim"
@@ -118,6 +118,10 @@ export default {
 
   &__text {
     padding-top: 10px;
+
+    span {
+      color: $color-green;
+    }
   }
 
   &__mark {

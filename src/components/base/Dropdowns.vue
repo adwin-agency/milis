@@ -20,7 +20,7 @@
         {{item.title}}
       </p>
       <div class="dropdowns__content" ref="content">
-        <p class="dropdowns__desc">{{item.desc}}</p>
+        <p class="dropdowns__desc" v-html="item.desc"></p>
       </div>
     </div>
   </div>  
@@ -138,6 +138,10 @@ export default {
     padding-top: 10px;
     font-size: 14px;
     line-height: (23/14);
+
+    span {
+      color: $color-green;
+    }
   }
 
   @include media(md) {
