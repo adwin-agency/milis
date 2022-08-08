@@ -90,6 +90,9 @@ const api = {
         }
 
         if (response.confirmation_url) {
+          window.ym && window.ym(73257226, 'reachGoal', 'payment')
+          window.dataLayer = window.dataLayer || []
+          window.dataLayer.push({ 'event': 'payment' })
           window.location.href = response.confirmation_url
         }
 
