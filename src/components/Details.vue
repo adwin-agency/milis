@@ -1,10 +1,19 @@
 <template>
   <div class="details">
     <div class="row">
-      <div class="col col-12 col-lg-6" v-if="$windowWidth < $breakpoints.xl">
-        <Header class="slide-down js-anim" v-anim="true" />
+      <div
+        class="col col-12 col-lg-6"
+        v-if="$windowWidth < $breakpoints.xl"
+      >
+        <Header
+          class="slide-down js-anim"
+          v-anim="true"
+        />
       </div>
-      <div class="col col-12" v-if="$windowWidth < $breakpoints.xl"></div>
+      <div
+        class="col col-12"
+        v-if="$windowWidth < $breakpoints.xl"
+      ></div>
       <div class="col col-12 col-lg2-7 details__slider-col">
         <DetailSlider
           class="details__slider"
@@ -12,8 +21,15 @@
         />
       </div>
       <div class="col col-12 col-lg-9 col-lg2-5">
-        <Header class="slide-down js-anim" v-anim="true" v-if="$windowWidth >= $breakpoints.xl" />
-        <div class="details__wrapper fade-bounce-right js-anim" v-anim="true">
+        <Header
+          class="slide-down js-anim"
+          v-anim="true"
+          v-if="$windowWidth >= $breakpoints.xl"
+        />
+        <div
+          class="details__wrapper fade-bounce-right js-anim"
+          v-anim="true"
+        >
           <div class="details__nav">
             <Back
               sm
@@ -25,42 +41,6 @@
             </p>
           </div>
           <h1 class="details__heading">{{details.name}}</h1>
-          <div class="details__info">
-            <div class="details__cost">
-              <div class="details__prices">
-                <p
-                  v-if="details.old_price"
-                  class="details__old-price"
-                >
-                  {{details.old_price}} ₽
-                </p>
-                <p class="details__price">
-                  <span class="details__price-num">{{details.price}} ₽<span>*</span></span>
-                </p>
-                <p class="details__price-note"><span>*</span>за весь гарнитур</p>
-              </div>
-              <Button
-                small
-                class="details__btn"
-                modal="calc"
-                :modalData="modalData"
-              >
-                Рассчитать стоимость
-              </Button>
-            </div>          
-            <div class="details__features">
-              <div class="details__features-icon">
-                <Icon name="leaf" />
-              </div>
-              <p class="details__feature">Рассрочка 0˙0˙8</p>
-              <p class="details__feature">Гарантия 2 года</p>
-              <p class="details__feature">Бесплатный 3D проект </p>
-            </div>
-          </div>
-          <p
-            v-if="$windowWidth >= $breakpoints.md"
-            class="details__desc"
-          >{{details.description}}</p>
           <div class="details__stats">
             <p class="details__note">
               <span class="details__note-icon">
@@ -75,15 +55,58 @@
               @click="toggleLike"
             >
               <span class="details__stat-icon">
-                <Icon name="likes"/>
+                <Icon name="likes" />
               </span>
               {{newLikesCount || details.likes}}
             </button>
-          </div>          
-          <p
-            v-if="$windowWidth < $breakpoints.md"
-            class="details__desc"
-          >{{details.description}}</p>
+          </div>
+          <div class="details__chars">
+            <div
+              v-for="n in Math.ceil(chars.length / 4)"
+              :key="n"
+              class="details__chars-col"
+            >
+              <div
+                v-for="item in chars.slice((n - 1) * 4, n * 4)"
+                :key="item.id"
+                class="details__char"
+              >
+                <span class="details__char-title">{{ item.title }}</span>
+                <span class="details__char-value">{{ item.value }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="details__info">
+            <div class="details__cost">
+              <div class="details__prices">
+                <div class="details__price">
+                  <p class="details__price-note">цена за весь гарнитур</p>
+                  <p class="details__price-value">{{details.price}} ₽</p>
+                </div>
+                <div class="details__old-price">
+                  <p class="details__old-price-value">{{details.old_price}} ₽</p>
+                  <p class="details__old-price-note">старая цена</p>
+                </div>
+              </div>
+              <div class="details__credit">
+                <p class="details__credit-value">{{ details.installment }} ₽/мес</p>
+                <p class="details__credit-note">при оформлении рассрочки</p>
+                <Icon
+                  class="details__credit-icon"
+                  name="leaf"
+                />
+              </div>
+            </div>
+            <Button
+              small
+              class="details__btn"
+              modal="calc"
+              :modalData="modalData"
+            >
+              Рассчитать стоимость
+            </Button>
+          </div>
+          <p class="details__desc">{{details.description}}</p>
         </div>
       </div>
     </div>
@@ -97,6 +120,16 @@ import Icon from './base/Icon'
 import Header from './Header'
 import DetailSlider from './DetailSlider'
 import api from '@/api'
+
+const chars = [
+  { id: 1, title: 'Фасады', value: 'МДФ Egger' },
+  { id: 2, title: 'Корпус', value: 'МДФ Kronospan' },
+  { id: 3, title: 'Столешница', value: 'Влагостойкая' },
+  { id: 4, title: 'Доводчики', value: 'Есть' },
+  { id: 5, title: 'Страна-производитель', value: 'Россия' },
+  { id: 6, title: 'Гарантия', value: '24 месяца' },
+  { id: 7, title: 'Рассрочка', value: '0*0*8' }
+]
 
 export default {
   name: 'Details',
@@ -112,6 +145,7 @@ export default {
   },
   data() {
     return {
+      chars: chars,
       activeLike: this.details.likes_status !== 'disable',
       sendingLike: false,
       newLikesCount: null
@@ -142,12 +176,11 @@ export default {
 
       data = JSON.stringify(data)
 
-      api.sendLike(data)
-        .then(response => {
-          this.activeLike = !this.activeLike
-          this.sendingLike = false
-          this.newLikesCount = response
-        })
+      api.sendLike(data).then(response => {
+        this.activeLike = !this.activeLike
+        this.sendingLike = false
+        this.newLikesCount = response
+      })
     }
   }
 }
@@ -180,52 +213,70 @@ export default {
   }
 
   &__info {
-    margin-top: 4px;
+    margin-top: 38px;
   }
 
-  &__prices {    
+  &__prices {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-end;
   }
 
   &__old-price {
-    margin-right: 20px;    
-    font-weight: 200;
-    font-size: 18px;
-    line-height: (14/12);
-    text-decoration: line-through;
+    margin-left: 20px;
     color: $color-gray-middle;
-  }
 
-  &__price {
-    font-weight: 300;
-    font-size: 20px;
-    line-height: (23/20);
-    color: $color-blue;
-  }
+    &-value {
+      font-weight: 300;
+      font-size: 19px;
+      text-decoration: line-through;
+    }
 
-  &__price-num {
-    font-size: 30px;
-
-    span {
-      color: $color-red;
+    &-note {
+      font-size: 14px;
     }
   }
 
-  &__price-note {
-    margin-top: 2px;
-    width: 100%;
-    font-size: 12px;
+  &__price {
     color: $color-blue;
 
-    span {
+    &-note {
+      font-size: 14px;
+    }
+
+    &-value {
+      font-weight: 300;
+      font-size: 40px;
+    }
+  }
+
+  &__credit {
+    position: relative;
+    margin-top: 16px;
+    max-width: 250px;
+
+    &-value {
+      font-weight: 500;
+      font-size: 19px;
       color: $color-red;
+    }
+
+    &-note {
+      font-size: 14px;
+      color: $color-gray-middle;
+    }
+
+    &-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 33px;
+      height: 35px;
+      fill: $color-green;
     }
   }
 
   &__btn {
-    margin-top: 12px;
+    margin-top: 28px;
     width: 100%;
   }
 
@@ -234,7 +285,7 @@ export default {
     margin-left: 12px;
     margin-top: 40px;
     padding: 26px 46px;
-    background-color: #EFEFEF;
+    background-color: #efefef;
   }
 
   &__features-icon {
@@ -256,7 +307,7 @@ export default {
     color: $color-blue;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 7px;
       right: 100%;
@@ -273,15 +324,14 @@ export default {
 
   &__stats {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-top: 27px;
+    margin-top: 20px;
   }
 
   &__note {
     display: flex;
-    margin-right: 80px;
-    font-size: 12px;
+    margin-right: 18px;
+    font-size: 14px;
     line-height: (14/12);
     color: $color-gray;
   }
@@ -290,20 +340,20 @@ export default {
     flex-shrink: 0;
     width: 9px;
     height: 9px;
+    margin-top: 2px;
     margin-right: 4px;
   }
 
   &__stat {
     display: flex;
     align-items: center;
-    font-weight: bold;
     font-size: 14px;
     line-height: (17/14);
-    color: $color-blue;
+    color: $color-gray-middle;
     fill: none;
     stroke: $color-red;
     stroke-width: 2px;
-    transition: fill .3s ease;
+    transition: fill 0.3s ease;
 
     &.is-active {
       fill: $color-red;
@@ -318,14 +368,37 @@ export default {
   }
 
   &__desc {
-    margin-top: 17px;
-    font-size: 12px;
-    line-height: (24/12);
+    margin-top: 30px;
+    font-size: 14px;
+    line-height: 2;
+  }
+
+  &__chars {
+    margin-top: 32px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid $color-gray;
+    font-size: 14px;
+  }
+
+  &__char {
+    display: flex;
+    justify-content: space-between;
+    font-family: $font-secondary;
+    line-height: 1.7;
+
+    &-value {
+      margin-left: 20px;
+      font-weight: 700;
+    }
   }
 
   @include media(md) {
     &__slider {
       margin: 0 (-$container-padding-md);
+    }
+
+    &__wrapper {
+      max-width: 800px;
     }
 
     &__nav {
@@ -343,41 +416,18 @@ export default {
       line-height: (61/50);
     }
 
-    &__info {
-      display: flex;
-      align-items: flex-start;
-      margin-top: 6px;
-    }
-
     &__cost {
-      flex: 1;
-      margin-right: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
 
-    &__old-price {
-      margin-top: 16px;
-      margin-right: 36px;
-      font-size: 28px;
-      line-height: (46/28);
-    }
-
-    &__price {
-      font-size: 22px;
-      line-height: (36/22);
-    }
-
-    &__price-num {
-      font-size: 50px;
-    }
-
-    &__price-note {
-      margin-top: 0;
+    &__credit {
+      padding-right: 50px;
     }
 
     &__btn {
-      margin-top: 26px;
-      width: auto;
-      min-width: 280px;
+      width: 280px;
     }
 
     &__features {
@@ -407,12 +457,27 @@ export default {
   }
 
   @include media(lg) {
-    &__slider {
-      margin-top: 30px;
+    &__nav {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    &__category {
+      margin-top: 0;
+      margin-left: 38px;
     }
 
     &__heading {
       margin-top: 16px;
+    }
+
+    &__stats {
+      margin-top: 14px;
+    }
+
+    &__note {
+      margin-right: 58px;
     }
 
     &__info {
@@ -424,54 +489,80 @@ export default {
       padding: 26px 30px;
     }
 
-    &__stats {
-      justify-content: flex-start;
-      margin-top: 38px;
-    }
-
     &__desc {
-      margin-top: 52px;
-      padding-right: 30px;
+      margin-top: 30px;
     }
   }
 
   @include media(lg2) {
+    &__slider {
+      margin-left: 0;
+    }
+
     &__slider-col {
       order: 1;
     }
 
-    &__slider {
-      margin-left: -54px;
-    }
-
-    &__wrapper {
-      padding-right: 80px;
+    &__nav {
+      margin-top: 20px;
     }
 
     &__info {
       padding-right: 0;
     }
 
-    &__features {
-      display: none;
+    &__chars {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 34px;
+
+      &-col {
+        width: calc(50% - 10px);
+      }
     }
 
-    &__stats {
-      justify-content: space-between;
+    &__cost {
+      display: flex;
+    }
+
+    &__credit {
+      max-width: 190px;
+    }
+
+    &__desc {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    &__features {
+      display: none;
     }
   }
 
   @include media(xl) {
-    &__nav {
-      margin-top: 56px;
+    &__wrapper {
+      padding-right: 30px;
     }
 
     &__heading {
       margin-top: 12px;
     }
 
-    &__info {
-      padding-right: 36px;
+    &__chars {
+      max-width: 700px;
+
+      &-col {
+        width: calc(50% - 45px);
+      }
+    }
+
+    &__cost {
+      justify-content: flex-start;
+    }
+
+    &__credit {
+      margin-left: 50px;
+      max-width: 250px;
     }
 
     &__features {
@@ -483,16 +574,21 @@ export default {
       top: -26px;
     }
 
-    &__desc {
-      margin-top: 44px;
-      font-size: 16px;
-      line-height: (33/16);
-    }
-    
     &__slider {
       margin-top: 0;
       margin-left: 0;
       margin-right: -$container-padding-xl;
+    }
+  }
+
+  @include media(1800) {
+    &__price {
+      &-value {
+        font-size: 50px;
+      }
+    }
+    &__credit {
+      margin-left: 72px;
     }
   }
 }

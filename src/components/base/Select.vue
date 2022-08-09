@@ -9,6 +9,7 @@
         v-for="(option, index) in options"
         :key="index"
         :value="option.value"
+        :selected="initial && initial === option.value"
       >
         {{ option.title }}
       </option>
@@ -32,16 +33,16 @@
 <script>
 export default {
   name: "Select",
-  components: {},
   props: {
     className: String,
     name: String,
     id: String,
     options: Array,
+    initial: String
   },
   data() {
     return {
-      selectedTitle: this.options[0].title,
+      selectedTitle: this.initial ? this.options.find(item => item.value === this.initial).title : this.options[0].title,
       activeSelect: false,
       //id: this.id,
     };

@@ -71,7 +71,7 @@
                 type="submit"
                 class="contacts__btn"
               >
-                Отправить заявку
+                {{ sending ? 'Отправляем...' : 'Отправить заявку' }}
               </Button>
             </div>
             <p

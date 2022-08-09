@@ -75,7 +75,7 @@
           type="submit"
           blue
         >
-          Отправить
+          {{ sending ? 'Отправляем...' : 'Отправить' }}
         </Button>
         <p
           v-if="sendError"

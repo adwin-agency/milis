@@ -321,6 +321,7 @@ export default {
     line-height: (15/12);
     color: $color-white;
     background-color: $color-blue;
+    white-space: nowrap;
     z-index: 1;
   }
 

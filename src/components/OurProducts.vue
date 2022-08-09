@@ -19,18 +19,27 @@
           <div class="our-products__menu">
             <div class="our-products__menu-header">
               <p class="our-products__menu-title">Фильтры</p>
-              <RouterLink
+              <button
                 v-if="!$mobile"
-                :to="{name: 'catalog'}"
                 class="our-products__reset"
+                @click="handleReset"
               >
                 Сбросить фильтры
-              </RouterLink>
+              </button>
             </div>
             <FilterMenu
               class="our-products__menu-items"
               filterType="catalog"
             />
+            <div class="our-products__select">
+              <Select
+                :key="selectKey"
+                id="sort-select"
+                :options="sortOptions"
+                :initial="initialSort"
+                @changeSelect="handleSortChange"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -42,13 +51,25 @@
 import FilterMenu from '@/components/base/FilterMenu'
 import Header from '@/components/Header'
 import DiscountBanner from '@/components/DiscountBanner'
+import Select from './base/Select.vue'
 
 export default {
   name: 'OurProducts',
   components: {
     FilterMenu,
     Header,
-    DiscountBanner
+    DiscountBanner,
+    Select
+  },
+  data() {
+    return {
+      sortOptions: [
+        { title: 'Сначала популярные', value: 'default' },
+        { title: 'Сначала дешeвле', value: 'price_min' },
+        { title: 'Сначала дороже', value: 'price_max' }
+      ],
+      selectKey: 0
+    }
   },
   computed: {
     categories() {
@@ -62,6 +83,34 @@ export default {
         item => item.url === this.activeCategoryUrl
       )
       return activeCategory?.name2 ?? 'Наши кухни'
+    },
+    initialSort() {
+      return this.sortOptions.find(item => item.value === this.$route.query.sort) ? this.$route.query.sort : 'default'
+    }
+  },
+  methods: {
+    handleSortChange({ value }) {
+      const { name, params, query } = this.$route
+
+      if (query.sort === value || !query.sort && value === 'default') {
+        return
+      }
+
+      this.$router.push({
+        name,
+        params,
+        query: { ...query, sort: value === 'default' ? undefined : value }
+      })
+    },
+    handleReset() {
+      if (
+        this.$route.name === 'catalog' &&
+        Object.keys(this.$route.query).length === 0
+      ) {
+        return
+      }
+      this.$router.push({ name: 'catalog' })
+      this.selectKey++
     }
   }
 }
@@ -88,7 +137,6 @@ export default {
     margin: 30px (-$container-padding) 0;
     padding: 20px 0;
     background-color: #f3f3f3;
-    overflow: hidden;
 
     &-header {
       font-family: $font-secondary;
@@ -104,6 +152,7 @@ export default {
 
     &-items {
       margin: 5px -10px 0;
+      overflow: hidden;
     }
   }
 
@@ -143,6 +192,10 @@ export default {
 
   &__features {
     margin-top: 25px;
+  }
+
+  &__select {
+    margin: 20px 10px 0;
   }
 
   @include media(xs) {
@@ -238,6 +291,10 @@ export default {
     &__features {
       margin-top: 28px;
     }
+
+    &__select {
+      margin: 20px $container-padding-md 0;
+    }
   }
 
   @include media(lg) {
@@ -262,6 +319,11 @@ export default {
         margin: 0;
         margin-bottom: 5px;
         font-size: 30px;
+      }
+
+      &-items {
+        margin: 0;
+        padding-bottom: 2px;
       }
     }
 
@@ -291,6 +353,12 @@ export default {
 
     &__features {
       margin-top: 30px;
+    }
+
+    &__select {
+      margin: 0;
+      margin-left: auto;
+      width: 330px;
     }
   }
 

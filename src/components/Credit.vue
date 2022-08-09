@@ -104,7 +104,7 @@
                 :error="errors.phone"
                 @input="onInput('phone', $event)"
               />
-              <Button class="credit__btn" type="submit" send>Отправить</Button>
+              <Button class="credit__btn" type="submit" send>{{ sending ? 'Отправляем...' : 'Отправить' }}</Button>
             </div>
             <p
               v-if="sendError"

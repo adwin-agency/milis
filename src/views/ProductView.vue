@@ -9,8 +9,15 @@
           class="v-product__details"
           :details="details.info"
         />
-        <Divider class="v-product__divider-1 scale-right js-anim" v-anim="true" />
-        <ProductParts class="v-product__product-parts" />
+        <Divider
+          class="v-product__divider-1 scale-right js-anim"
+          v-anim="true"
+        />
+        <!-- <ProductParts class="v-product__product-parts" /> -->
+        <DetailsReview
+          class="v-product__review"
+          :review="details.info.customer"
+        />
         <Service class="v-product__service" />
         <!-- <Features class="v-product__features" /> -->
         <ReviewsIn
@@ -26,21 +33,25 @@
           :kitchenStyle="details.info.style"
           :similars="details.similars"
         />
-        <Divider class="v-product__divider-2 scale-right js-anim" v-anim="true" v-if="$windowWidth >= $breakpoints.md" />
+        <Divider
+          class="v-product__divider-2 scale-right js-anim"
+          v-anim="true"
+          v-if="$windowWidth >= $breakpoints.md"
+        />
         <NavPanel
           class="v-product__nav-panel"
           navType="product"
         />
       </div>
     </div>
-  </Page>  
+  </Page>
 </template>
 
 <script>
 import Divider from '@/components/base/Divider'
 import Page from '@/components/Page'
 import Details from '@/components/Details'
-import ProductParts from '@/components/ProductParts'
+// import ProductParts from '@/components/ProductParts'
 import Service from '@/components/Service'
 // import Features from '@/components/Features'
 import ReviewsIn from '@/components/ReviewsIn'
@@ -48,6 +59,7 @@ import Call from '@/components/Call'
 import SimilarProducts from '@/components/SimilarProducts'
 import NavPanel from '@/components/NavPanel'
 import store from '@/store'
+import DetailsReview from '../components/DetailsReview.vue'
 
 export default {
   name: 'ProductView',
@@ -55,13 +67,14 @@ export default {
     Divider,
     Page,
     Details,
-    ProductParts,
+    // ProductParts,
     Service,
     // Features,
     ReviewsIn,
     Call,
     SimilarProducts,
-    NavPanel
+    NavPanel,
+    DetailsReview
   },
   computed: {
     details() {
@@ -69,13 +82,11 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    store.dispatch('loadKitchenDetails', to.params.kitchen)
-      .then(() => next())
+    store.dispatch('loadKitchenDetails', to.params.kitchen).then(() => next())
   },
   beforeRouteUpdate(to, from, next) {
-    store.dispatch('loadKitchenDetails', to.params.kitchen)
-      .then(() => next())
-  },
+    store.dispatch('loadKitchenDetails', to.params.kitchen).then(() => next())
+  }
 }
 </script>
 
@@ -90,6 +101,10 @@ export default {
   }
 
   &__product-parts {
+    margin-bottom: 48px;
+  }
+
+  &__review {
     margin-bottom: 48px;
   }
 
@@ -116,7 +131,7 @@ export default {
   &__nav-panel {
     margin-bottom: 50px;
   }
-  
+
   @include media(md) {
     &__details {
       margin-bottom: 40px;
@@ -128,6 +143,10 @@ export default {
 
     &__product-parts {
       margin-bottom: 60px;
+    }
+
+    &__review {
+      margin-bottom: 100px;
     }
 
     &__service {
@@ -188,6 +207,10 @@ export default {
 
     &__divider-1 {
       margin-bottom: 90px;
+    }
+
+    &__review {
+      margin-bottom: 136px;
     }
 
     &__service {

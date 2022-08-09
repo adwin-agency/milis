@@ -2,7 +2,7 @@
   <Page v-if="kitchens">
     <div class="v-catalog">
       <div class="container">
-        <OurProducts class="v-catalog__our-products"/>
+        <OurProducts class="v-catalog__our-products" />
         <Divider
           v-if="!$mobile"
           class="v-catalog__divider-1 scale-right js-anim"
@@ -12,7 +12,11 @@
           class="v-catalog__catalog"
           :kitchens="kitchens"
         />
-        <Divider v-if="$windowWidth >= $breakpoints.md" class="v-catalog__divider-2 scale-right js-anim" v-anim="true" />
+        <Divider
+          v-if="$windowWidth >= $breakpoints.md"
+          class="v-catalog__divider-2 scale-right js-anim"
+          v-anim="true"
+        />
         <NavPanel
           class="v-catalog__nav-panel"
           navType="catalog"
@@ -79,6 +83,9 @@ export default {
     kitchenStyle() {
       return this.$route.query.style
     },
+    kitchenSort() {
+      return this.$route.query.sort
+    },
     isPagination() {
       return this.$windowWidth >= this.$breakpoints.md
     }
@@ -86,16 +93,25 @@ export default {
   beforeRouteEnter(to, from, next) {
     const category = to.params.category
     const style = to.query.style
+    const sort = to.query.sort
 
-    store.dispatch('loadCatalogKitchens', {category, style})
-      .then(() => next(vm => vm.activePage = 1))
+    store
+      .dispatch('loadCatalogKitchens', { category, style, sort })
+      .then(() => next(vm => (vm.activePage = 1)))
   },
   beforeRouteUpdate(to, from, next) {
     const category = to.params.category
     const style = to.query.style
+    const sort = to.query.sort
 
-    store.dispatch('loadCatalogKitchens', {category, style})
-      .then(() => next(vm => vm.activePage = 1))
+    console.log('updated')
+
+    store
+      .dispatch('loadCatalogKitchens', { category, style, sort })
+      .then(() => {
+        this.activePage = 1
+        next()
+      })
   },
   created() {
     window.addEventListener('resize', this.handleResize)
@@ -108,17 +124,29 @@ export default {
   },
   methods: {
     changePage(num) {
-      window.scrollTo({top: 0, behavior: 'smooth'})
-      store.dispatch('loadCatalogKitchens', {page: num, category: this.kitchenCategory, style: this.kitchenStyle})
-        .then(() => this.activePage = num)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      store
+        .dispatch('loadCatalogKitchens', {
+          category: this.kitchenCategory,
+          page: num,
+          style: this.kitchenStyle,
+          sort: this.kitchenSort
+        })
+        .then(() => (this.activePage = num))
     },
     showMore() {
       if (this.isLoading) {
         return
       }
-      
+
       this.isLoading = true
-      store.dispatch('loadMoreKitchens', {page: this.activePage + 1, category: this.kitchenCategory, style: this.kitchenStyle})
+      store
+        .dispatch('loadMoreKitchens', {
+          category: this.kitchenCategory,
+          page: this.activePage + 1,
+          style: this.kitchenStyle,
+          sort: this.kitchenSort
+        })
         .then(() => {
           this.activePage++
           this.isLoading = false
@@ -137,7 +165,10 @@ export default {
 
       const catalog = document.querySelector('.v-catalog__catalog')
 
-      if (catalog.getBoundingClientRect().bottom - window.innerHeight * 2 <= 0) {
+      if (
+        catalog.getBoundingClientRect().bottom - window.innerHeight * 2 <=
+        0
+      ) {
         this.showMore()
       }
     }

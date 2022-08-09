@@ -39,7 +39,7 @@
           name="price"
           :value="inputPrice"
         >
-        <p class="modal-calc__title">Рассчитать стоимость</p>
+        <p class="modal-calc__title">Рассчитать стоимость по Вашим размерам</p>
         <p class="modal-calc__desc">Наш специалист позвонит вам и назовет стоимость кухни по самым выгодным условиям.</p>
 
         <div class="modal-calc__fields">
@@ -97,7 +97,7 @@
           type="submit"
           class="modal-calc__btn"
         >
-          Рассчитать кухню
+          {{ sending ? 'Отправляем...' : 'Рассчитать цену кухни' }}
         </Button>
         <p
           v-if="sendError"
@@ -115,7 +115,10 @@
         />
       </div>
     </div>
-    <div class="modal-calc__side">
+    <div
+      v-if="!$mobile"
+      class="modal-calc__side"
+    >
       <div class="modal-calc__features">
         <p class="modal-calc__feature">
           <span class="modal-calc__feature-icon">

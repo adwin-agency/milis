@@ -54,7 +54,7 @@
         type="submit"
         class="modal-details__btn"
       >
-        Отправить
+        {{ sending ? 'Отправляем...' : 'Отправить' }}
       </Button>
       <p
         v-if="sendError"

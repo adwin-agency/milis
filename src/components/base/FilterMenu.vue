@@ -11,7 +11,7 @@
             :to="{
               name: activeCategory === category.url ? 'catalog' : 'category',
               params: {category: activeCategory === category.url ? false : category.url},
-              query: activeStyle ? {style: activeStyle} : false
+              query: routeQuery
             }"
           >
             {{category.name}}
@@ -65,6 +65,9 @@ export default {
     },
     technicsCategories() {
       return this.$store.state.technicsCategories && this.$store.state.technicsCategories.slice(1)
+    },
+    routeQuery() {
+      return this.$route.query
     }
   }
 }
@@ -159,6 +162,10 @@ export default {
       margin-right: 18px;
       margin-bottom: 18px;
       padding: 12px 30px;
+
+      &:last-child {
+        margin-right: 18px;
+      }
 
       &_main {
         color: $color-blue;

@@ -214,7 +214,7 @@
                     class="pay__btn btn btn_blue"
                     :disabled="!numMask || !charMask || !checkBoxChecked"
                 >
-                  Отправить
+                  {{ sending ? 'Отправляем...' : 'Отправить' }}
                 </Button>
               </div>
               <p

@@ -18,7 +18,8 @@
       class="design-form__content"
       :class="{'active': !formSuccess}"
     >
-      <p class="design-form__title">Бесплатный вызов дизайнера на дом</p>
+      <p class="design-form__title">Бесплатный выезд дизайнера и 3D проект</p>
+      <p class="design-form__desc design-form__desc_sm">Замер помещения и создание проекта по размерам вашей кухни</p>
       <div class="design-form__fields">
         <input
           type="text"
@@ -36,7 +37,7 @@
           name="phone"
           @input="handleInput('phone', $event)"
         >
-        <button class="design-form__btn">{{formSending ? 'Отправляем...' : 'Отправить'}}</button>
+        <button class="design-form__btn">{{formSending ? 'Отправляем...' : 'Пригласить бесплатно'}}</button>
       </div>
       <p
         v-if="formError"
@@ -97,7 +98,7 @@ export default {
       return this.$route.path
     },
     activeCity() {
-      return this.$store.getters.activeCity?.code;
+      return this.$store.getters.activeCity?.code
     },
     policyLink() {
       return '/docs/policy_' + this.activeCity + '.pdf'
@@ -198,6 +199,11 @@ export default {
     font-weight: 700;
     font-size: 18px;
     line-height: 130%;
+
+    &_sm {
+      font-weight: 400;
+      font-size: 14px;
+    }
   }
 
   &__fields {
@@ -222,11 +228,11 @@ export default {
     }
 
     &.error {
-      border-color: #FB4C58;
-      color: #FB4C58;
+      border-color: #fb4c58;
+      color: #fb4c58;
 
       &::placeholder {
-        color: #FB4C58;
+        color: #fb4c58;
       }
     }
   }
@@ -234,6 +240,7 @@ export default {
   &__btn {
     margin-top: 18px;
     height: 60px;
+    padding: 0 10px;
     font-family: $font-secondary;
     font-weight: 700;
     font-size: 14px;
@@ -245,7 +252,7 @@ export default {
     margin-top: 10px;
     font-size: 14px;
     text-align: center;
-    color: #FB4C58;
+    color: #fb4c58;
   }
 
   &__note {
@@ -300,6 +307,10 @@ export default {
 
     &__desc {
       font-size: 20px;
+
+      &_sm {
+        font-size: 16px;
+      }
     }
   }
 
@@ -315,6 +326,10 @@ export default {
 
     &__desc {
       font-size: 22px;
+
+      &_sm {
+        font-size: 18px;
+      }
     }
 
     &__fields {
