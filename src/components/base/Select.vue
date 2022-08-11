@@ -14,7 +14,7 @@
         {{ option.title }}
       </option>
     </select>
-    <span class="form-select__selected-text" v-on:click="open">{{
+    <span class="form-select__selected-text" :class="{'selected': selected}" v-on:click="open">{{
       selectedTitle
     }}</span>
     <ul class="form-select__list">
@@ -23,6 +23,7 @@
         :key="index"
         v-on:click="change(option.title, option.value)"
         class="form-select__item"
+        :class="{'active': option.title === selectedTitle}"
       >
         {{ option.title }}
       </li>
@@ -44,6 +45,7 @@ export default {
     return {
       selectedTitle: this.initial ? this.options.find(item => item.value === this.initial).title : this.options[0].title,
       activeSelect: false,
+      selected: false
       //id: this.id,
     };
   },
@@ -62,6 +64,7 @@ export default {
       this.$refs.select.value = value;
       this.activeSelect = !this.activeSelect;
       this.selectedTitle = title;
+      this.selected = true;
       this.$emit("changeSelect", { value: value });
     },
   },
@@ -92,7 +95,8 @@ export default {
     align-items: center;
     color: #acacac;
     cursor: pointer;
-    &:hover {
+    &:hover,
+    &.active {
       color: #303864;
     }
   }
@@ -116,6 +120,9 @@ export default {
       border-top: 6px solid #303864;
       border-right: 5px solid transparent;
       border-left: 5px solid transparent;
+    }
+    &.selected {
+      color: #303864;
     }
   }
   &__container.is-active &__selected-text {
