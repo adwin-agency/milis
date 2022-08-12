@@ -11,8 +11,8 @@
       v-if="$windowWidth >= $breakpoints.md"
       class="header__slogan"
     >
-      <p class="header__decor">Фабрика кухонь</p>
-      <p class="header__note">Кухни за 3 шага</p>
+      <p class="header__note">Фабрика кухонь</p>
+      <p class="header__decor">Кухня за 3 шага</p>
     </div>
     <template v-if="!$mobile">
       <nav class="header__nav">
@@ -294,6 +294,7 @@ export default {
     height: 8px;
     margin-top: 2px;
     margin-right: 3px;
+    fill: $color-blue;
     transition: transform .3s ease;
   }
 
@@ -435,23 +436,29 @@ export default {
     
     &__logo {
       width: 80px;
-      margin-right: 48px;
+      margin-right: 20px;
     }
 
     &__slogan {
       margin-right: auto;
     }
 
-    &__decor {
-      margin-bottom: -14px;
-      font-family: $font-decorative;
-      font-size: 40px;
+    &__note {
+      font-family: $font-primary;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
       color: $color-blue;
     }
 
-    &__note {
-      margin-left: 72px;
-      font-size: 14px;
+    &__decor {
+      margin-left: 48px;
+      font-family: $font-decorative;
+      font-size: 30px;
+      line-height: 30px;
+      letter-spacing: -0.03em;
       color: $color-blue;
     }
   }

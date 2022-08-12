@@ -674,6 +674,10 @@ export default {
     flex-wrap: wrap;
   }
 
+  .quiz-layout__arrow-el {
+    fill: $color-blue;
+  }
+
   &__header {
     position: relative;
     background-color: #EFEFEF;
