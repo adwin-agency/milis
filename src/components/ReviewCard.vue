@@ -10,10 +10,12 @@
       <p class="review-card__title">
         {{reviewData.name}}
         <span class="review-card__rating">
-          <span class="review-card__rating-icon">
-            <Icon :name="`smile-${reviewData.rating}`"/>
-          </span>
-          {{reviewData.rating}}
+          <Icon
+            v-for="n in +reviewData.rating"
+            :key="n"
+            class="review-card__rating-icon"
+            name="star"
+          />
         </span>
       </p>
       <p class="review-card__desc">{{reviewData.description_short}}</p>
@@ -57,16 +59,6 @@ export default {
 
       &__content {
         margin-top: 16px;
-      }
-
-      &__rating {
-        display: block;
-        margin-bottom: -20px;
-      }
-
-      &__rating-icon {
-        margin-right: 0;
-        margin-bottom: 3px;
       }
 
       &__link {
@@ -126,8 +118,6 @@ export default {
   }
 
   &__rating-icon {
-    display: block;
-    margin-right: 14px;
     width: 20px;
     height: 20px;
   }
@@ -166,17 +156,6 @@ export default {
           flex: 1;
           margin-top: 0;
           margin-left: 34px;
-        }
-
-        &__rating {
-          display: flex;
-          align-items: center;
-          margin-bottom: 0;
-        }
-
-        &__rating-icon {
-          margin-right: 12px;
-          margin-bottom: 0;
         }
 
         &__desc {

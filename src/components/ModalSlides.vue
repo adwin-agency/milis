@@ -25,10 +25,13 @@
         <p class="modal-slides__date">{{currentReview.date}}</p>
         <p class="modal-slides__title">{{currentReview.name}}
           <span class="modal-slides__rating">
-            <span class="modal-slides__rating-icon">
-              <Icon :name="`smile-${currentReview.rating}`" />
-            </span>
-            {{currentReview.rating}}</span>
+            <Icon
+              v-for="n in +currentReview.rating"
+              :key="n"
+              class="modal-slides__rating-icon"
+              name="star"
+            />
+          </span>
         </p>
         <p class="modal-slides__desc">{{currentReview.description}}</p>
       </div>
@@ -231,7 +234,6 @@ export default {
   &__rating-icon {
     width: 20px;
     height: 20px;
-    margin-right: 15px;
   }
 
   &__desc {
