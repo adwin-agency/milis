@@ -20,7 +20,12 @@
           :key="kitchen.id + 'd'"
           class="col col-12 col-md-6 catalog__col catalog__col_features"
         >
+          <CatalogFeatures
+            v-if="$windowWidth < $breakpoints.md"
+            class="catalog__features"
+          />
           <Dropdowns
+            v-else
             :items="dropdowns"
             products
             disabled
@@ -102,6 +107,7 @@ import CatalogCard from '../components/CatalogCard'
 import Questions from '../components/Questions'
 import Dropdowns from './base/Dropdowns.vue'
 import DesignForm from './DesignForm.vue'
+import CatalogFeatures from './CatalogFeatures.vue'
 
 export default {
   name: 'Catalog',
@@ -109,7 +115,8 @@ export default {
     CatalogCard,
     Questions,
     Dropdowns,
-    DesignForm
+    DesignForm,
+    CatalogFeatures
   },
   props: {
     kitchens: Array,
@@ -204,7 +211,7 @@ export default {
   }
 
   &__features {
-    margin-top: 26px;
+    margin: 0 (-$container-padding);
   }
 
   &__gift {
@@ -239,7 +246,7 @@ export default {
     }
 
     &__features {
-      margin-top: 0;
+      margin: 0;
     }
 
     &__gift {
