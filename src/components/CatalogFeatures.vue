@@ -73,9 +73,13 @@ export default {
   }
 
   &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
     padding: 24px 30px;
     border-radius: 8px;
+    text-align: center;
     font-family: $font-secondary;
     font-weight: 700;
     font-size: 14px;
