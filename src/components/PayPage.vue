@@ -149,7 +149,7 @@
                 />
                 <span class="pay__label">*Минимальная сумма 1000 ₽</span>
               </div>
-              <div v-if="activeCity === 'msk'" class="pay__field">
+              <div class="pay__field">
                 <TextInput
                     label="Дополнительный номер"
                     name="additional_number"
@@ -364,15 +364,11 @@ export default {
       for (let input in this.values) {
         const value = this.values[input];
 
-        if (value.trim() === '' && input !== 'addnum') {
+        if (value.trim() === '') {
           this.errors[input] = true;
         }
 
         if (input === "phone" && value.length < 16) {
-          this.errors[input] = true;
-        }
-
-        if (input === 'addnum' && value.length > 0 && (value.length < 6 || value.length > 8)) {
           this.errors[input] = true;
         }
       }
