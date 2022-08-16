@@ -11,6 +11,7 @@ const ReviewsView = () => import('../views/ReviewsView')
 // const ArticleView = () => import('../views/ArticleView')
 const ContactsView = () => import('../views/ContactsView')
 const NotFoundView = () => import('../views/NotFoundView')
+const CareView = () => import('../views/CareView')
 const PaymentView = () => import(/* webpackChunkName: "pay" */'../views/PaymentView')
 const PayView = () => import(/* webpackChunkName: "pay" */ '../views/PayView')
 const PaySuccessView = () => import(/* webpackChunkName: "pay" */ '../views/PaySuccessView')
@@ -99,6 +100,11 @@ const routes = [
     path: '/contacts',
     component: ContactsView,
     name: 'contacts'
+  },
+  {
+    path: '/care',
+    component: CareView,
+    name: 'care'
   },
   {
     path: '*',

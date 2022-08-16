@@ -57,6 +57,13 @@
           </RouterLink>
           <RouterLink
             class="mobile-menu__nav-item"
+            :to="{name: 'care'}"
+            @click.native="$emit('close')"
+          >
+            Центр заботы о клиентах
+          </RouterLink>
+          <RouterLink
+            class="mobile-menu__nav-item"
             :to="{name: 'technics'}"
             @click.native="$emit('close')"
           >

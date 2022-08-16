@@ -47,6 +47,9 @@
           <RouterLink class="header__link" :to="{name: 'payment'}">Оплата</RouterLink>
         </div>
         <div class="header__nav-item">
+          <RouterLink class="header__link" :to="{name: 'care'}">{{ careLink }}</RouterLink>
+        </div>
+        <div class="header__nav-item">
           <RouterLink class="header__link" :to="{name: 'contacts'}">Контакты</RouterLink>
         </div>
       </nav>
@@ -173,6 +176,9 @@ export default {
     },
     selectedFilters() {
       return this.$route.params.category
+    },
+    careLink() {
+      return (this.$windowWidth < 1300 || this.$windowWidth >= 1600 && this.$windowWidth < 1700) ? 'ЦЗК' : 'Центр заботы о клиентах'
     }
   },
   created() {

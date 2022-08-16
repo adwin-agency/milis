@@ -14,7 +14,7 @@
         {{ option.title }}
       </option>
     </select>
-    <span class="form-select__selected-text" :class="{'selected': selected}" v-on:click="open">{{
+    <span class="form-select__selected-text" :class="{'selected': selected, 'error': error}" v-on:click="open">{{
       selectedTitle
     }}</span>
     <ul class="form-select__list">
@@ -23,7 +23,7 @@
         :key="index"
         v-on:click="change(option.title, option.value)"
         class="form-select__item"
-        :class="{'active': option.title === selectedTitle}"
+        :class="{'active': option.title === selectedTitle, 'disabled': index === 0 && withDefault}"
       >
         {{ option.title }}
       </li>
@@ -39,7 +39,9 @@ export default {
     name: String,
     id: String,
     options: Array,
-    initial: String
+    initial: String,
+    withDefault: Boolean,
+    error: Boolean
   },
   data() {
     return {
@@ -78,6 +80,8 @@ export default {
   &__container {
     position: relative;
     width: 100%;
+    font-family: $font-secondary;
+    font-size: 14px;
   }
   &__list {
     position: absolute;
@@ -87,7 +91,7 @@ export default {
     right: 0px;
     background-color: white;
     border: 1px solid #0cd725;
-    padding: 0 28px;
+    padding: 0 16px;
   }
   &__item {
     height: 47px;
@@ -99,6 +103,9 @@ export default {
     &.active {
       color: #303864;
     }
+    &.disabled {
+      display: none;
+    }
   }
   &__selected-text {
     display: flex;
@@ -106,7 +113,8 @@ export default {
     background-color: white;
     height: 55px;
     border: 1px solid #acacac;
-    padding: 0 25px;
+    padding: 0 16px;
+    padding-right: 40px;
     color: #acacac;
     display: flex;
     align-items: center;
@@ -123,6 +131,9 @@ export default {
     }
     &.selected {
       color: #303864;
+    }
+    &.error {
+      border-color: $color-red;
     }
   }
   &__container.is-active &__selected-text {
