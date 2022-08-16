@@ -236,9 +236,11 @@ export default {
       }
     }
 
+    &__prev,
+    &__next,
     &__btns {
       opacity: 0;
-      transition: opacity 0.5s ease 0.5s;
+      transition: opacity 0.5s ease 0.5s, background-color 0.3s ease, fill 0.3s ease;
 
       &.show {
         animation: screen-slider-btns 1.25s;
