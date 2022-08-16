@@ -11,6 +11,7 @@
           <p class="care__desc">Вы наш клиент и столкнулись с проблемой? Обязательно расскажите, мы свяжемся с Вами в ближайшее время!</p>
           <form
             class="care__form"
+            :class="{'is-success': sendSuccess}"
             ref="form"
             @submit.prevent="handleSubmit"
           >
@@ -87,6 +88,12 @@
                 </a>
               </p>
             </div>
+            <div class="care__success">
+              <FormSuccess
+                :class="{'is-active': sendSuccess}"
+                :title="`Ваша заявка \n успешно отправлена!`"
+              />
+            </div>
           </form>
           <p class="care__note">Вы можете написать нам напрямую на email <a href="mailto:zabotaoklientah@kuhzavod.ru">zabotaoklientah@kuhzavod.ru</a></p>
         </div>
@@ -105,6 +112,7 @@ import Button from './base/Button.vue'
 import Select from './base/Select.vue'
 import TextInput from './base/TextInput.vue'
 import Header from './Header.vue'
+import FormSuccess from './FormSuccess.vue'
 import api from '../api'
 
 export default {
@@ -113,7 +121,8 @@ export default {
     Header,
     Select,
     Button,
-    TextInput
+    TextInput,
+    FormSuccess
   },
   data() {
     return {
@@ -130,6 +139,7 @@ export default {
         comment: false
       },
       sending: false,
+      sendSuccess: false,
       sendError: false
     }
   },
@@ -188,6 +198,7 @@ export default {
         .sendForm(data, 'care')
         .then(() => {
           this.sending = false
+          this.sendSuccess = true
         })
         .catch(() => {
           this.sending = false
@@ -200,6 +211,8 @@ export default {
 
 <style lang="scss">
 .care {
+  $b: &;
+
   &__main {
     padding-top: 26px;
   }
@@ -219,7 +232,20 @@ export default {
   }
 
   &__form {
+    position: relative;
     margin-top: 38px;
+
+    &.is-success {
+      pointer-events: none;
+
+      #{$b} {
+        &__success {
+          opacity: 1;
+          pointer-events: all;
+          z-index: auto;
+        }
+      }
+    }
   }
 
   &__field {
@@ -229,6 +255,22 @@ export default {
 
   &__btn {
     width: 100%;
+  }
+
+  &__success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .5s ease;
+    z-index: -1;
   }
 
   &__error {
