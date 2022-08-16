@@ -2,33 +2,50 @@
   <div class="service">
     <div class="row service__row">
       <div class="col col-12 col-lg-5">
-        <h2 class="service__heading" v-if="$windowWidth < $breakpoints.md">Доставка и{{'\xa0'}}сборка</h2>
+        <h2
+          class="service__heading"
+          v-if="$windowWidth < $breakpoints.md"
+        >Доставка и{{'\xa0'}}сборка</h2>
         <Swiper
           :options="swiperOptions"
           ref="mySwiper"
           class="service__slider"
         >
-          <SwiperSlide class="service__image anim-img js-anim" v-anim="true" >
-            <img src="../assets/img/service-01.jpg" alt="">
+          <SwiperSlide
+            class="service__image anim-img js-anim"
+            v-anim="true"
+          >
+            <img
+              src="../assets/img/service-01.jpg"
+              alt=""
+            >
           </SwiperSlide>
           <SwiperSlide class="service__image">
-            <img src="../assets/img/service-02.jpg" alt="">
+            <img
+              src="../assets/img/service-02.jpg"
+              alt=""
+            >
           </SwiperSlide>
           <ButtonNav
             prev
+            alt
             class="service__prev"
-            slot="button-prev"  
+            slot="button-prev"
           />
           <ButtonNav
             next
+            alt
             class="service__next"
-            slot="button-next"  
+            slot="button-next"
           />
         </Swiper>
       </div>
       <div class="col col-12 col-lg-7 col-xl-6">
         <div class="service__content">
-          <h2 class="service__heading" v-if="$windowWidth >= $breakpoints.md">Доставка и сборка</h2>
+          <h2
+            class="service__heading"
+            v-if="$windowWidth >= $breakpoints.md"
+          >Доставка и сборка</h2>
           <p class="service__text">На нашем производстве есть специальный отдел, отвечающий за соответствие материала заявленным качествам. Мы проверяем всё: от соответствия размерам и экологичности до качества склейки и надежности фурнитуры. Осуществляется полный контроль работы, дабы свести к нулю вероятность попадания брака к заказчику. <br><br>Таким образом, к нашим клиентам приезжают материалы категории «без сучка, без задоринки», чем мы, несомненно, гордимся.</p>
           <p class="service__decor">Все просто! Кухня за 3 шага</p>
           <Steps
@@ -38,7 +55,10 @@
           />
         </div>
       </div>
-      <div class="col col-9 col-lg2-8" v-if="$windowWidth >= $breakpoints.lg && $windowWidth < $breakpoints.xl">
+      <div
+        class="col col-9 col-lg2-8"
+        v-if="$windowWidth >= $breakpoints.lg && $windowWidth < $breakpoints.xl"
+      >
         <Steps
           class="service__steps"
           service
@@ -51,7 +71,10 @@
 <script>
 import Steps from './Steps'
 import ButtonNav from './base/ButtonNav'
-import { swiper as Swiper, swiperSlide as SwiperSlide } from 'vue-awesome-swiper'
+import {
+  swiper as Swiper,
+  swiperSlide as SwiperSlide
+} from 'vue-awesome-swiper'
 
 export default {
   name: 'Service',
@@ -59,7 +82,7 @@ export default {
     Swiper,
     SwiperSlide,
     ButtonNav,
-    Steps,
+    Steps
   },
   data() {
     return {
@@ -83,7 +106,6 @@ export default {
 
 <style lang="scss">
 .service {
-
   &__heading {
     font-size: 34px;
     line-height: (41/34);
@@ -111,21 +133,22 @@ export default {
   &__prev,
   &__next {
     position: absolute;
-    bottom: 0;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 1;
   }
 
   &__prev {
-    right: 45px;
+    left: 2px;
   }
 
   &__next {
-    right: 0;
+    right: 2px;
   }
 
   &__content {
     margin-top: 20px;
-  }  
+  }
 
   &__text {
     font-size: 14px;
@@ -153,7 +176,11 @@ export default {
     }
 
     &__prev {
-      right: 54px;
+      left: 10px;
+    }
+
+    &__next {
+      right: 10px;
     }
 
     &__content {

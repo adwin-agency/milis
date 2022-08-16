@@ -54,35 +54,17 @@
             >
           </div>
         </SwiperSlide>
-        <!-- <ButtonNav
+        <ButtonNav
           prev
-          sm
+          alt
           class="catalog-card__prev"
           slot="button-prev"
         />
         <ButtonNav
-          sm
+          alt
           class="catalog-card__next"
           slot="button-next"
-        /> -->
-        <button
-          class="catalog-card__prev"
-          slot="button-prev"
-        >
-          <Icon
-            class="catalog-card__nav-icon"
-            name="angle-right"
-          />
-        </button>
-        <button
-          class="catalog-card__next"
-          slot="button-next"
-        >
-          <Icon
-            class="catalog-card__nav-icon"
-            name="angle-right"
-          />
-        </button>
+        />
       </Swiper>
       <p
         v-if="kitchen.discount"
@@ -163,7 +145,7 @@
 <script>
 import Discount from './base/Discount'
 import Icon from './base/Icon'
-// import ButtonNav from './base/ButtonNav'
+import ButtonNav from './base/ButtonNav'
 import {
   swiper as Swiper,
   swiperSlide as SwiperSlide
@@ -175,7 +157,7 @@ export default {
   components: {
     Discount,
     Icon,
-    // ButtonNav,
+    ButtonNav,
     Swiper,
     SwiperSlide
   },
@@ -314,37 +296,14 @@ export default {
 
   &__prev,
   &__next {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: absolute;
     top: 50%;
-    margin-top: -22px;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.6);
-    fill: $color-blue;
-    transform: translateZ(0);
-    transition: background-color 0.3s ease, fill 0.3s ease;
+    transform: translateY(-50%);
     z-index: 1;
-
-    @media (any-hover: hover) {
-      &:hover {
-        background-color: $color-blue;
-        fill: #fff;
-      }
-    }
   }
 
   &__prev {
     left: 2px;
-    transform: translateZ(0) rotate(180deg);
-  }
-
-  &__nav-icon {
-    width: 20px;
-    height: 20px;
   }
 
   &__next {

@@ -29,11 +29,13 @@
           </SwiperSlide>
           <ButtonNav
             prev
+            alt
             class="technics__prev"
             slot="button-prev"  
           />
           <ButtonNav
             next
+            alt
             class="technics__next"
             slot="button-next"  
           />
@@ -156,16 +158,17 @@ export default {
   &__prev,
   &__next {
     position: absolute;
-    bottom: 0;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 1;
   }
 
   &__prev {
-    left: 0;
+    left: 2px;
   }
 
   &__next {
-    left: 45px;
+    right: 2px;
   }
 
   &__menu {
@@ -200,8 +203,12 @@ export default {
       padding-top: 59.7%;
     }
 
+    &__prev {
+      left: 10px;
+    }
+
     &__next {
-      left: 54px;
+      right: 10px;
     }
 
     &__heading {
@@ -236,10 +243,6 @@ export default {
 
     &__image {
       padding-top: 75%;
-    }
-
-    &__next {
-      left: 62px;
     }
 
     &__menu {

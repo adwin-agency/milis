@@ -42,11 +42,13 @@
       </SwiperSlide>
       <ButtonNav
         prev
+        alt
         class="detail-slider__prev"
         slot="button-prev"
       />
       <ButtonNav
         next
+        alt
         class="detail-slider__next"
         slot="button-next"
       />
@@ -179,16 +181,17 @@ export default {
   &__next {
     display: none;
     position: absolute;
-    bottom: 0;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 1;
   }
 
   &__prev {
-    left: 0;
+    left: 2px;
   }
 
   &__next {
-    left: 54px;
+    right: 2px;
   }
 
   .swiper-pagination-bullets {
@@ -231,6 +234,14 @@ export default {
       display: flex;
     }
 
+    &__prev {
+      left: 10px;
+    }
+
+    &__next {
+      right: 10px;
+    }
+
     &__btn {
       display: inline-flex;
     }
@@ -257,10 +268,6 @@ export default {
     &__discount {
       top: 38px;
       right: 60px;
-    }
-
-    &__next {
-      left: 62px;
     }
 
     &__btn {

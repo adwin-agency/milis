@@ -19,26 +19,35 @@
             :class="{'anim-img js-anim': first}"
             v-anim="first && {delay: 250}"
           >
-            <img :src="$basepath + ($mobile ? picture.tablet.path : picture.desktop.path)" alt="">
+            <img
+              :src="$basepath + ($mobile ? picture.tablet.path : picture.desktop.path)"
+              alt=""
+            >
           </div>
           <div
             v-else
             class="screen-slider__image"
           >
-            <img class="swiper-lazy" :data-src="$basepath + ($mobile ? picture.tablet.path : picture.desktop.path)" alt="">
+            <img
+              class="swiper-lazy"
+              :data-src="$basepath + ($mobile ? picture.tablet.path : picture.desktop.path)"
+              alt=""
+            >
           </div>
         </SwiperSlide>
         <ButtonNav
           class="screen-slider__prev"
           :class="[{'show': anim && first}, {'show-in': first ? anim && active : active}]"
-          prev
           slot="button-prev"
+          prev
+          alt
         />
         <ButtonNav
           class="screen-slider__next"
           :class="[{'show': anim && first}, {'show-in': first ? anim && active : active}]"
-          next
           slot="button-next"
+          next
+          alt
         />
       </Swiper>
     </RouterLink>
@@ -59,7 +68,7 @@
           class="screen-slider__btn"
           @click.native="navigate"
         />
-      </RouterLink>      
+      </RouterLink>
       <ButtonAlt
         icon="home"
         text="Вызвать <br>дизайнера"
@@ -76,7 +85,10 @@
 <script>
 import ButtonAlt from './base/ButtonAlt'
 import ButtonNav from './base/ButtonNav'
-import { swiper as Swiper, swiperSlide as SwiperSlide } from 'vue-awesome-swiper'
+import {
+  swiper as Swiper,
+  swiperSlide as SwiperSlide
+} from 'vue-awesome-swiper'
 
 export default {
   name: 'ScreenSlider',
@@ -147,20 +159,28 @@ export default {
     }
   }
 
+  &__nav {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    right: 0;
+  }
+
   &__prev,
   &__next {
     position: absolute;
-    bottom: 0;
-    transform: translateZ(0);
+    top: 50%;
+    border-radius: 50%;
+    transform: translateY(-50%);
     z-index: 2;
   }
 
   &__prev {
-    right: 45px;
+    left: 2px;
   }
 
   &__next {
-    right: 0;
+    right: 2px;
   }
 
   &__btns {
@@ -168,8 +188,8 @@ export default {
     right: $container-padding-md;
     bottom: 24px;
     opacity: 0;
-    transition: opacity .5s ease .5s;
-    z-index: 2;    
+    transition: opacity 0.5s ease 0.5s;
+    z-index: 2;
   }
 
   &__btn {
@@ -195,12 +215,15 @@ export default {
 
   @include media(md) {
     &__prev {
-      right: 54px;
+      left: 10px;
+    }
+
+    &__next {
+      right: 10px;
     }
   }
 
   @include media(lg) {
-
     @keyframes screen-slider-btns {
       0% {
         opacity: 0;
@@ -213,11 +236,9 @@ export default {
       }
     }
 
-    &__prev,
-    &__next,
     &__btns {
       opacity: 0;
-      transition: opacity .5s ease .5s;
+      transition: opacity 0.5s ease 0.5s;
 
       &.show {
         animation: screen-slider-btns 1.25s;
@@ -226,16 +247,6 @@ export default {
       &.show-in {
         opacity: 1;
       }
-    }
-
-    &__prev {
-      left: 0;
-      right: auto;
-    }
-
-    &__next {
-      left: 62px;
-      right: auto;
     }
   }
 

@@ -427,6 +427,7 @@ export default {
 
     &__slider {
       flex: 1;
+      padding-top: 92px;
       height: auto;
     }
   }
@@ -473,6 +474,10 @@ export default {
       margin-left: 10px;
       width: 26px;
       height: 26px;
+    }
+
+    &__slider {
+      padding-top: 140px;
     }
   }
 }
