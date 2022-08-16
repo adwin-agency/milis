@@ -47,11 +47,11 @@
               name="question"
               :options="[
               { value: 'default', title: 'Предложенные варианты проблемы' },
-              { value: 'order', title: 'Вопрос по уже выполненному заказу / гарантии' },
-              { value: 'spec', title: 'Вопрос по работе специалиста' },
-              { value: 'payment', title: 'Вопрос по оплате заказа' },
-              { value: 'refund', title: 'Вопрос о возврате средств' },
-              { value: 'other', title: 'Другие вопросы' },
+              { value: 'Вопрос по уже выполненному заказу / гарантии', title: 'Вопрос по уже выполненному заказу / гарантии' },
+              { value: 'Вопрос по работе специалиста', title: 'Вопрос по работе специалиста' },
+              { value: 'Вопрос по оплате заказа', title: 'Вопрос по оплате заказа' },
+              { value: 'Вопрос о возврате средств', title: 'Вопрос о возврате средств' },
+              { value: 'Другие вопросы', title: 'Другие вопросы' },
             ]"
               id="care-question"
               withDefault
@@ -234,6 +234,7 @@ export default {
   &__form {
     position: relative;
     margin-top: 38px;
+    padding-top: 10px;
 
     &.is-success {
       pointer-events: none;
