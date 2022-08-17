@@ -90,6 +90,7 @@ const api = {
         }
 
         if (response.confirmation_url) {
+          window.VK && window.VK.Retargeting.Event('lead')
           window.ym && window.ym(73257226, 'reachGoal', 'payment')
           window.dataLayer = window.dataLayer || []
           window.dataLayer.push({ 'event': 'payment' })

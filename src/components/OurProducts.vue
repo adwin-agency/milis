@@ -101,6 +101,10 @@ export default {
         params,
         query: { ...query, sort: value === 'default' ? undefined : value }
       })
+
+      window.ym && window.ym(73257226, 'reachGoal', 'sort_' + value)
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ 'event': 'sort_' + value })
     },
     handleReset() {
       if (
