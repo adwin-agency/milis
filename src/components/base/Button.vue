@@ -84,14 +84,15 @@ export default {
   font-size: 14px;
   line-height: (16/14);
   color: $color-white;
-  background: $btn-gradient-green;
-  background-position: left;
-  background-size: 200% 100%;
+  // background: $btn-gradient-green;
+  // background-position: left;
+  // background-size: 200% 100%;
+  background: $color-green;
   transition: background-position .3s ease, color .3s ease, opacity .3s ease;
 
-  &:hover {
-    background-position: right;
-  }
+  // &:hover {
+  //   background-position: right;
+  // }
 
   &:disabled {
     opacity: 0.5;
@@ -99,13 +100,14 @@ export default {
   }
 
   &_blue {
-    background-image: $btn-gradient-blue;
+    // background-image: $btn-gradient-blue;
+    background: $color-blue;
   }
 
   &_arrow {
-    &:hover {
-      background-position: left;
-    }
+    // &:hover {
+    //   background-position: left;
+    // }
 
     #{$b}__text {
       padding-left: 10px;
