@@ -68,29 +68,35 @@
           <picture class="main-banner__picture">
             <source
               :media="`(min-width: ${$breakpoints.xl}px)`"
-              srcset="/assets/img/main-discount-xl.png"
+              srcset="/assets/img/main-factory-xl.png"
             >
             <source
               :media="`(min-width: ${$breakpoints.lg}px)`"
-              srcset="/assets/img/main-discount-lg.png"
+              srcset="/assets/img/main-factory-lg.png"
             >
             <img
               class="main-banner__img"
-              src="/assets/img/main-discount.png"
+              src="/assets/img/main-factory.png"
             >
           </picture>
           <div class="main-banner__content">
-            <p class="main-banner__title">
-              Скидка на все кухни
-              <span class="main-banner__discount">
-                -47%
+            <p class="main-banner__title">Мебельная фабрика Milis</p>
+            <ul class="main-banner__list">
+              <li class="main-banner__list-item">
                 <Icon
                   class="main-banner__icon"
-                  name="leaf-double-2"
+                  name="leaf-double-3"
                 />
-              </span>
-            </p>
-            <p class="main-banner__desc">Акция действует до 23 августа</p>
+                Производим кухни на заказ с 2015
+              </li>
+              <li class="main-banner__list-item">
+                <Icon
+                  class="main-banner__icon"
+                  name="leaf-double-3"
+                />
+                Собственное производство без посредников
+              </li>
+            </ul>
           </div>
         </div>
       </SwiperSlide>
@@ -99,10 +105,7 @@
 </template>
 
 <script>
-import {
-  swiper as Swiper,
-  swiperSlide as SwiperSlide
-} from 'vue-awesome-swiper'
+import { swiper as Swiper, swiperSlide as SwiperSlide } from 'vue-awesome-swiper'
 import Icon from './base/Icon.vue'
 
 export default {
@@ -231,40 +234,39 @@ export default {
     &_3 {
       padding: 10px 16px;
       font-family: $font-secondary;
-      background: linear-gradient(90deg, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
+      color: $color-blue;
+      background: linear-gradient(90deg, #cfd9df 0%, #e2ebf0 100%),
+        radial-gradient(90.99% 75.14% at 77.33% 68.48%, #dde76a 0%, #13bb27 100%);
 
       #{$b} {
         &__title {
-          display: flex;
-          align-items: flex-end;
+          max-width: 235px;
           font-weight: 700;
-          font-size: 32px;
-          line-height: 90%;
+          font-size: 26px;
+          line-height: 100%;
           letter-spacing: -0.01em;
-          color: #ffffff;
         }
-        &__discount {
-          position: relative;
-          margin-left: -10px;
+        &__list {
+          margin-top: 16px;
+          max-width: 150px;
+        }
+        &__list-item {
           margin-bottom: 10px;
-          font-size: 58px;
-          letter-spacing: -0.04em;
-          z-index: 1;
+          position: relative;
+          padding-left: 24px;
+          font-size: 11px;
+          line-height: 110%;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
         &__icon {
           position: absolute;
-          right: -16px;
-          bottom: 0;
-          width: 86px;
-          height: 76px;
-          z-index: -1;
-        }
-        &__desc {
-          margin-top: 22px;
-          font-weight: 500;
-          font-size: 12px;
-          line-height: 110%;
-          color: $color-green;
+          left: 0;
+          top: 0;
+          width: 22px;
+          height: 18px;
         }
         &__img {
           position: absolute;
