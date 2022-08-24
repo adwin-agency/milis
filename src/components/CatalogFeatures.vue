@@ -1,21 +1,25 @@
 <template>
   <div class="catalog-features">
-    <Swiper
-      :options="options"
-    >
+    <Swiper :options="options">
       <SwiperSlide
         v-for="item in items"
         :key="item.id"
       >
         <p class="catalog-features__item">{{ item.title }}</p>
       </SwiperSlide>
-      <div class="swiper-scrollbar" slot="scrollbar"></div>
+      <div
+        class="swiper-scrollbar"
+        slot="scrollbar"
+      ></div>
     </Swiper>
   </div>
 </template>
 
 <script>
-import { swiper as Swiper, swiperSlide as SwiperSlide } from 'vue-awesome-swiper'
+import {
+  swiper as Swiper,
+  swiperSlide as SwiperSlide
+} from 'vue-awesome-swiper'
 
 const items = [
   { id: 1, title: 'Бесплатный дизайн-проект' },
@@ -50,10 +54,10 @@ export default {
   .swiper-slide {
     width: 230px;
     height: auto;
-    margin-left: 20px;
+    margin-left: $container-padding;
 
     &:last-child {
-      margin-right: 20px;
+      margin-right: $container-padding;
     }
   }
 
@@ -67,7 +71,7 @@ export default {
 
   .swiper-container-horizontal > .swiper-scrollbar {
     position: static;
-    margin: 20px 20px 0;
+    margin: 20px $container-padding 0;
     width: auto;
     height: 4px;
   }
@@ -86,6 +90,20 @@ export default {
     line-height: 120%;
     color: $color-blue;
     background-color: $color-gray-8;
+  }
+
+  @include media(md) {
+    .swiper-slide {
+      margin-left: $container-padding-md;
+
+      &:last-child {
+        margin-right: $container-padding-md;
+      }
+    }
+
+    .swiper-container-horizontal > .swiper-scrollbar {
+      margin: 20px $container-padding-md 0;
+    }
   }
 }
 </style>

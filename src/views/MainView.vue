@@ -5,6 +5,7 @@
         <Header class="v-main__header" />
         <MainBanner class="v-main__banner" />
         <MainForm class="v-main__form" />
+        <MainReviews class="v-main__reviews" />
       </div>
     </div>
   </Page>
@@ -14,6 +15,7 @@
 import Header from '../components/Header.vue'
 import MainBanner from '../components/MainBanner.vue'
 import MainForm from '../components/MainForm.vue'
+import MainReviews from '../components/MainReviews.vue'
 import Page from '../components/Page.vue'
 
 export default {
@@ -22,7 +24,8 @@ export default {
     Page,
     MainBanner,
     Header,
-    MainForm
+    MainForm,
+    MainReviews
   }
 }
 </script>
@@ -37,6 +40,10 @@ export default {
 
   &__form {
     margin-bottom: 50px;
+  }
+
+  &__reviews {
+    margin-bottom: 30px;
   }
 
   @include media(xl) {

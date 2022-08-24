@@ -2,7 +2,8 @@
   <div
     :class="[
       'dropdowns',
-      {'dropdowns_products': products}
+      {'dropdowns_products': products},
+      {'dropdowns_main': main}
     ]"
   >
     <div
@@ -37,7 +38,8 @@ export default {
   props: {
     items: Array,
     products: Boolean,
-    disabled: Boolean
+    disabled: Boolean,
+    main: Boolean
   },
   data() {
     return {
@@ -187,6 +189,18 @@ export default {
       }
     }
 
+    &_main {
+      #{$b} {
+        &__item {
+          margin-bottom: 40px;
+        }
+
+        &__title {
+          font-size: 16px;
+        }
+      }
+    }
+
     &__title {
       font-size: 14px;
       line-height: (23/14);
@@ -206,6 +220,14 @@ export default {
   }
 
   @include media(xl) {
+    &_main {
+      #{$b} {
+        &__item {
+          margin-bottom: 60px;
+        }
+      }
+    }
+
     &__title {
       font-size: 18px;
       line-height: (23/18);
