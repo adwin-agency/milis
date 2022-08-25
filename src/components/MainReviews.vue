@@ -21,9 +21,6 @@
         <SwiperSlide class="main-reviews__slide">
           <VideoReviewCard />
         </SwiperSlide>
-        <SwiperSlide class="main-reviews__slide">
-          <VideoReviewCard />
-        </SwiperSlide>
         <div
           class="main-reviews__prev"
           slot="button-prev"
