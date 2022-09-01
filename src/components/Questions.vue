@@ -77,6 +77,9 @@ export default {
         this.timeout = setTimeout(() => {
           desc.style.height = 'auto'
         }, 300)
+
+        window.dataLayer = window.dataLayer || []
+        window.dataLayer.push({ 'event': 'open_question' })
       }
     }
   }
