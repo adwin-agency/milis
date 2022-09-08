@@ -368,6 +368,10 @@ export default {
           this.errors[input] = true;
         }
 
+        if (input === 'addnum' && this.activeCity === 'msk') {
+          this.errors[input] = false;
+        }
+
         if (input === "phone" && value.length < 16) {
           this.errors[input] = true;
         }
