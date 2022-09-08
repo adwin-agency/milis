@@ -149,7 +149,7 @@
                 />
                 <span class="pay__label">*Минимальная сумма 1000 ₽</span>
               </div>
-              <div class="pay__field">
+              <div v-if="activeCity !== 'msk'" class="pay__field">
                 <TextInput
                     label="Дополнительный номер"
                     name="additional_number"
@@ -159,7 +159,7 @@
                     @input="onInput('addnum', $event)"
                 />
               </div>
-              <div class="pay__field">
+              <div class="pay__field" :class="{'pay__field_lg': activeCity === 'msk'}">
                 <Select
                     className="pay__select"
                     name="payment_method"
