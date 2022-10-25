@@ -66,13 +66,18 @@
           slot="button-next"
         />
       </Swiper>
-      <p
+      <!-- <p
         v-if="kitchen.discount"
         class="catalog-card__label"
       >
-        <!--Скидка на материалы-->
+        Скидка на материалы
         Рассрочка 0-0-8
-      </p>
+      </p> -->
+      <img
+        v-if="kitchen.discount"
+        class="catalog-card__label-new"
+        src="@/assets/img/discount-label.png"
+      >
       <button
         v-if="test"
         type="button"
@@ -132,18 +137,25 @@
         <p class="catalog-card__credit">от {{kitchen.installment}} ₽/мес.</p>
         <p class="catalog-card__price-note">цена за весь гарнитур</p>
       </div>
-      <Discount
+      <!-- <Discount
         v-if="kitchen.discount"
         :value="kitchen.discount"
         :size="$windowWidth < $breakpoints.lg ? 'xs' : 'sm'"
         class="catalog-card__discount"
-      />
+      /> -->
+      <div
+        v-if="kitchen.discount"
+        class="catalog-card__discount-new"
+      >
+        <span class="catalog-card__discount-title">скидка</span>
+        <span class="catalog-card__discount-value">-{{kitchen.discount}}%</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Discount from './base/Discount'
+// import Discount from './base/Discount'
 import Icon from './base/Icon'
 import ButtonNav from './base/ButtonNav'
 import {
@@ -155,7 +167,7 @@ import api from '@/api'
 export default {
   name: 'CatalogCard',
   components: {
-    Discount,
+    // Discount,
     Icon,
     ButtonNav,
     Swiper,
@@ -276,6 +288,7 @@ export default {
     position: relative;
     margin: 0 (-$container-padding);
     margin-top: 8px;
+    overflow: hidden;
   }
 
   &__image {
@@ -325,6 +338,14 @@ export default {
     z-index: 1;
   }
 
+  &__label-new {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 416px;
+    z-index: 1;
+  }
+
   &__details-btn {
     position: absolute;
     left: 0;
@@ -366,6 +387,32 @@ export default {
 
   &__discount {
     margin-left: 7px;
+  }
+
+  &__discount-new {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 6px;
+    padding-left: 6px;
+    border-left: 1px solid #D9D9D9;
+    font-family: $font-secondary;
+  }
+
+  &__discount-title {
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 162.6%;
+    color: #303864;
+  }
+
+  &__discount-value {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: -0.05em;
+    color: #0cd725;
   }
 
   &__content {
@@ -454,12 +501,52 @@ export default {
   }
 
   &__price-note {
+    margin-left: -50px;
     font-family: $font-secondary;
     font-size: 12px;
     color: $color-gray-middle;
 
     span {
       color: $color-red;
+    }
+  }
+
+  @include media(xs) {
+    &_in {
+      #{$b} {
+        &__discount-new {
+          margin-left: 8px;
+          padding-left: 8px;
+        }
+
+        &__discount-value {
+          font-size: 22px;
+        }
+      }
+    }
+
+    &__discount-new {
+      margin-left: 10px;
+      padding-left: 10px;
+    }
+
+    &__discount-title {
+      font-size: 13px;
+    }
+
+    &__discount-value {
+      font-size: 24px;
+    }    
+  }
+
+  @include media(sm) {
+    &__discount-new {
+      margin-left: 18px;
+      padding-left: 18px;
+    }
+
+    &__discount-value {
+      font-size: 28px;
     }
   }
 
@@ -484,6 +571,15 @@ export default {
 
     &__next {
       right: 10px;
+    }
+
+    &__discount-new {
+      margin-left: 10px;
+      padding-left: 10px;
+    }
+
+    &__discount-value {
+      font-size: 24px;
     }
   }
 
@@ -676,6 +772,15 @@ export default {
 
     &__price-note {
       margin-top: 2px;
+    }
+
+    &__discount-new {
+      margin-left: 18px;
+      padding-left: 18px;
+    }
+
+    &__discount-value {
+      font-size: 28px;
     }
   }
 

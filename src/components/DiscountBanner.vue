@@ -1,6 +1,6 @@
 <template>
   <div class="discount-banner">
-    <div class="discount-banner__circles-l"></div>
+    <!-- <div class="discount-banner__circles-l"></div>
     <div
       v-if="$windowWidth >= $breakpoints.md"
       class="discount-banner__circles-r"
@@ -46,17 +46,28 @@
         дизайнер и главный конструктор,<br>
         основатели компании
       </p>
-    </div>
+    </div> -->
+    <picture>
+      <source
+        :media="`(min-width: ${$breakpoints.md}px)`"
+        srcset="@/assets/img/discount-banner-11-md.jpg"
+      >
+      <img
+        src="@/assets/img/discount-banner-11.jpg"
+        alt=""
+        class="discount-banner__image"
+      >
+    </picture>
   </div>
 </template>
 
 <script>
-import Icon from '@/components/base/Icon'
+// import Icon from '@/components/base/Icon'
 
 export default {
   name: 'DiscountBanner',
   components: {
-    Icon
+    // Icon
   },
   computed: {
     promoText() {
@@ -69,12 +80,17 @@ export default {
 
 <style lang="scss">
 .discount-banner {
-  position: relative;
-  padding: 20px 10px 80px;
-  background-color: $color-blue;
-  color: #fff;
-  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  // position: relative;
+  // padding: 20px 10px 80px;
+  // background-color: $color-blue;
+  // color: #fff;
+  // box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
+  // overflow: hidden;
+
+  &__image {
+    margin: 0 auto;
+    max-width: 500px;
+  }
 
   &__circles-l {
     position: absolute;
@@ -191,7 +207,11 @@ export default {
   }
 
   @include media(md) {
-    padding: 80px 80px 106px;
+    // padding: 80px 80px 106px;
+
+    &__image {
+      max-width: none;
+    }
 
     &__circles-l {
       top: -218px;
@@ -402,7 +422,7 @@ export default {
   }
 
   @include media(xl) {
-    padding: 50px 50px 72px;
+    // padding: 50px 50px 72px;
 
     &__circles-l {
       top: -570px;

@@ -119,7 +119,7 @@
       v-if="!$mobile"
       class="modal-calc__side"
     >
-      <div class="modal-calc__features">
+      <!-- <div class="modal-calc__features">
         <p class="modal-calc__feature">
           <span class="modal-calc__feature-icon">
             <Icon name="heart" />
@@ -150,9 +150,9 @@
         alt=""
         class="modal-calc__image"
       >
-      <!-- <span class="modal-calc__like">
+      <span class="modal-calc__like">
         <Icon name="hand-like" />
-      </span> -->
+      </span>
       <div class="modal-calc__promo">
         <span>АКЦИЯ МЕСЯЦА</span>
       </div>
@@ -162,7 +162,12 @@
       <Discount
         class="modal-calc__discount"
         value="47"
-      />
+      /> -->
+      <img
+        src="@/assets/img/discount-form-11.jpg"
+        alt=""
+        class="modal-calc__side-img"
+      >
     </div>
     <div
       class="modal-calc__close"
@@ -177,7 +182,7 @@
 import TextInput from './base/TextInput'
 import Button from './base/Button'
 import Icon from './base/Icon'
-import Discount from './base/Discount'
+// import Discount from './base/Discount'
 import FormSuccess from '@/components/FormSuccess'
 import api from '@/api'
 
@@ -187,7 +192,7 @@ export default {
     TextInput,
     Button,
     Icon,
-    Discount,
+    // Discount,
     FormSuccess
   },
   data() {
@@ -422,8 +427,8 @@ export default {
 
   &__side {
     position: relative;
-    padding: 40px 20px 250px;
-    background-color: $color-blue;
+    // padding: 40px 20px 250px;
+    // background-color: $color-blue;
   }
 
   &__feature {
@@ -539,7 +544,7 @@ export default {
     }
 
     &__side {
-      padding: 70px 370px 100px 80px;
+      // padding: 70px 370px 100px 80px;
       min-height: 332px;
     }
 
@@ -593,7 +598,7 @@ export default {
     &__content {
       position: static;
       flex: 1;
-      padding: 71px 70px 70px;
+      padding: 60px 70px;
     }
 
     &__title {
@@ -605,9 +610,13 @@ export default {
     }
 
     &__side {
-      width: 43%;
-      border-left: 4px solid $color-green;
-      padding: 70px 40px 290px;
+      width: 43.1%;
+      border-left: 4px solid $color-blue;
+      // padding: 70px 40px 290px;
+    }
+
+    &__side-img {
+      height: 100%;
     }
 
     &__promo {

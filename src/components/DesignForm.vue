@@ -169,8 +169,8 @@ export default {
 <style lang="scss">
 .design-form {
   position: relative;
-  color: #fff;
-  background-color: $color-blue;
+  color: $color-blue;
+  background-color: #F3F3F3;
 
   &__content,
   &__success {
@@ -245,6 +245,7 @@ export default {
     font-weight: 700;
     font-size: 14px;
     line-height: 17px;
+    color: #fff;
     background-color: $color-green;
   }
 
