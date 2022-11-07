@@ -124,7 +124,11 @@ export default {
   },
   methods: {
     changePage(num) {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      const menu = document.querySelector('.our-products__menu')
+      const header = document.querySelector('.header')
+      const targetY = menu.getBoundingClientRect().top + window.scrollY - header.offsetHeight
+
+      window.scrollTo({ top: targetY, behavior: 'smooth' })
       store
         .dispatch('loadCatalogKitchens', {
           category: this.kitchenCategory,
