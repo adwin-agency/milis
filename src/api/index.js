@@ -95,6 +95,7 @@ const api = {
           window.dataLayer = window.dataLayer || []
           window.dataLayer.push({ 'event': 'payment' })
           window.location.href = response.confirmation_url
+          return
         }
 
         window.fbq && window.fbq('track', 'Lead')
