@@ -164,13 +164,15 @@
         value="47"
       /> -->
       <img
-        src="@/assets/img/discount-form-11.jpg"
+        src="@/assets/img/discount-form-28-11.jpg"
         alt=""
         class="modal-calc__side-img"
+        style="margin: -3px 0px 0px -7px; width: calc(100% + 10px); height: calc(100% + 3px);"
       >
     </div>
     <div
       class="modal-calc__close"
+      style="fill: #FFFFFF;"
       @click="$emit('close')"
     >
       <Icon name="close" />
@@ -429,6 +431,7 @@ export default {
     position: relative;
     // padding: 40px 20px 250px;
     // background-color: $color-blue;
+    overflow: hidden;
   }
 
   &__feature {
