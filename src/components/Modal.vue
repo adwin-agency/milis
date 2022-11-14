@@ -109,6 +109,9 @@ export default {
     },
     productName() {
       return this.$store.state.modalData?.item
+    },
+    productCategory() {
+      return this.$store.state.modalData?.category
     }
   },
   watch: {
@@ -134,17 +137,19 @@ export default {
       }
 
       if (newModal === 'calc') {
-        api.ecommerce('add', this.productId, this.productName)
+        api.ecommerce('detail', this.productId, this.productName, this.productCategory)
+        api.ecommerce('add', this.productId, this.productName, this.productCategory)
         this.ecommerce = {
           id: this.productId,
-          name: this.productName
+          name: this.productName,
+          category: this.productCategory
         }
       }
 
-      if (newModal === null && this.ecommerce) {
-        api.ecommerce('remove', this.ecommerce.id, this.ecommerce.name)
-        this.ecommerce = null
-      }
+      // if (newModal === null && this.ecommerce) {
+      //   api.ecommerce('remove', this.ecommerce.id, this.ecommerce.name, this.ecommerce.category)
+      //   this.ecommerce = null
+      // }
     },
     $route() {
       if (this.active) {
@@ -193,7 +198,7 @@ export default {
 
     handleCalcSuccess() {
       if (!this.ecommerce) return
-      api.ecommerce('purchase', this.ecommerce.id, this.ecommerce.name)
+      api.ecommerce('purchase', this.ecommerce.id, this.ecommerce.name, this.ecommerce.category)
       this.ecommerce = null
     }
   }

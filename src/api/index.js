@@ -121,18 +121,18 @@ const api = {
       })
   },
 
-  ecommerce(eventName, productId, productName) {
+  ecommerce(actionType, id, name, category) {
     window.dataLayer = window.dataLayer || []
 
     const entry = {
       ecommerce: {
         currencyCode: 'RUB',
-        [eventName]: {
+        [actionType]: {
           products: [
             {
-              id: productId,
-              name: productName,
-              category: 'Кухни',
+              id: id,
+              name: name,
+              category: category,
               quantity: 1
             }
           ]
@@ -140,9 +140,9 @@ const api = {
       }
     }
 
-    if (eventName === 'purchase') {
-      entry.ecommerce[eventName].actionField = {
-        id: productId
+    if (actionType === 'purchase') {
+      entry.ecommerce[actionType].actionField = {
+        id: id
       }
     }
 

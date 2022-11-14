@@ -28,6 +28,7 @@
         :options="swiperOptions"
         ref="mySwiper"
         class="catalog-card__slider"
+        @slideChange="onSlideChange"
       >
         <SwiperSlide
           v-for="(picture, index) in kitchen.pictures"
@@ -199,7 +200,8 @@ export default {
       },
       activeLike: this.kitchen.likes_status !== 'disable',
       sendingLike: false,
-      newLikesCount: null
+      newLikesCount: null,
+      isWatched: false
     }
   },
   computed: {
@@ -211,7 +213,8 @@ export default {
         item: this.kitchen.name,
         itemId: this.kitchen.id,
         productType: this.kitchen.product_type,
-        price: this.kitchen.price
+        price: this.kitchen.price,
+        category: this.kitchen.category_rus
       }
     }
   },
@@ -240,6 +243,12 @@ export default {
     showModal() {
       this.$store.commit('setModal', 'calc')
       this.$store.commit('setModalData', this.modalData)
+    },
+
+    onSlideChange() {
+      if (this.isWatched) return
+      api.ecommerce('detail', this.kitchen.id, this.kitchen.name, this.kitchen.category_rus)
+      this.isWatched = true
     }
   }
 }
@@ -343,6 +352,7 @@ export default {
     left: 0;
     top: 0;
     width: 416px;
+    pointer-events: none;
     z-index: 1;
   }
 

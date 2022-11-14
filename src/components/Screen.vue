@@ -111,7 +111,8 @@ export default {
         item: this.kitchen.name,
         itemId: this.kitchen.id,
         productType: this.kitchen.product_type,
-        price: this.kitchen.price
+        price: this.kitchen.price,
+        category: this.kitchen.category_rus
       }
     }
   }
