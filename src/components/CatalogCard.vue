@@ -67,18 +67,17 @@
           slot="button-next"
         />
       </Swiper>
-      <!-- <p
+      <p
         v-if="kitchen.discount"
         class="catalog-card__label"
       >
-        Скидка на материалы
         Рассрочка 0-0-8
-      </p> -->
-      <img
+      </p>
+      <!-- <img
         v-if="kitchen.discount"
         class="catalog-card__label-new"
         src="@/assets/img/discount-label.png"
-      >
+      > -->
       <button
         v-if="test"
         type="button"
