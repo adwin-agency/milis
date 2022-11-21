@@ -213,7 +213,7 @@ export default {
         itemId: this.kitchen.id,
         productType: this.kitchen.product_type,
         price: this.kitchen.price,
-        category: this.kitchen.category_rus
+        category: `Кухни/${this.kitchen.category_rus}`
       }
     }
   },
@@ -246,7 +246,7 @@ export default {
 
     onSlideChange() {
       if (this.isWatched) return
-      api.ecommerce('detail', this.kitchen.id, this.kitchen.name, this.kitchen.category_rus)
+      api.ecommerce('detail', this.kitchen.id, this.kitchen.name, `Кухни/${this.kitchen.category_rus}`)
       this.isWatched = true
     }
   }

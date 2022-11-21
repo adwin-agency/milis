@@ -180,7 +180,7 @@ const store = new Vuex.Store({
             totalvalue: response.info.price
           })
 
-          api.ecommerce('detail', response.info.id, response.info.name, response.info.category_rus)
+          api.ecommerce('detail', response.info.id, response.info.name, `Кухни/${response.info.category_rus}`)
         })
     },
 

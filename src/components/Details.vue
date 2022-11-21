@@ -157,7 +157,8 @@ export default {
         item: this.details.name,
         itemId: this.details.id,
         productType: this.details.product_type,
-        price: this.details.price
+        price: this.details.price,
+        category: `Кухни/${this.details.category_rus}`
       }
     }
   },
