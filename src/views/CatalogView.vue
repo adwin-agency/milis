@@ -163,7 +163,7 @@ export default {
       }
     },
     handleScroll() {
-      if (this.isPagination || this.activePage > 1 || this.isLoading) {
+      if (this.isPagination || this.activePage > 2 || this.isLoading) {
         return
       }
 

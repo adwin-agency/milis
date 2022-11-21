@@ -68,13 +68,13 @@
                 alt=""
                 class="details-review__img"
               >
-              <span class="details-review__count">
+              <!-- <span class="details-review__count">
                 <Icon
                   class="details-review__count-icon"
                   name="camera"
                 />
                 {{ review.pictures.length }}
-              </span>
+              </span> -->
             </div>
             <div class="details-review__content">
               <p class="details-review__text">{{ review.description }}</p>
