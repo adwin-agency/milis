@@ -167,12 +167,12 @@
         src="@/assets/img/discount-form-28-11.jpg"
         alt=""
         class="modal-calc__side-img"
-        style="margin: -3px 0px 0px -7px; width: calc(100% + 10px); height: calc(100% + 3px);"
+        style="margin: -4px 0px 0px -7px; width: calc(100% + 10px); height: calc(100% + 4px);"
       >
     </div>
     <div
       class="modal-calc__close"
-      style="fill: #FFFFFF;"
+      :style="!$mobile && {fill: '#FFFFFF'}"
       @click="$emit('close')"
     >
       <Icon name="close" />
