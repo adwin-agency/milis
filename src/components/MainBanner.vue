@@ -132,6 +132,7 @@ export default {
         autoplay: {
           delay: 5000
         },
+        loop: true,
         speed: 1000
       }
     }

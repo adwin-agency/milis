@@ -2,8 +2,18 @@
   <Page>
     <div class="v-main">
       <div class="container">
-        <Header class="v-main__header" />
-        <MainBanner class="v-main__banner" />
+        <Header
+          class="v-main__header slide-down js-anim"
+          v-anim="true"
+        />
+        <MainBanner
+          class="v-main__banner fade-bounce-right js-anim"
+          v-anim="true"
+        />
+        <MainProducts
+          class="v-main__products"
+          :products="products"
+        />
         <MainForm class="v-main__form" />
         <MainReviews class="v-main__reviews" />
         <MainPreview class="v-main__preview" />
@@ -17,6 +27,7 @@ import Header from '../components/Header.vue'
 import MainBanner from '../components/MainBanner.vue'
 import MainForm from '../components/MainForm.vue'
 import MainPreview from '../components/MainPreview.vue'
+import MainProducts from '../components/MainProducts.vue'
 import MainReviews from '../components/MainReviews.vue'
 import Page from '../components/Page.vue'
 
@@ -28,7 +39,16 @@ export default {
     Header,
     MainForm,
     MainReviews,
-    MainPreview
+    MainPreview,
+    MainProducts
+  },
+  computed: {
+    products() {
+      return this.$store.state.topKitchens
+    }
+  },
+  created() {
+    this.$store.dispatch('loadTopKitchens')
   }
 }
 </script>

@@ -13,6 +13,10 @@ const api = {
     return this.fetchData(`${dataUrl}/main.php`)
   },
 
+  getTopKitchens() {
+    return this.fetchData(`${dataUrl}/test.php`)
+  },
+
   getCatalogKitchens(params) {
     let searchParams = []
 
