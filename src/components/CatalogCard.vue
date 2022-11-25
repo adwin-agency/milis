@@ -74,22 +74,23 @@
           slot="button-next"
         />
       </Swiper>
-      <!-- <p
+      <img src="@/assets/img/card-snow.png" alt="" class="catalog-card__ny-img">
+      <p
         v-if="kitchen.discount"
         class="catalog-card__label"
       >
         Рассрочка 0-0-8
-      </p> -->
+      </p>
       <!-- <img
         v-if="kitchen.discount"
         class="catalog-card__label-new"
         src="@/assets/img/discount-label.png"
       > -->
-      <img
+      <!-- <img
         v-if="kitchen.discount"
         class="catalog-card__label-new"
         src="@/assets/img/discount-label.png"
-      >
+      > -->
       <button
         v-if="test"
         type="button"
@@ -175,10 +176,7 @@
       >
         <span class="catalog-card__discount-title">скидка</span>
         <span class="catalog-card__discount-value">-{{kitchen.discount}}%</span>
-        <!-- <Icon
-          class="catalog-card__discount-icon"
-          name="toy-47"
-        /> -->
+        <Icon class="catalog-card__discount-icon" name="toy-47" />
       </div>
     </div>
   </div>
@@ -389,6 +387,14 @@ export default {
     right: 2px;
   }
 
+  &__ny-img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    z-index: 1;
+  }
+
   &__label {
     position: absolute;
     left: 20px;
@@ -473,6 +479,7 @@ export default {
     font-size: 11px;
     line-height: 162.6%;
     color: #303864;
+    opacity: 0;
   }
 
   &__discount-value {
@@ -481,6 +488,15 @@ export default {
     line-height: 100%;
     letter-spacing: -0.05em;
     color: #0cd725;
+    opacity: 0;
+  }
+
+  &__discount-icon {
+    position: absolute;
+    left: 6px;
+    top: 0;
+    width: calc(100% - 6px);
+    height: 100%;
   }
 
   &__discount-icon {

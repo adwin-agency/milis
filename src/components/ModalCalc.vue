@@ -164,11 +164,10 @@
         value="47"
       /> -->
       <img
-        src="@/assets/img/modal-calc-banner-11.11.png"
+        src="@/assets/img/discount-form-ny.jpg"
         alt=""
         class="modal-calc__side-img"
-        style="margin: -3px 0px 0px -7px; width: calc(100% + 10px); height: calc(100% + 3px);"
-        >
+      >
     </div>
     <div
       class="modal-calc__close"

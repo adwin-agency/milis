@@ -6,7 +6,7 @@
       class="header__logo"
       @click.native="onLogoClick"
     >
-      <img src="../assets/img/logo-2.svg" alt="Milis">
+      <img src="../assets/img/logo-ny.png" alt="Milis">
     </RouterLink>
     <div
       v-if="$windowWidth >= $breakpoints.md"
