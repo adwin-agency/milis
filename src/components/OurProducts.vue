@@ -367,10 +367,6 @@ export default {
   }
 
   @include media(xl) {
-    &__wrapper {
-      margin-right: -35px;
-    }
-
     &__working + &__menu {
       margin-top: 25px;
     }

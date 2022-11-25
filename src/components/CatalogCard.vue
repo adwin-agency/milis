@@ -67,6 +67,7 @@
           slot="button-next"
         />
       </Swiper>
+      <img src="@/assets/img/card-snow.png" alt="" class="catalog-card__ny-img">
       <p
         v-if="kitchen.discount"
         class="catalog-card__label"
@@ -149,6 +150,7 @@
       >
         <span class="catalog-card__discount-title">скидка</span>
         <span class="catalog-card__discount-value">-{{kitchen.discount}}%</span>
+        <Icon class="catalog-card__discount-icon" name="toy-47" />
       </div>
     </div>
   </div>
@@ -331,6 +333,14 @@ export default {
     right: 2px;
   }
 
+  &__ny-img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    z-index: 1;
+  }
+
   &__label {
     position: absolute;
     left: 20px;
@@ -403,6 +413,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
     margin-left: 6px;
     padding-left: 6px;
     border-left: 1px solid #D9D9D9;
@@ -414,6 +425,7 @@ export default {
     font-size: 11px;
     line-height: 162.6%;
     color: #303864;
+    opacity: 0;
   }
 
   &__discount-value {
@@ -422,6 +434,15 @@ export default {
     line-height: 100%;
     letter-spacing: -0.05em;
     color: #0cd725;
+    opacity: 0;
+  }
+
+  &__discount-icon {
+    position: absolute;
+    left: 6px;
+    top: 0;
+    width: calc(100% - 6px);
+    height: 100%;
   }
 
   &__content {
@@ -531,6 +552,11 @@ export default {
         &__discount-value {
           font-size: 22px;
         }
+
+        &__discount-icon {
+          left: 8px;
+          width: calc(100% - 8px);
+        }
       }
     }
 
@@ -545,7 +571,12 @@ export default {
 
     &__discount-value {
       font-size: 24px;
-    }    
+    }
+
+    &__discount-icon {
+      left: 10px;
+      width: calc(100% - 10px);
+    }
   }
 
   @include media(sm) {
@@ -556,6 +587,11 @@ export default {
 
     &__discount-value {
       font-size: 28px;
+    }
+
+    &__discount-icon {
+      left: 18px;
+      width: calc(100% - 18px);
     }
   }
 
@@ -589,6 +625,11 @@ export default {
 
     &__discount-value {
       font-size: 24px;
+    }
+
+    &__discount-icon {
+      left: 10px;
+      width: calc(100% - 10px);
     }
   }
 
@@ -790,6 +831,11 @@ export default {
 
     &__discount-value {
       font-size: 28px;
+    }
+
+    &__discount-icon {
+      left: 18px;
+      width: calc(100% - 18px);
     }
   }
 

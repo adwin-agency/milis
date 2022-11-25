@@ -164,10 +164,9 @@
         value="47"
       /> -->
       <img
-        src="@/assets/img/discount-form-28-11.jpg"
+        src="@/assets/img/discount-form-ny.jpg"
         alt=""
         class="modal-calc__side-img"
-        style="margin: -4px 0px 0px -7px; width: calc(100% + 10px); height: calc(100% + 4px);"
       >
     </div>
     <div
@@ -614,7 +613,7 @@ export default {
 
     &__side {
       width: 43.1%;
-      border-left: 4px solid $color-blue;
+      // border-left: 4px solid $color-blue;
       // padding: 70px 40px 290px;
     }
 
