@@ -61,6 +61,10 @@ export default {
     margin-bottom: 44px;
   }
 
+  &__products {
+    margin-bottom: 28px;
+  }
+
   &__form {
     margin-bottom: 56px;
   }
@@ -76,6 +80,10 @@ export default {
   @include media(lg) {
     &__banner {
       margin-bottom: 70px;
+    }
+
+    &__products {
+      margin-bottom: 76px;
     }
 
     &__form {
@@ -96,6 +104,10 @@ export default {
 
     &__banner {
       margin-bottom: 90px;
+    }
+
+    &__products {
+      margin-bottom: 68px;
     }
 
     &__form {

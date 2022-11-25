@@ -1,10 +1,16 @@
 <template>
   <div
     class="catalog-card"
-    :class="[{'catalog-card_high': high}, {'catalog-card_alt': alt}, {'catalog-card_top': top}, {'catalog-card_in': similar}]"
+    :class="[
+      {'catalog-card_high': high},
+      {'catalog-card_alt': alt},
+      {'catalog-card_top': top},
+      {'catalog-card_in': similar},
+      {'catalog-card_main': main}
+    ]"
   >
     <RouterLink
-      v-if="$windowWidth < $breakpoints.lg"
+      v-if="$windowWidth < $breakpoints.lg && !main"
       class="catalog-card__category"
       :to="{name: 'category', params: {category: kitchen.category}}"
     >
@@ -15,7 +21,7 @@
       class="catalog-card__images"
     >
       <div
-        v-if="test"
+        v-if="test || main"
         class="catalog-card__image anim-img js-anim"
       >
         <img
@@ -101,7 +107,7 @@
     <div class="catalog-card__content">
       <div class="catalog-card__info">
         <RouterLink
-          v-if="$windowWidth >= $breakpoints.lg"
+          v-if="$windowWidth >= $breakpoints.lg && !main"
           class="catalog-card__category"
           :to="{name: 'category', params: {category: kitchen.category}}"
         >
@@ -115,6 +121,7 @@
             Кухня <span>«{{kitchenName}}»</span>
           </RouterLink>
           <button
+            v-if="!main"
             type="button"
             class="catalog-card__stat"
             :class="{'is-active': activeLike}"
@@ -182,7 +189,8 @@ export default {
     kitchen: Object,
     similar: Boolean,
     animDelay: Number,
-    test: Boolean
+    test: Boolean,
+    main: Boolean
   },
   data() {
     return {
@@ -281,6 +289,23 @@ export default {
       &__price-note {
         margin-left: auto;
         max-width: 100px;
+      }
+    }
+  }
+
+  &_main {
+    border-bottom: none;
+    
+    #{$b} {
+      &__images {
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      &__content {
+        margin-left: 0;
+        margin-right: 0;
       }
     }
   }
@@ -749,6 +774,28 @@ export default {
       }
     }
 
+    &_main {
+      #{$b} {
+        &__label {
+          left: 15px;
+          top: 15px;
+        }
+
+        &__title {
+          font-size: 16px;
+        }
+
+        &__price-num {
+          font-size: 20px;
+        }
+
+        &__discount-new {
+          margin-left: 10px;
+          padding-left: 10px;
+        }
+      }
+    }
+
     &__label {
       left: 30px;
       top: 26px;
@@ -891,6 +938,29 @@ export default {
 
         &__price-note {
           margin-right: 0;
+        }
+      }
+    }
+
+    &_main {
+      #{$b} {
+        &__label {
+          left: 24px;
+          top: 24px;
+        }
+
+        &__prices {
+          display: block;
+        }
+
+        &__price-num {
+          font-size: 30px;
+        }
+
+        &__price-note {
+          margin-left: 0;
+          margin-right: 0;
+          max-width: none;
         }
       }
     }

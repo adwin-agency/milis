@@ -12,7 +12,7 @@
       >
         <CatalogCard
           :kitchen="kitchen"
-          similar
+          main
           v-anim="{delay: index % 4 * 100}"
         />
       </SwiperSlide>
@@ -28,7 +28,7 @@ import {
 } from 'vue-awesome-swiper'
 
 export default {
-  name: 'SimilarProducts',
+  name: 'MainProducts',
   components: {
     CatalogCard,
     Swiper,
@@ -40,15 +40,23 @@ export default {
   data() {
     return {
       swiperOptions: {
-        spaceBetween: 20,
         slidesPerView: 'auto',
-        freeMode: true,
+        spaceBetween: 10,
         resistanceRatio: 0,
         breakpointsInverse: true,
         breakpoints: {
           [this.$breakpoints.md]: {
-            spaceBetween: 50
-          }
+            spaceBetween: 20,
+            freeMode: true
+          },
+          [this.$breakpoints.lg]: {
+            slidesPerView: 3,
+            spaceBetween: 20
+          },
+          [this.$breakpoints.xl]: {
+            slidesPerView: 3,
+            spaceBetween: 40
+          },
         }
       }
     }
@@ -64,60 +72,34 @@ export default {
   }
 
   &__slider {
-    margin: 28px (-$container-padding) 0;
-  }
-
-  &__item {
-    width: 336px;
-    padding-bottom: 5px;
-
-    &:first-child {
-      margin-left: 10px;
-    }
-
-    &:last-child {
-      margin-right: 10px;
-    }
+    margin-top: 14px;
+    padding: 0 5px;
+    overflow: visible;
   }
 
   @include media(md) {
+    &__item {
+      width: 400px;
+    }
+  }
+
+  @include media(lg) {
     &__heading {
       font-size: 40px;
-      line-height: (49/40);
     }
 
     &__slider {
-      margin: 40px (-$container-padding-md) 0;
+      margin-top: 32px;
     }
 
     &__item {
-      width: 410px;
-
-      &:first-child {
-        margin-left: $container-padding-md;
-      }
-
-      &:last-child {
-        margin-right: $container-padding-md;
-      }
+      width: auto;
     }
   }
 
   @include media(xl) {
     &__slider {
-      margin: 40px 0 0;
-    }
-
-    &__item {
-      width: calc(25% - 150px / 4);
-
-      &:first-child {
-        margin-left: 0;
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
+      margin-top: 72px;
     }
   }
 }
