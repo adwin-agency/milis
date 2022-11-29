@@ -137,6 +137,8 @@ export default {
       }
 
       if (newModal === 'calc') {
+        if (!this.productId || !this.productName || !this.productCategory) return
+        
         api.ecommerce('detail', this.productId, this.productName, this.productCategory)
         api.ecommerce('add', this.productId, this.productName, this.productCategory)
         this.ecommerce = {

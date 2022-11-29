@@ -113,6 +113,9 @@ export default {
     },
     inputProductType() {
       return this.modalData && this.modalData.productType
+    },
+    kitchenDetails() {
+      return this.$store.state.kitchenDetails
     }
   },
   methods: {
@@ -151,6 +154,11 @@ export default {
         .then(() => {
           this.sending = false
           this.sendSuccess = true
+
+          if (this.kitchenDetails) {
+            const { id, name, category_rus } = this.kitchenDetails.info
+            api.ecommerce('purchase', id, name, 'Кухни/' + category_rus)
+          }
         })
         .catch(() => {
           this.sending = false

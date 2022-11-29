@@ -168,6 +168,9 @@ export default {
     },
     daysmonths() {
       return this.dates.map(item => item.toLocaleString('ru', {day: '2-digit', month: 'long'}))
+    },
+    kitchenDetails() {
+      return this.$store.state.kitchenDetails
     }
   },
   created() {
@@ -232,6 +235,11 @@ export default {
           this.sending = false
           this.sendSuccess = true
           this.$emit('success')
+
+          if (this.kitchenDetails) {
+            const { id, name, category_rus } = this.kitchenDetails.info
+            api.ecommerce('purchase', id, name, 'Кухни/' + category_rus)
+          }
         })
         .catch(() => {
           this.sending = false

@@ -222,7 +222,8 @@ export default {
         item: this.productDetails.name,
         itemId: this.productDetails.id,
         productType: this.productDetails.product_type,
-        price: this.productDetails.price
+        price: this.productDetails.price,
+        category: `Кухни/${this.productDetails.category_rus}`
       }
     },
     activeCity() {
