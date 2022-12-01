@@ -73,7 +73,7 @@
             </div>
 
             <hr class="pay__line"/>
-            <div class="pay__availible" v-if="payAvailible">
+            <div class="pay__availible" v-if="false">
               <input type="hidden" name="shop_id" :value="shopId[activeCity]">
               <div class="pay__field">
                 <TextInput
@@ -229,11 +229,11 @@
                 Для оплаты из этого региона, пожалуйста, ознакомьтесь с
                 инструкцией в вашем договоре.
               </p>
-              <p class="pay__not-available-tex">
+              <!-- <p class="pay__not-available-tex">
                 В случае возникновения вопросов, свяжитесь с нами по телефону
                 <a href="+4959662520 " class="pay__tel">+7 (495) 966-25-20</a>
                 (ежедневно с 9 до 22)
-              </p>
+              </p> -->
             </div>
           </div>
         </form>
