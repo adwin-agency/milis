@@ -73,7 +73,7 @@
             </div>
 
             <hr class="pay__line"/>
-            <div class="pay__availible" v-if="false">
+            <div class="pay__availible" v-if="payAvailible && activeCity && activeCity !== 'spb'">
               <input type="hidden" name="shop_id" :value="shopId[activeCity]">
               <div class="pay__field">
                 <TextInput
