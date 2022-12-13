@@ -1,122 +1,38 @@
 <template>
-  <Page>
-    <div class="v-main">
-      <div class="container">
-        <Header
-          class="v-main__header slide-down js-anim"
-          v-anim="true"
-        />
-        <MainBanner
-          class="v-main__banner fade-bounce-right js-anim"
-          v-anim="true"
-        />
-        <MainProducts
-          class="v-main__products"
-          :products="products"
-        />
-        <MainForm class="v-main__form" />
-        <MainReviews class="v-main__reviews" />
-        <MainPreview class="v-main__preview" />
-      </div>
-    </div>
-  </Page>
+  <div v-if="kitchens" class="v-main">
+    <Main class="v-main__main" :kitchens="kitchens" />
+  </div>
 </template>
 
 <script>
-import Header from '../components/Header.vue'
-import MainBanner from '../components/MainBanner.vue'
-import MainForm from '../components/MainForm.vue'
-import MainPreview from '../components/MainPreview.vue'
-import MainProducts from '../components/MainProducts.vue'
-import MainReviews from '../components/MainReviews.vue'
-import Page from '../components/Page.vue'
+import Main from '../components/Main'
+import store from '@/store'
 
 export default {
   name: 'MainView',
   components: {
-    Page,
-    MainBanner,
-    Header,
-    MainForm,
-    MainReviews,
-    MainPreview,
-    MainProducts
+    Main
   },
   computed: {
-    products() {
-      return this.$store.state.topKitchens
+    kitchens() {
+      return this.$store.state.mainKitchens
     }
   },
-  created() {
-    this.$store.dispatch('loadTopKitchens')
+  beforeRouteEnter(from, to, next) {
+    store.dispatch('loadMainKitchens')
+      .then(() => next())
   }
 }
 </script>
 
 <style lang="scss">
 .v-main {
-  padding-top: 20px;
-
-  &__banner {
-    margin-bottom: 44px;
-  }
-
-  &__products {
-    margin-bottom: 28px;
-  }
-
-  &__form {
-    margin-bottom: 56px;
-  }
-
-  &__reviews {
-    margin-bottom: 32px;
-  }
-
-  &__preview {
-    margin-bottom: 30px;
-  }
-
-  @include media(lg) {
-    &__banner {
-      margin-bottom: 70px;
-    }
-
-    &__products {
-      margin-bottom: 76px;
-    }
-
-    &__form {
-      margin-bottom: 64px;
-    }
-
-    &__reviews {
-      margin-bottom: 78px;
-    }
-
-    &__preview {
-      margin-bottom: 88px;
-    }
-  }
-
-  @include media(xl) {
-    padding-top: 30px;
-
-    &__banner {
-      margin-bottom: 90px;
-    }
-
-    &__products {
-      margin-bottom: 68px;
-    }
-
-    &__form {
-      margin-bottom: 75px;
-    }
-
-    &__reviews {
-      margin-bottom: 90px;
-    }
+  &__main {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

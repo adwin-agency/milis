@@ -1,25 +1,24 @@
 <template>
   <div class="main-reviews">
     <div class="main-reviews__box">
-      <h2 v-if="!$mobile" class="main-reviews__heading">Отзывы владельцев</h2>
+      <h2
+        v-if="!$mobile"
+        class="main-reviews__heading"
+      >Отзывы владельцев</h2>
       <Swiper
         class="main-reviews__slider"
         :options="swiperOptions"
       >
-        <SwiperSlide class="main-reviews__slide">
-          <VideoReviewCard />
-        </SwiperSlide>
-        <SwiperSlide class="main-reviews__slide">
-          <VideoReviewCard />
-        </SwiperSlide>
-        <SwiperSlide class="main-reviews__slide">
-          <VideoReviewCard />
-        </SwiperSlide>
-        <SwiperSlide class="main-reviews__slide">
-          <VideoReviewCard />
-        </SwiperSlide>
-        <SwiperSlide class="main-reviews__slide">
-          <VideoReviewCard />
+        <SwiperSlide
+          v-for="item in items"
+          :key="item.id"
+          class="main-reviews__slide"
+        >
+          <VideoReviewCard
+            :data="item"
+            :active="activeVideo === item.id"
+            @play="setActiveVideo"
+          />
         </SwiperSlide>
         <div
           class="main-reviews__prev"
@@ -79,11 +78,16 @@ export default {
     Icon,
     Dropdowns
   },
+  props: {
+    items: Array
+  },
   data() {
     return {
+      activeVideo: null,
       swiperOptions: {
         slidesPerView: 'auto',
         spaceBetween: 30,
+        threshold: 20,
         navigation: {
           prevEl: '.main-reviews__prev',
           nextEl: '.main-reviews__next'
@@ -123,6 +127,11 @@ export default {
           desc: 'Наш кухонный мир держится на трех китах - Заказ, Доставка, Сборка. Пройдет совсем немного времени с момента вашей заявки до момента, когда готовый гарнитур окажется у вас дома.'
         }
       ]
+    }
+  },
+  methods: {
+    setActiveVideo(id) {
+      this.activeVideo = id
     }
   }
 }
@@ -175,6 +184,7 @@ export default {
     height: 44px;
     border-radius: 50%;
     background-color: $color-gray-8;
+    cursor: pointer;
   }
 
   &__prev {

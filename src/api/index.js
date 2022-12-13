@@ -13,7 +13,7 @@ const api = {
     return this.fetchData(`${dataUrl}/main.php`)
   },
 
-  getTopKitchens() {
+  getMainPage() {
     return this.fetchData(`${dataUrl}/test.php`)
   },
 

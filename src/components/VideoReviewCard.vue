@@ -1,12 +1,19 @@
 <template>
   <div class="video-review-card">
-    <div class="video-review-card__box">
-      <img
-        src="/assets/img/video-review.jpg"
-        alt=""
-        class="video-review-card__img"
+    <div
+      class="video-review-card__box"
+      @click="toggleVideo"
+    >
+      <video
+        class="video-review-card__video"
+        :src="'https://milismebel.ru' + data.video"
+        preload="metadata"
+        ref="video"
+      ></video>
+      <button
+        class="video-review-card__play"
+        :class="{'active': !active}"
       >
-      <button class="video-review-card__play">
         <Icon
           class="video-review-card__play-icon"
           name="play"
@@ -18,34 +25,30 @@
         v-if="$mobile"
         class="video-review-card__heading"
       >Отзывы владельцев</p>
-      <p class="video-review-card__title">Кухня “Сэмон”</p>
-      <p class="video-review-card__author">Саша Иванова</p>
+      <p class="video-review-card__title">{{data.name}}</p>
+      <p class="video-review-card__author">{{data.author}}</p>
       <div class="video-review-card__rating">
         <Icon
-          class="video-review-card__rating-icon"
-          name="star"
-        />
-        <Icon
-          class="video-review-card__rating-icon"
-          name="star"
-        />
-        <Icon
-          class="video-review-card__rating-icon"
-          name="star"
-        />
-        <Icon
-          class="video-review-card__rating-icon"
-          name="star"
-        />
-        <Icon
+          v-for="n in data.stars"
+          :key="n"
           class="video-review-card__rating-icon"
           name="star"
         />
       </div>
       <p class="video-review-card__price-note">цена за весь гарнитур</p>
-      <p class="video-review-card__price">70 500 ₽</p>
-      <p class="video-review-card__old-price">старая цена <span>145 000 ₽</span></p>
-      <Button class="video-review-card__btn">Подробнее</Button>
+      <p class="video-review-card__price">{{data.price}} ₽</p>
+      <p class="video-review-card__old-price">старая цена <span>{{data.old_price}} ₽</span></p>
+      <RouterLink
+        :to="{name: 'product', params: {category: url[2], kitchen: url[3]}}"
+        custom
+        v-slot="{href, navigate}"
+      >
+        <Button
+          class="video-review-card__btn"
+          :href="href"
+          @click="navigate"
+        >Подробнее</Button>
+      </RouterLink>
     </div>
   </div>
 </template>
@@ -59,6 +62,33 @@ export default {
   components: {
     Icon,
     Button
+  },
+  props: {
+    data: Object,
+    active: Boolean
+  },
+  computed: {
+    url() {
+      return this.data.url.split('/')
+    }
+  },
+  watch: {
+    active(value) {
+      if (value) {
+        this.$refs.video.play()
+      } else {
+        this.$refs.video.pause()
+      }
+    }
+  },
+  methods: {
+    toggleVideo() {
+      if (this.active) {
+        this.$emit('play', null)
+      } else {
+        this.$emit('play', this.data.id)
+      }
+    }
   }
 }
 </script>
@@ -74,9 +104,11 @@ export default {
     flex-shrink: 0;
     border-radius: 6px;
     overflow: hidden;
+    cursor: pointer;
   }
 
-  &__img {
+  &__img,
+  &__video {
     position: absolute;
     left: 0;
     top: 0;
@@ -97,6 +129,14 @@ export default {
     height: 40px;
     border-radius: 50%;
     background-color: #fff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+
+    &.active {
+      opacity: 1;
+      pointer-events: all;
+    }
 
     &-icon {
       margin-left: 4px;

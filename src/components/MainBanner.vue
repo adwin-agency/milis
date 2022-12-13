@@ -59,7 +59,7 @@
                 />
               </span>
             </p>
-            <p class="main-banner__desc">Акция действует до 23 августа</p>
+            <p class="main-banner__desc">Акция действует до {{promoText}}</p>
           </div>
         </div>
       </SwiperSlide>
@@ -135,6 +135,11 @@ export default {
         loop: true,
         speed: 1000
       }
+    }
+  },
+  computed: {
+    promoText() {
+      return this.$store.getters.promoText?.[1]
     }
   }
 }

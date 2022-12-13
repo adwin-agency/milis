@@ -20,9 +20,9 @@ const store = new Vuex.Store({
     cityDetection: false,
     activeCityCode: null,
     promoDate: null,
-    
+
     mainKitchens: null,
-    topKitchens: null,
+    topKitchens: [],
     catalogKitchens: null,
     catalogPages: null,
     kitchenDetails: null,
@@ -33,7 +33,8 @@ const store = new Vuex.Store({
     reviews: null,
     reviewsPages: null,
     initialReview: null,
-    initialDetailSlide: null
+    initialDetailSlide: null,
+    mainReviews: []
   },
 
   getters: {
@@ -63,7 +64,7 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    storeScreen(state, {width, mobile}) {
+    storeScreen(state, { width, mobile }) {
       state.windowWidth = width
       state.mobile = mobile
     },
@@ -122,6 +123,9 @@ const store = new Vuex.Store({
     },
     setInitialDetailSlide(state, index) {
       state.initialDetailSlide = index
+    },
+    setMainReviews(state, reviews) {
+      state.mainReviews = reviews
     }
   },
 
@@ -130,7 +134,7 @@ const store = new Vuex.Store({
       api.getBase()
         .then(response => {
           commit('setBase', response)
-          
+
           function getCookie(name) {
             let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + "=([^;]*)"))
             return matches ? decodeURIComponent(matches[1]) : undefined
@@ -145,15 +149,18 @@ const store = new Vuex.Store({
           }
         })
     },
-    
+
     loadMainKitchens({ commit }) {
       api.getMainKitchens()
         .then(response => commit('setMainKitchens', response))
     },
 
-    loadTopKitchens({ commit }) {
-      api.getTopKitchens()
-        .then(response => commit('setTopKitchens', response.kitchens))
+    loadMainPage({ commit }) {
+      api.getMainPage()
+        .then(response => {
+          commit('setTopKitchens', response.kitchens)
+          commit('setMainReviews', response.reviews)
+        })
     },
 
     loadCatalogKitchens({ commit }, params) {
@@ -165,7 +172,7 @@ const store = new Vuex.Store({
       return new Promise(resolve => {
         api.getCatalogKitchens(params)
           .then(response => {
-            commit('setCatalogKitchens', {...response, more: true})
+            commit('setCatalogKitchens', { ...response, more: true })
             resolve()
           })
       })
