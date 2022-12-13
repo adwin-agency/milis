@@ -1,6 +1,6 @@
 <template>
   <div class="main-products">
-    <h2 class="main-products__heading">Топ 3 кухни Milis в августе</h2>
+    <h2 class="main-products__heading">Топ 3 кухни Milis</h2>
     <Swiper
       :options="swiperOptions"
       class="main-products__slider"
