@@ -60,21 +60,25 @@ const api = {
 
   sendForm(data, type) {
 
+    // Comagic
     try {
       const comagicData = window.Comagic.getCredentials()
 
       for (let item in comagicData) {
         data.append(item, comagicData[item])
       }
-    } catch {
-      //
+    } catch(e) {
+      console.error(e)
     }
+    //
 
-    // window.Comagic?.addOfflineRequest?.({
-    //   name: data.get('name'),
-    //   phone: data.get('phone'),
-    //   message: data.get('message')
-    // })
+    // Метрика ClientID
+    const clientID = window.yaCounter73257226?.getClientID()
+
+    if (clientID) {
+      data.append('clientID', clientID)
+    }
+    //
 
     const url = type === 'payment' ? '/include/youkassa/payment.php' : '/send.php'
 
