@@ -73,13 +73,17 @@
           slot="button-next"
         />
       </Swiper>
-      <img src="@/assets/img/card-snow.png" alt="" class="catalog-card__ny-img">
-      <p
+      <img
+        src="@/assets/img/card-snow.png"
+        alt=""
+        class="catalog-card__ny-img"
+      >
+      <!-- <p
         v-if="kitchen.discount"
         class="catalog-card__label"
       >
         Рассрочка 0-0-8
-      </p>
+      </p> -->
       <!-- <img
         v-if="kitchen.discount"
         class="catalog-card__label-new"
@@ -103,6 +107,18 @@
           name="arrow-right"
         />
       </button>
+      <!-- <button
+        class="catalog-card__video"
+        @click.prevent
+      >
+        <span class="catalog-card__video-circle">
+          <Icon
+            class="catalog-card__video-icon"
+            name="play"
+          />
+        </span>
+        <span class="catalog-card__video-title">Видеоотзыв</span>
+      </button> -->
     </RouterLink>
     <div class="catalog-card__content">
       <div class="catalog-card__info">
@@ -157,7 +173,10 @@
       >
         <span class="catalog-card__discount-title">скидка</span>
         <span class="catalog-card__discount-value">-{{kitchen.discount}}%</span>
-        <Icon class="catalog-card__discount-icon" name="toy-47" />
+        <Icon
+          class="catalog-card__discount-icon"
+          name="toy-47"
+        />
       </div>
     </div>
   </div>
@@ -256,7 +275,12 @@ export default {
 
     onSlideChange() {
       if (this.isWatched) return
-      api.ecommerce('detail', this.kitchen.id, this.kitchen.name, `Кухни/${this.kitchen.category_rus}`)
+      api.ecommerce(
+        'detail',
+        this.kitchen.id,
+        this.kitchen.name,
+        `Кухни/${this.kitchen.category_rus}`
+      )
       this.isWatched = true
     }
   }
@@ -295,7 +319,7 @@ export default {
 
   &_main {
     border-bottom: none;
-    
+
     #{$b} {
       &__images {
         margin-top: 0;
@@ -441,7 +465,7 @@ export default {
     position: relative;
     margin-left: 6px;
     padding-left: 6px;
-    border-left: 1px solid #D9D9D9;
+    border-left: 1px solid #d9d9d9;
     font-family: $font-secondary;
   }
 
@@ -564,6 +588,49 @@ export default {
     span {
       color: $color-red;
     }
+  }
+
+  &__video {
+    position: absolute;
+    left: 30px;
+    bottom: 18px;
+    z-index: 1;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: -8px;
+      margin: auto;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: $color-blue;
+      opacity: 0.2;
+    }
+  }
+
+  &__video-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: $color-blue;
+  }
+
+  &__video-icon {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    margin-left: 4px;
+    fill: $color-green;
+  }
+
+  &__video-title {
+    display: none;
   }
 
   @include media(xs) {
@@ -883,6 +950,51 @@ export default {
     &__discount-icon {
       left: 18px;
       width: calc(100% - 18px);
+    }
+
+    &__video {
+      left: 26px;
+      bottom: 24px;
+
+      &::before {
+        left: -10px;
+        top: -10px;
+        width: 80px;
+        height: 80px;
+      }
+
+      &:hover {
+        #{$b}__video-title {
+          width: 210px;
+        }
+      }
+    }
+
+    &__video-circle {
+      width: 60px;
+      height: 60px;
+      z-index: 1;
+    }
+
+    &__video-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      left: 1px;
+      top: 1px;
+      width: 58px;
+      height: 58px;
+      padding-left: 48px;
+      border-radius: 100px;
+      text-decoration: underline;
+      font-family: $font-secondary;
+      font-weight: 700;
+      font-size: 14px;
+      color: $color-blue;
+      background-color: #fff;
+      overflow: hidden;
+      transition: width .3s ease;
     }
   }
 

@@ -142,6 +142,7 @@ export default {
       margin-left: 4px;
       width: 14px;
       height: 14px;
+      fill: $color-blue;
     }
   }
 

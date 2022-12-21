@@ -171,7 +171,6 @@
     </div>
     <div
       class="modal-calc__close"
-      :style="!$mobile && {fill: '#FFFFFF'}"
       @click="$emit('close')"
     >
       <Icon name="close" />
