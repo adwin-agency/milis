@@ -30,7 +30,7 @@ export default {
   align-items: center;
   border-radius: 6px;
   height: 166px;
-  background-image: url(/assets/img/main-preview.jpg);
+  background-image: url(/assets/img/main-preview-2.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -64,7 +64,7 @@ export default {
   }
 
   @include media(sm) {
-    background-image: url(/assets/img/main-preview-sm.jpg);
+    background-image: url(/assets/img/main-preview-2-sm.jpg);
   }
 
   @include media(lg) {
@@ -78,6 +78,7 @@ export default {
 
   @include media(xl) {
     height: 388px;
+    background-image: url(/assets/img/main-preview-2-xl.jpg);
 
     &__btn {
       padding: 52px 90px;
