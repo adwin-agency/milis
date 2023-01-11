@@ -73,11 +73,6 @@
           slot="button-next"
         />
       </Swiper>
-      <img
-        src="@/assets/img/card-snow.png"
-        alt=""
-        class="catalog-card__ny-img"
-      >
       <!-- <p
         v-if="kitchen.discount"
         class="catalog-card__label"
@@ -380,14 +375,6 @@ export default {
 
   &__next {
     right: 2px;
-  }
-
-  &__ny-img {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 50%;
-    z-index: 1;
   }
 
   &__label {
