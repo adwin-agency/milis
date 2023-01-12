@@ -173,13 +173,11 @@ export default {
       for (let key in this.values) {
         const value = this.values[key]
 
-        console.log(value)
-
         if (value.trim() === '') {
           this.errors[key] = true
         }
 
-        if (key === 'phone' && value.length < 16) {
+        if (key === 'phone' && (value.length < 16 || api.checkDuplicateTel(value))) {
           this.errors[key] = true
         }
       }

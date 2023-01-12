@@ -372,7 +372,7 @@ export default {
           this.errors[input] = false;
         }
 
-        if (input === "phone" && value.length < 16) {
+        if (input === "phone" && (value.length < 16 || api.checkDuplicateTel(value))) {
           this.errors[input] = true;
         }
       }

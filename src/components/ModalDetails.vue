@@ -140,7 +140,11 @@ export default {
       for (let input in this.inputs) {
         const value = this.inputs[input]
 
-        if (value.trim() === '' || input === 'phone' && value.length < 16) {
+        if (value.trim() === '') {
+          this.errors[input] = true
+        }
+
+        if (input === 'phone' &&( value.length < 16 || api.checkDuplicateTel(value))) {
           this.errors[input] = true
         }
       }

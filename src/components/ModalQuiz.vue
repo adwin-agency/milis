@@ -617,7 +617,11 @@ export default {
       for (let input in this.contactInputs) {
         const value = this.contactInputs[input]
 
-        if (value.trim() === '' || input === 'phone' && value.length < 16) {
+        if (value.trim() === '') {
+          this.contactErrors[input] = true
+        }
+
+        if (input === 'phone' && (value.length < 16 || api.checkDuplicateTel(value))) {
           this.contactErrors[input] = true
         }
       }
