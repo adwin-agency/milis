@@ -158,9 +158,9 @@ const api = {
   },
 
   checkDuplicateTel(value) {
-    const numStr = value.replace(/\D/g, '').slice(1)
+    const numStr = value.replace(/\D/g, '').slice(2)
     const numSet = new Set(numStr)
-    return numSet.size <= 1
+    return numSet.size <= 1 && !numSet.has('1')
   }
 }
 
