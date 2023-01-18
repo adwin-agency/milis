@@ -1,7 +1,7 @@
 <template>
   <div class="design">
-    <h2 class="design__heading">Выезд дизайнера к{{'\xa0'}}Вам домой</h2>
-    <p class="design__text">Вы можете пригласить дизайнера. Эта услуга абсолютно бесплатна.  Кстати, это тоже очень просто.</p>
+    <h2 class="design__heading">Выезд дизайнера на{{'\xa0'}}дом</h2>
+    <p class="design__text">Наш дизайнер приедет к вам в любое удобное время. Эта услуга абсолютно бесплатна.</p>
     <div class="design__row">
       <div class="design__items">
         <p class="design__item">
