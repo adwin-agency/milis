@@ -164,7 +164,7 @@
         value="47"
       /> -->
       <img
-        src="@/assets/img/discount-form-ny.jpg"
+        src="@/assets/img/discount-form-cm.png"
         alt=""
         class="modal-calc__side-img"
       >

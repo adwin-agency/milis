@@ -5,7 +5,7 @@
       exact
       class="header__logo"
     >
-      <img src="../assets/img/logo-ny.png" alt="Milis">
+      <img src="../assets/img/logo-2.svg" alt="Milis">
     </RouterLink>
     <div
       v-if="$windowWidth >= $breakpoints.md"

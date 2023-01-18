@@ -50,10 +50,10 @@
     <picture>
       <source
         :media="`(min-width: ${$breakpoints.md}px)`"
-        srcset="@/assets/img/discount-banner-ny-30-md.png"
+        srcset="@/assets/img/discount-banner-cm-md.png"
       >
       <img
-        src="@/assets/img/discount-banner-ny-30.png"
+        src="@/assets/img/discount-banner-cm.png"
         alt=""
         class="discount-banner__image"
       >
