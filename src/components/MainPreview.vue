@@ -3,6 +3,7 @@
     <RouterLink
       class="main-preview__btn"
       :to="{name: 'catalog'}"
+      @click.native="onBtnClick"
     >
       Перейти к каталогу
       <Icon
@@ -16,8 +17,16 @@
 <script>
 import Icon from './base/Icon.vue'
 export default {
-  components: { Icon },
-  name: 'MainPreview'
+  name: 'MainPreview',
+  components: {
+    Icon
+  },
+  methods: {
+    onBtnClick() {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ 'event': 'main_catalog' })
+    }
+  }
 }
 </script>
 

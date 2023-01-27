@@ -19,6 +19,7 @@
     <RouterLink
       :to="{name: 'product', params: {category: kitchen.category, kitchen: kitchen.url}}"
       class="catalog-card__images"
+      @click.native="onCardClick"
     >
       <div
         v-if="test || main"
@@ -128,6 +129,7 @@
           <RouterLink
             class="catalog-card__link"
             :to="{name: 'product', params: {category: kitchen.category, kitchen: kitchen.url}}"
+            @click.native="onCardClick"
           >
             Кухня <span>«{{kitchenName}}»</span>
           </RouterLink>
@@ -277,6 +279,13 @@ export default {
         `Кухни/${this.kitchen.category_rus}`
       )
       this.isWatched = true
+    },
+
+    onCardClick() {
+      if (this.main) {
+        window.dataLayer = window.dataLayer || []
+        window.dataLayer.push({ 'event': 'main_top_kitchen' })
+      }
     }
   }
 }

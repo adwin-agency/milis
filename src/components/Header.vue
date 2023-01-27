@@ -4,6 +4,7 @@
       :to="{name: 'main'}"
       exact
       class="header__logo"
+      @click.native="onLogoClick"
     >
       <img src="../assets/img/logo-2.svg" alt="Milis">
     </RouterLink>
@@ -224,6 +225,11 @@ export default {
     },
     closeCityPopup() {
       this.activeCityPopup = false
+    },
+
+    onLogoClick() {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ 'event': 'main_logo' })
     }
   }
 }

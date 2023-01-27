@@ -76,6 +76,8 @@ export default {
     active(value) {
       if (value) {
         this.$refs.video.play()
+        window.dataLayer = window.dataLayer || []
+        window.dataLayer.push({ 'event': 'main_video_review' })
       } else {
         this.$refs.video.pause()
       }
