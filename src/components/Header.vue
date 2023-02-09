@@ -117,6 +117,13 @@
       <!-- <Icon name="call" /> -->
       {{activeCity && activeCity.phone}}
     </a>
+    <a
+      href="/lk"
+      target="_blank"
+      class="header__acc-btn"
+    >
+      <Icon name="user" />
+    </a>
     <button
       class="header__menu-btn"
       type="button"
@@ -179,7 +186,7 @@ export default {
       return this.$route.params.category
     },
     careLink() {
-      return (this.$windowWidth < 1300 || this.$windowWidth >= 1600 && this.$windowWidth < 1700) ? 'ЦЗК' : 'Центр заботы о клиентах'
+      return (this.$windowWidth < 1350 || this.$windowWidth >= 1600 && this.$windowWidth < 1750) ? 'ЦЗК' : 'Центр заботы о клиентах'
     }
   },
   created() {
@@ -269,7 +276,7 @@ export default {
 
   &__nav-item {
     position: relative;
-    margin-right: 22px;
+    margin-right: 20px;
     font-size: 14px;
     line-height: (15/12);
     color: $color-blue;
@@ -411,9 +418,16 @@ export default {
     color: $color-blue;
   }
 
+  &__acc-btn {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-left: 10px;
+  }
+
   &__menu-btn {
     flex-shrink: 0;
-    margin-left: 24px;
+    margin-left: 10px;
     width: 24px;
     height: 24px;
     fill: $color-blue;
@@ -433,12 +447,14 @@ export default {
   }
 
   @include media(xs) {
-    &__call-btn {
-      margin-left: 56px;
+    &__acc-btn {
+      width: 26px;
+      height: 26px;
+      margin-left: 18px;
     }
 
     &__menu-btn {
-      margin-left: 38px;
+      margin-left: 18px;
     }
   }
 
@@ -472,6 +488,11 @@ export default {
       line-height: 30px;
       letter-spacing: -0.03em;
       color: $color-blue;
+    }
+
+    &__acc-btn {
+      width: 30px;
+      height: 30px;
     }
   }
 
@@ -526,6 +547,10 @@ export default {
     &__phone-icon {
       width: 27px;
       height: 27px;
+    }
+
+    &__acc-btn {
+      margin-left: 30px;
     }
   }
 }
