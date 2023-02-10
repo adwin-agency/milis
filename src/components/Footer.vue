@@ -181,7 +181,7 @@
             </div>
           </div>
         </div>
-        <p class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено <span>2022 ©</span></p>
+        <p class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено <span>{{currentYear}} ©</span></p>
       </div>
     </div>
   </footer>
@@ -231,6 +231,9 @@ export default {
     },
     policyLink() {
       return '/docs/policy_' + this.activeCity?.code + '.pdf'
+    },
+    currentYear() {
+      return new Date().getFullYear()
     }
   },
   methods: {
