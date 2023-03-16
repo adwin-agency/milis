@@ -10,12 +10,6 @@
           :class="{'details-review__brands_long': !review}"
         >
           <img
-            src="/assets/img/brand-blum.png"
-            alt="Blum"
-            class="details-review__brand"
-            width="76"
-          >
-          <img
             src="/assets/img/brand-hettich.svg"
             alt="Hettich"
             class="details-review__brand"

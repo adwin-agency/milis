@@ -7,9 +7,6 @@
         <p class="accessories__desc"><b>Все наши кухни с доводчиками.<br> </b>Мы сотрудничаем с немецкими и отечественными производителями фурнитуры. Подберем оптимальный вариант от эконом до премиум класса. Работаем только с теми, кто гарантирует высокое качество, долговечность и соблюдение сроков поставки.</p>
         <div class="accessories__brands">
           <div class="accessories__brand">
-            <img src="../assets/img/brand-01.png" alt="">
-          </div>
-          <div class="accessories__brand">
             <img src="../assets/img/brand-02.svg" alt="">
           </div>
           <div class="accessories__brand">
@@ -31,9 +28,6 @@
         <div class="accessories__about">
           <p class="accessories__desc"><b>Все наши кухни с доводчиками.<br> </b>Мы сотрудничаем с немецкими и отечественными производителями фурнитуры, как эконом, так и премиум класса. Объединяет их всех высокое качество, долговечность и точность сроков поставки.</p>
           <div class="accessories__brands">
-            <div class="accessories__brand">
-              <img src="../assets/img/brand-01.png" alt="">
-            </div>
             <div class="accessories__brand">
               <img src="../assets/img/brand-02.svg" alt="">
             </div>
