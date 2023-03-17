@@ -84,6 +84,7 @@
     <template v-if="navType === 'about' || navType === 'payment' || navType === 'reviews'">
       <div class="nav-panel__group">
         <RouterLink
+          v-if="navType !== 'payment'"
           :to="{name: 'payment'}"
           v-slot="{ href, navigate }"
           custom
@@ -135,18 +136,6 @@
             :href="href"
             class="nav-panel__item"
             text="Как происходит оплата"
-            @click.native="navigate"
-          />
-        </RouterLink>
-        <RouterLink
-          :to="{name: 'delivery'}"
-          v-slot="{ href, navigate }"
-          custom
-        >
-          <Link
-            :href="href"
-            class="nav-panel__item"
-            text="Все о доставке и монтаже"
             @click.native="navigate"
           />
         </RouterLink>

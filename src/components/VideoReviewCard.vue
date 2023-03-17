@@ -6,7 +6,7 @@
     >
       <video
         class="video-review-card__video"
-        :src="'https://milismebel.ru' + data.video"
+        :src="'https://milismebel.ru' + data.video + '#t=0.1'"
         preload="metadata"
         ref="video"
       ></video>
@@ -126,7 +126,7 @@ export default {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate3d(-50%, -50%, 0);
     width: 40px;
     height: 40px;
     border-radius: 50%;
