@@ -95,7 +95,7 @@
               />
             </div>
           </form>
-          <p class="care__note">Вы можете написать нам напрямую на email <a href="mailto:zabotaoklientah@kuhzavod.ru">zabotaoklientah@kuhzavod.ru</a></p>
+          <!-- <p class="care__note">Вы можете написать нам напрямую на email <a href="mailto:zabotaoklientah@kuhzavod.ru">zabotaoklientah@kuhzavod.ru</a></p> -->
         </div>
       </div>
       <div class="col col-12 col-lg-6">
