@@ -270,7 +270,7 @@ export default {
       // other
       prefixes: {
         spb: ["С", "ДС"],
-        msk: ["СМ", "ДСМ"]
+        msk: ["НМ"]
       },
       shopId: {
         spb: "899034",
