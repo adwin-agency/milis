@@ -126,6 +126,12 @@ const api = {
             totalvalue: data.get('price')
           })
         }
+
+        if (type === 'size') {
+          const _tmr = window._tmr || (window._tmr = [])
+          _tmr.push({ type: 'reachGoal', id: 3243290, goal: 'vk_ecom_purchase'})
+          _tmr.push({ type: 'reachGoal', id: 3243290, goal: 'lead'})
+        }
       })
   },
 

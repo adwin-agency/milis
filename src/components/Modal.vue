@@ -137,6 +137,10 @@ export default {
       }
 
       if (newModal === 'calc') {
+        const _tmr = window._tmr || (window._tmr = [])
+        _tmr.push({ type: 'reachGoal', id: 3243290, goal: 'vk_ecom_cart'})
+        
+
         if (!this.productId || !this.productName || !this.productCategory) return
         
         api.ecommerce('detail', this.productId, this.productName, this.productCategory)
