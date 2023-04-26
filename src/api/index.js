@@ -129,15 +129,13 @@ const api = {
 
         if (type === 'size') {
           const _tmr = window._tmr || (window._tmr = [])
-          _tmr.push({ type: 'reachGoal', id: 3243290, goal: 'vk_ecom_purchase'})
+          // _tmr.push({ type: 'reachGoal', id: 3243290, goal: 'vk_ecom_purchase'})
           _tmr.push({ type: 'reachGoal', id: 3243290, goal: 'lead'})
         }
       })
   },
 
-  ecommerce(actionType, id, name, category) {
-    window.dataLayer = window.dataLayer || []
-
+  ecommerce(actionType, id, name, category, price) {
     const entry = {
       ecommerce: {
         currencyCode: 'RUB',
@@ -160,7 +158,24 @@ const api = {
       }
     }
 
+    window.dataLayer = window.dataLayer || []
     window.dataLayer.push(entry)
+
+    // tmr
+    var tmrGoals = {
+      detail: 'viewProduct',
+      add: 'addToCart',
+      purchase: 'purchase'
+    }
+
+    window._tmr = window._tmr || []
+    window._tmr.push({
+      type: 'reachGoal',
+      id: 3243290,
+      value: price,
+      goal: tmrGoals[actionType],
+      params: { product_id: id }
+    })
   },
 
   checkDuplicateTel(value) {

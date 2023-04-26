@@ -160,8 +160,8 @@ export default {
           this.sendSuccess = true
 
           if (this.kitchenDetails) {
-            const { id, name, category_rus } = this.kitchenDetails.info
-            api.ecommerce('purchase', id, name, 'Кухни/' + category_rus)
+            const { id, name, category_rus, price } = this.kitchenDetails.info
+            api.ecommerce('purchase', id, name, `Кухни/${category_rus}`, price)
           }
         })
         .catch(() => {

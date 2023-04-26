@@ -272,12 +272,10 @@ export default {
 
     onSlideChange() {
       if (this.isWatched) return
-      api.ecommerce(
-        'detail',
-        this.kitchen.id,
-        this.kitchen.name,
-        `Кухни/${this.kitchen.category_rus}`
-      )
+
+      const { id, name, category_rus, price } = this.kitchen
+      api.ecommerce('detail', id, name, `Кухни/${category_rus}`, price)
+      
       this.isWatched = true
     },
 

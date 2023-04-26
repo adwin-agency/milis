@@ -196,9 +196,10 @@ const store = new Vuex.Store({
             totalvalue: response.info.price
           })
 
-          _tmr.push({ type: 'reachGoal', id: 3243290, goal: 'vk_ecom_product'})
+          // _tmr.push({ type: 'reachGoal', id: 3243290, goal: 'vk_ecom_product'})
 
-          api.ecommerce('detail', response.info.id, response.info.name, `Кухни/${response.info.category_rus}`)
+          const { id, name, category_rus, price } = response.info
+          api.ecommerce('detail', id, name, `Кухни/${category_rus}`, price)
         })
     },
 

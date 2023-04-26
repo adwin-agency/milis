@@ -112,6 +112,9 @@ export default {
     },
     productCategory() {
       return this.$store.state.modalData?.category
+    },
+    productPrice() {
+      return this.$store.state.modalData?.price
     }
   },
   watch: {
@@ -137,18 +140,19 @@ export default {
       }
 
       if (newModal === 'calc') {
-        const _tmr = window._tmr || (window._tmr = [])
-        _tmr.push({ type: 'reachGoal', id: 3243290, goal: 'vk_ecom_cart'})
+        // const _tmr = window._tmr || (window._tmr = [])
+        // _tmr.push({ type: 'reachGoal', id: 3243290, goal: 'vk_ecom_cart'})
         
 
-        if (!this.productId || !this.productName || !this.productCategory) return
+        if (!this.productId || !this.productName || !this.productCategory || !this.productPrice) return
         
-        api.ecommerce('detail', this.productId, this.productName, this.productCategory)
-        api.ecommerce('add', this.productId, this.productName, this.productCategory)
+        api.ecommerce('detail', this.productId, this.productName, this.productCategory, this.productPrice)
+        api.ecommerce('add', this.productId, this.productName, this.productCategory, this.productPrice)
         this.ecommerce = {
           id: this.productId,
           name: this.productName,
-          category: this.productCategory
+          category: this.productCategory,
+          price: this.productPrice
         }
       }
 
@@ -204,7 +208,8 @@ export default {
 
     handleCalcSuccess() {
       if (!this.ecommerce) return
-      api.ecommerce('purchase', this.ecommerce.id, this.ecommerce.name, this.ecommerce.category)
+      const { id, name, category, price } = this.ecommerce
+      api.ecommerce('purchase', id, name, category, price)
       this.ecommerce = null
     }
   }
