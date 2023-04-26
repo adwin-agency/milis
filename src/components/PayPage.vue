@@ -73,7 +73,7 @@
             </div>
 
             <hr class="pay__line"/>
-            <div class="pay__availible" v-if="payAvailible && activeCity && activeCity !== 'spb'">
+            <div class="pay__availible" v-if="payAvailable && activeCity && activeCity !== 'spb'">
               <input type="hidden" name="shop_id" :value="shopId[activeCity]">
               <div class="pay__field">
                 <TextInput
@@ -306,8 +306,9 @@ export default {
     activeCity() {
       return this.userSelection || this.baseCity;
     },
-    payAvailible() {
-      return this.shopId[this.activeCity] != "";
+    payAvailable() {
+      return false
+      // return this.shopId[this.activeCity] != "";
     },
     prefix() {
       return this.prefixes[this.activeCity];

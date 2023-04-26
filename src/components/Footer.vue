@@ -138,12 +138,12 @@
                   </a>
                 </div>
               </div>
-              <RouterLink
+              <!-- <RouterLink
                 :to="{name: 'pay'}"
                 class="footer__link footer__link_lg"
               >
                 Оплата онлайн
-              </RouterLink>
+              </RouterLink> -->
             </div>
           </div>          
         </div>
