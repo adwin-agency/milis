@@ -163,9 +163,9 @@ const api = {
 
     // tmr
     var tmrGoals = {
-      detail: 'viewProduct',
-      add: 'addToCart',
-      purchase: 'purchase'
+      detail: 'vk_ecom_product',
+      add: 'vk_ecom_cart',
+      purchase: 'vk_ecom_purchase'
     }
 
     window._tmr = window._tmr || []
