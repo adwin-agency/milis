@@ -42,7 +42,7 @@
               <p class="contacts__title">Режим работы</p>
               <p class="contacts__desc">с 09.00 до 22.00 ежедневно, без выходных</p>
             </div>
-            <div v-if="requisitesLink != ''" class="contacts__item">
+            <div v-if="requisitesLink" class="contacts__item">
               <a :href="requisitesLink" class="contacts__item-link"  target="_blank">Реквизиты</a>
             </div>
           </div>
@@ -141,6 +141,7 @@ export default {
     },
     requisitesLink() {
       return '/docs/requisites_' + this.activeCity?.code + '.pdf'
+      
     },
   },
   methods: {
