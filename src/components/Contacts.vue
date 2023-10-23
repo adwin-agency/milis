@@ -32,6 +32,7 @@
             <div class="contacts__item">
               <p class="contacts__title">Адрес</p>
               <p class="contacts__desc">{{activeCity && activeCity.name}}, {{activeCity && activeCity.address}}</p>
+              <p></p>
             </div>
             <div class="contacts__item">
               <p class="contacts__title">Телефон</p>
@@ -40,6 +41,9 @@
             <div class="contacts__item">
               <p class="contacts__title">Режим работы</p>
               <p class="contacts__desc">с 09.00 до 22.00 ежедневно, без выходных</p>
+            </div>
+            <div v-if="requisitesLink != ''" class="contacts__item">
+              <a :href="requisitesLink" class="contacts__item-link"  target="_blank">Реквизиты</a>
             </div>
           </div>
           <form
@@ -134,7 +138,10 @@ export default {
     },
     inputPage() {
       return this.$route.path
-    }
+    },
+    requisitesLink() {
+      return '/docs/requisites_' + this.activeCity?.code + '.pdf'
+    },
   },
   methods: {
     onMapInit() {
@@ -212,6 +219,10 @@ export default {
 
     &:last-child {
       margin-bottom: 0;
+    }
+
+    &-link{
+      text-decoration: underline;
     }
   }
 

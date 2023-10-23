@@ -101,7 +101,7 @@
           <span class="call-form__feature-icon">
             <Icon name="paint"/>
           </span>
-          Предложит выбор из более чем 250{{'\xa0'}}видов цветов и фактур
+          Предложит выбор из более чем 500{{'\xa0'}}видов цветов и фактур
         </p>
         <p class="call-form__feature">
           <span class="call-form__feature-icon">

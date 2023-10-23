@@ -123,9 +123,9 @@ import api from '@/api'
 
 const chars = [
   { id: 1, title: 'Фасады', value: 'МДФ Egger' },
-  { id: 2, title: 'Корпус', value: 'МДФ Kronospan' },
+  { id: 2, title: 'Корпус', value: 'ЛДСП Kronospan' },
   { id: 3, title: 'Столешница', value: 'Влагостойкая' },
-  { id: 4, title: 'Доводчики', value: 'Есть' },
+  { id: 4, title: 'Доводчики', value: 'Входит в базовую комплектацию' },
   { id: 5, title: 'Страна-производитель', value: 'Россия' },
   { id: 6, title: 'Гарантия', value: '24 месяца' },
   { id: 7, title: 'Рассрочка', value: '0*0*8' }
@@ -390,6 +390,7 @@ export default {
     &-value {
       margin-left: 20px;
       font-weight: 700;
+      text-align: right;
     }
   }
 

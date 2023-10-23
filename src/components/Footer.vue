@@ -165,6 +165,9 @@
             <div class="footer__policy">
               <a :href="policyLink" target="_blank">Политика конфиденциальности</a>
             </div>
+            <div class="footer__policy">
+              <a :href="ofertaLink" target="_blank">Публичная оферта</a>
+            </div>
           </div>
           <div class="col col-12 col-lg-4">
             <div class="footer__payment">
@@ -231,6 +234,9 @@ export default {
     },
     policyLink() {
       return '/docs/policy_' + this.activeCity?.code + '.pdf'
+    },
+    ofertaLink() {
+      return '/docs/oferta_' + this.activeCity?.code + '.pdf'
     },
     currentYear() {
       return new Date().getFullYear()

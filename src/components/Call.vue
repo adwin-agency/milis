@@ -100,6 +100,7 @@ export default {
     margin: 0 (-$container-padding);
     padding: 24px $container-padding;
     background-color: #F9F9F9;
+    z-index: 1;
   }
 
   &__success {

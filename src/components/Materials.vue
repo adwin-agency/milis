@@ -14,7 +14,7 @@
             <img src="../assets/img/materials-04.jpg" alt="">
           </div>
           <div class="materials__badge">
-            <span class="materials__badge-num">250+</span>
+            <span class="materials__badge-num">500+</span>
             <span class="materials__badge-text">цветов и{{'\xa0'}}фактур</span>
           </div>
           <div class="materials__title">

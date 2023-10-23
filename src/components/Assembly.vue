@@ -9,7 +9,7 @@
       <div class="col col-12 col-lg-5">
         <div class="assembly__content">
           <h2 class="assembly__heading">Качественная сборка</h2>
-          <p class="assembly__text">Соберём гарнитур быстро и качественно. Не забудем убрать за собой весь строительный мусор. <br><br>Стоимость сборки: 10% от стоимости гарнитура.</p>
+          <p class="assembly__text">Соберём гарнитур быстро и качественно. Не забудем убрать за собой весь строительный мусор. <br><br>Стоимость сборки: рассчитывается индивидуально.</p>
           <Steps
             class="assembly__steps"
             v-if="$windowWidth >= $breakpoints.xl"
