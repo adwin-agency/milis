@@ -1,11 +1,11 @@
 <template>
   <div class="discount-banner">
     <div class="discount-banner__circles-l"></div>
-    <div
+    <!-- <div
       v-if="$windowWidth >= $breakpoints.md"
       class="discount-banner__circles-r"
     ></div>
-    <picture>
+    <picture>media(md)
       <source
         :media="`(min-width: ${$breakpoints.xl}px)`"
         srcset="@/assets/img/discount-wash-xl.png"
@@ -46,28 +46,28 @@
         дизайнер и главный конструктор,<br>
         основатели компании
       </p>
-    </div>
-    <!-- <picture>
+    </div> -->
+    <picture>
       <source
         :media="`(min-width: ${$breakpoints.md}px)`"
-        srcset="@/assets/img/discount-banner-cm-md.png"
+        srcset="@/assets/img/banner-pic-friday.jpg"
       >
       <img
-        src="@/assets/img/discount-banner-cm.png"
+        src="@/assets/img/banner-pic-friday-mob.png"
         alt=""
         class="discount-banner__image"
       >
-    </picture> -->
+    </picture>
   </div>
 </template>
 
 <script>
-import Icon from '@/components/base/Icon'
+// import Icon from '@/components/base/Icon'
 
 export default {
   name: 'DiscountBanner',
   components: {
-    Icon
+    // Icon
   },
   computed: {
     promoText() {
@@ -80,12 +80,12 @@ export default {
 
 <style lang="scss">
 .discount-banner {
-  position: relative;
-  padding: 20px 10px 80px;
-  background-color: $color-blue;
-  color: #fff;
-  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  // position: relative;
+  // padding: 20px 10px 80px;
+  // background-color: $color-blue;
+  // color: #fff;
+  // box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
+  // overflow: hidden;
 
   &__image {
     margin: 0 auto;
@@ -207,7 +207,7 @@ export default {
   }
 
   @include media(md) {
-    padding: 80px 80px 106px;
+    // padding: 80px 80px 106px;
 
     &__image {
       max-width: none;
@@ -422,7 +422,7 @@ export default {
   }
 
   @include media(xl) {
-    padding: 50px 50px 72px;
+    // padding: 50px 50px 72px;
 
     &__circles-l {
       top: -570px;

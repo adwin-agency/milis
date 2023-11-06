@@ -119,7 +119,7 @@
       v-if="!$mobile"
       class="modal-calc__side"
     >
-      <div class="modal-calc__features">
+      <!-- <div class="modal-calc__features">
         <p class="modal-calc__feature">
           <span class="modal-calc__feature-icon">
             <Icon name="heart" />
@@ -162,12 +162,13 @@
       <Discount
         class="modal-calc__discount"
         value="47"
-      />
-      <!-- <img
-        src="@/assets/img/discount-form-cm.png"
+      /> -->
+      <img
+        src="@/assets/img/modal-calc-banner-11.11.png"
         alt=""
         class="modal-calc__side-img"
-      > -->
+        style="margin: -3px 0px 0px -7px; width: calc(100% + 10px); height: calc(100% + 3px);"
+        >
     </div>
     <div
       class="modal-calc__close"
@@ -182,7 +183,7 @@
 import TextInput from './base/TextInput'
 import Button from './base/Button'
 import Icon from './base/Icon'
-import Discount from './base/Discount'
+// import Discount from './base/Discount'
 import FormSuccess from '@/components/FormSuccess'
 import api from '@/api'
 
@@ -192,7 +193,7 @@ export default {
     TextInput,
     Button,
     Icon,
-    Discount,
+    // Discount,
     FormSuccess
   },
   data() {
@@ -431,8 +432,8 @@ export default {
 
   &__side {
     position: relative;
-    padding: 40px 20px 250px;
-    background-color: $color-blue;
+    // padding: 40px 20px 250px;
+    // background-color: $color-blue;
     overflow: hidden;
   }
 
@@ -549,7 +550,7 @@ export default {
     }
 
     &__side {
-      padding: 70px 370px 100px 80px;
+      // padding: 70px 370px 100px 80px;
       min-height: 332px;
     }
 
@@ -617,7 +618,7 @@ export default {
     &__side {
       width: 43.1%;
       // border-left: 4px solid $color-blue;
-      padding: 70px 40px 290px;
+      // padding: 70px 40px 290px;
     }
 
     &__side-img {
