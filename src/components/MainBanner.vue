@@ -1,109 +1,64 @@
 <template>
   <div class="main-banner">
-    <Swiper
-      class="main-banner__slider"
-      :options="swiperOptions"
-    >
+    <Swiper class="main-banner__slider" :options="swiperOptions">
       <SwiperSlide class="main-banner__slide">
         <div class="main-banner__item main-banner__item_1">
           <picture class="main-banner__picture">
-            <source
-              :media="`(min-width: ${$breakpoints.xl}px)`"
-              srcset="/assets/img/main-wash-xl.png"
-            >
-            <source
-              :media="`(min-width: ${$breakpoints.lg}px)`"
-              srcset="/assets/img/main-wash-lg.png"
-            >
-            <img
-              class="main-banner__img"
-              src="/assets/img/main-wash.png"
-            >
+            <source :media="`(min-width: ${$breakpoints.xl}px)`" srcset="/assets/img/main-wash-xl.png">
+            <source :media="`(min-width: ${$breakpoints.lg}px)`" srcset="/assets/img/main-wash-lg.png">
+            <img class="main-banner__img" src="/assets/img/main-wash.png">
           </picture>
           <div class="main-banner__content">
             <p class="main-banner__title">
               Дарим подарки!
-              <Icon
-                class="main-banner__icon"
-                name="leaf-double-1"
-              />
+              <Icon class="main-banner__icon" name="leaf-double-1" />
             </p>
-            <p class="main-banner__desc">Каменная мойка <b>в{{'\xa0'}}подарок</b> к каждой кухне</p>
+            <p class="main-banner__desc">Каменная мойка <b>в{{ '\xa0' }}подарок</b> к каждой кухне</p>
           </div>
         </div>
       </SwiperSlide>
       <SwiperSlide class="main-banner__slide">
         <div class="main-banner__item main-banner__item_2">
           <picture class="main-banner__picture">
-            <source
-              :media="`(min-width: ${$breakpoints.xl}px)`"
-              srcset="/assets/img/main-discount-xl.png"
-            >
-            <source
-              :media="`(min-width: ${$breakpoints.lg}px)`"
-              srcset="/assets/img/main-discount-lg.png"
-            >
-            <img
-              class="main-banner__img"
-              src="/assets/img/main-discount.png"
-            >
+            <source :media="`(min-width: ${$breakpoints.xl}px)`" srcset="/assets/img/main-discount-xl.png">
+            <source :media="`(min-width: ${$breakpoints.lg}px)`" srcset="/assets/img/main-discount-lg.png">
+            <img class="main-banner__img" src="/assets/img/main-discount.png">
           </picture>
           <div class="main-banner__content">
             <p class="main-banner__title">
               Скидка на все кухни
               <span class="main-banner__discount">
                 -47<sup>%</sup>
-                <Icon
-                  class="main-banner__icon"
-                  name="leaf-double-2"
-                />
+                <Icon class="main-banner__icon" name="leaf-double-2" />
               </span>
             </p>
-            <p class="main-banner__desc">Акция действует до {{promoText}}</p>
+            <p class="main-banner__desc">Акция действует до {{ promoText }}</p>
           </div>
         </div>
       </SwiperSlide>
       <SwiperSlide class="main-banner__slide">
         <div class="main-banner__item main-banner__item_3">
           <picture class="main-banner__picture">
-            <source
-              :media="`(min-width: ${$breakpoints.xl}px)`"
-              srcset="/assets/img/main-factory-xl.png"
-            >
-            <source
-              :media="`(min-width: ${$breakpoints.lg}px)`"
-              srcset="/assets/img/main-factory-lg.png"
-            >
-            <img
-              class="main-banner__img"
-              src="/assets/img/main-factory.png"
-            >
+            <source :media="`(min-width: ${$breakpoints.xl}px)`" srcset="/assets/img/main-factory-xl.png">
+            <source :media="`(min-width: ${$breakpoints.lg}px)`" srcset="/assets/img/main-factory-lg.png">
+            <img class="main-banner__img" src="/assets/img/main-factory.png">
           </picture>
           <div class="main-banner__content">
             <p class="main-banner__title">Мебельная фабрика Milis</p>
             <ul class="main-banner__list">
               <li class="main-banner__list-item">
-                <Icon
-                  class="main-banner__icon"
-                  name="leaf-double-3"
-                />
+                <Icon class="main-banner__icon" name="leaf-double-3" />
                 Производим кухни на заказ с 2015
               </li>
               <li class="main-banner__list-item">
-                <Icon
-                  class="main-banner__icon"
-                  name="leaf-double-3"
-                />
+                <Icon class="main-banner__icon" name="leaf-double-3" />
                 Собственное производство без посредников
               </li>
             </ul>
           </div>
         </div>
       </SwiperSlide>
-      <div
-        class="swiper-pagination"
-        slot="pagination"
-      ></div>
+      <div class="swiper-pagination" slot="pagination"></div>
     </Swiper>
   </div>
 </template>
@@ -152,6 +107,7 @@ export default {
   .swiper-pagination-bullets {
     bottom: 6px;
   }
+
   .swiper-pagination-bullet {
     width: 20px;
     height: 4px;
@@ -161,6 +117,7 @@ export default {
     background: $color-gray-8;
     transition: background 0.3s ease;
   }
+
   .swiper-pagination-bullet-active {
     background: $color-blue;
   }
@@ -174,6 +131,19 @@ export default {
     padding-bottom: 10px;
     overflow: hidden;
 
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-image: url('/assets/img/mainBanner-shows.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+    }
+
     &_1 {
       justify-content: center;
       padding-left: 6px;
@@ -181,7 +151,12 @@ export default {
       font-family: $font-secondary;
       text-align: center;
       color: $color-blue;
-      background: linear-gradient(94.14deg, #abecd6 15.15%, #fbed96 96.12%);
+      // background: linear-gradient(94.14deg, #abecd6 15.15%, #fbed96 96.12%);
+      background: radial-gradient(86.59% 92.83% at 76.61% 81.11%, #E0C3FC 0%, #8EC5FC 100%);
+
+      &::after {
+        background-image: url('/assets/img/mainBanner-shows.png');
+      }
 
       #{$b} {
         &__title {
@@ -196,6 +171,7 @@ export default {
           text-transform: uppercase;
           z-index: 1;
         }
+
         &__icon {
           display: inline;
           position: relative;
@@ -207,12 +183,14 @@ export default {
           height: 28px;
           z-index: -1;
         }
+
         &__desc {
           margin: 8px auto 0;
           max-width: 150px;
           font-size: 12px;
           line-height: 110%;
         }
+
         &__img {
           position: absolute;
           right: 0;
@@ -229,6 +207,11 @@ export default {
       font-family: $font-secondary;
       background: linear-gradient(90deg, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
 
+      &::after {
+        background-image: url('/assets/img/mainBanner-shows2.png');
+      }
+
+
       #{$b} {
         &__title {
           display: flex;
@@ -240,6 +223,7 @@ export default {
           letter-spacing: -0.01em;
           color: #ffffff;
         }
+
         &__discount {
           position: relative;
           margin-left: -10px;
@@ -255,6 +239,7 @@ export default {
             font-size: 38px;
           }
         }
+
         &__icon {
           position: absolute;
           right: -16px;
@@ -263,6 +248,7 @@ export default {
           height: 76px;
           z-index: -1;
         }
+
         &__desc {
           margin-top: 22px;
           font-weight: 500;
@@ -270,6 +256,7 @@ export default {
           line-height: 110%;
           color: $color-green;
         }
+
         &__img {
           position: absolute;
           top: 0;
@@ -287,11 +274,13 @@ export default {
       font-family: $font-secondary;
       color: $color-blue;
       background: linear-gradient(90deg, #cfd9df 0%, #e2ebf0 100%),
-        radial-gradient(
-          90.99% 75.14% at 77.33% 68.48%,
+        radial-gradient(90.99% 75.14% at 77.33% 68.48%,
           #dde76a 0%,
-          #13bb27 100%
-        );
+          #13bb27 100%);
+
+      &::after {
+        background-image: url('/assets/img/mainBanner-shows3.png');
+      }
 
       #{$b} {
         &__title {
@@ -301,10 +290,12 @@ export default {
           line-height: 100%;
           letter-spacing: -0.01em;
         }
+
         &__list {
           margin-top: 16px;
           max-width: 150px;
         }
+
         &__list-item {
           margin-bottom: 10px;
           position: relative;
@@ -316,6 +307,7 @@ export default {
             margin-bottom: 0;
           }
         }
+
         &__icon {
           position: absolute;
           left: 0;
@@ -323,6 +315,7 @@ export default {
           width: 22px;
           height: 18px;
         }
+
         &__img {
           position: absolute;
           top: 0;
@@ -356,11 +349,13 @@ export default {
             max-width: 220px;
             font-size: 36px;
           }
+
           &__desc {
             margin: 16px auto 0;
             max-width: 230px;
             font-size: 16px;
           }
+
           &__img {
             width: 232px;
           }
@@ -374,10 +369,12 @@ export default {
             max-width: 380px;
             font-size: 38px;
           }
+
           &__discount {
             margin-bottom: 0;
             font-size: 64px;
           }
+
           &__desc {
             font-size: 16px;
           }
@@ -392,9 +389,11 @@ export default {
             max-width: 260px;
             font-size: 32px;
           }
+
           &__list {
             max-width: 190px;
           }
+
           &__list-item {
             font-size: 15px;
           }
@@ -415,17 +414,20 @@ export default {
             max-width: 320px;
             font-size: 50px;
           }
+
           &__icon {
             margin-left: -50px;
             margin-top: -44px;
             width: 50px;
             height: 44px;
           }
+
           &__desc {
             margin: 24px auto 0;
             max-width: 320px;
             font-size: 22px;
           }
+
           &__img {
             width: 330px;
           }
@@ -440,6 +442,7 @@ export default {
             max-width: 500px;
             font-size: 52px;
           }
+
           &__discount {
             font-size: 78px;
 
@@ -447,6 +450,7 @@ export default {
               font-size: 48px;
             }
           }
+
           &__desc {
             margin-top: 32px;
             font-size: 20px;
@@ -460,9 +464,11 @@ export default {
             max-width: 400px;
             font-size: 48px;
           }
+
           &__list {
             max-width: 320px;
           }
+
           &__list-item {
             padding-left: 30px;
             font-size: 18px;
@@ -476,6 +482,7 @@ export default {
     .swiper-pagination-bullets {
       bottom: 16px;
     }
+
     .swiper-pagination-bullet {
       width: 50px;
       height: 6px;
@@ -494,6 +501,7 @@ export default {
             max-width: 610px;
             font-size: 90px;
           }
+
           &__icon {
             top: -30px;
             left: 50px;
@@ -502,11 +510,13 @@ export default {
             width: 106px;
             height: 90px;
           }
+
           &__desc {
             margin: 38px auto 0;
             max-width: 460px;
             font-size: 30px;
           }
+
           &__img {
             width: 920px;
           }
@@ -519,6 +529,7 @@ export default {
             max-width: 900px;
             font-size: 80px;
           }
+
           &__discount {
             font-size: 190px;
 
@@ -526,12 +537,14 @@ export default {
               font-size: 110px;
             }
           }
+
           &__icon {
             right: -76px;
             bottom: -20px;
             width: 250px;
             height: 220px;
           }
+
           &__desc {
             margin-top: 40px;
             font-size: 30px;
@@ -548,15 +561,18 @@ export default {
             max-width: 750px;
             font-size: 80px;
           }
+
           &__list {
             margin-top: 50px;
             max-width: none;
           }
+
           &__list-item {
             margin-bottom: 36px;
             padding-left: 72px;
             font-size: 21px;
           }
+
           &__icon {
             top: -12px;
             width: 52px;
@@ -577,6 +593,7 @@ export default {
             max-width: 730px;
             font-size: 110px;
           }
+
           &__icon {
             top: -50px;
             left: 70px;
@@ -585,10 +602,12 @@ export default {
             width: 144px;
             height: 122px;
           }
+
           &__desc {
             max-width: 600px;
             font-size: 40px;
           }
+
           &__img {
             width: auto;
             height: 100%;
@@ -602,6 +621,7 @@ export default {
             max-width: 1150px;
             font-size: 100px;
           }
+
           &__discount {
             font-size: 220px;
 
@@ -609,12 +629,14 @@ export default {
               font-size: 130px;
             }
           }
+
           &__icon {
             right: -96px;
             bottom: -130px;
             width: 412px;
             height: 360px;
           }
+
           &__desc {
             font-size: 40px;
           }
@@ -629,9 +651,11 @@ export default {
           &__title {
             font-size: 90px;
           }
+
           &__list-item {
             font-size: 30px;
           }
+
           &__icon {
             top: -6px;
           }
